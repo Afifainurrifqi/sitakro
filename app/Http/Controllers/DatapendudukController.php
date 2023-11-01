@@ -9,7 +9,7 @@ use App\Models\pendidikan;
 use App\Models\pekerjaan;
 use App\Models\status;
 use App\Models\goldar;
-use App\Models\datapenduduk;
+use App\Models\Datapenduduk;
 use App\Models\dataindividu;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -17,7 +17,7 @@ use App\Http\Requests\StoredatapendudukRequest;
 use App\Http\Requests\UpdatedatapendudukRequest;
 use App\Imports\Importdatapenduduk;
 use App\Models\DetailKk;
-use App\Models\kk;
+use App\Models\Kk;
 
 class DatapendudukController extends Controller
 {
@@ -106,7 +106,7 @@ class DatapendudukController extends Controller
     {
         $validate = $request->validated();
 
-        $datapenduduk = new datapenduduk;
+        $datapenduduk = new DataPenduduk;
         $datapenduduk->nik = $request->valNIK;
         $datapenduduk->gelarawal = $request->valGelara;
         $datapenduduk->nama = $request->valNama;
@@ -129,7 +129,7 @@ class DatapendudukController extends Controller
         $datapenduduk->datak = $request->valDatak;
         $datapenduduk->save();
 
-        $kartuk = new kk;
+        $kartuk = new Kk;
         $kartuk->nokk = $request-> valNokk;
         $kartuk->save();
 
