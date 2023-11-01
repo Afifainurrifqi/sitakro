@@ -106,7 +106,7 @@ class DatapendudukController extends Controller
     {
         $validate = $request->validated();
 
-        $datapenduduk = new DataPenduduk;
+        $datapenduduk = new DataPenduduk();
         $datapenduduk->nik = $request->valNIK;
         $datapenduduk->gelarawal = $request->valGelara;
         $datapenduduk->nama = $request->valNama;
@@ -129,7 +129,7 @@ class DatapendudukController extends Controller
         $datapenduduk->datak = $request->valDatak;
         $datapenduduk->save();
 
-        $kartuk = new Kk;
+        $kartuk = new Kk();
         $kartuk->nokk = $request-> valNokk;
         $kartuk->save();
 
