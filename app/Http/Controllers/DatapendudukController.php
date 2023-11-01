@@ -17,7 +17,7 @@ use App\Http\Requests\StoredatapendudukRequest;
 use App\Http\Requests\UpdatedatapendudukRequest;
 use App\Imports\Importdatapenduduk;
 use App\Models\DetailKk;
-use App\Models\Kk;
+use App\Models\kk;
 
 class DatapendudukController extends Controller
 {
