@@ -17,6 +17,6 @@ class Kk extends Model
 }
     public function datapenduduk()
 {
-    return $this->belongsTo('App\Models\datapenduduk', 'idpenduduk', 'id');
+    return $this->belongsTo('App\Models\DataPenduduk', 'idpenduduk', 'id');
 }
 }
