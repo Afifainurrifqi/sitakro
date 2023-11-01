@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class datapenduduk extends Model
+class Datapenduduk extends Model
 
 
 
@@ -71,6 +71,6 @@ class datapenduduk extends Model
     }
     public function detailkk()
 {
-    return $this->hasOne(Detailkk::class, 'idpenduduk');
+    return $this->hasOne(DetailKk::class, 'idpenduduk');
 }
 }
