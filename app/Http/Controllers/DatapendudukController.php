@@ -9,7 +9,7 @@ use App\Models\pendidikan;
 use App\Models\pekerjaan;
 use App\Models\status;
 use App\Models\goldar;
-use App\Models\Datapenduduk;
+use App\Models\datapenduduk;
 use App\Models\dataindividu;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
