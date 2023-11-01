@@ -13,7 +13,7 @@ class kk extends Model
 
     public function detailkk()
 {
-    return $this->hasMany(Detailkk::class, 'idkk');
+    return $this->hasMany(detailkk::class, 'idkk');
 }
     public function datapenduduk()
 {
