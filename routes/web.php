@@ -33,7 +33,7 @@ Route::get('/get-birth-data/{year}', [DashboardController::class, 'getBirthData'
 Route::get('kk', [KkController::class, 'index']);
 Route::get('kk/{id}', [KkController::class, 'show']);
 
-Route::middleware(['CheckRole:admin,operator,dasawisma'])->group(
+Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
     function () {
        
         Route::get('sdgs/individu/dataindividu/{show}', [DataindividuController::class, 'show'])->name('individu.show');
@@ -57,7 +57,7 @@ Route::middleware(['CheckRole:admin,operator,dasawisma'])->group(
 //Operator, Admin, dasawisma
 
 
-Route::middleware(['CheckRole:admin,operator'])->group(
+Route::middleware(['checkrole:admin,operator'])->group(
     function () {
         Route::get('datapenduduk/add', [DatapendudukController::class, 'add']);
         Route::post('datapenduduk/store', [DatapendudukController::class, 'store'])->name('datapenduduk.store');
@@ -75,7 +75,7 @@ Route::middleware(['CheckRole:admin,operator'])->group(
 );
 
 
-Route::middleware(['CheckRole:admin,dasawisma'])->group(
+Route::middleware(['checkrole:admin,dasawisma'])->group(
     function () {
         Route::get('datapenduduk/edit/{nik}', [DatapendudukController::class, 'edit'])->name('datapenduduk.edit');
         Route::get('datapenduduk/show/{nik}', [DatapendudukController::class, 'show'])->name('datapenduduk.show');
@@ -115,7 +115,7 @@ Route::middleware(['CheckRole:admin,dasawisma'])->group(
 );
 
 
-// Route::middleware(['CheckRole:dasawisma'])->group(
+// Route::middleware(['checkrole:dasawisma'])->group(
 //     function () {
 
 
@@ -130,7 +130,7 @@ Route::middleware(['CheckRole:admin,dasawisma'])->group(
 
 
 
-Route::middleware(['CheckRole:operator'])->group(
+Route::middleware(['checkrole:operator'])->group(
     function () {
         Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
         Route::get('datadasawisma/datadw', [DatadasawismaController::class, 'index'])->name('dasawisma.index');
