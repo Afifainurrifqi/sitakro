@@ -19,7 +19,7 @@ use App\Imports\Importdatapenduduk;
 use App\Models\detailkk;
 use App\Models\kk;
 
-class datapendudukController extends Controller
+class DatapendudukController extends Controller
 {
     /**
      * Display a listing of the resource.

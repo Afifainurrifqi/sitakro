@@ -11,7 +11,7 @@ use App\Http\Requests\UpdatedatadasawismaRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class datadasawismaController extends Controller
+class DatadasawismaController extends Controller
 {
     /**
      * Display a listing of the resource.

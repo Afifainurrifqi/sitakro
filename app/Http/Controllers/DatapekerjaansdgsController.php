@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoredatapekerjaansdgsRequest;
 use App\Http\Requests\UpdatedatapekerjaansdgsRequest;
 
-class datapekerjaansdgsController extends Controller
+class DatapekerjaansdgsController extends Controller
 {
     /**
      * Display a listing of the resource.

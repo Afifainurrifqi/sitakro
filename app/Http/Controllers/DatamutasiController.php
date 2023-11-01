@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoredatamutasiRequest;
 use App\Http\Requests\UpdatedatamutasiRequest;
 
-class datamutasiController extends Controller
+class DatamutasiController extends Controller
 {
     /**
      * Display a listing of the resource.

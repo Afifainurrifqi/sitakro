@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Request;
 
-class dashboardController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.

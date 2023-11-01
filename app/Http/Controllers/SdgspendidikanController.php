@@ -13,7 +13,7 @@ use App\Http\Requests\StoresdgspendidikanRequest;
 use App\Http\Requests\UpdatesdgspendidikanRequest;
 use Illuminate\Http\Request;
 
-class sdgspendidikanController extends Controller
+class SdgspendidikanController extends Controller
 {
     /**
      * Display a listing of the resource.

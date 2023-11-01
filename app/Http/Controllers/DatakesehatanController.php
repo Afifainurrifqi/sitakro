@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoredatakesehatanRequest;
 use App\Http\Requests\UpdatedatakesehatanRequest;
 
-class datakesehatanController extends Controller
+class DatakesehatanController extends Controller
 {
     /**
      * Display a listing of the resource.
