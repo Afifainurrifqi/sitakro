@@ -129,7 +129,7 @@ class DatapendudukController extends Controller
         $datapenduduk->datak = $request->valDatak;
         $datapenduduk->save();
 
-        $kartuk = new Kk();
+        $kartuk = new kk();
         $kartuk->nokk = $request-> valNokk;
         $kartuk->save();
 
