@@ -47,7 +47,7 @@ class DatapendudukController extends Controller
 
     public function add()
     {
-        $datapenduduk = datapenduduk::all();
+        $datapenduduk = Datapenduduk::all();
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
