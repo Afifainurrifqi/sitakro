@@ -67,10 +67,10 @@ class Datapenduduk extends Model
 
     public function kk()
     {
-        return $this->belongsTo(Kk::class, 'idkk');
+        return $this->belongsTo(kk::class, 'idkk');
     }
     public function detailkk()
 {
-    return $this->hasOne(DetailKk::class, 'idpenduduk');
+    return $this->hasOne(detailkk::class, 'idpenduduk');
 }
 }

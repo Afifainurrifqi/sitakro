@@ -12,11 +12,11 @@ class DetailKk extends Model
 ];
 public function datapenduk()
 {
-    return $this->belongsTo(Datapenduduk::class, 'idpenduduk');
+    return $this->belongsTo(datapenduk::class, 'idpenduduk');
 }
 
 public function kk()
 {
-    return $this->belongsTo(Kk::class, 'idkk');
+    return $this->belongsTo(kk::class, 'idkk');
 }
 }
