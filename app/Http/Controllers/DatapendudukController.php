@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoredatapendudukRequest;
 use App\Http\Requests\UpdatedatapendudukRequest;
 use App\Imports\Importdatapenduduk;
-use App\Models\DetailKk;
+use App\Models\detailkk;
 use App\Models\kk;
 
 class DatapendudukController extends Controller
@@ -133,7 +133,7 @@ class DatapendudukController extends Controller
         $kartuk->nokk = $request-> valNokk;
         $kartuk->save();
 
-        $detailk = new DetailKk();
+        $detailk = new detailkk();
         $detailk->idpenduduk = $datapenduduk->id;
         $detailk->idkk = $kartuk->id;
         $detailk->save();

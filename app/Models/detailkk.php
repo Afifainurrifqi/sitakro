@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DetailKk extends Model
+class detailkk extends Model
 { protected $fillable = [
     'idkk',
     'idpenduduk', 
