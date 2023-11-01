@@ -30,7 +30,7 @@ class DatapendudukController extends Controller
     {
         $search = $request->input('search');
 
-        $datapenduduk = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
     
         if ($search) {
             $datapenduduk->where('nik', 'like', '%' . $search . '%');
@@ -47,7 +47,7 @@ class DatapendudukController extends Controller
 
     public function add()
     {
-        $datapenduduk = Datapenduduk::all();
+        $datapenduduk = datapenduduk::all();
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
@@ -154,7 +154,7 @@ class DatapendudukController extends Controller
      */
     public function show(datapenduduk $datapenduduk, $nik)
     {
-        $datapenduduk = Datapenduduk::where('nik', $nik)->first();
+        $datapenduduk = datapenduduk::where('nik', $nik)->first();
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
@@ -207,7 +207,7 @@ class DatapendudukController extends Controller
      */
     public function update(UpdatedatapendudukRequest $request, $nik)
     {
-        $datapenduduk = Datapenduduk::where('nik', $nik)->first();
+        $datapenduduk = datapenduduk::where('nik', $nik)->first();
         //    dd($datapenduduk);
         $datapenduduk->gelarawal = $request->valGelara;
         $datapenduduk->nama = $request->valNama;
