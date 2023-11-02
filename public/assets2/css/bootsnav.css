@@ -905,6 +905,7 @@ nav.navbar.bootsnav.navbar-fixed.no-background {
   -moz-box-shadow: 0 0 0;
   -webkit-box-shadow: 0 0 0;
   -o-box-shadow: 0 0 0;
+  
 }
 
 nav.navbar.bootsnav {
@@ -2382,9 +2383,25 @@ nav.navbar.bootsnav {
 .attr-nav > ul > li.side-menu > a {
   padding-right: 0 !important;
 }
+.navbar-header {
+  display: flex;
+  justify-content: space-between;
+  float: left;
+}
+
+.login-button {
+  font-size: 16px;
+  color: #ff4450;
+  border: 1px solid #ff4450;
+  padding: 8px 20px;
+  border-radius: 3px;
+  text-decoration: none;
+  float: right;
+  margin-top: 10px;
+}
 
 nav.navbar .attr-nav li a {
-    display: inline-block;
+    display: block;
     font-size: 13px;
     text-transform: uppercase;
     font-weight: 600;
