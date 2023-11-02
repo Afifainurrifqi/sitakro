@@ -74,6 +74,7 @@
                         <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
                         <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
                     </a>    
+                    <a class="login-button visible-xs" href="{{ route('login') }}">Login</a>
                                     
                 </div>
                 <!-- End Header Navigation -->
