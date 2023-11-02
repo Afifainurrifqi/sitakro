@@ -60,13 +60,13 @@
                 <!-- End Atribute Navigation -->           
                
                 <!-- Start Header Navigation -->
-                <div class="navbar-header">
+                {{-- <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
                         <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
                         <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
                     </a>    
                     
-                </div>
+                </div> --}}
                 <!-- End Header Navigation -->
                 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -83,6 +83,10 @@
             <div class="row">
                 <div class="double-items text-light">
                     <div class="info col-md-7">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
+                            <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
+                        </a>    
                         <h2 class="wow slideInLeft">SITAKRO SAWENTAR </h2>
                         <p class="wow fadeInLeft">
                            Sistem Informasi Data Mikro yang dimiliki oleh Desa Sawentar Kecamatan Kanigoro Kabupaten Blitar
