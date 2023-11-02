@@ -4,8 +4,8 @@ namespace App\Imports;
 
 use Carbon\Carbon;
 use App\Models\agama;
-use App\Models\Datapenduduk;
-use App\Models\Detailkk;
+use App\Models\datapenduduk;
+use App\Models\detailkk;
 use App\Models\goldar;
 use App\Models\kk;
 use App\Models\pekerjaan;
@@ -54,7 +54,7 @@ class Importdatapenduduk implements ToModel
 
             // ]);
 
-            $datapenduduk = new Datapenduduk;
+            $datapenduduk = new datapenduduk;
             $datapenduduk->nik = $row[1];
             $datapenduduk->gelarawal = $row[2];
             $datapenduduk->nama = $row[3];
