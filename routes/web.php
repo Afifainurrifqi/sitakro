@@ -11,7 +11,7 @@ use App\Http\Controllers\DatamutasiController;
 use App\Http\Controllers\DatapekerjaansdgsController;
 use App\Http\Controllers\JenisdisabilitasController;
 use App\Http\Controllers\KkController;
-use App\Http\Controllers\lokasipemukimanController;
+use App\Http\Controllers\LokasipemukimanController;
 use App\Http\Controllers\PenghasilanController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
@@ -41,7 +41,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/individu/datapenghasilan', [PenghasilanController::class, 'index'])->name('datapenghasilan.index');
         Route::get('sdgs/individu/datadisabilitas', [JenisdisabilitasController::class, 'index'])->name('disabilitas.index');
         Route::get('sdgs/individu/datasdgspendidikan', [SdgspendidikanController::class, 'index'])->name('pendidikan.index');
-        Route::get('sdgs/kk/lokasidanpemukiman', [lokasipemukimanController::class, 'index'])->name('lokasipemukiman.index');
+        Route::get('sdgs/kk/lokasidanpemukiman', [LokasipemukimanController::class, 'index'])->name('lokasipemukiman.index');
         Route::get('sdgs/kk/aksespendidikan', [AksesPendidikanController::class, 'index'])->name('aksespendidikan.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
