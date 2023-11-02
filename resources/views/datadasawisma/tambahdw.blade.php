@@ -35,7 +35,7 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input value="{{ old('email') }}" type="text"
+                                        <input value="{{ $user->email ?? '' }}" type="text"
                                             class="form-control @error('email') is-invalid @enderror" id="email"
                                             name="email" placeholder="Email...">
                                         @error('email')
@@ -50,7 +50,7 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input value="{{ old('password') }}" type="password"
+                                        <input value="{{ $user->password ?? '' }}" type="password"
                                             class="form-control @error('password') is-invalid @enderror" id="password"
                                             name="password" placeholder="password...">
                                         @error('password')

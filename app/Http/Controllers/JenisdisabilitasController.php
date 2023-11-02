@@ -36,6 +36,11 @@ class JenisdisabilitasController extends Controller
         $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
 
         $persentaseProses = ($datadisabilitasProses / $datapendudukTotal) * 100;
+        if ($datapendudukTotal != 0) {
+            $persentaseProses = ($datadisabilitasProses/ $datapendudukTotal) * 100;
+        } else {
+            $persentaseProses = 0; // or handle it in a way that makes sense for your application
+        }
         $agama = Agama::all(); 
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();

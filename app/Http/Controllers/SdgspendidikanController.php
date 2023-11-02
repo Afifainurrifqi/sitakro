@@ -35,7 +35,11 @@ class SdgspendidikanController extends Controller
         $datasdgspendidikanSudahProses = $datasdgspendidikan->count(); // Jumlah data individu yang sudah diproses
         $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
 
-        $persentaseProses = ($datasdgspendidikanSudahProses / $datapendudukTotal) * 100;
+        if ($datapendudukTotal != 0) {
+            $persentaseProses = ($datasdgspendidikanSudahProses / $datapendudukTotal) * 100;
+        } else {
+            $persentaseProses = 0; // or handle it in a way that makes sense for your application
+        }
         $agama = Agama::all(); 
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
