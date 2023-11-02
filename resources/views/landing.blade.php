@@ -58,21 +58,14 @@
 
                 <!-- Start Atribute Navigation -->
                 <!-- End Atribute Navigation -->           
-                <div class="attr-nav button fixed-nav">
-                    <ul>
-                        <li>
-                            <a  href="{{ route('login') }}">Login</a>
-                        </li>
-                    </ul>
-                </div>
+               
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
                         <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
                         <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
                     </a>    
-                    <a class="login-button visible-xs" href="{{ route('login') }}">Logins</a>
-                                    
+                    
                 </div>
                 <!-- End Header Navigation -->
                 
@@ -94,10 +87,12 @@
                         <p class="wow fadeInLeft">
                            Sistem Informasi Data Mikro yang dimiliki oleh Desa Sawentar Kecamatan Kanigoro Kabupaten Blitar
                         </p>
-                        <a class="wow fadeInDown btn btn-light border btn-md" href="#">Profil SITAKRO</a>
+                        <a class="wow fadeInDown btn btn-light border btn-md" href="https://www.youtube.com/watch?v=l_nwLjT8Vzg">PROFILE SITAKRO</a>
                         <a href="https://www.youtube.com/watch?v=l_nwLjT8Vzg" class="popup-youtube light video-play-button video-inline">
                             <i class="fa fa-play"></i>
-                        </a>
+                        </a> <br>
+                        <a class="wow fadeInDown btn btn-light border btn-md" href="{{ route('login') }}">LOGIN SITAKRO</a>
+
                     </div>
                     <!-- Banner thumb -->
                     <div class="thumb col-md-5">
