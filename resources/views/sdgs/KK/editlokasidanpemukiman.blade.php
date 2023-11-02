@@ -140,7 +140,7 @@
                                     <div class="col-lg-6">
                                         <input type="number" value="{{ $lokasi->luas_tanah_tinggal ?? '' }}"
                                             class="form-control @error('valluas_tanah_tinggal') is-invalid @enderror"
-                                            id="valluas_tanah_tinggal" name="valluas_tanah_tinggal" placeholder="NO KK...">
+                                            id="valluas_tanah_tinggal" name="valluas_tanah_tinggal" placeholder="Luas tanah...">
                                         @error('valluas_tanah_tinggal')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
