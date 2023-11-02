@@ -47,18 +47,18 @@
     <div class="se-pre-con"></div>
     <!-- Preloader Ends -->
 
-    <!-- Header 
+    <!-- Header
     ============================================= -->
     <header id="home">
 
         <!-- Start Navigation -->
         <nav class="navbar navbar-default navbar-fixed blue no-background bootsnav">
 
-            <div class="container-full"> 
+            <div class="container-full">
 
                 <!-- Start Atribute Navigation -->
-                <!-- End Atribute Navigation -->           
-               
+                <!-- End Atribute Navigation -->
+
                 <!-- Start Header Navigation -->
                 {{-- <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
@@ -68,34 +68,36 @@
                     
                 </div> --}}
                 <!-- End Header Navigation -->
-                
+
                 <!-- Collect the nav links, forms, and other content for toggling -->
-           
-        <!-- End Navigation -->
+
+                <!-- End Navigation -->
 
     </header>
     <!-- End Header -->
 
-    <!-- Start Banner 
+    <!-- Start Banner
     ============================================= -->
     <div class="banner-area bottom-shape bg-gradient-dark video-info">
         <div class="container">
             <div class="row">
                 <div class="double-items text-light">
                     <div class="info col-md-7">
-                       
-                            <img src="assets2/img/logosi.png" class="wow slideInLeft" alt="Logo">
-                        
+
+                        <img src="assets2/img/logosi.png" class="wow slideInLeft" alt="Logo" style="width: 110%"> 
                         <h2 class="wow slideInLeft">SITAKRO SAWENTAR </h2>
                         <p class="wow fadeInLeft">
-                           Sistem Informasi Data Mikro yang dimiliki oleh Desa Sawentar Kecamatan Kanigoro Kabupaten Blitar
+                            Sistem Informasi Data Mikro yang dimiliki oleh Desa Sawentar Kecamatan Kanigoro Kabupaten
+                            Blitar
                         </p>
-                        <a class="wow fadeInDown btn btn-light border btn-md" href="{{ route('login') }}">LOGIN SITAKRO</a>
-                        <a class="wow fadeInDown btn btn-light border btn-md popup-youtube" href="https://www.youtube.com/watch?v=l_nwLjT8Vzg">PROFILE SITAKRO</a>
+                        <a class="wow fadeInDown btn btn-light border btn-md" href="{{ route('login') }}">LOGIN
+                            SITAKRO</a>
+                        <a class="wow fadeInDown btn btn-light border btn-md popup-youtube"
+                            href="https://www.youtube.com/watch?v=l_nwLjT8Vzg">PROFILE SITAKRO</a>
                         {{-- <a href="https://www.youtube.com/watch?v=l_nwLjT8Vzg" class="popup-youtube light video-play-button video-inline">
                             <i class="fa fa-play"></i>
                         </a> --}}
-                       
+
 
                     </div>
                     <!-- Banner thumb -->
@@ -126,11 +128,12 @@
                             <div class="row">
                                 <!-- Single item -->
                                 <div class="single-item col-md-3 col-sm-6">
-                                        <div class="item wow fadeInUp" data-wow-delay="400ms">
+                                    <div class="item wow fadeInUp" data-wow-delay="400ms">
                                         <i class="flaticon-question"></i>
                                         <h4>Indeks Pembangunan Manusia (IPM) </h4>
                                         <p>
-                                            Dengan menggunakan SITAKRO bisa membantu penguatan Indeks Pembangunan Manusia
+                                            Dengan menggunakan SITAKRO bisa membantu penguatan Indeks Pembangunan
+                                            Manusia
                                         </p>
                                     </div>
                                 </div>
@@ -153,7 +156,8 @@
                                         <i class="flaticon-analysis"></i>
                                         <h4>Desa Cerdas</h4>
                                         <p>
-                                            Dengan menggunakan SITAKRO bisa membantu dalam Perencanaan Pembangunan Desa Cerdas
+                                            Dengan menggunakan SITAKRO bisa membantu dalam Perencanaan Pembangunan Desa
+                                            Cerdas
                                         </p>
                                     </div>
                                 </div>
@@ -165,7 +169,8 @@
                                         <i class="flaticon-rocket"></i>
                                         <h4>Tata Niaga Pertanian dan UMKM</h4>
                                         <p>
-                                            Dengan menggunakan SITAKRO bisa membantu memudahkan tata niaga Pertanian dan UMKM
+                                            Dengan menggunakan SITAKRO bisa membantu memudahkan tata niaga Pertanian dan
+                                            UMKM
                                     </div>
                                 </div>
                                 <!-- End Single item -->
@@ -197,7 +202,9 @@
                                     <h4>Desa Sawentar</h4>
                                     <h2>Sistem Informasi Data Mikro Desa Sawentar</h2>
                                     <p>
-                                        Merupakan Aplikasi layanan data mikro dan SDG’s Desa  yang berfungsi untuk penguatan IPM & IDM, Perencanaan Pembangunan Desa Cerdas, serta Tata Niaga Pertanian dan UMKM. Dapat membantu memonitoring : 
+                                        Merupakan Aplikasi layanan data mikro dan SDG’s Desa yang berfungsi untuk
+                                        penguatan IPM & IDM, Perencanaan Pembangunan Desa Cerdas, serta Tata Niaga
+                                        Pertanian dan UMKM. Dapat membantu memonitoring :
                                     </p>
                                     <ul>
                                         <li>Perkembangan Kuantitas Data Penduduk</li>
@@ -205,18 +212,20 @@
                                     </ul>
                                     <div class="fun-facts">
                                         <div class="fun-fact">
-                                            <div style="font-size: 40px;
+                                            <div
+                                                style="font-size: 40px;
                                             line-height: 1;
                                             font-weight: 600;
                                             margin-bottom: 15px;
                                             color: #FF4452;
                                             position: relative;
                                             z-index: 1;
-                                            display: inline-block;">{{ $datapenduduk_ada->count() }}</div>
+                                            display: inline-block;">
+                                                {{ $datapenduduk_ada->count() }}</div>
                                             <span class="medium">Jumlah Penduduk</span>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -229,7 +238,7 @@
     </div>
     <!-- End Our About -->
 
-    <!-- Start Work Process 
+    <!-- Start Work Process
     ============================================= -->
     <div id="overview" class="work-pro-area default-padding">
         <div class="container">
@@ -252,21 +261,27 @@
                                 </div>
                                 <div class="col-md-6 info">
                                     <ul>
-                                        <li> 
-                                            <h5>FITUR PENDUDUK</h5> 
-                                            Berisi beberapa fitur turunan yakni Import Data Penduduk, Export Data Penduduk, Tambah Data Penduduk dan Ubah Data Penduduk
+                                        <li>
+                                            <h5>FITUR PENDUDUK</h5>
+                                            Berisi beberapa fitur turunan yakni Import Data Penduduk, Export Data
+                                            Penduduk, Tambah Data Penduduk dan Ubah Data Penduduk
                                         </li>
                                         <li>
                                             <h5>FITUR DATA MUTASI</h5>
-                                            Berisi beberapa fitur turunan yakni Data Mutasi, Export Data Kematian dan Export Data Pindah
+                                            Berisi beberapa fitur turunan yakni Data Mutasi, Export Data Kematian dan
+                                            Export Data Pindah
                                         </li>
                                         <li>
                                             <h5>FITUR DATA SDG’S</h5>
-                                            Berisi beberapa fitur turunan yakni Data Pendidikan, Data Kesehatan, Data Pekerjaan, dan Data Disabilitas
+                                            Berisi beberapa fitur turunan yakni Data Pendidikan, Data Kesehatan, Data
+                                            Pekerjaan, dan Data Disabilitas
                                         </li>
                                         <li>
                                             <h5>FITUR DASHBOARD</h5>
-                                            Digunakan untuk melihat statistik data seperti data mutasi, data tingkat pendidikan yang ditempuh penduduk desa, data kesehatan dan data disabilitas. Fitur ini memudahkan bagi operator desa untuk melakukan evaluasi dan monitoring perkembangan penduduk desa berdasarkan data SDG’s
+                                            Digunakan untuk melihat statistik data seperti data mutasi, data tingkat
+                                            pendidikan yang ditempuh penduduk desa, data kesehatan dan data disabilitas.
+                                            Fitur ini memudahkan bagi operator desa untuk melakukan evaluasi dan
+                                            monitoring perkembangan penduduk desa berdasarkan data SDG’s
                                         </li>
                                     </ul>
                                 </div>
@@ -279,21 +294,24 @@
         </div>
     </div>
     <!-- End Work Process -->
-    <!-- Start Google Maps 
+    <!-- Start Google Maps
     ============================================= -->
     <div class="maps-area">
         <div class="row">
             <div class="google-maps">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31598.978692630815!2d112.2297005!3d-8.114479050000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78eb5100ed161f%3A0x391127009ed5ff3d!2sSawentar%2C%20Kec.%20Kanigoro%2C%20Kabupaten%20Blitar%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1698919198281!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31598.978692630815!2d112.2297005!3d-8.114479050000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78eb5100ed161f%3A0x391127009ed5ff3d!2sSawentar%2C%20Kec.%20Kanigoro%2C%20Kabupaten%20Blitar%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1698919198281!5m2!1sid!2sid"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
     <!-- End Google Maps -->
 
-    <!-- Start Footer 
+    <!-- Start Footer
     ============================================= -->
     <footer>
-              
+
         <div class="footer-bottom bg-light">
             <div class="container">
                 <div class="row">
@@ -335,4 +353,5 @@
     <script src="assets2/js/main.js"></script>
 
 </body>
+
 </html>
