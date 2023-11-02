@@ -340,6 +340,7 @@
                                             <option value="Tidak" {{ old('valbayiu16') == 'Tidak' || (isset($datakesehatan) && $datakesehatan->bayi_u16 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
                                         
+                                        
                                         @error('valbayiu16')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
