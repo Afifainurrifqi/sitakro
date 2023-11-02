@@ -67,8 +67,8 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control @error('valnik_kepala') is-invalid @enderror"
-                                            id="valnik_kepala" name="valnik_kepala" placeholder="NO KK..."  value=" {{ $lokasi->nik_kepala ?? '' }}">
+                                        <input type="text" value="{{ $lokasi->nik_kepala ?? '' }}" class="form-control @error('valnik_kepala') is-invalid @enderror"
+                                            id="valnik_kepala" name="valnik_kepala" placeholder="NO KK..." >
                                         @error('valnik_kepala')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
