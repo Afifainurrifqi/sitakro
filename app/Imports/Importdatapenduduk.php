@@ -54,7 +54,7 @@ class Importdatapenduduk implements ToModel
 
             // ]);
 
-            $datapenduduk = new datapenduduk;
+            $datapenduduk = new Datapenduduk;
             $datapenduduk->nik = $row[1];
             $datapenduduk->gelarawal = $row[2];
             $datapenduduk->nama = $row[3];
