@@ -45,7 +45,7 @@ class LokasipemukimanController extends Controller
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
-        return view('sdgs.kk.lokasidanpemukiman', compact('lokasipemukiman', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.KK.lokasidanpemukiman', compact('lokasipemukiman', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
     }
 
     /**
