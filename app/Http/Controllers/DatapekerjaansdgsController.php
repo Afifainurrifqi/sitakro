@@ -33,8 +33,12 @@ class DatapekerjaansdgsController extends Controller
         $datapenduduk = $datapenduduk->paginate(100);
         $datapekerjaan = datapekerjaansdgs::all();
         $datapekerjaanSudahProses = $datapekerjaan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-        $persentaseProses = ($datapekerjaanSudahProses / $datapendudukTotal) * 100; // Hitung persentase
+        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk     
+        if ($datapendudukTotal != 0) {
+            $persentaseProses = ($datapekerjaanSudahProses/ $datapendudukTotal) * 100;
+        } else {
+            $persentaseProses = 0; // or handle it in a way that makes sense for your application
+        } // Hitung// Hitung persentase
         $dataPekerjaan = datapekerjaansdgs::all();
 
         // Siapkan data untuk grafik pie
