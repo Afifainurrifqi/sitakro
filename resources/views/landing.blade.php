@@ -287,7 +287,7 @@
     <div class="maps-area">
         <div class="row">
             <div class="google-maps">
-               <iframe src="https://maps.app.goo.gl/D3PQqjst5vSYx5Ld6"></iframe>
+               <iframe src="https://www.google.com/maps/place/Sawentar,+Kec.+Kanigoro,+Kabupaten+Blitar,+Jawa+Timur/@-8.1144785,112.2091009,14z/data=!3m1!4b1!4m6!3m5!1s0x2e78eb5100ed161f:0x391127009ed5ff3d!8m2!3d-8.1118501!4d112.2324406!16s%2Fg%2F1237vy8w?entry=tts"></iframe>
             </div>
         </div>
     </div>
