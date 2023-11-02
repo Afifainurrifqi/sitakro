@@ -74,15 +74,16 @@
                     <a class="navbar-brand" href="index.html">
                         <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
                         <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
-                    </a>
+                    </a>                    
+                </div>
+                <!-- End Header Navigation -->
+                <div class="attr-nav button fixed-nav">
                     <ul>
                         <li>
                             <a  href="{{ route('login') }}">Login</a>
                         </li>
                     </ul>
                 </div>
-                <!-- End Header Navigation -->
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
            
         <!-- End Navigation -->
