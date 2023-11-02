@@ -58,7 +58,13 @@
 
                 <!-- Start Atribute Navigation -->
                 <!-- End Atribute Navigation -->           
-
+                <div class="attr-nav button fixed-nav">
+                    <ul>
+                        <li>
+                            <a  href="{{ route('login') }}">Login</a>
+                        </li>
+                    </ul>
+                </div>
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
@@ -68,13 +74,7 @@
                         <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
                         <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
                     </a>    
-                    <div class="attr-nav button fixed-nav">
-                        <ul>
-                            <li>
-                                <a  href="{{ route('login') }}">Login</a>
-                            </li>
-                        </ul>
-                    </div>                
+                                    
                 </div>
                 <!-- End Header Navigation -->
                 
