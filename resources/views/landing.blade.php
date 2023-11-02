@@ -83,10 +83,9 @@
             <div class="row">
                 <div class="double-items text-light">
                     <div class="info col-md-7">
-                        <a class="navbar-brand" href="index.html">
-                            <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
-                            <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
-                        </a>    
+                       
+                            <img src="assets2/img/logosi.png" class="wow slideInLeft" alt="Logo">
+                        
                         <h2 class="wow slideInLeft">SITAKRO SAWENTAR </h2>
                         <p class="wow fadeInLeft">
                            Sistem Informasi Data Mikro yang dimiliki oleh Desa Sawentar Kecamatan Kanigoro Kabupaten Blitar
