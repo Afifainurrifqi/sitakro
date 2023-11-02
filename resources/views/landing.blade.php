@@ -68,13 +68,13 @@
                         <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
                         <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
                     </a>    
-                    <div class="attr-nav button">
-                        <ul>
-                            <li>
-                                <a  href="{{ route('login') }}">Login</a>
-                            </li>
-                        </ul>
-                    </div>                
+                              
+                </div>
+
+                <div class="attr-nav button fixed-nav">
+                    <button>
+                        <a href="{{ route('login') }}">Login</a>
+                    </button>
                 </div>
                 <!-- End Header Navigation -->
                 
