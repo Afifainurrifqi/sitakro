@@ -97,7 +97,7 @@
                            Sistem Informasi Data Mikro yang dimiliki oleh Desa Sawentar Kecamatan Kanigoro Kabupaten Blitar
                         </p>
                         <a class="wow fadeInDown btn btn-light border btn-md" href="#">Profil SITAKRO</a>
-                        <a href="https://youtu.be/l_nwLjT8Vzg" class="popup-youtube light video-play-button video-inline">
+                        <a href="https://www.youtube.com/watch?v=l_nwLjT8Vzg" class="popup-youtube light video-play-button video-inline">
                             <i class="fa fa-play"></i>
                         </a>
                     </div>
