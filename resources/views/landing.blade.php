@@ -75,6 +75,11 @@
                         <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
                         <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
                     </a>
+                    <ul>
+                        <li>
+                            <a  href="{{ route('login') }}">Login</a>
+                        </li>
+                    </ul>
                 </div>
                 <!-- End Header Navigation -->
 
