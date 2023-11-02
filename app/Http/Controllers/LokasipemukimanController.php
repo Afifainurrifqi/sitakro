@@ -64,7 +64,7 @@ class LokasipemukimanController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.kk.editlokasidanpemukiman', compact('datai', 'datap', 'lokasi', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.KK.editlokasidanpemukiman', compact('datai', 'datap', 'lokasi', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
@@ -132,7 +132,7 @@ class LokasipemukimanController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.kk.showlokasidanpemukiman', compact('datai', 'datap', 'lokasi', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.KK.showlokasidanpemukiman', compact('datai', 'datap', 'lokasi', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**

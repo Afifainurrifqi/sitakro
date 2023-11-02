@@ -30,8 +30,8 @@ Route::get('datapenduduk', [DatapendudukController::class, 'index']);
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('landing', [DashboardController::class, 'landingpage'])->name('landingpage');
 Route::get('/get-birth-data/{year}', [DashboardController::class, 'getBirthData']);
-Route::get('kk', [KkController::class, 'index']);
-Route::get('kk/{id}', [KkController::class, 'show']);
+Route::get('KK', [KkController::class, 'index']);
+Route::get('KK/{id}', [KkController::class, 'show']);
 
 Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
     function () {
@@ -42,7 +42,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/individu/datadisabilitas', [JenisdisabilitasController::class, 'index'])->name('disabilitas.index');
         Route::get('sdgs/individu/datasdgspendidikan', [SdgspendidikanController::class, 'index'])->name('pendidikan.index');
         Route::get('sdgs/KK/lokasidanpemukiman', [LokasipemukimanController::class, 'index'])->name('lokasipemukiman.index');
-        Route::get('sdgs/kk/aksespendidikan', [AksesPendidikanController::class, 'index'])->name('aksespendidikan.index');
+        Route::get('sdgs/KK/aksespendidikan', [AksesPendidikanController::class, 'index'])->name('aksespendidikan.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -98,12 +98,12 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::get('sdgs/individu/editsdgspendidikan/{nik}', [SdgspendidikanController::class, 'create'])->name('pendidikan.edit');
         Route::post('sdgs/individu/editsdgspendidikan', [SdgspendidikanController::class, 'store'])->name('pendidikan.update');
         Route::get('sdgs/individu/datasdgsppendidikan/{show}', [SdgspendidikanController::class, 'show'])->name('pendidikan.show');
-        Route::get('sdgs/kk/editlokasidanpemukiman/{nik}', [LokasipemukimanController::class, 'create'])->name('lokasipemukiman.edit');
-        Route::post('sdgs/kk/editlokasidanpemukiman', [LokasipemukimanController::class, 'store'])->name('lokasipemukiman.update');
-        Route::get('sdgs/kk/lokasidanpemukiman/{show}', [LokasipemukimanController::class, 'show'])->name('lokasipemukiman.show');
-        Route::get('sdgs/kk/editaksespendidikan/{nik}', [AksesPendidikanController::class, 'create'])->name('aksespendidikan.edit');
-        Route::post('sdgs/kk/editaksespendidikan', [AksesPendidikanController::class, 'store'])->name('aksespendidikan.update');
-        Route::get('sdgs/kk/aksespendidikan/{show}', [AksesPendidikanController::class, 'show'])->name('aksespendidikan.show');
+        Route::get('sdgs/KK/editlokasidanpemukiman/{nik}', [LokasipemukimanController::class, 'create'])->name('lokasipemukiman.edit');
+        Route::post('sdgs/KK/editlokasidanpemukiman', [LokasipemukimanController::class, 'store'])->name('lokasipemukiman.update');
+        Route::get('sdgs/KK/lokasidanpemukiman/{show}', [LokasipemukimanController::class, 'show'])->name('lokasipemukiman.show');
+        Route::get('sdgs/KK/editaksespendidikan/{nik}', [AksesPendidikanController::class, 'create'])->name('aksespendidikan.edit');
+        Route::post('sdgs/KK/editaksespendidikan', [AksesPendidikanController::class, 'store'])->name('aksespendidikan.update');
+        Route::get('sdgs/KK/aksespendidikan/{show}', [AksesPendidikanController::class, 'show'])->name('aksespendidikan.show');
 
 
 
