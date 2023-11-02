@@ -335,9 +335,10 @@
                                         ASI <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
+                                       
                                         <select class="form-control @error('valbayiu16') is-invalid @enderror" id="valbayiu16" name="valbayiu16">
-                                            <option value="Ya" {{ old('valbayiu16') == 'Ya' || (isset($datakesehatan) && $datakesehatan->bayi_u16 == 'Ya') ? 'selected' : '' }}>Ya</option>
-                                            <option value="Tidak" {{ old('valbayiu16') == 'Tidak' || (isset($datakesehatan) && $datakesehatan->bayi_u16 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
+                                            <option value="Peserta" {{ old('valbayiu16') == 'Peserta' || (isset($datakesehatan) && $datakesehatan->bayiu16 == 'Peserta') ? 'selected' : '' }}>Peserta</option>
+                                            <option value="Bukan peserta" {{ old('valbayiu16') == 'Bukan peserta' || (isset($datakesehatan) && $datakesehatan->bayiu16 == 'Bukan peserta') ? 'selected' : '' }}>Bukan peserta</option>
                                         </select>
                                         
                                         
