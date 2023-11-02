@@ -49,31 +49,6 @@
 
     <!-- Header
     ============================================= -->
-    <header id="home">
-
-        <!-- Start Navigation -->
-        <nav class="navbar navbar-default navbar-fixed blue no-background bootsnav">
-
-            <div class="container-full">
-
-                <!-- Start Atribute Navigation -->
-                <!-- End Atribute Navigation -->
-
-                <!-- Start Header Navigation -->
-                {{-- <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
-                        <img src="assets2/img/logosi.png" class="logo logo-display" alt="Logo">
-                        <img src="assets2/img/logosi.png" class="logo logo-scrolled" alt="Logo">
-                    </a>    
-                    
-                </div> --}}
-                <!-- End Header Navigation -->
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-
-                <!-- End Navigation -->
-
-    </header>
     <!-- End Header -->
 
     <!-- Start Banner
