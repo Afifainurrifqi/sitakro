@@ -42,7 +42,7 @@ class AksesPendidikanController extends Controller
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
-        return view('sdgs.kk.aksespendidikan', compact('akses_pendidikan', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.KK.aksespendidikan', compact('akses_pendidikan', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
     }
 
     /**
@@ -60,7 +60,7 @@ class AksesPendidikanController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.kk.editaksespendidikan', compact('akses_pendidikan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.KK.editaksespendidikan', compact('akses_pendidikan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
@@ -125,7 +125,7 @@ class AksesPendidikanController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.kk.showaksespendidikan', compact('akses_pendidikan', 'datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.KK.showaksespendidikan', compact('akses_pendidikan', 'datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
