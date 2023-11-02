@@ -234,8 +234,8 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control @error('valmendapatp1') is-invalid @enderror" id="valmendapatp1" name="valmendapatp1">
-                                            <option value="Iya" {{ old('valmendapatp1') == 'Iya' || (isset($dataph) && $dataph->mendapat_p1 == 'Iya') ? 'selected' : '' }}>Iya</option>
-                                            <option value="Tidak" {{ old('valmendapatp1') == 'Tidak' || (isset($dataph) && $dataph->mendapat_p1 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
+                                            <option value="Iya" {{ old('valmendapatp1') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->mendapatp1 == 'Iya') ? 'selected' : '' }}>Iya</option>
+                                            <option value="Tidak" {{ old('valmendapatp1') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->mendapatp1 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
                                         
                                         @error('valmendapatp1')
@@ -269,8 +269,8 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control @error('valpernahmasukan') is-invalid @enderror" id="valpernahmasukan" name="valpernahmasukan">
-                                            <option value="Iya" {{ old('valpernahmasukan') == 'Iya' || (isset($dataph) && $dataph->pernah_masukan == 'Iya') ? 'selected' : '' }}>Iya</option>
-                                            <option value="Tidak" {{ old('valpernahmasukan') == 'Tidak' || (isset($dataph) && $dataph->pernah_masukan == 'Tidak') ? 'selected' : '' }}>Tidak</option>
+                                            <option value="Iya" {{ old('valpernahmasukan') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->pernahmasukan == 'Iya') ? 'selected' : '' }}>Iya</option>
+                                            <option value="Tidak" {{ old('valpernahmasukan') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->pernahmasukan == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
                                         
                                         @error('valpernahmasukan')
@@ -305,8 +305,8 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control @error('valbencana1') is-invalid @enderror" id="valbencana1" name="valbencana1">
-                                            <option value="Iya" {{ old('valbencana1') == 'Iya' || (isset($dataph) && $dataph->bencana1 == 'Iya') ? 'selected' : '' }}>Iya</option>
-                                            <option value="Tidak" {{ old('valbencana1') == 'Tidak' || (isset($dataph) && $dataph->bencana1 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
+                                            <option value="Iya" {{ old('valbencana1') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->bencana1 == 'Iya') ? 'selected' : '' }}>Iya</option>
+                                            <option value="Tidak" {{ old('valbencana1') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->bencana1 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
                                         
                                         @error('valbencana1')
@@ -324,8 +324,8 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control @error('valapakahb') is-invalid @enderror" id="valapakahb" name="valapakahb">
-                                            <option value="Iya" {{ old('valapakahb') == 'Iya' || (isset($dataph) && $dataph->apakah_b == 'Iya') ? 'selected' : '' }}>Iya</option>
-                                            <option value="Tidak" {{ old('valapakahb') == 'Tidak' || (isset($dataph) && $dataph->apakah_b == 'Tidak') ? 'selected' : '' }}>Tidak</option>
+                                            <option value="Iya" {{ old('valapakahb') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahb == 'Iya') ? 'selected' : '' }}>Iya</option>
+                                            <option value="Tidak" {{ old('valapakahb') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahb == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
                                         
                                         @error('valapakahb')
@@ -343,8 +343,8 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control @error('valapakahd') is-invalid @enderror" id="valapakahd" name="valapakahd">
-                                            <option value="Iya" {{ old('valapakahd') == 'Iya' || (isset($dataph) && $dataph->apakah_d == 'Iya') ? 'selected' : '' }}>Iya</option>
-                                            <option value="Tidak" {{ old('valapakahd') == 'Tidak' || (isset($dataph) && $dataph->apakah_d == 'Tidak') ? 'selected' : '' }}>Tidak</option>
+                                            <option value="Iya" {{ old('valapakahd') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahd == 'Iya') ? 'selected' : '' }}>Iya</option>
+                                            <option value="Tidak" {{ old('valapakahd') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahd == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
                                         
                                         @error('valapakahd')
@@ -362,8 +362,8 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control @error('valapakahp') is-invalid @enderror" id="valapakahp" name="valapakahp">
-                                            <option value="Iya" {{ old('valapakahp') == 'Iya' || (isset($dataph) && $dataph->apakah_p == 'Iya') ? 'selected' : '' }}>Iya</option>
-                                            <option value="Tidak" {{ old('valapakahp') == 'Tidak' || (isset($dataph) && $dataph->apakah_p == 'Tidak') ? 'selected' : '' }}>Tidak</option>
+                                            <option value="Iya" {{ old('valapakahp') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahp == 'Iya') ? 'selected' : '' }}>Iya</option>
+                                            <option value="Tidak" {{ old('valapakahp') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahp == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
                                         
                                         @error('valapakahp')
