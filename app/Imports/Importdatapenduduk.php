@@ -24,7 +24,7 @@ class Importdatapenduduk implements ToModel
      */
     public function model(array $row)
     {
-        dd($row[0]);
+        // dd($row[0]);
         // foreach ($rows as $row) {
 
             // datapenduduk::create([
