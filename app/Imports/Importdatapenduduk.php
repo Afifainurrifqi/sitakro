@@ -53,6 +53,18 @@ class Importdatapenduduk implements ToModel
 
 
             // ]);
+            $kartuk = new kk;
+            $kartuk->nokk = $row[0];
+            $kartuk->save();
+
+            // detailkk::create([
+            //     'nokk' => $row[0],
+            // ]);
+
+            $detailk = new detailkk();
+            $detailk->idpenduduk = $datapenduduks->id;
+            $detailk->idkk = $kartuk->id;
+            $detailk->save();
 
             $datapenduduks = new DataPenduduk;
             $datapenduduks->nik = $row[1];
@@ -81,18 +93,7 @@ class Importdatapenduduk implements ToModel
             // kk::create([
             //     'nokk' => $row[0],
             // ]);
-            $kartuk = new kk;
-            $kartuk->nokk = $row[0];
-            $kartuk->save();
-
-            // detailkk::create([
-            //     'nokk' => $row[0],
-            // ]);
-
-            $detailk = new detailkk();
-            $detailk->idpenduduk = $datapenduduks->id;
-            $detailk->idkk = $kartuk->id;
-            $detailk->save();
+           
         // }
 
 
