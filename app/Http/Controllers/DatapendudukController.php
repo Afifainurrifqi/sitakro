@@ -77,7 +77,8 @@ class DatapendudukController extends Controller
     $file->move('file_siswa', $nama_file);
 
     // import data
-    Excel::import(new Importdatapenduduk, public_path('/sdgsdesa/file_siswa/' . $nama_file));
+    Excel::import(new Importdatapenduduk, '/home/sitakroc/public_html/sdgsdesa/' . $nama_file);
+
 
 
 
