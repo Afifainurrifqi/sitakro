@@ -77,13 +77,8 @@ class DatapendudukController extends Controller
     $file->move('file_siswa', $nama_file);
 
     // import data
-    
     Excel::import(new Importdatapenduduk, public_path('/file_siswa/' . $nama_file));
-
-// Simpan file ke direktori public di hosting
-$nama_file->storeAs('public', $nama_file);
-
-
+    
 
 
     // notifikasi dengan session
