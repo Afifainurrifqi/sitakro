@@ -23,7 +23,7 @@ class Importdatapenduduk implements ToModel
      */
     public function model(array $row)
     {
-        dd($row[0]);
+        // dd($row[0]);
         // foreach ($rows as $row) {
 
             // datapenduduk::create([
@@ -53,19 +53,8 @@ class Importdatapenduduk implements ToModel
 
 
             // ]);
-            $kartuk = new kk;
-            $kartuk->nokk = $row[0];
-            $kartuk->save();
 
-            // detailkk::create([
-            //     'nokk' => $row[0],
-            // ]);
-
-            $detailk = new detailkk();
-            $detailk->idpenduduk = $datapenduduks->id;
-            $detailk->idkk = $kartuk->id;
-            $detailk->save();
-
+            
             $datapenduduks = new DataPenduduk;
             $datapenduduks->nik = $row[1];
             $datapenduduks->gelarawal = $row[2];
