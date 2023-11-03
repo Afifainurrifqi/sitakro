@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 
+
 class Importdatapenduduk implements ToModel
 {
     /**
@@ -23,7 +24,7 @@ class Importdatapenduduk implements ToModel
      */
     public function model(array $row)
     {
-        // dd($row[0]);
+        // dd($row);
         // foreach ($rows as $row) {
 
             // datapenduduk::create([
@@ -54,7 +55,7 @@ class Importdatapenduduk implements ToModel
 
             // ]);
 
-            $datapenduduk = new datapenduduk;
+            $datapenduduk = new Datapenduduk();
             $datapenduduk->nik = $row[1];
             $datapenduduk->gelarawal = $row[2];
             $datapenduduk->nama = $row[3];
