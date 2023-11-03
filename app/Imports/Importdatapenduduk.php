@@ -14,6 +14,7 @@ use App\Models\status;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class Importdatapenduduk implements ToModel
