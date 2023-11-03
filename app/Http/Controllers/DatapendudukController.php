@@ -78,7 +78,11 @@ class DatapendudukController extends Controller
 
 
     // import data
-    Excel::import(new Importdatapenduduk, public_path('sdgsdesa/public/file_siswa/' . $nama_file));
+    try {
+        Excel::import(new Importdatapenduduk, public_path('sdgsdesa/public/file_siswa/' . $nama_file));
+    } catch (\Exception $e) {
+        return $e->getMessage(); // You can customize this error handling
+    }
 
 
     // notifikasi dengan session

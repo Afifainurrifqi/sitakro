@@ -55,28 +55,28 @@ class Importdatapenduduk implements ToModel
 
             // ]);
 
-            // $datapenduduk = new datapenduduk();
-            // $datapenduduk->nik = $row[1];
-            // $datapenduduk->gelarawal = $row[2];
-            // $datapenduduk->nama = $row[3];
-            // $datapenduduk->gelarakhir = $row[4];
-            // $datapenduduk->jenis_kelamin = $row[5];
-            // $datapenduduk->tempat_lahir = $row[6];
-            // $datapenduduk->tanggal_lahir = date('Y-m-d', strtotime($row[7]));
-            // $datapenduduk->agama_id = $row[8];
-            // $datapenduduk->pendidikan_id =  $row[9];
-            // $datapenduduk->pekerjaan_id = $row[10];
-            // $datapenduduk->goldar_id = $row[11];
-            // $datapenduduk->status_id = $row[12];
-            // $datapenduduk->tanggal_perkawinan = date('Y-m-d', strtotime($row[13]));
-            // $datapenduduk->hubungan = $row[14];
-            // $datapenduduk->ayah = $row[15];
-            // $datapenduduk->ibu = $row[16];
-            // $datapenduduk->alamat = $row[17];
-            // $datapenduduk->rt = $row[18];
-            // $datapenduduk->rw = $row[19];
-            // $datapenduduk->datak = $row[20];
-            // $datapenduduk->save();
+            $datapenduduk = new datapenduduk();
+            $datapenduduk->nik = $row[1];
+            $datapenduduk->gelarawal = $row[2];
+            $datapenduduk->nama = $row[3];
+            $datapenduduk->gelarakhir = $row[4];
+            $datapenduduk->jenis_kelamin = $row[5];
+            $datapenduduk->tempat_lahir = $row[6];
+            $datapenduduk->tanggal_lahir = date('Y-m-d', strtotime($row[7]));
+            $datapenduduk->agama_id = $row[8];
+            $datapenduduk->pendidikan_id =  $row[9];
+            $datapenduduk->pekerjaan_id = $row[10];
+            $datapenduduk->goldar_id = $row[11];
+            $datapenduduk->status_id = $row[12];
+            $datapenduduk->tanggal_perkawinan = date('Y-m-d', strtotime($row[13]));
+            $datapenduduk->hubungan = $row[14];
+            $datapenduduk->ayah = $row[15];
+            $datapenduduk->ibu = $row[16];
+            $datapenduduk->alamat = $row[17];
+            $datapenduduk->rt = $row[18];
+            $datapenduduk->rw = $row[19];
+            $datapenduduk->datak = $row[20];
+            $datapenduduk->save();
 
 
             // kk::create([
