@@ -74,7 +74,7 @@ class DatapendudukController extends Controller
         $nama_file = rand() . $file->getClientOriginalName();
     
         // upload ke folder file_siswa di dalam folder public
-        $file->move('file_siswa', $nama_file);
+        $file->move('file_datapenduduk', $nama_file);
     
         // import data
         Excel::import(new Importdatapenduduk, public_path('/file_datapenduduk/' . $nama_file));
