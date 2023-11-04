@@ -62,30 +62,28 @@ class DatapendudukController extends Controller
     }
 
     public function import_excel(Request $request)
-{
-    $this->validate($request, [
-        'file' => 'required'
-    ]);
-
-    // menangkap file excel
-    $file = $request->file('file');
-
-    // membuat nama file unik
-    $nama_file = rand() . $file->getClientOriginalName();
-
-    // upload ke folder file_siswa di dalam folder public
-    $file->move('sdgsdesa/public/file_siswa', $nama_file);
-
-
-    // import data
-      Excel::import(new Importdatapenduduk, public_path('sdgsdesa/public/file_siswa/' . $nama_file));
-
-
-    // notifikasi dengan session
-
-    // alihkan halaman kembali
-    return redirect('datapenduduk');
-}
+    {
+        $this->validate($request, [
+            'file' => 'required'
+        ]);
+    
+        // menangkap file excel
+        $file = $request->file('file');
+    
+        // membuat nama file unik
+        $nama_file = rand() . $file->getClientOriginalName();
+    
+        // upload ke folder file_siswa di dalam folder public
+        $file->move('file_siswa', $nama_file);
+    
+        // import data
+        Excel::import(new Importdatapenduduk, public_path('/file_siswa/' . $nama_file));
+    
+        // notifikasi dengan session
+    
+        // alihkan halaman kembali
+        return redirect('datapenduduk');
+    }
 
 
 
