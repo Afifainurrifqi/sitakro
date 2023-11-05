@@ -55,9 +55,10 @@
                                     <select class="form-control @error('valPekerjaanutama') is-invalid @enderror" id="valPekerjaanutama" name="valPekerjaanutama">
                                         <option value="0" disabled selected>--Pilih Pekerjaan--</option>
                                         @foreach ($pekerjaan as $item)
-                                            <option value="{{ $item->id }}" {{ $datap->agama_id == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                                            <option value="{{ $item->id }}" {{ (isset($datap) && $datap->agama_id == $item->id) ? 'selected' : '' }}>{{ $item->nama }}</option>
                                         @endforeach
                                     </select>
+                                    
                                     
                                     
                                     @error('valPekerjaanutama')
