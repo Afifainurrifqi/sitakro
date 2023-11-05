@@ -53,22 +53,10 @@
                                 </label>
                                 <div class="col-lg-6">
                                     <select class="form-control @error('valPekerjaanutama') is-invalid @enderror" id="valPekerjaanutama" name="valPekerjaanutama">
-                                        <option value="Petani pemilik lahan" {{ (old('valPekerjaanutama') == 'Petani pemilik lahan' || (isset($datapk) && $datapk->pekerjaan_utama == 'Petani pemilik lahan')) ? 'selected' : '' }}>Petani pemilik lahan</option>
-                                        <option value="Petani penyewa" {{ (old('valPekerjaanutama') == 'Petani penyewa' || (isset($datapk) && $datapk->pekerjaan_utama == 'Petani penyewa')) ? 'selected' : '' }}>Petani penyewa</option>
-                                        <option value="Buruh tani" {{ (old('valPekerjaanutama') == 'Buruh tani' || (isset($datapk) && $datapk->pekerjaan_utama == 'Buruh tani')) ? 'selected' : '' }}>Buruh tani</option>
-                                        <option value="Nelayan pemilik kapal/perahu" {{ (old('valPekerjaanutama') == 'Nelayan pemilik kapal/perahu' || (isset($datapk) && $datapk->pekerjaan_utama == 'Nelayan pemilik kapal/perahu')) ? 'selected' : '' }}>Nelayan pemilik kapal/perahu</option>
-                                        <option value="Nelayan penyewa kapal/perahu" {{ (old('valPekerjaanutama') == 'Nelayan penyewa kapal/perahu' || (isset($datapk) && $datapk->pekerjaan_utama == 'Nelayan penyewa kapal/perahu')) ? 'selected' : '' }}>Nelayan penyewa kapal/perahu</option>
-                                        <option value="Buruh nelayan" {{ (old('valPekerjaanutama') == 'Buruh nelayan' || (isset($datapk) && $datapk->pekerjaan_utama == 'Buruh nelayan')) ? 'selected' : '' }}>Buruh nelayan</option>
-                                        <option value="Guru" {{ (old('valPekerjaanutama') == 'Guru' || (isset($datapk) && $datapk->pekerjaan_utama == 'Guru')) ? 'selected' : '' }}>Guru</option>
-                                        <option value="Guru agama" {{ (old('valPekerjaanutama') == 'Guru agama' || (isset($datapk) && $datapk->pekerjaan_utama == 'Guru agama')) ? 'selected' : '' }}>Guru agama</option>
-                                        <option value="Pedagang" {{ (old('valPekerjaanutama') == 'Pedagang' || (isset($datapk) && $datapk->pekerjaan_utama == 'Pedagang')) ? 'selected' : '' }}>Pedagang</option>
-                                        <option value="Pengolahan/Industri" {{ (old('valPekerjaanutama') == 'Pengolahan/Industri' || (isset($datapk) && $datapk->pekerjaan_utama == 'Pengolahan/Industri')) ? 'selected' : '' }}>Pengolahan/Industri</option>
-                                        <option value="PNS" {{ (old('valPekerjaanutama') == 'PNS' || (isset($datapk) && $datapk->pekerjaan_utama == 'PNS')) ? 'selected' : '' }}>PNS</option>
-                                        <option value="Pensiunan" {{ (old('valPekerjaanutama') == 'Pensiunan' || (isset($datapk) && $datapk->pekerjaan_utama == 'Pensiunan')) ? 'selected' : '' }}>Pensiunan</option>
-                                        <option value="Perangkat Desa" {{ (old('valPekerjaanutama') == 'Perangkat Desa' || (isset($datapk) && $datapk->pekerjaan_utama == 'Perangkat Desa')) ? 'selected' : '' }}>Perangkat Desa</option>
-                                        <option value="Pegawai Kantor Desa" {{ (old('valPekerjaanutama') == 'Pegawai Kantor Desa' || (isset($datapk) && $datapk->pekerjaan_utama == 'Pegawai Kantor Desa')) ? 'selected' : '' }}>Pegawai Kantor Desa</option>
-                                        <option value="TKI" {{ (old('valPekerjaanutama') == 'TKI' || (isset($datapk) && $datapk->pekerjaan_utama == 'TKI')) ? 'selected' : '' }}>TKI</option>
-                                        <option value="Lainnya" {{ (old('valPekerjaanutama') == 'Lainnya' || (isset($datapk) && $datapk->pekerjaan_utama == 'Lainnya')) ? 'selected' : '' }}>Lainnya</option>
+                                        <option value="0" disabled selected>--Pilih Pekerjaan--</option>
+                                        @foreach ($pekerjaan as $item)
+                                        <option value="{{ $item->id }}" {{ $valPekerjaanutama == $item->id ? 'selected' : '' }} >{{ $item->nama }}</option>
+                                    @endforeach
                                     </select>
                                     
                                     @error('valPekerjaanutama')
