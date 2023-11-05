@@ -71,7 +71,16 @@ class Importdatapenduduk implements ToModel , WithColumnFormatting
  
         // Sesuaikan dengan nama kolom Excel dan field pada model Anda 
  
-    } 
+    }
+    
+     public function columnFormats(): array
+    {
+        return [
+            'valNokk' => DataType::TYPE_STRING, // Assuming 'A' is the column with nokk
+            'valNIK' => DataType::TYPE_STRING, // Assuming 'B' is the column with nik
+        ];
+    }
+
     public function rules(): array 
     { 
         return [ 
@@ -99,11 +108,5 @@ class Importdatapenduduk implements ToModel , WithColumnFormatting
         ]; 
     } 
 
-    public function columnFormats(): array
-    {
-        return [
-            'valNokk' => DataType::TYPE_STRING, // Assuming 'A' is the column with nokk
-            'valNIK' => DataType::TYPE_STRING, // Assuming 'B' is the column with nik
-        ];
-    }
+
 }
