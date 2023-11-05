@@ -72,12 +72,12 @@ class DatapendudukController extends Controller
     
         // membuat nama file unik
         $nama_file = rand() . $file->getClientOriginalName();
-        dd($nama_file);
+    
         // upload ke folder file_siswa di dalam folder public
         $file->move('file_datapenduduk', $nama_file);
     
         // import data
-        Excel::import(new Importdatapenduduk, public_path('/file_datapenduduk/' . $nama_file));
+        Excel::import(new Importdatapenduduk, storage_path('app/public/file_datapenduduk/' . $nama_file));
     
         // notifikasi dengan session
     
