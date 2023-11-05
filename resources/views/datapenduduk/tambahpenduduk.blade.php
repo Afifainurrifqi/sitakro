@@ -20,7 +20,8 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <input type="text" class="form-control @error('valNokk') is-invalid @enderror"
-                                            id="valNokk" name="valNokk" value="{{ old('valNokk') }}" placeholder="No KK">
+                                            id="valNokk" name="valNokk" value="{{ old('valNokk') }}" placeholder="No KK... "
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                         @error('valNokk')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -34,7 +35,8 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <input type="text" class="form-control @error('valNIK') is-invalid @enderror"
-                                            id="valNIK" name="valNIK" value="{{ old('valNIK') }}" placeholder="NIK">
+                                            id="valNIK" name="valNIK" value="{{ old('valNIK') }}" placeholder="NIK..."
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                         @error('valNIK')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}

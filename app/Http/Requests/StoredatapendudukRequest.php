@@ -24,7 +24,7 @@ class StoredatapendudukRequest extends FormRequest
     public function rules()
     {
         return [
-            'valNokk' => 'required',
+            'valNokk' => 'required|min:16|max:16',
             'valNIK' => 'required|unique:datapenduduks,nik|min:16|max:16',
             'valGelara' => 'required',
             'valNama' => 'required',
