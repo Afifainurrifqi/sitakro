@@ -102,8 +102,8 @@ class Importdatapenduduk implements ToModel , WithColumnFormatting
     public function columnFormats(): array
     {
         return [
-            'A' => DataType::TYPE_STRING, // Assuming 'A' is the column with nokk
-            'B' => DataType::TYPE_STRING, // Assuming 'B' is the column with nik
+            'valNokk' => DataType::TYPE_STRING, // Assuming 'A' is the column with nokk
+            'valNIK' => DataType::TYPE_STRING, // Assuming 'B' is the column with nik
         ];
     }
 }
