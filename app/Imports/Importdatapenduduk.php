@@ -26,7 +26,7 @@ class Importdatapenduduk implements ToModel
      
     public function model(array $row)
     {
-       dd($row);
+    //    dd($row);
 
             $datapenduduk = new DataPenduduk;
             $datapenduduk->nik = $row[1];
