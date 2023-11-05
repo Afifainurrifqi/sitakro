@@ -53,10 +53,52 @@
                                 </label>
                                 <div class="col-lg-6">
                                     <select class="form-control @error('valPekerjaanutama') is-invalid @enderror" id="valPekerjaanutama" name="valPekerjaanutama">
-                                        <option value="0" disabled selected>--Pilih Pekerjaan--</option>
-                                        @foreach ($pekerjaan as $item)
-                                            <option value="{{ $item->id }}" {{ (isset($datap) && $datap->agama_id == $item->id) ? 'selected' : '' }}>{{ $item->nama }}</option>
-                                        @endforeach
+                                        <option value="BELUM/TIDAK BEKERJA" {{ old('valPekerjaanutama') == 'BELUM/TIDAK BEKERJA' || (isset($datapk) && $datapk->pekerjaan_utama == 'BELUM/TIDAK BEKERJA') ? 'selected' : '' }}>BELUM/TIDAK BEKERJA</option>
+                                        <option value="PELAJAR/MAHASISWA" {{ old('valPekerjaanutama') == 'PELAJAR/MAHASISWA' || (isset($datapk) && $datapk->pekerjaan_utama == 'PELAJAR/MAHASISWA') ? 'selected' : '' }}>PELAJAR/MAHASISWA</option>
+                                        <option value="TIDAK/BELUM SEKOLAH" {{ old('valPekerjaanutama') == 'TIDAK/BELUM SEKOLAH' || (isset($datapk) && $datapk->pekerjaan_utama == 'TIDAK/BELUM SEKOLAH') ? 'selected' : '' }}>TIDAK/BELUM SEKOLAH</option>
+                                        <option value="KARYAWAN SWASTA" {{ old('valPekerjaanutama') == 'KARYAWAN SWASTA' || (isset($datapk) && $datapk->pekerjaan_utama == 'KARYAWAN SWASTA') ? 'selected' : '' }}>KARYAWAN SWASTA</option>
+                                        <option value="IBU RUMAH TANGGA" {{ old('valPekerjaanutama') == 'IBU RUMAH TANGGA' || (isset($datapk) && $datapk->pekerjaan_utama == 'IBU RUMAH TANGGA') ? 'selected' : '' }}>IBU RUMAH TANGGA</option>
+                                        <option value="WIRASWASTA" {{ old('valPekerjaanutama') == 'WIRASWASTA' || (isset($datapk) && $datapk->pekerjaan_utama == 'WIRASWASTA') ? 'selected' : '' }}>WIRASWASTA</option>
+                                        <option value="PETANI/PEKEBUN PEMILIK LAHAN" {{ old('valPekerjaanutama') == 'PETANI/PEKEBUN PEMILIK LAHAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'PETANI/PEKEBUN PEMILIK LAHAN') ? 'selected' : '' }}>PETANI/PEKEBUN PEMILIK LAHAN</option>
+                                        <option value="BURUH TANI/PERKEBUNAN" {{ old('valPekerjaanutama') == 'BURUH TANI/PERKEBUNAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'BURUH TANI/PERKEBUNAN') ? 'selected' : '' }}>BURUH TANI/PERKEBUNAN</option>
+                                        <option value="PEDAGANG" {{ old('valPekerjaanutama') == 'PEDAGANG' || (isset($datapk) && $datapk->pekerjaan_utama == 'PEDAGANG') ? 'selected' : '' }}>PEDAGANG</option>
+                                        <option value="PEGAWAI NEGERI SIPIL (PNS)" {{ old('valPekerjaanutama') == 'PEGAWAI NEGERI SIPIL (PNS)' || (isset($datapk) && $datapk->pekerjaan_utama == 'PEGAWAI NEGERI SIPIL (PNS)') ? 'selected' : '' }}>PEGAWAI NEGERI SIPIL (PNS)</option>
+                                        <option value="BURUH HARIAN LEPAS" {{ old('valPekerjaanutama') == 'BURUH HARIAN LEPAS' || (isset($datapk) && $datapk->pekerjaan_utama == 'BURUH HARIAN LEPAS') ? 'selected' : '' }}>BURUH HARIAN LEPAS</option>
+                                        <option value="SOPIR" {{ old('valPekerjaanutama') == 'SOPIR' || (isset($datapk) && $datapk->pekerjaan_utama == 'SOPIR') ? 'selected' : '' }}>SOPIR</option>
+                                        <option value="KARYAWAN BUMN" {{ old('valPekerjaanutama') == 'KARYAWAN BUMN' || (isset($datapk) && $datapk->pekerjaan_utama == 'KARYAWAN BUMN') ? 'selected' : '' }}>KARYAWAN BUMN</option>
+                                        <option value="TENTARA NASIONAL INDONESIA (TNI)" {{ old('valPekerjaanutama') == 'TENTARA NASIONAL INDONESIA (TNI)' || (isset($datapk) && $datapk->pekerjaan_utama == 'TENTARA NASIONAL INDONESIA (TNI)') ? 'selected' : '' }}>TENTARA NASIONAL INDONESIA (TNI)</option>
+                                        <option value="PENSIUNAN" {{ old('valPekerjaanutama') == 'PENSIUNAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'PENSIUNAN') ? 'selected' : '' }}>PENSIUNAN</option>
+                                        <option value="GURU" {{ old('valPekerjaanutama') == 'GURU' || (isset($datapk) && $datapk->pekerjaan_utama == 'GURU') ? 'selected' : '' }}>GURU</option>
+                                        <option value="PEMBANTU RUMAH TANGGA" {{ old('valPekerjaanutama') == 'PEMBANTU RUMAH TANGGA' || (isset($datapk) && $datapk->pekerjaan_utama == 'PEMBANTU RUMAH TANGGA') ? 'selected' : '' }}>PEMBANTU RUMAH TANGGA</option>
+                                        <option value="BURUH PETERNAKAN" {{ old('valPekerjaanutama') == 'BURUH PETERNAKAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'BURUH PETERNAKAN') ? 'selected' : '' }}>BURUH PETERNAKAN</option>
+                                        <option value="DOSEN" {{ old('valPekerjaanutama') == 'DOSEN' || (isset($datapk) && $datapk->pekerjaan_utama == 'DOSEN') ? 'selected' : '' }}>DOSEN</option>
+                                        <option value="KONSTRUKSI" {{ old('valPekerjaanutama') == 'KONSTRUKSI' || (isset($datapk) && $datapk->pekerjaan_utama == 'KONSTRUKSI') ? 'selected' : '' }}>KONSTRUKSI</option>
+                                        <option value="PELAUT" {{ old('valPekerjaanutama') == 'PELAUT' || (isset($datapk) && $datapk->pekerjaan_utama == 'PELAUT') ? 'selected' : '' }}>PELAUT</option>
+                                        <option value="NELAYAN" {{ old('valPekerjaanutama') == 'NELAYAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'NELAYAN') ? 'selected' : '' }}>NELAYAN</option>
+                                        <option value="KARYAWAN HONORER" {{ old('valPekerjaanutama') == 'KARYAWAN HONORER' || (isset($datapk) && $datapk->pekerjaan_utama == 'KARYAWAN HONORER') ? 'selected' : '' }}>KARYAWAN HONORER</option>
+                                        <option value="KEPOLISIAN RI (POLRI)" {{ old('valPekerjaanutama') == 'KEPOLISIAN RI (POLRI)' || (isset($datapk) && $datapk->pekerjaan_utama == 'KEPOLISIAN RI (POLRI)') ? 'selected' : '' }}>KEPOLISIAN RI (POLRI)</option>
+                                        <option value="PERAWAT" {{ old('valPekerjaanutama') == 'PERAWAT' || (isset($datapk) && $datapk->pekerjaan_utama == 'PERAWAT') ? 'selected' : '' }}>PERAWAT</option>
+                                        <option value="PETERNAK" {{ old('valPekerjaanutama') == 'PETERNAK' || (isset($datapk) && $datapk->pekerjaan_utama == 'PETERNAK') ? 'selected' : '' }}>PETERNAK</option>
+                                        <option value="BIDAN" {{ old('valPekerjaanutama') == 'BIDAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'BIDAN') ? 'selected' : '' }}>BIDAN</option>
+                                        <option value="MEKANIK" {{ old('valPekerjaanutama') == 'MEKANIK' || (isset($datapk) && $datapk->pekerjaan_utama == 'MEKANIK') ? 'selected' : '' }}>MEKANIK</option>
+                                        <option value="PENATA RIAS" {{ old('valPekerjaanutama') == 'PENATA RIAS' || (isset($datapk) && $datapk->pekerjaan_utama == 'PENATA RIAS') ? 'selected' : '' }}>PENATA RIAS</option>
+                                        <option value="TUKANG LAS/PANDAI BESI" {{ old('valPekerjaanutama') == 'TUKANG LAS/PANDAI BESI' || (isset($datapk) && $datapk->pekerjaan_utama == 'TUKANG LAS/PANDAI BESI') ? 'selected' : '' }}>TUKANG LAS/PANDAI BESI</option>
+                                        <option value="INDUSTRI" {{ old('valPekerjaanutama') == 'INDUSTRI' || (isset($datapk) && $datapk->pekerjaan_utama == 'INDUSTRI') ? 'selected' : '' }}>INDUSTRI</option>
+                                        <option value="USTADZ/MUBALIGH" {{ old('valPekerjaanutama') == 'USTADZ/MUBALIGH' || (isset($datapk) && $datapk->pekerjaan_utama == 'USTADZ/MUBALIGH') ? 'selected' : '' }}>USTADZ/MUBALIGH</option>
+                                        <option value="TABIB" {{ old('valPekerjaanutama') == 'TABIB' || (isset($datapk) && $datapk->pekerjaan_utama == 'TABIB') ? 'selected' : '' }}>TABIB</option>
+                                        <option value="BURUH NELAYAN/PERIKANAN" {{ old('valPekerjaanutama') == 'BURUH NELAYAN/PERIKANAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'BURUH NELAYAN/PERIKANAN') ? 'selected' : '' }}>BURUH NELAYAN/PERIKANAN</option>
+                                        <option value="JURU MASAK" {{ old('valPekerjaanutama') == 'JURU MASAK' || (isset($datapk) && $datapk->pekerjaan_utama == 'JURU MASAK') ? 'selected' : '' }}>JURU MASAK</option>
+                                        <option value="PERANGKAT DESA" {{ old('valPekerjaanutama') == 'PERANGKAT DESA' || (isset($datapk) && $datapk->pekerjaan_utama == 'PERANGKAT DESA') ? 'selected' : '' }}>PERANGKAT DESA</option>
+                                        <option value="KEPALA DESA" {{ old('valPekerjaanutama') == 'KEPALA DESA' || (isset($datapk) && $datapk->pekerjaan_utama == 'KEPALA DESA') ? 'selected' : '' }}>KEPALA DESA</option>
+                                        <option value="SENIMAN" {{ old('valPekerjaanutama') == 'SENIMAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'SENIMAN') ? 'selected' : '' }}>SENIMAN</option>
+                                        <option value="AKUNTAN" {{ old('valPekerjaanutama') == 'AKUNTAN' || (isset($datapk) && $datapk->pekerjaan_utama == 'AKUNTAN') ? 'selected' : '' }}>AKUNTAN</option>
+                                        <option value="DOKTER" {{ old('valPekerjaanutama') == 'DOKTER' || (isset($datapk) && $datapk->pekerjaan_utama == 'DOKTER') ? 'selected' : '' }}>DOKTER</option>
+                                        <option value="Petani/Pekebun penyewa" {{ old('valPekerjaanutama') == 'Petani/Pekebun penyewa' || (isset($datapk) && $datapk->pekerjaan_utama == 'Petani/Pekebun penyewa') ? 'selected' : '' }}>Petani/Pekebun penyewa</option>Petani/Pekebun penyewa
+                                        <option value="Guru agama" {{ old('valPekerjaanutama') == 'Guru agama' || (isset($datapk) && $datapk->pekerjaan_utama == 'Guru agama') ? 'selected' : '' }}>Guru agama</option>
+                                        <option value="Pegawai Kantor Desa" {{ old('valPekerjaanutama') == 'Pegawai Kantor Desa' || (isset($datapk) && $datapk->pekerjaan_utama == 'Pegawai Kantor Desa') ? 'selected' : '' }}>Pegawai Kantor Desa</option>
+                                        <option value="TKI" {{ old('valPekerjaanutama') == 'TKI' || (isset($datapk) && $datapk->pekerjaan_utama == 'TKI') ? 'selected' : '' }}>TKI</option>
+                                        <option value="LAINNYA" {{ old('valPekerjaanutama') == 'LAINNYA' || (isset($datapk) && $datapk->pekerjaan_utama == 'LAINNYA') ? 'selected' : '' }}>LAINNYA</option>
+                                        
                                     </select>
                                     
                                     
