@@ -13,11 +13,12 @@ use App\Models\pekerjaan;
 use App\Models\pendidikan; 
 use App\Models\status; 
 use Illuminate\Support\Collection; 
-use Maatwebsite\Excel\Concerns\ToModel; 
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadingRow; 
  
  
-class Importdatapenduduk implements ToModel 
+class Importdatapenduduk implements ToModel , WithColumnFormatting
 { 
     /** 
      * @param Collection $collection 
