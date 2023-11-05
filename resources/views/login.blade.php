@@ -42,18 +42,6 @@
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
                                 <a class="text-center" href="index.html"> <h4>LOGIN</h4></a>
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ( $errors->all() as $item )
-                                                    <li>{{ $item }}</li>
-                                                @endforeach
-                                            </ul>                                            
-                                        
-                                        </div>                                      
-
-
-                                    @endif
                                 <form action="" class="mt-5 mb-5 login-input" method="POST">
                                     @csrf
                                     <div class="form-group">
