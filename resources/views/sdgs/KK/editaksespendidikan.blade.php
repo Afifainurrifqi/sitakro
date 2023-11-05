@@ -46,7 +46,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_paud">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_paud }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_paud ?? ''  }}"
                                                 class="form-control @error('valjaraktempuh_paud') is-invalid @enderror"
                                                 id="valjaraktempuh_paud" name="valjaraktempuh_paud"
                                                 placeholder="Berapa kilometer...">
@@ -58,7 +58,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_paud">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_paud }}"
+                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_paud ?? ''  }}"
                                                 class="form-control @error('valwaktutempuh_paud') is-invalid @enderror"
                                                 id="valwaktutempuh_paud" name="valwaktutempuh_paud"
                                                 placeholder="Berapa jam...">
@@ -92,7 +92,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_tk">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_tk }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_tk }} ?? '' "
                                                 class="form-control @error('valjaraktempuh_tk') is-invalid @enderror"
                                                 id="valjaraktempuh_tk" name="valjaraktempuh_tk"
                                                 placeholder="Berapa kilometer...">
@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_tk">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_tk }}"
+                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_tk ?? ''  }}"
                                                 class="form-control @error('valwaktutempuh_tk') is-invalid @enderror"
                                                 id="valwaktutempuh_tk" name="valwaktutempuh_tk" placeholder="Berapa jam...">
                                             @error('valwaktutempuh_tk')
@@ -134,7 +134,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_sd">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_sd }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_sd ?? ''  }}"
                                                 class="form-control @error('valjaraktempuh_sd') is-invalid @enderror"
                                                 id="valjaraktempuh_sd" name="valjaraktempuh_sd"
                                                 placeholder="Berapa kilometer...">
@@ -146,7 +146,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_sd">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_sd }}"
+                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_sd ?? ''  }}"
                                                 class="form-control @error('valwaktutempuh_sd') is-invalid @enderror"
                                                 id="valwaktutempuh_sd" name="valwaktutempuh_sd"
                                                 placeholder="Berapa jam...">
@@ -182,7 +182,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_smp">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_smp }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_smp ?? ''  }}"
                                                 class="form-control @error('valjaraktempuh_smp') is-invalid @enderror"
                                                 id="valjaraktempuh_smp" name="valjaraktempuh_smp"
                                                 placeholder="Berapa kilometer...">
@@ -194,7 +194,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_smp">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_sd }}"
+                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_smp ?? ''  }}"
                                                 class="form-control @error('valwaktutempuh_smp') is-invalid @enderror"
                                                 id="valwaktutempuh_smp" name="valwaktutempuh_smp"
                                                 placeholder="Berapa jam...">
@@ -229,7 +229,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_sma">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_sma }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_sma  ?? '' }}"
                                                 class="form-control @error('valjaraktempuh_sma') is-invalid @enderror"
                                                 id="valjaraktempuh_sma" name="valjaraktempuh_sma"
                                                 placeholder="Berapa kilometer...">
@@ -241,7 +241,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_sma">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_sma }}"
+                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_sma ?? '' }}"
                                                 class="form-control @error('valwaktutempuh_sma') is-invalid @enderror"
                                                 id="valwaktutempuh_sma" name="valwaktutempuh_sma"
                                                 placeholder="Berapa jam...">
@@ -279,7 +279,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_pt">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_pt }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_pt ?? ''  }}"
                                                 class="form-control @error('valjaraktempuh_pt') is-invalid @enderror"
                                                 id="valjaraktempuh_pt" name="valjaraktempuh_pt"
                                                 placeholder="Berapa kilometer...">
@@ -291,7 +291,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_pt">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_pt }}"
+                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_pt ?? '' }}"
                                                 class="form-control @error('valwaktutempuh_pt') is-invalid @enderror"
                                                 id="valwaktutempuh_pt" name="valwaktutempuh_pt"
                                                 placeholder="Berapa jam...">
@@ -322,7 +322,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_ps">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_ps }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_ps ?? '' }}"
                                                 class="form-control @error('valjaraktempuh_ps') is-invalid @enderror"
                                                 id="valjaraktempuh_ps" name="valjaraktempuh_ps"
                                                 placeholder="Berapa kilometer...">
@@ -334,7 +334,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_ps">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number"value="{{ $akses_pendidikan->waktutempuh_ps }}"
+                                            <input type="number"value="{{ $akses_pendidikan->waktutempuh_ps ?? '' }}"
                                                 class="form-control @error('valwaktutempuh_ps') is-invalid @enderror"
                                                 id="valwaktutempuh_ps" name="valwaktutempuh_ps"
                                                 placeholder="Berapa jam...">
@@ -365,7 +365,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_seminari">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_seminari }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_seminari ?? ''  }}"
                                                 class="form-control @error('valjaraktempuh_seminari') is-invalid @enderror"
                                                 id="valjaraktempuh_seminari" name="valjaraktempuh_seminari"
                                                 placeholder="Berapa kilometer...">
@@ -377,7 +377,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_seminari">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_seminari }}"
+                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_seminari ?? ''  }}"
                                                 class="form-control @error('valwaktutempuh_seminari') is-invalid @enderror"
                                                 id="valwaktutempuh_seminari" name="valwaktutempuh_seminari"
                                                 placeholder="Berapa jam...">
@@ -413,7 +413,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_pagamalain">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_pagamalain }}"
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_pagamalain ?? ''  }}"
                                                 class="form-control @error('valjaraktempuh_pagamalain') is-invalid @enderror"
                                                 id="valjaraktempuh_pagamalain" name="valjaraktempuh_pagamalain"
                                                 placeholder="Berapa kilometer...">
@@ -425,7 +425,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="valwaktutempuh_pagamalain">WAKTU TEMPUH (JAM) </label>
-                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_pagamalain }}"
+                                            <input type="number" value="{{ $akses_pendidikan->waktutempuh_pagamalain  ?? '' }}"
                                                 class="form-control @error('valwaktutempuh_pagamalain') is-invalid @enderror"
                                                 id="valwaktutempuh_pagamalain" name="valwaktutempuh_pagamalain"
                                                 placeholder="Berapa jam...">
