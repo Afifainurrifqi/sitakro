@@ -72,7 +72,7 @@ class DatapendudukController extends Controller
     
         // membuat nama file unik
         $nama_file = rand() . $file->getClientOriginalName();
-    
+        dd($nama_file);
         // upload ke folder file_siswa di dalam folder public
         $file->move('file_datapenduduk', $nama_file);
     
