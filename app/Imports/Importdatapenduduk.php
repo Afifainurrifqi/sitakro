@@ -24,35 +24,7 @@ class Importdatapenduduk implements ToModel
     public function model(array $row)
     {
         // dd($row);
-        // foreach ($rows as $row) {
-
-            // datapenduduk::create([
-            //     // 'id'=> $row[0],
-
-            //     'nik' => $row[1], // Change 'valNIK' to 'nik'
-            //     'gelarawal' => $row[2], // Adjust column names accordingly
-            //     'nama' => $row[3],
-            //     'gelarakhir' => $row[4],
-            //     'jenis_kelamin' => $row[5],
-            //     'tempat_lahir' => $row[6],
-            //     'tanggal_lahir' => date('Y-m-d', strtotime($row[7])),
-            //     'agama_id' => $row[8],
-            //     'pendidikan_id' => $row[9],
-            //     'pekerjaan_id' => $row[10],
-            //     'goldar_id' => $row[11],
-            //     'status_id' => $row[12],
-            //     'tanggal_perkawinan' => date('Y-m-d', strtotime($row[13])),
-            //     'hubungan' => $row[14],
-            //     'ayah' => $row[15],
-            //     'ibu' => $row[16],
-            //     'alamat' => $row[17],
-            //     'RT' => $row[18],
-            //     'RW' => $row[19],
-            //     'Datak' => $row[20],
-
-
-
-            // ]);
+        
 
             $datapenduduk = new DataPenduduk;
             $datapenduduk->nik = $row[1];
