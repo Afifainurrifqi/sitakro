@@ -25,7 +25,7 @@ class StorelokasipemukimanRequest extends FormRequest
     {
         return [
            
-            'valnik_kepala' => 'required',
+            'valnik_kepala' => 'required|min:16|max:16',
             'valtempat_tinggal' => 'required',
             'valstatus_lahan' => 'required',
             'valluas_lantai_tinggal' => 'required',
