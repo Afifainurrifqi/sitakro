@@ -210,13 +210,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valExport">DI EXPORT <span
+                                    <label class="col-lg-4 col-form-label" for="valExport">DI EKSPOR <span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="number" value="{{ $dataph->expor ?? '' }}"
-                                            class="form-control @error('valExport') is-invalid @enderror" id="valExport"
-                                            name="valExport" placeholder="Tuliskan angka...">
+                                        <select class="form-control @error('valExport') is-invalid @enderror" id="valExport" name="valExport">
+                                            <option value="Tidak" {{ old('valExport') == 'Tidak' || (isset($dataph) && $dataph->expor == 'Tidak') ? 'selected' : '' }}>Tidak</option>
+                                            <option value="Semua" {{ old('valExport') == 'Semua' || (isset($dataph) && $dataph->expor == 'Semua') ? 'selected' : '' }}>Semua</option>
+                                            <option value="Sebagian besar" {{ old('valExport') == 'Sebagian besar' || (isset($dataph) && $dataph->expor == 'Sebagian besar') ? 'selected' : '' }}>Sebagian besar</option>
+                                        </select>
                                         @error('valExport')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
