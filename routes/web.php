@@ -115,19 +115,6 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
 );
 
 
-// Route::middleware(['checkrole:dasawisma'])->group(
-//     function () {
-
-
-//         // Route::get('datapenduduk/{update}', [DatapendudukController::class, 'update']);
-//         // Route::delete('datapenduduk/{destroy}', [DatapendudukController::class, 'destroy']);
-//         // Route::get('datapenduduk/{nik}', [DatapendudukController::class, 'show']);
-//         // Route::put('datapenduduk/{nik}', [DatapendudukController::class, 'update']);
-//         // Route::resource('datapenduduk', DatapendudukController::class);
-//     }
-// );
-
-
 
 
 Route::middleware(['checkrole:operator'])->group(
