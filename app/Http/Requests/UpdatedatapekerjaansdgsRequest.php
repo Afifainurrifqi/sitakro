@@ -27,7 +27,7 @@ class UpdatedatapekerjaansdgsRequest extends FormRequest
             'valKondisipekerjaan' => 'required',
             'valPekerjaanutama' => 'required',
             'valJaminanketenagakerjaan' => 'required',
-            'valPenghasilansetahun' => 'required',
+           
         ];
     }
 
@@ -42,7 +42,7 @@ class UpdatedatapekerjaansdgsRequest extends FormRequest
         
         'valJaminanketenagakerjaan.required' => ':attribute Kolom tidak boleh kosong',
         
-        'valPenghasilansetahun.required' => ':attribute Kolom tidak boleh kosong',
+       
 
         
         
@@ -55,7 +55,7 @@ class UpdatedatapekerjaansdgsRequest extends FormRequest
         'valKondisipekerjaan' => 'Kondisipekerjaan',
         'valPekerjaanutama' => 'Pekerjaanutama',
         'valJaminanketenagakerjaan' => 'Jaminanketenagakerjaan',
-        'valPenghasilansetahun' => 'Penghasilansetahun',
+        
 
     ];
 }
