@@ -24,15 +24,10 @@ class StoredataindividuRequest extends FormRequest
     public function rules()
     {
         return [
-            'valUsiapertamamenikah' => 'required',
+           
             'valSukubangsa' => 'required',
             'valWarganegara' => 'required',
-            'valNohp' => 'required',
-            'valNowa' => 'required',
-            'valEmail' => 'required',
-            'valFacebook' => 'required',
-            'valTwitter' => 'required',
-            'valInstagram' => 'required',
+            
         ];
     }
     
@@ -42,23 +37,13 @@ class StoredataindividuRequest extends FormRequest
     return [
         
         
-        'valUsiapertamamenikah.required' => ':attribute Kolom tidak boleh kosong',
+        
         
         'valSukubangsa.required' => ':attribute Kolom tidak boleh kosong',
         
         'valWarganegara.required' => ':attribute Kolom tidak boleh kosong',
         
-        'valNohp.required' => ':attribute Kolom tidak boleh kosong',
-
-        'valNowa.required' => ':attribute Kolom tidak boleh kosong',
         
-        'valEmail.required' => ':attribute Kolom tidak boleh kosong',
-        
-        'valFacebook.required' => ':attribute Kolom tidak boleh kosong',
-        
-        'valTwitter.required' => ':attribute Kolom tidak boleh kosong',
-        
-        'valInstagram.required' => ':attribute Kolom tidak boleh kosong',
         
         
         
@@ -68,15 +53,10 @@ class StoredataindividuRequest extends FormRequest
     public function attributes(): array
 {
     return [
-        'valUsiapertamamenikah' => 'Usiapertamamenikah',
+        
         'valSukubangsa' => 'Sukubangsa',
         'valWarganegara' => 'Warganegara',
-        'valNohp' => 'Nohp',
-        'valNowa' => 'Nowa',
-        'valEmail' => 'Email',
-        'valFacebook' => 'Facebook',
-        'valTwitter' => 'Twitter',
-        'valInstagram' => 'Instagram',
+       
     ];
 }
 
