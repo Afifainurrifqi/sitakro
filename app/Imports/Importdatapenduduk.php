@@ -29,7 +29,7 @@ class Importdatapenduduk implements ToModel
     //    dd($row);
 
             $datapenduduk = new DataPenduduk;
-            $datapenduduk->nik = $row[1];
+            $datapenduduk->nik = strval($row[1]);
             $datapenduduk->gelarawal = $row[2];
             $datapenduduk->nama = $row[3];
             $datapenduduk->gelarakhir = $row[4];
@@ -56,7 +56,7 @@ class Importdatapenduduk implements ToModel
             //     'nokk' => $row[0],
             // ]);
             $kartuk = new kk;
-            $kartuk->nokk = $row[0];
+            $kartuk->nokk = strval($row[0]);
             $kartuk->save();
 
             // detailkk::create([
