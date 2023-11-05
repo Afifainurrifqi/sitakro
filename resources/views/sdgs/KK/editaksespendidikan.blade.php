@@ -83,7 +83,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_tk">JARAK TEMPUH (KM)</label>
-                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_tk ?? '' }}  "
+                                            <input type="number" value="{{ $akses_pendidikan->jaraktempuh_tk ?? '' }}"
                                                 class="form-control @error('valjaraktempuh_tk') is-invalid @enderror"
                                                 id="valjaraktempuh_tk" name="valjaraktempuh_tk"
                                                 placeholder="Berapa kilometer...">
