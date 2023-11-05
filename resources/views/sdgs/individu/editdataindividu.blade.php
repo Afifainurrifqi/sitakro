@@ -153,7 +153,7 @@
                                 <label class="col-lg-4 col-form-label" for="valNohp">Nomer HP <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text" value="{{ $datai->nohp ?? '' }}" class="form-control @error('valNohp') is-invalid @enderror" id="valNohp" name="valNohp"  placeholder="Tulis Nomermu">
+                                    <input type="text" value="{{ $datai->nohp ?? '' }}" pattern="[0-9]+" class="form-control @error('valNohp') is-invalid @enderror" id="valNohp" name="valNohp"  placeholder="Tulis Nomermu">
                                     @error('valNohp')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
@@ -165,7 +165,7 @@
                                 <label class="col-lg-4 col-form-label" for="valNowa">Nomer Whatsapp <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text" value="{{ $datai->nowa ?? '' }}" class="form-control @error('valNowa') is-invalid @enderror" id="valNowa" name="valNowa"  placeholder="Tulis Nomermu">
+                                    <input type="text" value="{{ $datai->nowa ?? '' }}" pattern="[0-9]+" class="form-control @error('valNowa') is-invalid @enderror" id="valNowa" name="valNowa"  placeholder="Tulis Nomermu">
                                     @error('valNowa')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
