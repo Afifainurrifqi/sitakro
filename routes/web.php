@@ -23,6 +23,7 @@ Route::get('/login', [SesiController::class, 'index'])->name('login');
 Route::post('/login', [SesiController::class, 'login']);
 Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
 Route::get('/errorsrole', [SesiController::class, 'error']);
+Route::get('/maintance', [SesiController::class, 'maintance'])->name('maintance');
 
 
 

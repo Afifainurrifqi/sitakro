@@ -21,6 +21,11 @@ class SesiController extends Controller
         return view('errorsrole');
     }
 
+    function maintance()
+    {
+        return view('maintance');
+    }
+
     function login(Request $request)
     {
         $request->validate([

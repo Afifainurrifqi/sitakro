@@ -203,10 +203,10 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('lokasipemukiman.index') }}">Lokasi dan pemukiman</a></li>
                             <li><a href="{{ route('aksespendidikan.index') }}">Akses pendidikan</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Akses kesehatan</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Akses tenaga kerja</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Akses sarana prasarana</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Lain-lain</a></li>
+                            <li><a href="{{ route('maintance') }}">Akses kesehatan</a></li>
+                            <li><a href="{{ route('maintance') }}">Akses tenaga kerja</a></li>
+                            <li><a href="{{ route('maintance') }}">Akses sarana prasarana</a></li>
+                            <li><a href="{{ route('maintance') }}">Lain-lain</a></li>
                         </ul>
                     </li>
                     <li>
@@ -215,24 +215,24 @@
                             <i class="icon-graph menu-icon"></i> <span class="nav-text">RT</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Lokasi</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Pengurus</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Lembaga Ekonomi</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Industri</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Sarana Ekonomi</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Infrastuktur</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Lingkungan</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Bencana</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Mitigasi Bencana</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Sarana pendidikan</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Kesehatan</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">KAjian Luar biasa</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Agama/Sosbud</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Lembaga agama</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Lembaga masyarakat</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Keamanan</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">Tindak kejahatan</a></li>
-                            <li><a href="{{ '/sdgs/individu/dataindividu' }}">KEGIATAN WARGA UNTUK MENJAGA KEAMANAN
+                            <li><a href="{{ route('maintance') }}">Lokasi</a></li>
+                            <li><a href="{{ route('maintance') }}">Pengurus</a></li>
+                            <li><a href="{{ route('maintance') }}">Lembaga Ekonomi</a></li>
+                            <li><a href="{{ route('maintance') }}">Industri</a></li>
+                            <li><a href="{{ route('maintance') }}">Sarana Ekonomi</a></li>
+                            <li><a href="{{ route('maintance') }}">Infrastuktur</a></li>
+                            <li><a href="{{ route('maintance') }}">Lingkungan</a></li>
+                            <li><a href="{{ route('maintance') }}">Bencana</a></li>
+                            <li><a href="{{ route('maintance') }}">Mitigasi Bencana</a></li>
+                            <li><a href="{{ route('maintance') }}">Sarana pendidikan</a></li>
+                            <li><a href="{{ route('maintance') }}">Kesehatan</a></li>
+                            <li><a href="{{ route('maintance') }}">KAjian Luar biasa</a></li>
+                            <li><a href="{{ route('maintance') }}">Agama/Sosbud</a></li>
+                            <li><a href="{{ route('maintance') }}">Lembaga agama</a></li>
+                            <li><a href="{{ route('maintance') }}">Lembaga masyarakat</a></li>
+                            <li><a href="{{ route('maintance') }}">Keamanan</a></li>
+                            <li><a href="{{ route('maintance') }}">Tindak kejahatan</a></li>
+                            <li><a href="{{ route('maintance') }}">KEGIATAN WARGA UNTUK MENJAGA KEAMANAN
                                     LINGKUNGAN SELAMA SATU TAHUN TERAKHIR</a></li>
                         </ul>
                     </li>
