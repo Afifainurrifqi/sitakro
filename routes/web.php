@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AkseskesehatanController;
 use App\Http\Controllers\AksesPendidikanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatadasawismaController;
@@ -44,6 +45,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/individu/datasdgspendidikan', [SdgspendidikanController::class, 'index'])->name('pendidikan.index');
         Route::get('sdgs/KK/lokasidanpemukiman', [LokasipemukimanController::class, 'index'])->name('lokasipemukiman.index');
         Route::get('sdgs/KK/aksespendidikan', [AksesPendidikanController::class, 'index'])->name('aksespendidikan.index');
+        Route::get('sdgs/KK/akseskesehatan', [AkseskesehatanController::class, 'index'])->name('akseskesehatan.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -105,6 +107,7 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::get('sdgs/KK/editaksespendidikan/{nik}', [AksesPendidikanController::class, 'create'])->name('aksespendidikan.edit');
         Route::post('sdgs/KK/editaksespendidikan', [AksesPendidikanController::class, 'store'])->name('aksespendidikan.update');
         Route::get('sdgs/KK/aksespendidikan/{show}', [AksesPendidikanController::class, 'show'])->name('aksespendidikan.show');
+        Route::get('sdgs/KK/editakseskesehatan/{nik}', [AkseskesehatanController::class, 'create'])->name('akseskesehatan.edit');
 
 
 
