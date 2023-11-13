@@ -70,7 +70,38 @@ class AkseskesehatanController extends Controller
      */
     public function store(StoreakseskesehatanRequest $request)
     {
-        //
+        $akses_kesehatan = akseskesehatan::where('nik', $request->valNIK)->first();
+        if ($akses_kesehatan == NULL ) {
+            $akses_kesehatan = new akseskesehatan();
+        }
+        $akses_kesehatan->nik = $request->valNIK;      
+        $akses_kesehatan-> jaraktempuh_rumahs = $request->valjaraktempuh_rumahs;
+        $akses_kesehatan-> waktutempuh_rumahs = $request->valwaktutempuh_rumahs;
+        $akses_kesehatan-> kemudahan_rumahs = $request->valkemudahan_rumahs;
+        $akses_kesehatan-> jaraktempuh_rumahb = $request->valjaraktempuh_rumahb;
+        $akses_kesehatan-> waktutempuh_rumahb = $request->valwaktutempuh_rumahb;
+        $akses_kesehatan-> kemudahan_rumahb = $request->valkemudahan_rumahb;
+        $akses_kesehatan-> jaraktempuh_poliklinik = $request->valjaraktempuh_poliklinik;
+        $akses_kesehatan-> waktutempuh_poliklinik = $request->valwaktutempuh_poliklinik;
+        $akses_kesehatan-> kemudahan_poliklinik = $request->valkemudahan_poliklinik;
+        $akses_kesehatan-> jaraktempuh_puskesmas = $request->valjaraktempuh_puskesmas;
+        $akses_kesehatan-> waktutempuh_puskesmas = $request->valwaktutempuh_puskesmas;
+        $akses_kesehatan-> kemudahan_puskesmas = $request->valkemudahan_puskesmas;
+        $akses_kesehatan-> jaraktempuh_poskedes = $request->valjaraktempuh_poskedes;
+        $akses_kesehatan-> waktutempuh_poskedes = $request->valwaktutempuh_poskedes;
+        $akses_kesehatan-> kemudahan_poskedes = $request->valkemudahan_poskedes;
+        $akses_kesehatan-> jaraktempuh_posyandu = $request->valjaraktempuh_posyandu;
+        $akses_kesehatan-> waktutempuh_posyandu = $request->valwaktutempuh_posyandu;
+        $akses_kesehatan-> kemudahan_posyandu = $request->valkemudahan_posyandu;
+        $akses_kesehatan-> jaraktempuh_apotik = $request->valjaraktempuh_apotik;
+        $akses_kesehatan-> waktutempuh_apotik = $request->valwaktutempuh_apotik;
+        $akses_kesehatan-> kemudahan_apotik = $request->valkemudahan_apotik;
+        $akses_kesehatan-> jaraktempuh_toko_obat = $request->valjaraktempuh_toko_obat;
+        $akses_kesehatan-> waktutempuh_toko_obat = $request->valwaktutempuh_toko_obat;
+        $akses_kesehatan-> kemudahan_toko_obat = $request->valkemudahan_toko_obat;
+
+        $akses_kesehatan->save();
+        return redirect()->route('akseskesehatan.show',['show'=> $request->valNIK ]);
     }
 
     /**
@@ -79,9 +110,17 @@ class AkseskesehatanController extends Controller
      * @param  \App\Models\akseskesehatan  $akseskesehatan
      * @return \Illuminate\Http\Response
      */
-    public function show(akseskesehatan $akseskesehatan)
+    public function show(akseskesehatan $akseskesehatan, $nik)
     {
-        //
+        $datap = datapenduduk::where('nik', $nik)->first();
+        $akses_kesehatan = akseskesehatan::where('nik',$nik)->first();
+        $agama = Agama::all();
+        $pendidikan = Pendidikan::all();
+        $pekerjaan = Pekerjaan::all();
+        $goldar = Goldar::all();
+        $status = Status::all();
+
+        return view('sdgs.KK.showakseskesehatan', compact('akses_kesehatan', 'datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**

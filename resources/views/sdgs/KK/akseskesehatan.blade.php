@@ -55,7 +55,7 @@
                                 
                                 @foreach ( $datapenduduk as $row )
                                     <tr> 
-                                        <td><a href="{{ route('aksespendidikan.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                        <td><a href="{{ route('akseskesehatan.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
                                             <i class="fas fa-book"></i>                                        </a>
                                             <a href="{{ route('akseskesehatan.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                                                 <i class="fas fa-edit"></i>

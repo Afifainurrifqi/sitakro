@@ -8,7 +8,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">EDIT AKSES PENDIDIKAN {{ $datap->nama }}</h1>
+                        <h1 class="card-title">AKSES PENDIDIKAN {{ $datap->nama }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('aksespendidikan.index') }}'">Kembali
                         </button>
