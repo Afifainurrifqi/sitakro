@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkseskesehatanController;
 use App\Http\Controllers\AksesPendidikanController;
+use App\Http\Controllers\AksestenagakerjaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatadasawismaController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/KK/lokasidanpemukiman', [LokasipemukimanController::class, 'index'])->name('lokasipemukiman.index');
         Route::get('sdgs/KK/aksespendidikan', [AksesPendidikanController::class, 'index'])->name('aksespendidikan.index');
         Route::get('sdgs/KK/akseskesehatan', [AkseskesehatanController::class, 'index'])->name('akseskesehatan.index');
+        Route::get('sdgs/KK/aksestenagakerja', [AksestenagakerjaController::class, 'index'])->name('aksestenagakerja.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -110,6 +112,12 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::get('sdgs/KK/editakseskesehatan/{nik}', [AkseskesehatanController::class, 'create'])->name('akseskesehatan.edit');
         Route::post('sdgs/KK/editakseskesehatan', [AkseskesehatanController::class, 'store'])->name('akseskesehatan.update');
         Route::get('sdgs/KK/akseskesehatan/{show}', [AkseskesehatanController::class, 'show'])->name('akseskesehatan.show');
+        Route::get('sdgs/KK/editaksestenagakerja/{nik}', [AksestenagakerjaController::class, 'create'])->name('aksestenagakerja.edit');
+        Route::post('sdgs/KK/editaksestenagakerja', [AksestenagakerjaController::class, 'store'])->name('aksestenagakerja.update');
+        Route::get('sdgs/KK/aksestenagakerja/{show}', [AksestenagakerjaController::class, 'show'])->name('aksestenagakerja.show');
+
+
+
 
 
 
