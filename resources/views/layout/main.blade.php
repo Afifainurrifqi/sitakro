@@ -205,7 +205,7 @@
                             <li><a href="{{ route('aksespendidikan.index') }}">Akses pendidikan</a></li>
                             <li><a href="{{ route('akseskesehatan.index') }}">Akses kesehatan</a></li>
                             <li><a href="{{ route('aksestenagakerja.index') }}">Akses tenaga kesehatan</a></li>
-                            <li><a href="{{ route('maintance') }}">Akses sarana prasarana</a></li>
+                            <li><a href="{{ route('aksessarpras.index') }}">Akses sarana prasarana</a></li>
                             <li><a href="{{ route('maintance') }}">Lain-lain</a></li>
                         </ul>
                     </li>
