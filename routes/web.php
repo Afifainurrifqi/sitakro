@@ -3,6 +3,7 @@
 use App\Http\Controllers\AkseskesehatanController;
 use App\Http\Controllers\AksesPendidikanController;
 use App\Http\Controllers\AksessarprasController;
+use App\Http\Controllers\LainkController;
 use App\Http\Controllers\AksestenagakerjaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatadasawismaController;
@@ -50,6 +51,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/KK/akseskesehatan', [AkseskesehatanController::class, 'index'])->name('akseskesehatan.index');
         Route::get('sdgs/KK/aksestenagakerja', [AksestenagakerjaController::class, 'index'])->name('aksestenagakerja.index');
         Route::get('sdgs/KK/aksessarpras', [AksessarprasController::class, 'index'])->name('aksessarpras.index');
+        Route::get('sdgs/KK/laink', [LainkController::class, 'index'])->name('laink.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -120,6 +122,12 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::get('sdgs/KK/editaksespras/{nik}', [AksessarprasController::class, 'create'])->name('aksessarpras.edit');
         Route::post('sdgs/KK/editaksespras', [AksessarprasController::class, 'store'])->name('aksessarpras.update');
         Route::get('sdgs/KK/aksessarpras/{show}', [AksessarprasController::class, 'show'])->name('aksessarpras.show');
+        Route::get('sdgs/KK/editlaink/{nik}', [LainkController::class, 'create'])->name('editlaink.edit');
+        Route::post('sdgs/KK/editlaink', [LainkController::class, 'store'])->name('laink.update');
+        Route::get('sdgs/KK/laink/{show}', [LainkController::class, 'show'])->name('laink.show');
+
+
+
 
 
 

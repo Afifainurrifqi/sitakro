@@ -44,24 +44,28 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNowa">No Hp <span
-                                            class="text-danger">*</span>
+                                    @if ($datai)
+                                        <label class="col-lg-4 col-form-label" for="valNowa">No Hp <span class="text-danger">*</span>
                                             <input type="hidden" name="valNowa" value="{{ $datai->nowa }}">
-                                    </label>
-                                    <div class="col-lg-6">
-                                        {{ $datai->nowa }}
-                                    </div>
+                                        </label>
+                                        <div class="col-lg-6">
+                                            {{ $datai->nowa }}
+                                        </div>
+                                    @endif
                                 </div>
+                                
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNohp">NO. Telpon Rumah
-                                        <span
-                                            class="text-danger">*</span>
+                                    @if ($datai)
+                                        <label class="col-lg-4 col-form-label" for="valNohp">NO. Telpon Rumah
+                                            <span class="text-danger">*</span>
                                             <input type="hidden" name="valNohp" value="{{ $datai->nohp }}">
-                                    </label>
-                                    <div class="col-lg-6">
-                                        {{ $datai->nohp }}
-                                    </div>
+                                        </label>
+                                        <div class="col-lg-6">
+                                            {{ $datai->nohp }}
+                                        </div>
+                                    @endif
                                 </div>
+                                
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnik_kepala">NIK Kepala Keluarga
                                         <span class="text-danger">*</span>

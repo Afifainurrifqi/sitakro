@@ -160,7 +160,7 @@
                                         PENGHASILAN <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="number"  value="{{ $dataph->jumlah_asset_darip ?? '' }}"  class="form-control @error('valJumlahasset') is-invalid @enderror" id="valJumlahasset" name="valJumlahasset"  placeholder="Tulis Nominalnya"
+                                        <input type="number"  value="{{ $dataph->jumlah_asset_darip ?? '' }}"  class="form-control @error('valJumlahasset') is-invalid @enderror" id="valJumlahasset" name="valJumlahasset" 
                                             class="form-control @error('valJumlahasset') is-invalid @enderror"
                                             id="valJumlahasset" name="valJumlahasset" placeholder="Tuliskan angka..."  >
                                             

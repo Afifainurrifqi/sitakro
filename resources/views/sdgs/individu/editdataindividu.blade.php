@@ -100,7 +100,7 @@
                                 <label class="col-lg-4 col-form-label" for="valUsiapertamamenikah">Usia saat pertama kali menikah <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text"  class="form-control @error('valUsiapertamamenikah') is-invalid @enderror" id="valUsiapertamamenikah" name="valUsiapertamamenikah" value="{{ $datai->usia_saat_pertama_kali_menikah ?? ''}}" placeholder="Usia...">
+                                    <input type="number"  class="form-control @error('valUsiapertamamenikah') is-invalid @enderror" id="valUsiapertamamenikah" name="valUsiapertamamenikah" value="{{ $datai->usia_saat_pertama_kali_menikah ?? ''}}" placeholder="Usia berapa tahun...">
                                     @error('valUsiapertamamenikah')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}

@@ -206,7 +206,7 @@
                             <li><a href="{{ route('akseskesehatan.index') }}">Akses kesehatan</a></li>
                             <li><a href="{{ route('aksestenagakerja.index') }}">Akses tenaga kesehatan</a></li>
                             <li><a href="{{ route('aksessarpras.index') }}">Akses sarana prasarana</a></li>
-                            <li><a href="{{ route('maintance') }}">Lain-lain</a></li>
+                            <li><a href="{{ route('laink.index') }}">Lain-lain</a></li>
                         </ul>
                     </li>
                     <li>
