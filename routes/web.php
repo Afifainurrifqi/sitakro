@@ -17,9 +17,11 @@ use App\Http\Controllers\JenisdisabilitasController;
 use App\Http\Controllers\KkController;
 use App\Http\Controllers\LokasipemukimanController;
 use App\Http\Controllers\PenghasilanController;
+use App\Http\Controllers\RtlokasiController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
+use App\Models\rtlokasi;
 
 Route::get('/', [DashboardController::class, 'landingpage'])->name('landingpage');
 
@@ -52,6 +54,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/KK/aksestenagakerja', [AksestenagakerjaController::class, 'index'])->name('aksestenagakerja.index');
         Route::get('sdgs/KK/aksessarpras', [AksessarprasController::class, 'index'])->name('aksessarpras.index');
         Route::get('sdgs/KK/laink', [LainkController::class, 'index'])->name('laink.index');
+        Route::get('sdgs/rt/rtlokasi', [RtlokasiController::class, 'index'])->name('rtlokasi.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -125,6 +128,12 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::get('sdgs/KK/editlaink/{nik}', [LainkController::class, 'create'])->name('editlaink.edit');
         Route::post('sdgs/KK/editlaink', [LainkController::class, 'store'])->name('laink.update');
         Route::get('sdgs/KK/laink/{show}', [LainkController::class, 'show'])->name('laink.show');
+        Route::get('sdgs/RT/editrtlokasi/{nik}', [RtlokasiController::class, 'create'])->name('rtlokasi.edit');
+        Route::post('sdgs/RT/editrtlokasi', [RtlokasiController::class, 'store'])->name('rtlokasi.update');
+        Route::get('sdgs/RT/rtlokasi/{show}', [RtlokasiController::class, 'show'])->name('rtlokasi.show');
+
+
+
 
 
 

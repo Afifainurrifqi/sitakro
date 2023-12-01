@@ -215,7 +215,7 @@
                             <i class="icon-graph menu-icon"></i> <span class="nav-text">RT</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('maintance') }}">Lokasi</a></li>
+                            <li><a href="{{ route('rtlokasi.index') }}">Lokasi</a></li>
                             <li><a href="{{ route('maintance') }}">Pengurus</a></li>
                             <li><a href="{{ route('maintance') }}">Lembaga Ekonomi</a></li>
                             <li><a href="{{ route('maintance') }}">Industri</a></li>

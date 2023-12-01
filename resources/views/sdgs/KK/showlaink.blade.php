@@ -228,7 +228,6 @@
                                             <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                             Data tidak tersedia.
                                         @endif
-                                 
                                         @error('valrata_rata')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -236,9 +235,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
-
-                               
                             </form>
                         </div>
                     </div>
