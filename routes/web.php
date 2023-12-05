@@ -17,7 +17,9 @@ use App\Http\Controllers\JenisdisabilitasController;
 use App\Http\Controllers\KkController;
 use App\Http\Controllers\LokasipemukimanController;
 use App\Http\Controllers\PenghasilanController;
+use App\Http\Controllers\RtindustriController;
 use App\Http\Controllers\RtlokasiController;
+use App\Http\Controllers\RtpuengurusController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
@@ -55,6 +57,8 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/KK/aksessarpras', [AksessarprasController::class, 'index'])->name('aksessarpras.index');
         Route::get('sdgs/KK/laink', [LainkController::class, 'index'])->name('laink.index');
         Route::get('sdgs/rt/rtlokasi', [RtlokasiController::class, 'index'])->name('rtlokasi.index');
+        Route::get('sdgs/rt/rtpengurus', [RtpuengurusController::class, 'index'])->name('rtpengurus.index');
+        Route::get('sdgs/rt/rtindustri', [RtindustriController::class, 'index'])->name('rtindustri.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -131,6 +135,14 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::get('sdgs/RT/editrtlokasi/{nik}', [RtlokasiController::class, 'create'])->name('rtlokasi.edit');
         Route::post('sdgs/RT/editrtlokasi', [RtlokasiController::class, 'store'])->name('rtlokasi.update');
         Route::get('sdgs/RT/rtlokasi/{show}', [RtlokasiController::class, 'show'])->name('rtlokasi.show');
+        Route::get('sdgs/RT/editrtpengurus/{nik}', [RtpuengurusController::class, 'create'])->name('rtpengurus.edit');
+        Route::post('sdgs/RT/editrtpengurus', [RtpuengurusController::class, 'store'])->name('rtpengurus.update');
+        Route::get('sdgs/RT/rtpengurus/{show}', [RtpuengurusController::class, 'show'])->name('rtpengurus.show');
+        Route::get('sdgs/RT/editrtindustri/{nik}', [RtindustriController::class, 'create'])->name('rtindustri.edit');
+        Route::post('sdgs/RT/editrtindustri', [RtindustriController::class, 'store'])->name('rtindustri.update');
+        Route::get('sdgs/RT/rtindustri/{show}', [RtindustriController::class, 'show'])->name('rtindustri.show');
+
+
 
 
 

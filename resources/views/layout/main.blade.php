@@ -216,9 +216,9 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('rtlokasi.index') }}">Lokasi</a></li>
-                            <li><a href="{{ route('maintance') }}">Pengurus</a></li>
+                            <li><a href="{{ route('rtpengurus.index') }}">Pengurus</a></li>
                             <li><a href="{{ route('maintance') }}">Lembaga Ekonomi</a></li>
-                            <li><a href="{{ route('maintance') }}">Industri</a></li>
+                            <li><a  href="{{ route('rtindustri.index') }}">Industri</a></li>
                             <li><a href="{{ route('maintance') }}">Sarana Ekonomi</a></li>
                             <li><a href="{{ route('maintance') }}">Infrastuktur</a></li>
                             <li><a href="{{ route('maintance') }}">Lingkungan</a></li>
