@@ -20,6 +20,7 @@ use App\Http\Controllers\PenghasilanController;
 use App\Http\Controllers\RtindustriController;
 use App\Http\Controllers\RtlokasiController;
 use App\Http\Controllers\RtpuengurusController;
+use App\Http\Controllers\RtSaranaEkonomiController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
@@ -59,6 +60,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/rt/rtlokasi', [RtlokasiController::class, 'index'])->name('rtlokasi.index');
         Route::get('sdgs/rt/rtpengurus', [RtpuengurusController::class, 'index'])->name('rtpengurus.index');
         Route::get('sdgs/rt/rtindustri', [RtindustriController::class, 'index'])->name('rtindustri.index');
+        Route::get('sdgs/rt/rtsare', [RtSaranaEkonomiController::class, 'index'])->name('rtsare.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -141,7 +143,9 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::get('sdgs/RT/editrtindustri/{nik}', [RtindustriController::class, 'create'])->name('rtindustri.edit');
         Route::post('sdgs/RT/editrtindustri', [RtindustriController::class, 'store'])->name('rtindustri.update');
         Route::get('sdgs/RT/rtindustri/{show}', [RtindustriController::class, 'show'])->name('rtindustri.show');
-
+        Route::get('sdgs/RT/editrtsare/{nik}', [RtSaranaEkonomiController::class, 'create'])->name('rtsare.edit');
+        Route::post('sdgs/RT/editrtsare', [RtSaranaEkonomiController::class, 'store'])->name('rtsare.update');
+        Route::get('sdgs/RT/rtsare/{show}', [RtSaranaEkonomiController::class, 'show'])->name('rtsare.show');
 
 
 

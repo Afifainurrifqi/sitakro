@@ -14,8 +14,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                           </div>
                     @endif
-                        <h2 class="card-title">PENGURUS</h2>
-                        <form action="{{ route('rtpengurus.index') }}" method="GET">
+                        <h2 class="card-title">INDUSTRI</h2>
+                        <form action="{{ route('rtindustri.index') }}" method="GET">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
                                 <button class="btn btn-outline-secondary" type="submit">Cari</button>
