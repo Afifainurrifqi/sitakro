@@ -34,7 +34,7 @@
         </div>
 
         <div class="row">
-           
+
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -75,7 +75,7 @@
         </div>
 
 
-        
+
 
 
 
@@ -152,67 +152,67 @@
 
             // {{-- KELAHIRAN --}}
             document.addEventListener('DOMContentLoaded', function() {
-    // Ambil elemen canvas dan tahun dari halaman
-    const canvas = document.getElementById('bayiChart');
-    const selectYear = document.getElementById('selectYear');
+                // Ambil elemen canvas dan tahun dari halaman
+                const canvas = document.getElementById('bayiChart');
+                const selectYear = document.getElementById('selectYear');
 
-    // Inisialisasi konteks dan set default tahun
-    var ctx3 = canvas.getContext('2d');
-    let selectedYear = selectYear.value;
+                // Inisialisasi konteks dan set default tahun
+                var ctx3 = canvas.getContext('2d');
+                let selectedYear = selectYear.value;
 
-    // Inisialisasi variabel untuk menyimpan instance grafik
-    let bayiChartInstance = null;
+                // Inisialisasi variabel untuk menyimpan instance grafik
+                let bayiChartInstance = null;
 
-    // Fungsi untuk memperbarui grafik dengan data baru
-    function updateChart(year) {
-        // Gunakan AJAX untuk mengambil data dari metode Anda
-        fetch(`/get-birth-data/${year}`)
-            .then(response => response.json())
-            .then(data => {
-                const months = Object.keys(data);
-                const counts = Object.values(data);
+                // Fungsi untuk memperbarui grafik dengan data baru
+                function updateChart(year) {
+                    // Gunakan AJAX untuk mengambil data dari metode Anda
+                    fetch(`/get-birth-data/${year}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const months = Object.keys(data);
+                            const counts = Object.values(data);
 
-                // Periksa apakah ada instance grafik sebelumnya
-                if (bayiChartInstance) {
-                    bayiChartInstance.data.labels = months;
-                    bayiChartInstance.data.datasets[0].data = counts;
-                    bayiChartInstance.update();
-                } else {
-                    // Jika tidak ada instance grafik, buat baru
-                    bayiChartInstance = new Chart(ctx3, {
-                        type: 'line',
-                        data: {
-                            labels: months,
-                            datasets: [{
-                                label: 'Jumlah Kelahiran',
-                                data: counts,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                            // Periksa apakah ada instance grafik sebelumnya
+                            if (bayiChartInstance) {
+                                bayiChartInstance.data.labels = months;
+                                bayiChartInstance.data.datasets[0].data = counts;
+                                bayiChartInstance.update();
+                            } else {
+                                // Jika tidak ada instance grafik, buat baru
+                                bayiChartInstance = new Chart(ctx3, {
+                                    type: 'line',
+                                    data: {
+                                        labels: months,
+                                        datasets: [{
+                                            label: 'Jumlah Kelahiran',
+                                            data: counts,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
                             }
-                        }
-                    });
+                        });
                 }
+
+                // Panggil fungsi pertama kali
+                updateChart(selectedYear);
+
+                // Tambahkan event listener untuk mengupdate grafik saat tahun berubah
+                selectYear.addEventListener('change', function() {
+                    selectedYear = selectYear.value;
+                    // Perbarui grafik dengan tahun baru
+                    updateChart(selectedYear);
+                });
             });
-    }
-
-    // Panggil fungsi pertama kali
-    updateChart(selectedYear);
-
-    // Tambahkan event listener untuk mengupdate grafik saat tahun berubah
-    selectYear.addEventListener('change', function() {
-        selectedYear = selectYear.value;
-        // Perbarui grafik dengan tahun baru
-        updateChart(selectedYear);
-    });
-});
 
 
             // {{-- stastik penduduk --}}
@@ -229,10 +229,10 @@
 
 
     </div>
-  
 
 
 
-    
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endsection

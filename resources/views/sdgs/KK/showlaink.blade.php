@@ -7,7 +7,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">EDIT LAIN-LAIN	
+                        <h1 class="card-title">LAIN-LAIN	
                             {{ $datap->nama }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('laink.index') }}'">Kembali

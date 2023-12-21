@@ -220,14 +220,14 @@
                             <li><a href="{{ route('maintance') }}">Lembaga Ekonomi</a></li>
                             <li><a  href="{{ route('rtindustri.index') }}">Industri</a></li>
                             <li><a href="{{ route('rtsare.index') }}">Sarana Ekonomi</a></li>
-                            <li><a href="{{ route('rtsare.index') }}">Fasilitas Ekonomi</a></li>
-                            <li><a href="{{ route('maintance') }}">Infrastuktur</a></li>
-                            <li><a href="{{ route('maintance') }}">Lingkungan</a></li>
-                            <li><a href="{{ route('maintance') }}">Bencana</a></li>
-                            <li><a href="{{ route('maintance') }}">Mitigasi Bencana</a></li>
-                            <li><a href="{{ route('maintance') }}">Sarana pendidikan</a></li>
-                            <li><a href="{{ route('maintance') }}">Kesehatan</a></li>
-                            <li><a href="{{ route('maintance') }}">KAjian Luar biasa</a></li>
+                            <li><a href="{{ route('rt_fasilitas_ekonomi.index') }}">Fasilitas Ekonomi</a></li>
+                            <li><a href="{{ route('rtinfrastuktur.index') }}">Infrastuktur</a></li>
+                            <li><a href="{{ route('rtlingkungan.index') }}">Lingkungan</a></li>
+                            <li><a href="{{ route('rtbencana.index') }}">Bencana</a></li>
+                            <li><a href="{{ route('rtmitigasib.index') }}">Mitigasi Bencana</a></li>
+                            <li><a href="{{ route('rt_saranapendidikan.index') }}">Sarana pendidikan</a></li>
+                            <li><a href="{{ route('rt_kesehatan.index') }}">Kesehatan</a></li>
+                            <li><a href="{{ route('rt_kejadianluarbiasa.index') }}">Kajian Luar biasa</a></li>
                             <li><a href="{{ route('maintance') }}">Agama/Sosbud</a></li>
                             <li><a href="{{ route('maintance') }}">Lembaga agama</a></li>
                             <li><a href="{{ route('maintance') }}">Lembaga masyarakat</a></li>
@@ -237,7 +237,7 @@
                                     LINGKUNGAN SELAMA SATU TAHUN TERAKHIR</a></li>
                         </ul>
                     </li>
-               
+            
                 </ul>
                 </li>
                 </ul>
