@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class Storelembaga_masyarakatRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
+    public function rules()
+    {
+        return [
+            
+
+            'valnama'  => 'required',
+            'valjumlah_kel'  => 'required',
+            'valjumlah_peng'  => 'required',
+            'valjumlah_ang'  => 'required',
+            'valfasilitas'  => 'required',
+           
+           
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'valnama.required' => ':Attribute tidak boleh kosong',
+            'valjumlah_kel.required' => ':Attribute tidak boleh kosong',
+            'valjumlah_peng.required' => ':Attribute tidak boleh kosong',
+            'valjumlah_ang.required' => ':Attribute tidak boleh kosong',
+            'valfasilitas.required' => ':Attribute tidak boleh kosong',
+
+
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+
+
+            'valnama' => 'valnama',
+            'valjumlah_kel' => 'valjumlah_kel',
+            'valjumlah_peng' => 'valjumlah_peng',
+            'valjumlah_ang' => 'valjumlah_ang',
+            'valfasilitas' => 'valfasilitas',
+           
+
+        ];
+    }
+}
+
+
+

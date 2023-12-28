@@ -1,0 +1,338 @@
+@extends('layout.main')
+
+
+@section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">EDIT KEGIATAN WARGA UNTUK MENJAGA KEAMANAN LINGKUNGAN SELAMA SATU TAHUN
+                            TERAKHIR
+
+
+                            {{ $datap->nama }}</h1>
+                        <button type="button" class="btn mb-1 btn-warning"
+                            onclick="window.location='{{ route('rt_kegiatanwarga.index') }}'">Kembali
+                        </button>
+                        <br><br><br>
+                        <div class="form-validation">
+                            <form class="form-valide" action="{{ route('rt_kegiatanwarga.update') }}" method="POST">
+                                @csrf
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
+                                            class="text-danger">*</span>
+                                        <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
+                                    </label>
+                                    <div class="col-lg-6">
+                                        {{ $datap->nik }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valjumlah_kpp">JUMLAH KEGIATAN PEMBANGUNAN
+                                        /PEMELIHARAAN POSKAMLING
+
+
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" value="{{ $rt_kegiatanwarga->jumlah_kpp ?? '' }}"
+                                            class="form-control @error('valjumlah_kpp') is-invalid @enderror"
+                                            id="valjumlah_kpp" name="valjumlah_kpp" placeholder="berapa jumlahnya...">
+                                        @error('valjumlah_kpp')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valjumlah_ppr">JUMLAH KEGIATAN PEMBENTUKAN
+                                        /PENGATURAN REGU KEAMANAN
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" value="{{ $rt_kegiatanwarga->jumlah_ppr ?? '' }}"
+                                            class="form-control @error('valjumlah_ppr') is-invalid @enderror"
+                                            id="valjumlah_ppr" name="valjumlah_ppr" placeholder="berapa jumlahnya...">
+                                        @error('valjumlah_ppr')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valjumlah_hansip">JUMLAH ANGGOTA HANSIP
+                                        /LINMAS YANG DITAMBAHKAN
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" value="{{ $rt_kegiatanwarga->jumlah_hansip ?? '' }}"
+                                            class="form-control @error('valjumlah_hansip') is-invalid @enderror"
+                                            id="valjumlah_hansip" name="valjumlah_hansip" placeholder="berapa jumlahnya...">
+                                        @error('valjumlah_hansip')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valpelaporan_tamu_lebih24">PELAPORAN TAMU
+                                        YANG MENGINAP LEBIH DARI 24 JAM KE APARAT LINGKUNGAN
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select
+                                            class="form-control @error('valpelaporan_tamu_lebih24') is-invalid @enderror"
+                                            id="valpelaporan_tamu_lebih24" name="valpelaporan_tamu_lebih24">
+                                            <option value="" disabled selected>Pilih...</option>
+                                            <option value="ya"
+                                                {{ old('valpelaporan_tamu_lebih24') == 'ya' || (isset($rt_kegiatanwarga) && $rt_kegiatanwarga->pelaporan_tamu_lebih24 == 'ya') ? 'selected' : '' }}>
+                                                Ya
+                                            </option>
+                                            <option value="tidak"
+                                                {{ old('valpelaporan_tamu_lebih24') == 'tidak' || (isset($rt_kegiatanwarga) && $rt_kegiatanwarga->pelaporan_tamu_lebih24 == 'tidak') ? 'selected' : '' }}>
+                                                Tidak
+                                            </option>
+                                        </select>
+                                        @error('valpelaporan_tamu_lebih24')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valsistem_keamanan">PENGAKTIFAN
+                                        SISTEM KEAMANAN
+                                        LINGKUNGAN BERASAL DARI INISIATIF WARGA
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control @error('valsistem_keamanan') is-invalid @enderror"
+                                            id="valsistem_keamanan" name="valsistem_keamanan">
+                                            <option value="" disabled selected>Pilih...</option>
+                                            <option value="ya"
+                                                {{ old('valsistem_keamanan') == 'ya' || (isset($rt_kegiatanwarga) && $rt_kegiatanwarga->sistem_keamanan == 'ya') ? 'selected' : '' }}>
+                                                Ya
+                                            </option>
+                                            <option value="tidak"
+                                                {{ old('valsistem_keamanan') == 'tidak' || (isset($rt_kegiatanwarga) && $rt_kegiatanwarga->sistem_keamanan == 'tidak') ? 'selected' : '' }}>
+                                                Tidak
+                                            </option>
+                                        </select>
+
+
+                                        @error('valsistem_keamanan')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valsistem_linmas">JUMLAH ANGGOTA LINMAS ATAU
+                                        HANSIP
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" value="{{ $rt_kegiatanwarga->sistem_linmas ?? '' }}"
+                                            class="form-control @error('valsistem_linmas') is-invalid @enderror"
+                                            id="valsistem_linmas" name="valsistem_linmas" placeholder="berapa jumlahnya...">
+                                        @error('valsistem_linmas')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label">JUMLAH POS POLISI
+
+                                        <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="valjumlahpos_digunakan">YANG DIGUNAKAN
+                                            </label>
+                                            <input type="number"
+                                                value="{{ $rt_kegiatanwarga->jumlahpos_digunakan ?? '' }}"
+                                                class="form-control @error('valjumlahpos_digunakan') is-invalid @enderror"
+                                                id="valjumlahpos_digunakan" name="valjumlahpos_digunakan"
+                                                placeholder="berapa jumlahnya...">
+                                            @error('valjumlahpos_digunakan')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjumlahpos_tidakdigunakan">YANG TIDAK DIGUNAKAN
+                                            </label>
+                                            <input type="number"
+                                                value="{{ $rt_kegiatanwarga->jumlahpos_tidakdigunakan ?? '' }}"
+                                                class="form-control @error('valjumlahpos_tidakdigunakan') is-invalid @enderror"
+                                                id="valjumlahpos_tidakdigunakan" name="valjumlahpos_tidakdigunakan"
+                                                placeholder="berapa jumlahnya...">
+                                            @error('valjumlahpos_tidakdigunakan')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valjarak_ppt">JARAK KE POS POLISI TERDEKAT
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" value="{{ $rt_kegiatanwarga->jarak_ppt ?? '' }}"
+                                            class="form-control @error('valjarak_ppt') is-invalid @enderror"
+                                            id="valjarak_ppt" name="valjarak_ppt" placeholder="berapa jumlahnya...">
+                                        @error('valjarak_ppt')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valkemudahan_ppt">KEMUDAHAN UNTUK MENCAPAI POS POLISI
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control @error('valkemudahan_ppt') is-invalid @enderror"
+                                        id="valkemudahan_ppt" name="valkemudahan_ppt">
+                                    <option value="" disabled selected>Pilih...</option>
+                                    <option value="sangat mudah"
+                                        {{ old('valkemudahan_ppt') == 'sangat mudah' || (isset($rt_kegiatanwarga) && $rt_kegiatanwarga->kemudahan_ppt == 'sangat mudah') ? 'selected' : '' }}>
+                                        Sangat Mudah
+                                    </option>
+                                    <option value="mudah"
+                                        {{ old('valkemudahan_ppt') == 'mudah' || (isset($rt_kegiatanwarga) && $rt_kegiatanwarga->kemudahan_ppt == 'mudah') ? 'selected' : '' }}>
+                                        Mudah
+                                    </option>
+                                    <option value="sulit"
+                                        {{ old('valkemudahan_ppt') == 'sulit' || (isset($rt_kegiatanwarga) && $rt_kegiatanwarga->kemudahan_ppt == 'sulit') ? 'selected' : '' }}>
+                                        Sulit
+                                    </option>
+                                </select>
+                                
+                                        @error('valkemudahan_ppt')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valjarak_korban">JUMLAH KORBAN (TERMASUK
+                                        PERCOBAAN) BUNUH DIRI
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" value="{{ $rt_kegiatanwarga->jarak_korban ?? '' }}"
+                                            class="form-control @error('valjarak_korban') is-invalid @enderror"
+                                            id="valjarak_korban" name="valjarak_korban"
+                                            placeholder="berapa jumlahnya...">
+                                        @error('valjarak_korban')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valjarak_lokasikumpul">JUMLAH LOKASI
+                                        BERKUMPUL / MANGKAL ANAK JALANAN
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number"
+                                            value="{{ $rt_kegiatanwarga->jarak_lokasikumpul ?? '' }}"
+                                            class="form-control @error('valjarak_lokasikumpul') is-invalid @enderror"
+                                            id="valjarak_lokasikumpul" name="valjarak_lokasikumpul"
+                                            placeholder="berapa jumlahnya...">
+                                        @error('valjarak_lokasikumpul')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valjarak_mangkal">JUMLAH TEMPAT MANGKAL
+                                        GELANDANGAN /PENGEMIS
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" value="{{ $rt_kegiatanwarga->jarak_mangkal ?? '' }}"
+                                            class="form-control @error('valjarak_mangkal') is-invalid @enderror"
+                                            id="valjarak_mangkal" name="valjarak_mangkal"
+                                            placeholder="berapa jumlahnya...">
+                                        @error('valjarak_mangkal')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valjarak_lokalisasi">JUMLAH LOKALISASI
+                                        /LOKASI /TEMPAT MANGKAL PEKERJA SEKS KOMERSIAL (PSK)
+
+
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="number" value="{{ $rt_kegiatanwarga->jarak_lokalisasi ?? '' }}"
+                                            class="form-control @error('valjarak_lokalisasi') is-invalid @enderror"
+                                            id="valjarak_lokalisasi" name="valjarak_lokalisasi"
+                                            placeholder="berapa jumlahnya...">
+                                        @error('valjarak_lokalisasi')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

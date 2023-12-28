@@ -217,7 +217,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('rtlokasi.index') }}">Lokasi</a></li>
                             <li><a href="{{ route('rtpengurus.index') }}">Pengurus</a></li>
-                            <li><a href="{{ route('maintance') }}">Lembaga Ekonomi</a></li>
+                            <li><a href="{{ route('rtlembaga_ekonomi.index') }}">Lembaga Ekonomi</a></li>
                             <li><a  href="{{ route('rtindustri.index') }}">Industri</a></li>
                             <li><a href="{{ route('rtsare.index') }}">Sarana Ekonomi</a></li>
                             <li><a href="{{ route('rt_fasilitas_ekonomi.index') }}">Fasilitas Ekonomi</a></li>
@@ -228,12 +228,12 @@
                             <li><a href="{{ route('rt_saranapendidikan.index') }}">Sarana pendidikan</a></li>
                             <li><a href="{{ route('rt_kesehatan.index') }}">Kesehatan</a></li>
                             <li><a href="{{ route('rt_kejadianluarbiasa.index') }}">Kajian Luar biasa</a></li>
-                            <li><a href="{{ route('maintance') }}">Agama/Sosbud</a></li>
-                            <li><a href="{{ route('maintance') }}">Lembaga agama</a></li>
-                            <li><a href="{{ route('maintance') }}">Lembaga masyarakat</a></li>
-                            <li><a href="{{ route('maintance') }}">Keamanan</a></li>
-                            <li><a href="{{ route('maintance') }}">Tindak kejahatan</a></li>
-                            <li><a href="{{ route('maintance') }}">KEGIATAN WARGA UNTUK MENJAGA KEAMANAN
+                            <li><a href="{{ route('rt_agama.index') }}">Agama/Sosbud</a></li>
+                            <li><a href="{{ route('rtlembaga_keagamaan.index') }}">Lembaga agama</a></li>
+                            <li><a href="{{ route('rtlembaga_masyarakat.index') }}">Lembaga masyarakat</a></li>
+                            <li><a href="{{ route('rt_keamanan.index') }}">Keamanan</a></li>
+                            <li><a href="{{ route('rt_tkejahatan.index') }}">Tindak kejahatan</a></li>
+                            <li><a href="{{ route('rt_kegiatanwarga.index') }}">KEGIATAN WARGA UNTUK MENJAGA KEAMANAN
                                     LINGKUNGAN SELAMA SATU TAHUN TERAKHIR</a></li>
                         </ul>
                     </li>

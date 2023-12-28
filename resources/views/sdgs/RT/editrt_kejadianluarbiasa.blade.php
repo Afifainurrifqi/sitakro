@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">EDIT KESEHATAN
+                        <h1 class="card-title">EDIT KEJADIAN LUAR BIASA
                             {{ $datap->nama }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rt_kejadianluarbiasa.index') }}'">Kembali

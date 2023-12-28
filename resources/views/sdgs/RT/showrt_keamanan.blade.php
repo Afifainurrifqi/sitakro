@@ -16,14 +16,14 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">KEJADIAN LUAR BIASA
+                        <h1 class="card-title">KEAMANAN
                             {{ $datap->nama }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
-                            onclick="window.location='{{ route('rt_kejadianluarbiasa.index') }}'">Kembali
+                            onclick="window.location='{{ route('rt_keamanan.index') }}'">Kembali
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('rt_kejadianluarbiasa.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('rt_keamanan.update') }}" method="POST">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
@@ -35,60 +35,104 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">MUNTABER/DIARE
+                                    <label class="col-lg-4 col-form-label">ANTAR KELOMPOK MASYARAKAT
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_muntaber">KEJADIAN
+                                            <label for="valpenyebabu_antardesa">PENYEBAB UTAMA
                                             </label>
-
-
-                                            @if (isset($rt_kejadianluarbiasa->nama_muntaber))
+                                            @if (isset($rt_keamanan->penyebabu_antarkelompokmas))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_muntaber }}
+                                                {{ $rt_keamanan->penyebabu_antarkelompokmas }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-
-                                            @error('valnama_muntaber')
+                                            @error('valpenyebabu_antarkelompokmas')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_muntaber">JUMLAH PENDERITA
+                                            <label for="valjk_antarkelompokmas">JUMLAH KEJADIAN
                                             </label>
 
-                                            @if (isset($rt_kejadianluarbiasa->jp_muntaber))
+                                            @if (isset($rt_keamanan->jk_antarkelompokmas))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_muntaber }}
+                                                {{ $rt_keamanan->jk_antarkelompokmas }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
 
-                                            @error('valjp_muntaber')
+                                            @error('valjk_antarkelompokmas')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_muntaber">JUMLAH MENINGGAL
-
+                                            <label for="valjkl_antarkelompokmas">JUMLAH KORBAN LUKA
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->jm_muntaber))
+
+                                            @if (isset($rt_keamanan->jkl_antarkelompokmas))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_muntaber }}
+                                                {{ $rt_keamanan->jkl_antarkelompokmas }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_muntaber')
+
+                                            @error('valjkl_antarkelompokmas')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjt_antarkelompokmas">JUMLAH TEWAS
+                                            </label>
+                                            @if (isset($rt_keamanan->jkl_antarkelompokmas))
+                                                <br>
+                                                {{ $rt_keamanan->jkl_antarkelompokmas }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valjt_antarkelompokmas')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpen_antarkelompokmas">PENYELESAIAN
+                                            </label>
+                                            @if (isset($rt_keamanan->pen_antarkelompokmas))
+                                                <br>
+                                                {{ $rt_keamanan->pen_antarkelompokmas }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpen_antarkelompokmas')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_antarkelompokmas">PIHAK PENDAMAI
+                                            </label>
+                                                @if (isset($rt_keamanan->pp_antarkelompokmas))
+                                                <br>
+                                                {{ $rt_keamanan->pp_antarkelompokmas }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_antarkelompokmas')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -98,181 +142,102 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">DEMAM BERDARAH
-
+                                    <label class="col-lg-4 col-form-label">KELOMPOK MASYARAKAT ANTAR DESA
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_dbd">KEJADIAN
+                                            <label for="valpenyebabu_antardesa">PENYEBAB UTAMA
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->nama_dbd))
+                                             @if (isset($rt_keamanan->penyebabu_antardesa))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_dbd }}
+                                                {{ $rt_keamanan->penyebabu_antardesa }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-
-                                            @error('valnama_dbd')
+                                            @error('valpenyebabu_antardesa')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_dbd">JUMLAH PENDERITA
+                                            <label for="valjk_antardesa">JUMLAH KEJADIAN
                                             </label>
-                                              @if (isset($rt_kejadianluarbiasa->jp_dbd))
+                                              @if (isset($rt_keamanan->jk_antardesa))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_dbd }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-
-                                            @error('valjp_dbd')
-                                                <div id="" class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="valjm_dbd">JUMLAH MENINGGAL
-
-                                            </label>
-                                              @if (isset($rt_kejadianluarbiasa->jm_dbd))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->jm_dbd }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-                                            @error('valjm_dbd')
-                                                <div id="" class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">CAMPAK
-
-                                        <span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="valnama_campak">KEJADIAN
-                                            </label>
-                                            @if (isset($rt_kejadianluarbiasa->nama_campak))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->nama_campak }}
+                                                {{ $rt_keamanan->jk_antardesa }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
 
 
-                                            @error('valnama_campak')
+                                            @error('valjk_antardesa')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_campak">JUMLAH PENDERITA
+                                            <label for="valjkl_antardesa">JUMLAH KORBAN LUKA
                                             </label>
-                                              @if (isset($rt_kejadianluarbiasa->jp_campak))
+                                             @if (isset($rt_keamanan->jkl_antardesa))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_campak }}
+                                                {{ $rt_keamanan->jkl_antardesa }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-                                            @error('valjp_campak')
-                                                <div id="" class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="valjm_campak">JUMLAH MENINGGAL
-
-                                            </label>
-                                              @if (isset($rt_kejadianluarbiasa->jm_campak))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->jm_campak }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-                                            @error('valjm_campak')
-                                                <div id="" class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">MALARIA
-
-                                        <span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="valnama_malaria">KEJADIAN
-                                            </label>
-                                            @if (isset($rt_kejadianluarbiasa->nama_malaria))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->nama_malaria }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-
-
-                                            @error('valnama_malaria')
+                                            @error('valjkl_antardesa')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_malaria">JUMLAH PENDERITA
+                                            <label for="valjt_antardesa">JUMLAH TEWAS
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jp_malaria))
+                                           @if (isset($rt_keamanan->jkl_antardesa))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_malaria }}
+                                                {{ $rt_keamanan->jkl_antardesa }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjp_malaria')
+                                            @error('valjt_antardesa')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_malaria">JUMLAH MENINGGAL
-
+                                            <label for="valpen_antardesa">PENYELESAIAN
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jm_malaria))
+                                            @if (isset($rt_keamanan->pen_antardesa))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_malaria }}
+                                                {{ $rt_keamanan->pen_antardesa }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_malaria')
+                                            @error('valpen_antardesa')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_antardesa">PIHAK PENDAMAI
+                                            </label>
+                                             @if (isset($rt_keamanan->pp_antardesa))
+                                                <br>
+                                                {{ $rt_keamanan->pp_antardesa }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_antardesa')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -283,58 +248,102 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">FLU BURUNG/SARS
-
+                                    <label class="col-lg-4 col-form-label">KELOMPOK MASYARAKAT DENGAN APARAT KEAMANAN
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_fluburung">KEJADIAN
+                                            <label for="valpenyebabu_aparatmk">PENYEBAB UTAMA
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->nama_fluburung))
+                                            @if (isset($rt_keamanan->penyebabu_aparatmk))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_fluburung }}
+                                                {{ $rt_keamanan->penyebabu_aparatmk }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-
-                                            @error('valnama_fluburung')
+                                            @error('valpenyebabu_aparatmk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_fluburung">JUMLAH PENDERITA
+                                            <label for="valjk_aparatmk">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jp_fluburung))
+                                            @if (isset($rt_keamanan->jk_aparatmk))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_fluburung }}
+                                                {{ $rt_keamanan->jk_aparatmk }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
 
-                                            @error('valjp_fluburung')
+
+                                            @error('valjk_aparatmk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_fluburung">JUMLAH MENINGGAL
-
+                                            <label for="valjkl_aparatmk">JUMLAH KORBAN LUKA
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->jm_fluburung))
+                                            @if (isset($rt_keamanan->jkl_aparatmk))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_fluburung }}
+                                                {{ $rt_keamanan->jkl_aparatmk }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_fluburung')
+                                            @error('valjkl_aparatmk')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjt_aparatmk">JUMLAH TEWAS
+                                            </label>
+                                            @if (isset($rt_keamanan->jkl_aparatmk))
+                                                <br>
+                                                {{ $rt_keamanan->jkl_aparatmk }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valjt_aparatmk')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpen_aparatmk">PENYELESAIAN
+                                            </label>
+                                            @if (isset($rt_keamanan->pen_aparatmk))
+                                                <br>
+                                                {{ $rt_keamanan->pen_aparatmk }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpen_aparatmk')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_aparatmk">PIHAK PENDAMAI
+                                            </label>
+                                             @if (isset($rt_keamanan->pp_aparatmk))
+                                                <br>
+                                                {{ $rt_keamanan->pp_aparatmk }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_aparatmk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -345,57 +354,102 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">COVID-19
-
+                                    <label class="col-lg-4 col-form-label">KELOMPOK MASYARAKAT DENGAN APARAT PEMERINTAH
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_covid19">KEJADIAN
+                                            <label for="valpenyebabu_aparatmp">PENYEBAB UTAMA
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->nama_covid19))
+                                             @if (isset($rt_keamanan->penyebabu_aparatmp))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_covid19 }}
+                                                {{ $rt_keamanan->penyebabu_aparatmp }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-                                            @error('valnama_covid19')
+                                            @error('valpenyebabu_aparatmp')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_covid19">JUMLAH PENDERITA
+                                            <label for="valjk_aparatmp">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jp_covid19))
+                                             @if (isset($rt_keamanan->jk_aparatmp))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_covid19 }}
+                                                {{ $rt_keamanan->jk_aparatmp }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
 
-                                            @error('valjp_covid19')
+
+                                            @error('valjk_aparatmp')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_covid19">JUMLAH MENINGGAL
-
+                                            <label for="valjkl_aparatmp">JUMLAH KORBAN LUKA
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jm_covid19))
+                                           @if (isset($rt_keamanan->jkl_aparatmp))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_covid19 }}
+                                                {{ $rt_keamanan->jkl_aparatmp }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_covid19')
+                                            @error('valjkl_aparatmp')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjt_aparatmp">JUMLAH TEWAS
+                                            </label>
+                                           @if (isset($rt_keamanan->jkl_aparatmp))
+                                                <br>
+                                                {{ $rt_keamanan->jkl_aparatmp }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valjt_aparatmp')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpen_aparatmp">PENYELESAIAN
+                                            </label>
+                                            @if (isset($rt_keamanan->pen_aparatmp))
+                                                <br>
+                                                {{ $rt_keamanan->pen_aparatmp }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpen_aparatmp')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_aparatmp">PIHAK PENDAMAI
+                                            </label>
+                                             @if (isset($rt_keamanan->pp_aparatmp))
+                                                <br>
+                                                {{ $rt_keamanan->pp_aparatmp }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_aparatmp')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -406,57 +460,102 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">HEPATITIS B
+                                    <label class="col-lg-4 col-form-label">ANTAR APARAT KEAMANAN
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_hepatitisb">KEJADIAN
+                                            <label for="valpenyebabu_aparatk">PENYEBAB UTAMA
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->nama_hepatitisb))
+                                             @if (isset($rt_keamanan->penyebabu_aparatk))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_hepatitisb }}
+                                                {{ $rt_keamanan->penyebabu_aparatk }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-
-                                            @error('valnama_hepatitisb')
+                                            @error('valpenyebabu_aparatk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_hepatitisb">JUMLAH PENDERITA
+                                            <label for="valjk_aparatk">JUMLAH KEJADIAN
                                             </label>
-                                              @if (isset($rt_kejadianluarbiasa->jp_hepatitisb))
+                                             @if (isset($rt_keamanan->jk_aparatk))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_hepatitisb }}
+                                                {{ $rt_keamanan->jk_aparatk }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjp_hepatitisb')
+
+                                            @error('valjk_aparatk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_hepatitisb">JUMLAH MENINGGAL
-
+                                            <label for="valjkl_aparatk">JUMLAH KORBAN LUKA
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jm_hepatitisb))
+                                            @if (isset($rt_keamanan->jkl_aparatk))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_hepatitisb }}
+                                                {{ $rt_keamanan->jkl_aparatk }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_hepatitisb')
+                                            @error('valjkl_aparatk')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjt_aparatk">JUMLAH TEWAS
+                                            </label>
+                                            @if (isset($rt_keamanan->jkl_aparatk))
+                                                <br>
+                                                {{ $rt_keamanan->jkl_aparatk }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valjt_aparatk')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpen_aparatk">PENYELESAIAN
+                                            </label>
+                                            @if (isset($rt_keamanan->pen_aparatk))
+                                                <br>
+                                                {{ $rt_keamanan->pen_aparatk }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpen_aparatk')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_aparatk">PIHAK PENDAMAI
+                                            </label>
+                                              @if (isset($rt_keamanan->pp_aparatk))
+                                                <br>
+                                                {{ $rt_keamanan->pp_aparatk }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_aparatk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -467,57 +566,102 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">HEPATITIS E
-
+                                    <label class="col-lg-4 col-form-label">ANTAR APARAT PEMERINTAH
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_hepatitise">KEJADIAN
+                                            <label for="valpenyebabu_aparatp">PENYEBAB UTAMA
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->nama_hepatitise))
+                                             @if (isset($rt_keamanan->penyebabu_aparatp))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_hepatitise }}
+                                                {{ $rt_keamanan->penyebabu_aparatp }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-
-                                            @error('valnama_hepatitise')
+                                            @error('valpenyebabu_aparatp')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_hepatitise">JUMLAH PENDERITA
+                                            <label for="valjk_aparatp">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jp_hepatitise))
+                                             @if (isset($rt_keamanan->jk_aparatp))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_hepatitise }}
+                                                {{ $rt_keamanan->jk_aparatp }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjp_hepatitise')
+
+
+                                            @error('valjk_aparatp')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_hepatitise">JUMLAH MENINGGAL
-
+                                            <label for="valjkl_aparatp">JUMLAH KORBAN LUKA
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jm_hepatitise))
+                                              @if (isset($rt_keamanan->jkl_aparatp))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_hepatitise }}
+                                                {{ $rt_keamanan->jkl_aparatp }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_hepatitise')
+                                            @error('valjkl_aparatp')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjt_aparatp">JUMLAH TEWAS
+                                            </label>
+                                           @if (isset($rt_keamanan->jkl_aparatp))
+                                                <br>
+                                                {{ $rt_keamanan->jkl_aparatp }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valjt_aparatp')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpen_aparatp">PENYELESAIAN
+                                            </label>
+                                            @if (isset($rt_keamanan->pen_aparatp))
+                                                <br>
+                                                {{ $rt_keamanan->pen_aparatp }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpen_aparatp')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_aparatp">PIHAK PENDAMAI
+                                            </label>
+                                             @if (isset($rt_keamanan->pp_aparatp))
+                                                <br>
+                                                {{ $rt_keamanan->pp_aparatp }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_aparatp')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -528,57 +672,103 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">DIPTERI
+                                    <label class="col-lg-4 col-form-label">PELAJAR/MAHASISWA
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_dipteri">KEJADIAN
+                                            <label for="valpenyebabu_pelajar">PENYEBAB UTAMA
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->nama_dipteri))
+                                            @if (isset($rt_keamanan->penyebabu_pelajar))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_dipteri }}
+                                                {{ $rt_keamanan->penyebabu_pelajar }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-
-                                            @error('valnama_dipteri')
+                                            @error('valpenyebabu_pelajar')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_dipteri">JUMLAH PENDERITA
+                                            <label for="valjk_pelajar">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->jp_dipteri))
+                                             @if (isset($rt_keamanan->jk_pelajar))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_dipteri }}
+                                                {{ $rt_keamanan->jk_pelajar }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjp_dipteri')
+
+
+                                            @error('valjk_pelajar')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_dipteri">JUMLAH MENINGGAL
-
+                                            <label for="valjkl_pelajar">JUMLAH KORBAN LUKA
                                             </label>
-                                              @if (isset($rt_kejadianluarbiasa->jm_dipteri))
+                                              @if (isset($rt_keamanan->jkl_pelajar))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_dipteri }}
+                                                {{ $rt_keamanan->jkl_pelajar }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_dipteri')
+                                            @error('valjkl_pelajar')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjt_pelajar">JUMLAH TEWAS
+                                            </label>
+                                            @if (isset($rt_keamanan->jkl_pelajar))
+                                                <br>
+                                                {{ $rt_keamanan->jkl_pelajar }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valjt_pelajar')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpen_pelajar">PENYELESAIAN
+                                            </label>
+                                            @if (isset($rt_keamanan->pen_pelajar))
+                                                <br>
+                                                {{ $rt_keamanan->pen_pelajar }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpen_pelajar')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_pelajar">PIHAK PENDAMAI
+                                            </label>
+                                            @if (isset($rt_keamanan->pp_pelajar))
+                                                <br>
+                                                {{ $rt_keamanan->pp_pelajar }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_pelajar')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -589,56 +779,102 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">CHIKUNGUNYA
-                                        <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label">ANTAR SUKU
 
+                                        <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_chikung">KEJADIAN
+                                            <label for="valpenyebabu_suku">PENYEBAB UTAMA
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->nama_chikung))
+                                            @if (isset($rt_keamanan->penyebabu_suku))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_chikung }}
+                                                {{ $rt_keamanan->penyebabu_suku }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-
-                                            @error('valnama_chikung')
+                                            @error('valpenyebabu_suku')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_chikung">JUMLAH PENDERITA
+                                            <label for="valjk_suku">JUMLAH KEJADIAN
                                             </label>
-                                              @if (isset($rt_kejadianluarbiasa->jp_chikung))
+                                           @if (isset($rt_keamanan->jk_suku))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_chikung }}
+                                                {{ $rt_keamanan->jk_suku }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
 
-                                            @error('valjp_chikung')
+                                            @error('valjk_suku')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_chikung">JUMLAH MENINGGAL
+                                            <label for="valjkl_suku">JUMLAH KORBAN LUKA
                                             </label>
-                                              @if (isset($rt_kejadianluarbiasa->jm_chikung))
+                                            @if (isset($rt_keamanan->jkl_suku))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_chikung }}
+                                                {{ $rt_keamanan->jkl_suku }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_chikung')
+                                            @error('valjkl_suku')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjt_suku">JUMLAH TEWAS
+                                            </label>
+                                          @if (isset($rt_keamanan->jkl_suku))
+                                                <br>
+                                                {{ $rt_keamanan->jkl_suku }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valjt_suku')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpen_suku">PENYELESAIAN
+                                            </label>
+                                            @if (isset($rt_keamanan->pen_suku))
+                                                <br>
+                                                {{ $rt_keamanan->pen_suku }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpen_suku')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_suku">PIHAK PENDAMAI
+                                            </label>
+                                           @if (isset($rt_keamanan->pp_suku))
+                                                <br>
+                                                {{ $rt_keamanan->pp_suku }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_suku')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -646,57 +882,106 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">LEPTOSPIROSIS
+                                    <label class="col-lg-4 col-form-label">LAINNYA
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valnama_leptos">KEJADIAN
+                                            <label for="valpenyebabu_lainnya">PENYEBAB UTAMA
                                             </label>
-                                             @if (isset($rt_kejadianluarbiasa->nama_lepto))
+                                             @if (isset($rt_keamanan->penyebabu_lainnya))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->nama_lepto }}
+                                                {{ $rt_keamanan->penyebabu_lainnya }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valnama_leptos')
+                                            @error('valpenyebabu_lainnya')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjp_leptos">JUMLAH PENDERITA
+                                            <label for="valjk_lainnya">JUMLAH KEJADIAN
                                             </label>
-                                            @if (isset($rt_kejadianluarbiasa->jp_lepto))
+                                             @if (isset($rt_keamanan->jk_lainnya))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jp_lepto }}
+                                                {{ $rt_keamanan->jk_lainnya }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
 
-                                            @error('valjp_leptos')
+
+                                            @error('valjk_lainnya')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="valjm_leptos">JUMLAH MENINGGAL
-
+                                            <label for="valjkl_lainnya">JUMLAH KORBAN LUKA
                                             </label>
-                                              @if (isset($rt_kejadianluarbiasa->jm_lepto))
+                                            @if (isset($rt_keamanan->jkl_lainnya))
                                                 <br>
-                                                {{ $rt_kejadianluarbiasa->jm_lepto }}
+                                                {{ $rt_keamanan->jkl_lainnya }}
                                             @else
                                                 <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                                 Data tidak tersedia.
                                             @endif
-                                            @error('valjm_leptos')
+                                            @error('valjkl_lainnya')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valjt_lainnya">JUMLAH TEWAS
+                                            </label>
+                                            @if (isset($rt_keamanan->jkl_lainnya))
+                                                <br>
+                                                {{ $rt_keamanan->jkl_lainnya }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valjt_lainnya')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpen_lainnya">PENYELESAIAN
+                                            </label>
+                                             @if (isset($rt_keamanan->pen_lainnya))
+                                                <br>
+                                                {{ $rt_keamanan->pen_lainnya }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpen_lainnya')
+                                                <div id="" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valpp_lainnya">PIHAK PENDAMAI
+                                            </label>
+                                             @if (isset($rt_keamanan->pp_lainnya))
+                                                <br>
+                                                {{ $rt_keamanan->pp_lainnya }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                            @error('valpp_lainnya')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -704,200 +989,11 @@
                                         </div>
                                     </div>
                                 </div>
-                        </div>
-
-
-
-
-
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label">KOLERA
-                                <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="valnama_kolera">KEJADIAN
-                                    </label>
-                                     @if (isset($rt_kejadianluarbiasa->nama_kolera))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->nama_kolera }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-
-                                    @error('valnama_kolera')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="valjp_kolera">JUMLAH PENDERITA
-                                    </label>
-                                    @if (isset($rt_kejadianluarbiasa->jp_kolera))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->jp_kolera }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-
-                                    @error('valjp_kolera')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="valjm_kolera">JUMLAH MENINGGAL
-
-                                    </label>
-                                     @if (isset($rt_kejadianluarbiasa->jm_kolera))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->jm_kolera }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-                                    @error('valjm_kolera')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label">GIZI BURUK (MARASMUS KWASHIORKOR)
-                                <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="valnama_giziburuk">KEJADIAN
-                                    </label>
-                                    @if (isset($rt_kejadianluarbiasa->nama_giziburuk))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->nama_giziburuk }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-
-
-                                    @error('valnama_giziburuk')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="valjp_giziburuk">JUMLAH PENDERITA
-                                    </label>
-                                      @if (isset($rt_kejadianluarbiasa->jp_giziburuk))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->jp_giziburuk }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-
-                                    @error('valjp_giziburuk')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="valjm_giziburuk">JUMLAH MENINGGAL
-
-                                    </label>
-                                     @if (isset($rt_kejadianluarbiasa->jm_giziburuk))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->jm_giziburuk }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-                                    @error('valjm_giziburuk')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label">LAINNYA
-
-                                <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="valnama_lainnya">KEJADIAN
-                                    </label>
-                                   @if (isset($rt_kejadianluarbiasa->nama_lainnya))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->nama_lainnya }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-
-
-                                    @error('valnama_lainnya')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="valjp_lainnya">JUMLAH PENDERITA
-                                    </label>
-                                     @if (isset($rt_kejadianluarbiasa->jp_lainnya))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->jp_lainnya }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-
-                                    @error('valjp_lainnya')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="valjm_lainnya">JUMLAH MENINGGAL
-
-                                    </label>
-                                     @if (isset($rt_kejadianluarbiasa->jm_lainnya))
-                                                <br>
-                                                {{ $rt_kejadianluarbiasa->jm_lainnya }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
-                                    @error('valjm_lainnya')
-                                        <div id="" class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
-                    
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 @endsection

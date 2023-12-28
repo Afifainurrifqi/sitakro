@@ -15,25 +15,33 @@ use App\Http\Controllers\DatamutasiController;
 use App\Http\Controllers\DatapekerjaansdgsController;
 use App\Http\Controllers\JenisdisabilitasController;
 use App\Http\Controllers\KkController;
+use App\Http\Controllers\LembagaMasyarakatController;
 use App\Http\Controllers\LokasipemukimanController;
 use App\Http\Controllers\PenghasilanController;
+use App\Http\Controllers\RtAgamaController;
 use App\Http\Controllers\RtBencanaController;
 use App\Http\Controllers\RtFasilitasEkonomiController;
 use App\Http\Controllers\RtindustriController;
 use App\Http\Controllers\RtInfrastukturController;
+use App\Http\Controllers\RtKeamananController;
+use App\Http\Controllers\RtkegiatanWargaController;
 use App\Http\Controllers\RtKejadianluarbiasaController;
 use App\Http\Controllers\RtKesehatanController;
+use App\Http\Controllers\RtlembagaEkonomiController;
+use App\Http\Controllers\RtlembagaKeagamaanController;
 use App\Http\Controllers\RtLingkunganController;
 use App\Http\Controllers\RtlokasiController;
 use App\Http\Controllers\RtMitigasibController;
 use App\Http\Controllers\RtpuengurusController;
 use App\Http\Controllers\RtSaranaEkonomiController;
 use App\Http\Controllers\RtSaranapendidikanController;
+use App\Http\Controllers\RtTkejahatanController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
 use App\Models\datamutasi;
 use App\Models\rt_kejadianluarbiasa;
+use App\Models\rtlembaga_keagamaan;
 use App\Models\rtlokasi;
 
 Route::get('/', [DashboardController::class, 'landingpage'])->name('landingpage');
@@ -79,6 +87,13 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/rt/rt_saranapendidikan', [RtSaranapendidikanController::class, 'index'])->name('rt_saranapendidikan.index');
         Route::get('sdgs/rt/rt_kesehatan', [RtKesehatanController::class, 'index'])->name('rt_kesehatan.index');
         Route::get('sdgs/rt/rt_kejadianluarbiasa', [RtKejadianluarbiasaController::class, 'index'])->name('rt_kejadianluarbiasa.index');
+        Route::get('sdgs/rt/rt_keamanan', [RtKeamananController::class, 'index'])->name('rt_keamanan.index');
+        Route::get('sdgs/rt/rt_tkejahatan', [RtTkejahatanController::class, 'index'])->name('rt_tkejahatan.index');
+        Route::get('sdgs/rt/rtlembaga_ekonomi', [RtlembagaEkonomiController::class, 'index'])->name('rtlembaga_ekonomi.index');
+        Route::get('sdgs/rt/rtagama', [RtAgamaController::class, 'index'])->name('rt_agama.index');
+        Route::get('sdgs/rt/rtlembaga_keagamaan', [RtlembagaKeagamaanController::class, 'index'])->name('rtlembaga_keagamaan.index');
+        Route::get('sdgs/rt/rtlembaga_masyarakat', [LembagaMasyarakatController::class, 'index'])->name('rtlembaga_masyarakat.index');
+        Route::get('sdgs/rt/rt_kegiatanwarga', [RtkegiatanWargaController::class, 'index'])->name('rt_kegiatanwarga.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -187,6 +202,28 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::get('sdgs/RT/editrt_kejadianluarbiasa/{nik}', [RtKejadianluarbiasaController::class, 'create'])->name('rt_kejadianluarbiasa.edit');
         Route::post('sdgs/RT/editrt_kejadianluarbiasa', [RtKejadianluarbiasaController::class, 'store'])->name('rt_kejadianluarbiasa.update');
         Route::get('sdgs/RT/rt_kejadianluarbiasa/{show}', [RtKejadianluarbiasaController::class, 'show'])->name('rt_kejadianluarbiasa.show');
+        Route::get('sdgs/RT/editrt_keamanan/{nik}', [RtKeamananController::class, 'create'])->name('rt_keamanan.edit');
+        Route::post('sdgs/RT/editrt_keamanan', [RtKeamananController::class, 'store'])->name('rt_keamanan.update');
+        Route::get('sdgs/RT/rt_keamanan/{show}', [RtKeamananController::class, 'show'])->name('rt_keamanan.show');
+        Route::get('sdgs/RT/editrt_tkejahatan/{nik}', [RtTkejahatanController::class, 'create'])->name('rt_tkejahatan.edit');
+        Route::post('sdgs/RT/editrt_tkejahatan', [RtTkejahatanController::class, 'store'])->name('rt_tkejahatan.update');
+        Route::get('sdgs/RT/rt_tkejahatan/{show}', [RtTkejahatanController::class, 'show'])->name('rt_tkejahatan.show');
+        Route::get('sdgs/RT/editrtlembaga_ekonomi/{nik}', [RtlembagaEkonomiController::class, 'create'])->name('rtlembaga_ekonomi.edit');
+        Route::post('sdgs/RT/editrtlembaga_ekonomi', [RtlembagaEkonomiController::class, 'store'])->name('rtlembaga_ekonomi.update');
+        Route::get('sdgs/RT/rtlembaga_ekonomi/{show}', [RtlembagaEkonomiController::class, 'show'])->name('rtlembaga_ekonomi.show');
+        Route::get('sdgs/RT/editrt_agama/{nik}', [RtAgamaController::class, 'create'])->name('rt_agama.edit');
+        Route::post('sdgs/RT/editrt_agama', [RtAgamaController::class, 'store'])->name('rt_agama.update');
+        Route::get('sdgs/RT/rt_agama/{show}', [RtAgamaController::class, 'show'])->name('rt_agama.show');
+        Route::get('sdgs/RT/editrtlembaga_keagamaan/{nik}', [RtlembagaKeagamaanController::class, 'create'])->name('rtlembaga_keagamaan.edit');
+        Route::post('sdgs/RT/editrtlembaga_keagamaan', [RtlembagaKeagamaanController::class, 'store'])->name('rtlembaga_keagamaan.update');
+        Route::get('sdgs/RT/rtlembaga_keagamaan/{show}', [RtlembagaKeagamaanController::class, 'show'])->name('rtlembaga_keagamaan.show');
+        Route::get('sdgs/RT/editrtlembaga_masyarakat/{nik}', [LembagaMasyarakatController::class, 'create'])->name('rtlembaga_masyarakat.edit');
+        Route::post('sdgs/RT/editrtlembaga_masyarakat', [LembagaMasyarakatController::class, 'store'])->name('rtlembaga_masyarakat.update');
+        Route::get('sdgs/RT/rtlembaga_masyarakat/{show}', [LembagaMasyarakatController::class, 'show'])->name('rtlembaga_masyarakat.show');
+        Route::get('sdgs/RT/editrt_kegiatanwarga/{nik}', [RtkegiatanWargaController::class, 'create'])->name('rt_kegiatanwarga.edit');
+        Route::post('sdgs/RT/editrt_kegiatanwarga', [RtkegiatanWargaController::class, 'store'])->name('rt_kegiatanwarga.update');
+        Route::get('sdgs/RT/rt_kegiatanwarga/{show}', [RtkegiatanWargaController::class, 'show'])->name('rt_kegiatanwarga.show');
+
 
 
 
