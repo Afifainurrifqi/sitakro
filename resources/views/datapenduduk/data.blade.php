@@ -39,7 +39,7 @@
                             <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip" id="tabledatap">
                                 
                                 <thead>
-                                    {{ $datapenduduk->appends(request()->query())->render() }}
+                                   
                                     <tr>
                                         <th>Action</th>
                                         <th>No</th> 
