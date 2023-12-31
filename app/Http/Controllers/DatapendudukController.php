@@ -19,7 +19,6 @@ use App\Http\Requests\UpdatedatapendudukRequest;
 use App\Imports\Importdatapenduduk;
 use App\Models\detailkk;
 use App\Models\kk;
-use Illuminate\Database\Query\IndexHint;
 
 class DatapendudukController extends Controller
 {
@@ -29,27 +28,55 @@ class DatapendudukController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-{
-    $search = $request->input('search');
-   
-    $datapenduduk = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+    {
+        $search = $request->input('search');
 
-    if ($search) {
-        $datapenduduk->where('nik', 'like', '%' . $search . '%');
+        $datapenduduk = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+
+        if ($search) {
+            $datapenduduk->where('nik', 'like', '%' . $search . '%');
+        }
+
+        return view('datapenduduk.data');
     }
 
-    $datapenduduk = datapenduduk::all();
-    
-
-    return view('datapenduduk.data', compact('datapenduduk'));
-}
 
 
- 
-public function json(Request $request)
-{
-   return DataTables::of(Datapenduduk::query()->limit(10))->make(true);
-}
+    public function json(Request $request)
+    {
+        $datapenduduk = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->limit(10)
+            ->get();
+
+        $datapenduduk->transform(function ($datapenduduk) {
+            $editUrl = route('datapenduduk.show', ['nik' => $datapenduduk->nik]);
+            $deleteForm = '<form onsubmit="return deleteData(\'' . $datapenduduk->nama . '\')"
+                        action="' . url('datapenduduk') . '/' . $datapenduduk->nik . '" style="display: inline"
+                        method="POST">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                    </form>';
+            $actionsHtml = '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        ' . $deleteForm;
+
+            $datapenduduk->action = $actionsHtml;
+            $datapenduduk->nokk = optional($datapenduduk->detailkk)->kk->nokk;
+
+            return $datapenduduk;
+        });
+
+        return DataTables::of($datapenduduk)
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return $row->action;
+            })
+            ->make(true);
+    }
+
 
     public function add()
     {
@@ -72,22 +99,22 @@ public function json(Request $request)
         $this->validate($request, [
             'file' => 'required'
         ]);
-    
+
         // menangkap file excel
         $file = $request->file('file');
-    
+
         // membuat nama file unik
         $nama_file = rand() . $file->getClientOriginalName();
-    
+
         // upload ke folder file_siswa di dalam folder public
         $file->move('file_datapenduduk', $nama_file);
-    
+
         // import data
         Excel::import(new Importdatapenduduk, storage_path('app/public/file_datapenduduk/' . $nama_file));
 
-    
+
         // notifikasi dengan session
-    
+
         // alihkan halaman kembali
         return redirect('datapenduduk');
     }
@@ -95,7 +122,7 @@ public function json(Request $request)
 
 
 
-   
+
 
     /**
      * Show the form for creating a new resource.
@@ -137,7 +164,7 @@ public function json(Request $request)
         $datapenduduk->save();
 
         $kartuk = new kk();
-        $kartuk->nokk = $request-> valNokk;
+        $kartuk->nokk = $request->valNokk;
         $kartuk->save();
 
         $detailk = new detailkk();
@@ -167,7 +194,7 @@ public function json(Request $request)
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
-        
+
         return view('datapenduduk.formedit', compact('datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'))->with([
             'valKK' => $datapenduduk->detailkk->kk->nokk,
             'valNIK' => $nik,
@@ -192,7 +219,6 @@ public function json(Request $request)
             'valDatak' => $datapenduduk->datak
 
         ]);
-        
     }
 
     /**

@@ -71,7 +71,7 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($datapenduduk as $row)
+                                    {{-- @foreach ($datapenduduk as $row)
                                         <tr>
                                             <td><a href="{{ route('datapenduduk.show', ['nik' => $row->nik]) }}"
                                                     class="btn mb-1 btn-info btn-sm" title="Edit data">
@@ -120,7 +120,7 @@
                                             <td>{{ $row->rw }}</td>
                                             <td>{{ $row->datak }}</td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
 
 
                                     <!-- Modal Import -->
@@ -167,62 +167,41 @@
         </div>
     </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript">
-        new DataTable('#tabledatapenduduk');
+        var $ = jQuery.noConflict();
         $(function (){
             $('#tabledatapenduduk').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: 'datapenduduk/json',
                 columns: [
-                    {data: 'id',
-                    name: 'id'}
-                    {data: 'nokk',
-                    name: 'nokk'}
-                    {data: 'nik',
-                    name: 'nik'}
-                    {data: 'gelara',
-                    name: 'gelara'}
-                    {data: 'nama',
-                    name: 'nama'}
-                    {data: 'gelarak',
-                    name: 'gelarak'}
-                    {data: 'jeniskelamin',
-                    name: 'jeniskelamin'}
-                    {data: 'tempatlahir',
-                    name: 'tempatlahir'}
-                    {data: 'tanggallahir',
-                    name: 'tanggallahir'}
-                    {data: 'agama',
-                    name: 'agama'}
-                    {data: 'pendidikan',
-                    name: 'pendidikan'}
-                    {data: 'pekerjaan',
-                    name: 'pekerjaan'}
-                    {data: 'goldar',
-                    name: 'goldar'}
-                    {data: 'status',
-                    name: 'status'}
-                    {data: 'tanggalperkawinan',
-                    name: 'tanggalperkawinan'}
-                    {data: 'hubungan',
-                    name: 'hubungan'}
-                    {data: 'ayah',
-                    name: 'ayah'}
-                    {data: 'ibu',
-                    name: 'ibu'}
-                    {data: 'alamat',
-                    name: 'alamat'}
-                    {data: 'rt',
-                    name: 'rt'}
-                    {data: 'rw',
-                    name: 'rw'}
-                    {data: 'statuskependudukan',
-                    name: 'statuskependudukan'}
-
+                    {data: 'action', name: 'action'},
+                    {data: 'id', name: 'id'},
+                    {data: 'nokk', name: 'nokk'}, // Use dot notation to access related data
+                    {data: 'nik', name: 'nik'},
+                    {data: 'gelarawal', name: 'gelarawal'},
+                    {data: 'nama', name: 'nama'},
+                    {data: 'gelarakhir', name: 'gelarakhir'},
+                    {data: 'jenis_kelamin', name: 'jenis_kelamin'},
+                    {data: 'tempat_lahir', name: 'tempat_lahir'},
+                    {data: 'tanggal_lahir', name: 'tanggal_lahir'},
+                    {data: 'agama.nama', name: 'agama.nama'}, // Use dot notation for related table fields
+                    {data: 'pendidikan.nama', name: 'pendidikan.nama'},
+                    {data: 'pekerjaan.nama', name: 'pekerjaan.nama'},
+                    {data: 'goldar.nama', name: 'goldar.nama'},
+                    {data: 'status.nama', name: 'status.nama'},
+                    {data: 'tanggal_perkawinan', name: 'tanggal_perkawinan'},
+                    {data: 'hubungan', name: 'hubungan'},
+                    {data: 'ayah', name: 'ayah'},
+                    {data: 'ibu', name: 'ibu'},
+                    {data: 'alamat', name: 'alamat'},
+                    {data: 'rt', name: 'rt'},
+                    {data: 'rw', name: 'rw'},
+                    {data: 'datak', name: 'datak'},
                 ]
             });
         });
     </script>
+    
 @endsection

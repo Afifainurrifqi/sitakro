@@ -73,5 +73,4 @@ class Datapenduduk extends Model
 {
     return $this->hasOne(detailkk::class, 'idpenduduk');
 }
-
 }
