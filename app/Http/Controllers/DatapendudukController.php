@@ -11,6 +11,7 @@ use App\Models\status;
 use App\Models\goldar;
 use App\Models\datapenduduk;
 use App\Models\dataindividu;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoredatapendudukRequest;
@@ -18,6 +19,7 @@ use App\Http\Requests\UpdatedatapendudukRequest;
 use App\Imports\Importdatapenduduk;
 use App\Models\detailkk;
 use App\Models\kk;
+use Illuminate\Database\Query\IndexHint;
 
 class DatapendudukController extends Controller
 {
@@ -29,24 +31,25 @@ class DatapendudukController extends Controller
     public function index(Request $request)
 {
     $search = $request->input('search');
-    $perPage = 100; // Adjust this number based on your preference.
-
+   
     $datapenduduk = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
 
     if ($search) {
         $datapenduduk->where('nik', 'like', '%' . $search . '%');
     }
 
-    $datapenduduk = $datapenduduk->paginate($perPage);
-    $agama = Agama::all();
-    $pendidikan = Pendidikan::all();
-    $pekerjaan = Pekerjaan::all();
-    $goldar = Goldar::all();
-    $status = Status::all();
+    $datapenduduk = datapenduduk::all();
+    
 
-    return view('datapenduduk.data', compact('datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+    return view('datapenduduk.data', compact('datapenduduk'));
 }
 
+
+ 
+public function json(Request $request)
+{
+   return DataTables::of(Datapenduduk::query()->limit(10))->make(true);
+}
 
     public function add()
     {
