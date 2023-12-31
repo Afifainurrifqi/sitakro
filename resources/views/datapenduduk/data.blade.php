@@ -35,6 +35,7 @@
                             </form>
                         </div>
                         <div class="table-responsive">
+                            {{ $datapenduduk->appends(request()->query())->render() }}
                         
                             <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip" id="tabledatap">
                                 
@@ -143,8 +144,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div> {{ $datapenduduk->appends(request()->query())->render() }}</div>
-                                   
+                                    
+                                  
     
                                 </tbody>
                             </table>
