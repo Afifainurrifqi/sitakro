@@ -144,10 +144,9 @@
                                     </div>
                                     
     
-                                    {{-- {{ $datapenduduk->links() }} --}}
+    
                                 </tbody>
                             </table>
-                           
                         </div>
                     </div>
                     </div>
@@ -155,5 +154,4 @@
         </div>
     </div>
     </div>
-    
 @endsection

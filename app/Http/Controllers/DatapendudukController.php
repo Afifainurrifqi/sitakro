@@ -29,24 +29,21 @@ class DatapendudukController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $perPage = 25; // Adjust this number based on your preference.
-    
-        $datapenduduk = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+
+        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
     
         if ($search) {
             $datapenduduk->where('nik', 'like', '%' . $search . '%');
         }
     
-        $datapenduduk = $datapenduduk->paginate($perPage);
+        $datapenduduk = $datapenduduk->paginate(100);
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
-    
         return view('datapenduduk.data', compact('datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
-    
 
     public function add()
     {
