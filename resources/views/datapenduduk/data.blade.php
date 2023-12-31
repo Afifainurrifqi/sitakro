@@ -114,7 +114,7 @@
                                             <td>{{ $row->datak }}</td>
                                         </tr>
                                     @endforeach
-                                    
+                                    <span> {{ $datapenduduk->appends(request()->query())->render() }}</span>
     
                                     <!-- Modal Import -->
                                     <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                     
-                                    {{ $datapenduduk->appends(request()->query())->render() }}
+                                   
     
                                 </tbody>
                             </table>
