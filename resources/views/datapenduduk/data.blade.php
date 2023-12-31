@@ -158,43 +158,5 @@
         </div>
     </div>
     </div>
-    <style>
-        .pagination {
-            margin: 10px 0; /* Atur margin sesuai kebutuhan */
-            display: flex;
-            justify-content: center; /* Pusatkan pagination */
-        }
-    
-        .pagination > li {
-            margin: 0 5px; /* Atur margin antar elemen pagination */
-            list-style: none;
-            display: inline;
-        }
-    
-        .pagination > li > a, .pagination > li > span {
-            padding: 5px 10px; /* Sesuaikan padding */
-            text-decoration: none;
-            display: inline-block;
-            border: 1px solid #ddd; /* Atur border sesuai kebutuhan */
-            background-color: #f1f1f1; /* Atur warna latar belakang sesuai kebutuhan */
-            color: #333; /* Atur warna teks sesuai kebutuhan */
-            border-radius: 3px; /* Atur border-radius sesuai kebutuhan */
-        }
-    
-        .pagination > .active > span {
-            background-color: #4CAF50; /* Atur warna latar belakang saat halaman aktif */
-            color: white; /* Atur warna teks saat halaman aktif */
-        }
-    </style>
-    
-    <script>
-        $(document).ready(function() {
-            $('#tabledatap').DataTable({
-                serverSide: true,
-                processing: true,
-                ajax: '',
-                paging: false  // Menyembunyikan pagination
-            });
-        });
-    </script>
+   
 @endsection
