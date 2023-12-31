@@ -144,10 +144,10 @@
                                     </div>
                                     
     
-    
+                                    {{ $datapenduduk->links() }}
                                 </tbody>
                             </table>
-                            {{ $datapenduduk->links() }}
+                           
                         </div>
                     </div>
                     </div>
