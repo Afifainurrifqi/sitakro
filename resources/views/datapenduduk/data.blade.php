@@ -155,4 +155,24 @@
         </div>
     </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('.zero-configuration').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('datapenduduk.index') }}", // Update this to the actual route name
+                columns: [
+                    // Define your columns here
+                    // For example:
+                    { data: 'nik', name: 'nik' },
+                    { data: 'nama', name: 'nama' },
+                    // Add more columns as needed
+                    // ...
+                    { data: 'action', name: 'action' }, // Add this line if you have an action column
+                ],
+                // Add other DataTable options as needed
+                // ...
+            });
+        });
+    </script>
 @endsection
