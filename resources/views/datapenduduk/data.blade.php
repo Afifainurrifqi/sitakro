@@ -36,7 +36,7 @@
                         </div>
                         <div class="table-responsive">
                         
-                            <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
+                            <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip" id="tabledatap">
                                 
                                 <thead>
                                     <tr>
@@ -143,10 +143,12 @@
                                         </div>
                                     </div>
                                     
-    
+                                    {{ $datapenduduk->appends(request()->query())->render() }}
     
                                 </tbody>
                             </table>
+                            
+                           
                         </div>
                     </div>
                     </div>
@@ -154,4 +156,19 @@
         </div>
     </div>
     </div>
+    {{-- <style>
+        .dataTables_wrapper .dataTables_paginate {
+            display: none;
+        }
+    </style> --}}
+    <script>
+        $(document).ready(function() {
+            $('#tabledatap').DataTable({
+                serverSide: true,
+                processing: true,
+                ajax: '',
+                paging: false  // Menyembunyikan pagination
+            });
+        });
+    </script>
 @endsection
