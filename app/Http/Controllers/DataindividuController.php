@@ -31,7 +31,7 @@ class DataindividuController extends Controller
         }
 
         $datapenduduk = $datapenduduk->paginate(100);
-        $dataindividu = dataindividu::all();
+        $dataindividu = DataIndividu::all(); 
         $dataindividuSudahProses = $dataindividu->count(); // Jumlah data individu yang sudah diproses
         $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
 
@@ -74,11 +74,20 @@ class DataindividuController extends Controller
      */
     public function store(StoredataindividuRequest $request)
     {
+        // dd($request->all());
         $dataindividu = dataindividu::where('nik', $request->valNIK)->first();
         if ($dataindividu == NULL) {
             $dataindividu = new dataindividu();
         }
+        $dataindividu->kk = $request->valKK;
         $dataindividu->nik = $request->valNIK;
+        $dataindividu->nama = $request->valNama;
+        $dataindividu->Jeniskelamin = $request->valJeniskelamin;
+        $dataindividu->tempatlahir = $request->valTempatlahir;
+        $dataindividu->Tanggallahir = $request->valTanggallahir;
+        $dataindividu->usia = $request->valUsia;
+        $dataindividu->status = $request->valStatus;
+        $dataindividu->agama = $request->valAgama;
         $dataindividu->usia_saat_pertama_kali_menikah = $request->valUsiapertamamenikah;
         $dataindividu->suku_bangsa = $request->valSukubangsa;
         $dataindividu->warga_negarawarga_negara = $request->valWarganegara;
@@ -131,7 +140,7 @@ class DataindividuController extends Controller
         $dataindividu = Dataindividu::all();
         return view('sdgs.individu.editdataindividu', compact('datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'))->with([
 
-            'valUsiapertamamenikah' =>  $dataindividu->Usiapertamamenikah,
+            'valUsiapertamamenikah' =>  $dataindividu->usiapertamamenikah,
             'valSukubangsa' =>  $dataindividu->sukubangsa,
             'valWarganegara' =>  $dataindividu->warga_negara,
             'valNohp' =>  $dataindividu->nohp,
@@ -154,28 +163,29 @@ class DataindividuController extends Controller
      */
     public function update(UpdatedataindividuRequest $request, $nik)
     {
-        $datapenduduk = datapenduduk::where('nik', $nik)->first();
-        $datapenduduk->nik = $request->valNIK;
-        $datapenduduk->nama = $request->valNama;
-        $datapenduduk->jenis_kelamin = $request->valJeniskelamin;
-        $datapenduduk->tempat_lahir = $request->valTempatlahir;
-        $datapenduduk->tanggal_lahir = $request->valTanggallahir;
-        $datapenduduk->agama_id = $request->valAgama;
-        $datapenduduk->pendidikan_id = $request->valPendidikan;
-        $datapenduduk->pekerjaan_id = $request->valPekerjaan;
-        $datapenduduk->goldar_id = $request->valGoldar;
-        $datapenduduk->status_id = $request->valStatus;
-        $datapenduduk->tanggal_perkawinan = $request->valTanggalperkawinan;
-        $datapenduduk->hubungan = $request->valHubungan;
-        $datapenduduk->ayah = $request->valAyah;
-        $datapenduduk->ibu = $request->valIbu;
-        $datapenduduk->alamat = $request->valAlamat;
-        $datapenduduk->rt = $request->valRT;
-        $datapenduduk->rw = $request->valRW;
-        $datapenduduk->save();
+        $dataindividu = datapenduduk::where('nik', $nik)->first();
+        $dataindividu->kk = $request->valKK;
+        $dataindividu->nik = $request->valNIK;
+        $dataindividu->nama = $request->valNama;
+        $dataindividu->Jeniskelamin = $request->valJeniskelamin;
+        $dataindividu->tempatlahir = $request->valconfirmTempatlahir;
+        $dataindividu->Tanggallahir = $request->valTanggallahir;
+        $dataindividu->usia = $request->valUsia;
+        $dataindividu->status = $request->valStatus;
+        $dataindividu->agama = $request->valagama;
+        $dataindividu->usia_saat_pertama_kali_menikah = $request->valUsiapertamamenikah;
+        $dataindividu->suku_bangsa = $request->valSukubangsa;
+        $dataindividu->warga_negarawarga_negara = $request->valWarganegara;
+        $dataindividu->nohp = $request->valNohp;
+        $dataindividu->nowa = $request->valNowa;
+        $dataindividu->email = $request->valEmail;
+        $dataindividu->facebook = $request->valFacebook;
+        $dataindividu->twitter = $request->valTwitter;
+        $dataindividu->instagram = $request->valInstagram;
+        $dataindividu->save();
 
 
-        return redirect('datapenduduk')->with('msg', 'Data dengan nama data penduduk ' . $datapenduduk->nama . ' Berhasil diupdate');
+        return redirect('datapenduduk')->with('msg', 'Data dengan nama data penduduk ' . $dataindividu->nama . ' Berhasil diupdate');
     }
 
     /**

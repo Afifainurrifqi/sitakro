@@ -18,6 +18,14 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valNIK">KK <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        {{ $datap->detailkk->kk->nokk}}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
                                             class="text-danger">*</span>
                                     </label>
@@ -110,10 +118,14 @@
                                         KALI MENIKAH <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        <input type="date" vc
-                                            class="form-control-plaintext @error('valUsiapertamamenikah') is-invalid @enderror"
-                                            id="valUsiapertamamenikah" name="valUsiapertamamenikah"
-                                            value="{{ $datai ? $datai->usia_saat_pertama_kali_menikah : '' }}" required>
+                                    
+                                        @isset($datai->usia_saat_pertama_kali_menikah) 
+                                            {{ $datai->usia_saat_pertama_kali_menikah }} Tahun
+                                        @else
+                                            Data tidak tersedia.
+                                        @endisset
+
+
                                         @error('valUsiapertamamenikah')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -143,96 +155,104 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">Suku bangsa <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="valNIK">Suku bangsa <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         @isset($datai->suku_bangsa)
                                             {{ $datai->suku_bangsa }}
                                         @else
-                                        Data tidak tersedia.
+                                            Data tidak tersedia.
                                         @endisset
 
-                                        
+
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valWarganegara">Warga Nergara <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="valWarganegara">Warga Nergara <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         @isset($datai->warga_negarawarga_negara)
                                             {{ $datai->warga_negarawarga_negara }}
                                         @else
-                                        Data tidak tersedia.
+                                            Data tidak tersedia.
                                         @endisset
 
-                                        
+
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">No HP <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="valNIK">No HP <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         @isset($datai->nohp)
                                             {{ $datai->nohp }}
                                         @else
-                                        Data tidak tersedia.
+                                            Data tidak tersedia.
                                         @endisset
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">No WA <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="valNIK">No WA <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         @isset($datai->nowa)
                                             {{ $datai->nowa }}
                                         @else
-                                        Data tidak tersedia.
+                                            Data tidak tersedia.
                                         @endisset
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">Email <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="valNIK">Email <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         @isset($datai->email)
                                             {{ $datai->email }}
                                         @else
-                                        Data tidak tersedia.
+                                            Data tidak tersedia.
                                         @endisset
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">Facebook <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="valNIK">Facebook <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         @isset($datai->facebook)
                                             <a href="{{ $datai->facebook }}">Facebook</a>
                                         @else
-                                        Data tidak tersedia.
+                                            Data tidak tersedia.
                                         @endisset
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">Twitter <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="valNIK">Twitter <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         @isset($datai->twitter)
                                             <a href="{{ $datai->twitter }}">Twitter</a>
                                         @else
-                                        Data tidak tersedia.
+                                            Data tidak tersedia.
                                         @endisset
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">Instagram <span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label" for="valNIK">Instagram <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         @isset($datai->instagram)
                                             <a href="{{ $datai->instagram }}">Instagram</a>
                                         @else
-                                        Data tidak tersedia.
+                                            Data tidak tersedia.
                                         @endisset
                                     </div>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>

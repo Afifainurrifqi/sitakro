@@ -24,11 +24,9 @@ class UpdatedatapendudukRequest extends FormRequest
     public function rules()
     {
         return [
-           
-            // 'valNIK' => 'required|unique:datapenduduks,nik|min:16|max:16',
-            'valGelara' => 'required',
+          
             'valNama' => 'required',
-            'valGelart' => 'required',
+           
             'valJeniskelamin' => 'required',
             'valTempatlahir' => 'required',
             'valTanggallahir' => 'required',
@@ -37,7 +35,7 @@ class UpdatedatapendudukRequest extends FormRequest
             'valPekerjaan' => 'required',
             'valGoldar' => 'required',
             'valStatus' => 'required',
-            'valTanggalperkawinan' => 'required',
+          
             'valHubungan' => 'required',
             'valAyah' => 'required',
             'valIbu' => 'required',
@@ -51,10 +49,9 @@ class UpdatedatapendudukRequest extends FormRequest
     public function attributes(): array
 {
     return [
-        // 'valNIK' => 'NIK',
-        'valGelara' => 'Gelar awal',
+       
         'valNama' => 'Nama',
-        'valGelart' => 'Gelar akhir',
+     
         'valJeniskelamin' => 'Jenis Kelamin',
         'valTempatlahir' => 'Tempat Lahir',
         'valTanggallahir' => 'Tanggal lahir',
@@ -63,7 +60,7 @@ class UpdatedatapendudukRequest extends FormRequest
         'valPekerjaan' => 'Pekerjaan',
         'valGoldar' => 'Goldar',
         'valStatus' => 'Status',
-        'valTanggalperkawinan' => 'Tanggalperkawinan',
+       
         'valHubungan' => 'Hubungan',
         'valAyah' => 'Ayah',
         'valIbu' => 'Ibu',
@@ -78,13 +75,13 @@ public function messages(): array
     {
     return [
         
-        // 'valNIK.required' => ':attribute Kolom tidak boleh kosong',
+      
 
-        'valGelara.required' => ':attribute Kolom tidak boleh kosong',
+       
         
         'valNama.required' => ':attribute Kolom tidak boleh kosong',
         
-        'valGelart.required' => ':attribute Kolom tidak boleh kosong',
+      
         
         'valJeniskelamin.required' => ':attribute Kolom tidak boleh kosong',
         
@@ -102,7 +99,7 @@ public function messages(): array
         
         'valStatus.required' => ':attribute Kolom tidak boleh kosong',
         
-        'valTanggalperkawinan.required' => ':attribute Kolom tidak boleh kosong',
+      
         
         'valHubungan.required' => ':attribute Kolom tidak boleh kosong',
         
@@ -118,4 +115,7 @@ public function messages(): array
         
     ];
     }
+
+    
+
 }

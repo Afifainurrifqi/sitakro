@@ -44,7 +44,7 @@
                                 <label class="col-lg-4 col-form-label" for="valGelara">Gelar awal <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text" value="{{ $valGelara }}" class="form-control @error('valGelara') is-invalid @enderror" id="valGelara" name="valGelara"  placeholder="Nama Lengkapmu...">
+                                    <input type="text" value="{{ $valGelara }}" class="form-control @error('valGelara') is-invalid @enderror" id="valGelara" name="valGelara"  placeholder="Gelar Awalmu...">
                                     @error('valGelara')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
@@ -56,7 +56,7 @@
                                 <label class="col-lg-4 col-form-label" for="valNama">Nama <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
-                                    <input type="text" value="{{ $valNama }}" class="form-control @error('valNama') is-invalid @enderror" id="valNama" name="valNama"  placeholder="Nama Lengkapmu...">
+                                    <input type="text" value="{{ $valNama }}" class="form-control @error('valNama') is-invalid @enderror" id="valNama" name="valNama"  placeholder="Gelar Awalmu...">
                                     @error('valNama')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
@@ -184,34 +184,47 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valStatus">Status <span class="text-danger">*</span>
-                                </label>
+                                <label class="col-lg-4 col-form-label" for="valStatus">Status <span class="text-danger">*</span></label>
                                 <div class="col-lg-6">
                                     <select class="form-control @error('valStatus') is-invalid @enderror" id="valStatus" name="valStatus">
                                         <option value="0" disabled selected>--Pilih Status--</option>
                                         @foreach ($status as $item)
-                                        <option value="{{ $item->id }}" {{ $valStatus == $item->id ? 'selected' : '' }} >{{ $item->nama }}</option>
-                                    @endforeach
+                                            <option value="{{ $item->id }}" {{ old('valStatus') == $item->id ? 'selected' : '' }}>
+                                                {{ $item->nama }}</option>
+                                        @endforeach
                                     </select>
                                     @error('valStatus')
-                                    <div id="" class="invalid-feedback">
-                                        {{ $message }}
-                                      </div>
-                                @enderror
+                                        <div id="" class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-group row" id="tanggalPerkawinanFormGroup" style="display: none;">
+                                        <label class="col-lg-4 col-form-label" for="valTanggalperkawinan">Tanggal Perkawinan <span class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            <input type="date" value="{{ old('valTanggalperkawinan') }}"
+                                                   class="form-control @error('valTanggalperkawinan') is-invalid @enderror"
+                                                   id="valTanggalperkawinan" name="valTanggalperkawinan" placeholder="Tanggal Tanggalperkawinan...">
+                                            @error('valTanggalperkawinan')
+                                                <div id="" class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valTanggalperkawinan">Tanggal Perkawinan <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="date" value="{{ $valTanggalperkawinan }}" class="form-control @error('valTanggalperkawinan') is-invalid @enderror" id="valTanggalperkawinan" name="valTanggalperkawinan" placeholder="Tanggal Tanggalperkawinan...">
-                                    @error('valTanggalperkawinan')
-                                    <div id="" class="invalid-feedback">
-                                        {{ $message }}
-                                      </div>
-                                @enderror
-                                </div>
-                            </div>
+                            
+                            
+                            <script>
+                                document.getElementById('valStatus').addEventListener('change', function () {
+                                    var selectedStatus = this.value;
+                                    var tanggalPerkawinanFormGroup = document.getElementById('tanggalPerkawinanFormGroup');
+                            
+                                    // Tampilkan atau sembunyikan form tanggal perkawinan berdasarkan status yang dipilih
+                                    if (selectedStatus === '1') { // Gantilah '1' dengan nilai yang sesuai untuk status 'Kawin'
+                                        tanggalPerkawinanFormGroup.style.display = 'block';
+                                    } else {
+                                        tanggalPerkawinanFormGroup.style.display = 'none';
+                                    }
+                                });
+                            </script>
+                            
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label " for="valHubungan">Hubungan <span class="text-danger">*</span>
                                 </label>

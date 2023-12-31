@@ -26,9 +26,9 @@ class StoredatapendudukRequest extends FormRequest
         return [
             'valNokk' => 'required|min:16|max:16',
             'valNIK' => 'required|unique:datapenduduks,nik|min:16|max:16',
-            'valGelara' => 'required',
+           
             'valNama' => 'required',
-            'valGelart' => 'required',
+           
             'valJeniskelamin' => 'required',
             'valTempatlahir' => 'required',
             'valTanggallahir' => 'required',
@@ -37,7 +37,7 @@ class StoredatapendudukRequest extends FormRequest
             'valPekerjaan' => 'required',
             'valGoldar' => 'required',
             'valStatus' => 'required',
-            'valTanggalperkawinan' => 'required',
+          
             'valHubungan' => 'required',
             'valAyah' => 'required',
             'valIbu' => 'required',
@@ -53,9 +53,9 @@ class StoredatapendudukRequest extends FormRequest
     return [
         'valNokk' => 'nokk',
         'valNIK' => 'NIK',
-        'valGelara' => 'Gelar awal',
+     
         'valNama' => 'Nama',
-        'valGelart' => 'Gelar akhir',
+     
         'valJeniskelamin' => 'Jenis Kelamin',
         'valTempatlahir' => 'Tempat Lahir',
         'valTanggallahir' => 'Tanggal lahir',
@@ -64,7 +64,7 @@ class StoredatapendudukRequest extends FormRequest
         'valPekerjaan' => 'Pekerjaan',
         'valGoldar' => 'Goldar',
         'valStatus' => 'Status',
-        'valTanggalperkawinan' => 'Tanggalperkawinan',
+       
         'valHubungan' => 'Hubungan',
         'valAyah' => 'Ayah',
         'valIbu' => 'Ibu',
@@ -83,11 +83,11 @@ public function messages(): array
 
         'valNokk.required' => ':attribute Kolom tidak boleh kosong',
 
-        'valGelara.required' => ':attribute Kolom tidak boleh kosong',
+       
         
         'valNama.required' => ':attribute Kolom tidak boleh kosong',
         
-        'valGelart.required' => ':attribute Kolom tidak boleh kosong',
+      
         
         'valJeniskelamin.required' => ':attribute Kolom tidak boleh kosong',
         
@@ -105,7 +105,7 @@ public function messages(): array
         
         'valStatus.required' => ':attribute Kolom tidak boleh kosong',
         
-        'valTanggalperkawinan.required' => ':attribute Kolom tidak boleh kosong',
+      
         
         'valHubungan.required' => ':attribute Kolom tidak boleh kosong',
         

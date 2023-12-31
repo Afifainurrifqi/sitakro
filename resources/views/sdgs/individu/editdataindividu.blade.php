@@ -24,6 +24,14 @@
                        
                         <form class="form-valide" action="{{ route('individu.update') }}" method="POST">
                              @csrf
+                             <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="valKK">KK <span class="text-danger">*</span>
+                                    <input type="hidden" name="valKK" value="{{ $datap->detailkk->kk->nokk }}">
+                                </label>
+                                <div class="col-lg-6">
+                                    {{ $datap->detailkk->kk->nokk }}
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label" for="valNIK">NIK <span class="text-danger">*</span>
                                     <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
@@ -35,67 +43,77 @@
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label" for="valNama">Nama <span class="text-danger">*</span>
                                 </label>
+                                <input type="hidden" name="valNama" value="{{ $datap->nama }}">
                                 <div class="col-lg-6">
                                     {{ $datap->nama }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valJeniskelamin">Jenis kelamin <span class="text-danger">*</span>
-                                </label>
+                                <label class="col-lg-4 col-form-label" for="valJeniskelamin">Jenis kelamin <span class="text-danger">*</span></label>
                                 <div class="col-lg-6">
-                                    <select name="valJeniskelamin" class="form-control-plaintext @error('valJeniskelamin') is-invalid @enderror" id="valJeniskelamin" required disabled>
-                                        <option value="1" {{ ($datap->jenis_kelamin =='1') ? 'selected' : '' }}>Laki-Laki</option>
-                                        <option value="0"  {{ ($datap->jenis_kelamin =='0') ? 'selected' : '' }} >Perempuan</option>
+                                    <!-- Hidden input to send the value to the server -->
+                                    <input type="hidden" name="valJeniskelamin" value="{{ $datap->jenis_kelamin }}">
+                            
+                                    <!-- Disabled select element for display purposes -->
+                                    <select disabled class="form-control-plaintext">
+                                        <option value="1" {{ $datap->jenis_kelamin == '1' ? 'selected' : '' }}>Laki-Laki</option>
+                                        <option value="0" {{ $datap->jenis_kelamin == '0' ? 'selected' : '' }}>Perempuan</option>
                                     </select>
                                 </div>
                             </div>
+                            
+                            
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valconfirm-Tempatlahir">Tempat Lahir <span class="text-danger">*</span>
+                                <label class="col-lg-4 col-form-label" for="valTempatlahir">Tempat Lahir <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
+                                    <input type="hidden" name="valTempatlahir" value="{{ $datap->tempat_lahir }}">
                                     {{ $datap->tempat_lahir }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valTanggallahir">Tanggal Lahir <span class="text-danger">*</span>
-                                </label>
+                                <label class="col-lg-4 col-form-label" for="valTanggallahir">Tanggal Lahir <span class="text-danger">*</span></label>
                                 <div class="col-lg-6">
-                                    <input type="date" vc class="form-control-plaintext @error('valTanggallahir') is-invalid @enderror" id="valTanggallahir" name="valTanggallahir" value="{{ $datap->tanggal_lahir }}" required disabled>
-                                    @error('valTanggallahir')
-                                    <div id="" class="invalid-feedback">
-                                        {{ $message }}
-                                      </div>
-                                @enderror
+                                    <!-- Hidden input to send the value to the server -->
+                                    <input type="hidden" name="valTanggallahir" value="{{ $datap->tanggal_lahir }}">
+                            
+                                    <!-- Read-only date input for display purposes -->
+                                    <input type="date" class="form-control-plaintext" id="valTanggallahir" name="valTanggallahir" value="{{ $datap->tanggal_lahir }}" readonly>
                                 </div>
-                            </div>              
+                            </div>
+                                 
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valUsia">Usia <span class="text-danger">*</span>
-                                </label>
+                                <label class="col-lg-4 col-form-label" for="valUsia">Usia <span class="text-danger">*</span></label>
                                 <div class="col-lg-6">
                                     @php
                                     $usia = Carbon\Carbon::parse($datap->tanggal_lahir)->age;
-                                @endphp
-                                
-                                 {{ $usia }} tahun.
+                                    @endphp
+                                    {{ $usia }} tahun.
+                                    <input type="hidden" name="valUsia" value="{{ $usia }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valStatus">Status <span class="text-danger">*</span>
-                                </label>
+                                <label class="col-lg-4 col-form-label" for="valStatus">Status <span class="text-danger">*</span></label>
                                 <div class="col-lg-6">
-                                    <select class="form-control-plaintext @error('valStatus') is-invalid @enderror" id="valStatus" name="valStatus" required disabled>
+                                    <!-- Hidden input to send the value to the server -->
+                                    <input type="hidden" name="valStatus" value="{{ $datap->status_id }}">
+                            
+                                    <!-- Disabled select element for display purposes -->
+                                    <select disabled class="form-control-plaintext">
                                         <option value="0" disabled selected>--Pilih Status--</option>
-                                        @foreach ( $status  as $item)
-                                        <option value="{{ $item->id }}" {{ $datap->status_id == $item->id ? 'selected' : '' }} >{{ $item->nama }}</option>
-                                    @endforeach
+                                        @foreach ($status as $item)
+                                            <option value="{{ $item->id }}" {{ $datap->status_id == $item->id ? 'selected' : '' }} >{{ $item->nama }}</option>
+                                        @endforeach
                                     </select>
                                     @error('valStatus')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
-                                      </div>
-                                @enderror
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
+                            
+                            
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label" for="valUsiapertamamenikah">Usia saat pertama kali menikah <span class="text-danger">*</span>
                                 </label>
@@ -109,22 +127,27 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valAgama">Agama <span class="text-danger">*</span>
-                                </label>
+                                <label class="col-lg-4 col-form-label" for="valAgama">Agama <span class="text-danger">*</span></label>
                                 <div class="col-lg-6">
-                                    <select class="form-control-plaintext @error('valAgama') is-invalid @enderror" id="valAgama" name="valAgama" required disabled>
+                                    <!-- Hidden input to send the value to the server -->
+                                    <input type="hidden" name="valAgama" value="{{ $datap->agama_id }}">
+                            
+                                    <!-- Disabled select element for display purposes -->
+                                    <select disabled class="form-control-plaintext">
                                         <option value="0" disabled selected>--Pilih Agama--</option>
                                         @foreach ($agama as $item)
-                                        <option value="{{ $item->id }}" {{ $datap->agama_id == $item->id ? 'selected' : '' }} >{{ $item->nama }}</option>
-                                    @endforeach
+                                            <option value="{{ $item->id }}" {{ $datap->agama_id == $item->id ? 'selected' : '' }} >{{ $item->nama }}</option>
+                                        @endforeach
                                     </select>
                                     @error('valAgama')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
-                                      </div>
-                                @enderror
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
+                            
+                            
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label" for="valSukubangsa">Suku Bangsa <span class="text-danger">*</span>
                                 </label>

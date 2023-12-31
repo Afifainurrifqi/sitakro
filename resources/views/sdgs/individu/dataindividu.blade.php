@@ -29,6 +29,7 @@
                                 <tr>
                                     <th>Action</th>
                                     <th>No</th>
+                                    <th>KK</th>
                                     <th>NIK</th>
                                     <th>Gelar awal</th>
                                     <th>Nama</th>
@@ -53,7 +54,7 @@
                             </thead>
                             <tbody>
                                 
-                                @foreach ( $datapenduduk as $row )
+                                @foreach ( $dataindividu as $row )
                                     <tr> 
                                         <td><a href="{{ route('individu.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
                                             <i class="fas fa-book"></i>                                        </a>
@@ -63,6 +64,7 @@
                                             
                                         </td>
                                         <th>{{ $loop->iteration }}</th>
+                                        <td>{{ $row->detailkk->kk->nokk }}</td>
                                         <td>{{ $row->nik }}</td>
                                         <td>{{ $row->gelarawal }}</td>
                                         <td>{{ $row->nama }}</td>

@@ -100,7 +100,7 @@
                                             <td>{{ $row->pekerjaan->nama }}</td>
                                             <td>{{ $row->goldar->nama }}</td>
                                             <td>{{ $row->status->nama }}</td>
-                                            <td>@if($row->tanggal_perkawinan == '1970-01-01')
+                                            <td>@if($row->tanggal_perkawinan == NULL)
                                                 Belum Kawin
                                             @else
                                                 {{ $row->tanggal_perkawinan }}
@@ -147,6 +147,7 @@
     
                                 </tbody>
                             </table>
+                            {{ $datapenduduk->links() }}
                         </div>
                     </div>
                     </div>

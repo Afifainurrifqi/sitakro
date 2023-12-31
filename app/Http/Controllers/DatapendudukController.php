@@ -29,21 +29,24 @@ class DatapendudukController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+        $perPage = 25; // Adjust this number based on your preference.
+    
+        $datapenduduk = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
     
         if ($search) {
             $datapenduduk->where('nik', 'like', '%' . $search . '%');
         }
     
-        $datapenduduk = $datapenduduk->paginate(100);
+        $datapenduduk = $datapenduduk->paginate($perPage);
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
+    
         return view('datapenduduk.data', compact('datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
+    
 
     public function add()
     {
@@ -109,9 +112,9 @@ class DatapendudukController extends Controller
 
         $datapenduduk = new DataPenduduk();
         $datapenduduk->nik = $request->valNIK;
-        $datapenduduk->gelarawal = $request->valGelara;
+        $datapenduduk->gelarawal = $request->valGelara ?? '';
         $datapenduduk->nama = $request->valNama;
-        $datapenduduk->gelarakhir = $request->valGelart;
+        $datapenduduk->gelarakhir = $request->valGelart ?? '';
         $datapenduduk->jenis_kelamin = $request->valJeniskelamin;
         $datapenduduk->tempat_lahir = $request->valTempatlahir;
         $datapenduduk->tanggal_lahir = $request->valTanggallahir;
@@ -210,9 +213,9 @@ class DatapendudukController extends Controller
     {
         $datapenduduk = datapenduduk::where('nik', $nik)->first();
         //    dd($datapenduduk);
-        $datapenduduk->gelarawal = $request->valGelara;
+        $datapenduduk->gelarawal = $request->valGelara ?? '';
         $datapenduduk->nama = $request->valNama;
-        $datapenduduk->gelarakhir = $request->valGelart;
+        $datapenduduk->gelarakhir = $request->valGelart ?? '';
         $datapenduduk->jenis_kelamin = $request->valJeniskelamin;
         $datapenduduk->tempat_lahir = $request->valTempatlahir;
         $datapenduduk->tanggal_lahir = $request->valTanggallahir;
