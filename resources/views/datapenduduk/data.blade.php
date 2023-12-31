@@ -143,8 +143,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    {{ $datapenduduk->appends(request()->query())->render() }}
+                                    <div> {{ $datapenduduk->appends(request()->query())->render() }}</div>
+                                   
     
                                 </tbody>
                             </table>
