@@ -253,7 +253,7 @@
                                     <div class="col-lg-6">
                                         <input type="text" value="{{ $datasdgspendidikan->bagaiamanap ?? '' }}"
                                             class="form-control @error('valbagaiamanap') is-invalid @enderror"
-                                            id="valbagaiamanap" name="valbagaiamanap" placeholder="Berapa kali...">
+                                            id="valbagaiamanap" name="valbagaiamanap" placeholder="Tulis alasan...">
                                         @error('valbagaiamanap')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -289,7 +289,7 @@
                                     <div class="col-lg-6">
                                         <input type="text" value="{{ $datasdgspendidikan->keterbukaands ?? '' }}"
                                             class="form-control @error('valketerbukaands') is-invalid @enderror"
-                                            id="valketerbukaands" name="valketerbukaands" placeholder="berapa kali...">
+                                            id="valketerbukaands" name="valketerbukaands" placeholder=" tuliskan alasan...">
                                         @error('valketerbukaands')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}

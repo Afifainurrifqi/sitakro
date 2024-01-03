@@ -7,7 +7,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">DATA INDIVIDU {{ $datap->nama }}</h1>
+                        {{-- <h1 class="card-title">DATA INDIVIDU {{ $datap->nama }}</h1> --}}
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ url('/sdgs/individu/dataindividu') }}'">Kembali
                         </button>

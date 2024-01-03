@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\akseskesehatan;
 use App\Http\Requests\StoreakseskesehatanRequest;
 use App\Http\Requests\UpdateakseskesehatanRequest;
+use Yajra\DataTables\DataTables;
 
 class AkseskesehatanController extends Controller
 {
@@ -22,26 +23,213 @@ class AkseskesehatanController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+      return view('sdgs.KK.akseskesehatan');
+    }
 
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+        ->whereIn('Datak', $allowedDatakValues);
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $akses_kesehatan = akseskesehatan::all();
-        $akses_kesehatanSudahProses = $akses_kesehatan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
+    return DataTables::of($query)
 
-        $persentaseProses = ($akses_kesehatanSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.KK.akseskesehatan', compact('akses_kesehatan', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('akseskesehatan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('akseskesehatan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            
+            ->addColumn('jaraktempuh_rumahs', function ($row) {
+                $datakesehatan = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_rumahs = $datakesehatan ? $datakesehatan->jaraktempuh_rumahs : '';
+
+                return '' . $jaraktempuh_rumahs . '';
+            })
+
+            ->addColumn('jaraktempuh_rumahs', function ($row) {
+                $datakesehatan = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_rumahs = $datakesehatan ? $datakesehatan->jaraktempuh_rumahs : '';
+                return '' . $jaraktempuh_rumahs . '';
+            })
+            
+            ->addColumn('waktutempuh_rumahs', function ($row) {
+                $datakesehatan = akseskesehatan::where('nik', $row->nik)->first();
+                $waktutempuh_rumahs = $datakesehatan ? $datakesehatan->waktutempuh_rumahs : '';
+                return '' . $waktutempuh_rumahs . '';
+            })
+            
+            ->addColumn('kemudahan_rumahs', function ($row) {
+                $datakesehatan = akseskesehatan::where('nik', $row->nik)->first();
+                $kemudahan_rumahs = $datakesehatan ? $datakesehatan->kemudahan_rumahs : '';
+                return '' . $kemudahan_rumahs . '';
+            })
+            
+            ->addColumn('jaraktempuh_rumahb', function ($row) {
+                $dataRumahB = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_rumahb = $dataRumahB ? $dataRumahB->jaraktempuh_rumahb : '';
+                return '' . $jaraktempuh_rumahb . '';
+            })
+            
+            ->addColumn('waktutempuh_rumahb', function ($row) {
+                $dataRumahB = akseskesehatan::where('nik', $row->nik)->first();
+                $waktutempuh_rumahb = $dataRumahB ? $dataRumahB->waktutempuh_rumahb : '';
+                return '' . $waktutempuh_rumahb . '';
+            })
+            
+            ->addColumn('kemudahan_rumahb', function ($row) {
+                $dataRumahB = akseskesehatan::where('nik', $row->nik)->first();
+                $kemudahan_rumahb = $dataRumahB ? $dataRumahB->kemudahan_rumahb : '';
+                return '' . $kemudahan_rumahb . '';
+            })
+            
+            ->addColumn('jaraktempuh_poliklinik', function ($row) {
+                $dataPoliklinik = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_poliklinik = $dataPoliklinik ? $dataPoliklinik->jaraktempuh_poliklinik : '';
+                return '' . $jaraktempuh_poliklinik . '';
+            })
+            
+            ->addColumn('waktutempuh_poliklinik', function ($row) {
+                $dataPoliklinik = akseskesehatan::where('nik', $row->nik)->first();
+                $waktutempuh_poliklinik = $dataPoliklinik ? $dataPoliklinik->waktutempuh_poliklinik : '';
+                return '' . $waktutempuh_poliklinik . '';
+            })
+            
+            ->addColumn('kemudahan_poliklinik', function ($row) {
+                $dataPoliklinik = akseskesehatan::where('nik', $row->nik)->first();
+                $kemudahan_poliklinik = $dataPoliklinik ? $dataPoliklinik->kemudahan_poliklinik : '';
+                return '' . $kemudahan_poliklinik . '';
+            })
+            
+            ->addColumn('jaraktempuh_puskesmas', function ($row) {
+                $dataPuskesmas = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_puskesmas = $dataPuskesmas ? $dataPuskesmas->jaraktempuh_puskesmas : '';
+                return '' . $jaraktempuh_puskesmas . '';
+            })
+            
+            ->addColumn('waktutempuh_puskesmas', function ($row) {
+                $dataPuskesmas = akseskesehatan::where('nik', $row->nik)->first();
+                $waktutempuh_puskesmas = $dataPuskesmas ? $dataPuskesmas->waktutempuh_puskesmas : '';
+                return '' . $waktutempuh_puskesmas . '';
+            })
+            
+            ->addColumn('kemudahan_puskesmas', function ($row) {
+                $dataPuskesmas = akseskesehatan::where('nik', $row->nik)->first();
+                $kemudahan_puskesmas = $dataPuskesmas ? $dataPuskesmas->kemudahan_puskesmas : '';
+                return '' . $kemudahan_puskesmas . '';
+            })
+            
+            ->addColumn('jaraktempuh_poskedes', function ($row) {
+                $dataPoskedes = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_poskedes = $dataPoskedes ? $dataPoskedes->jaraktempuh_poskedes : '';
+                return '' . $jaraktempuh_poskedes . '';
+            })
+            
+            ->addColumn('waktutempuh_poskedes', function ($row) {
+                $dataPoskedes = akseskesehatan::where('nik', $row->nik)->first();
+                $waktutempuh_poskedes = $dataPoskedes ? $dataPoskedes->waktutempuh_poskedes : '';
+                return '' . $waktutempuh_poskedes . '';
+            })
+            
+            ->addColumn('kemudahan_poskedes', function ($row) {
+                $dataPoskedes = akseskesehatan::where('nik', $row->nik)->first();
+                $kemudahan_poskedes = $dataPoskedes ? $dataPoskedes->kemudahan_poskedes : '';
+                return '' . $kemudahan_poskedes . '';
+            })
+            
+            ->addColumn('jaraktempuh_posyandu', function ($row) {
+                $dataPosyandu = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_posyandu = $dataPosyandu ? $dataPosyandu->jaraktempuh_posyandu : '';
+                return '' . $jaraktempuh_posyandu . '';
+            })
+            
+            ->addColumn('waktutempuh_posyandu', function ($row) {
+                $dataPosyandu = akseskesehatan::where('nik', $row->nik)->first();
+                $waktutempuh_posyandu = $dataPosyandu ? $dataPosyandu->waktutempuh_posyandu : '';
+                return '' . $waktutempuh_posyandu . '';
+            })
+            
+            ->addColumn('kemudahan_posyandu', function ($row) {
+                $dataPosyandu = akseskesehatan::where('nik', $row->nik)->first();
+                $kemudahan_posyandu = $dataPosyandu ? $dataPosyandu->kemudahan_posyandu : '';
+                return '' . $kemudahan_posyandu . '';
+            })
+            
+            ->addColumn('jaraktempuh_apotik', function ($row) {
+                $dataApotik = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_apotik = $dataApotik ? $dataApotik->jaraktempuh_apotik : '';
+                return '' . $jaraktempuh_apotik . '';
+            })
+            
+            ->addColumn('waktutempuh_apotik', function ($row) {
+                $dataApotik = akseskesehatan::where('nik', $row->nik)->first();
+                $waktutempuh_apotik = $dataApotik ? $dataApotik->waktutempuh_apotik : '';
+                return '' . $waktutempuh_apotik . '';
+            })
+            
+            ->addColumn('kemudahan_apotik', function ($row) {
+                $dataApotik = akseskesehatan::where('nik', $row->nik)->first();
+                $kemudahan_apotik = $dataApotik ? $dataApotik->kemudahan_apotik : '';
+                return '' . $kemudahan_apotik . '';
+            })
+            
+            ->addColumn('jaraktempuh_toko_obat', function ($row) {
+                $dataTokoObat = akseskesehatan::where('nik', $row->nik)->first();
+                $jaraktempuh_toko_obat = $dataTokoObat ? $dataTokoObat->jaraktempuh_toko_obat : '';
+                return '' . $jaraktempuh_toko_obat . '';
+            })
+            
+            ->addColumn('waktutempuh_toko_obat', function ($row) {
+                $dataTokoObat = akseskesehatan::where('nik', $row->nik)->first();
+                $waktutempuh_toko_obat = $dataTokoObat ? $dataTokoObat->waktutempuh_toko_obat : '';
+                return '' . $waktutempuh_toko_obat . '';
+            })
+            
+            ->addColumn('kemudahan_toko_obat', function ($row) {
+                $dataTokoObat = akseskesehatan::where('nik', $row->nik)->first();
+                $kemudahan_toko_obat = $dataTokoObat ? $dataTokoObat->kemudahan_toko_obat : '';
+                return '' . $kemudahan_toko_obat . '';
+            })
+            
+
+            ->rawColumns([
+                'action',
+                'jaraktempuh_rumahs',
+                'waktutempuh_rumahs',
+                'kemudahan_rumahs',
+                'jaraktempuh_rumahb',
+                'waktutempuh_rumahb',
+                'kemudahan_rumahb',
+                'jaraktempuh_poliklinik',
+                'waktutempuh_poliklinik',
+                'kemudahan_poliklinik',
+                'jaraktempuh_puskesmas',
+                'waktutempuh_puskesmas',
+                'kemudahan_puskesmas',
+                'jaraktempuh_poskedes',
+                'waktutempuh_poskedes',
+                'kemudahan_poskedes',
+                'jaraktempuh_posyandu',
+                'waktutempuh_posyandu',
+                'kemudahan_posyandu',
+                'jaraktempuh_apotik',
+                'waktutempuh_apotik',
+                'kemudahan_apotik',
+                'jaraktempuh_toko_obat',
+                'waktutempuh_toko_obat',
+                'kemudahan_toko_obat',
+            ])
+            
+            ->toJson();
     }
 
     /**
@@ -74,6 +262,7 @@ class AkseskesehatanController extends Controller
         if ($akses_kesehatan == NULL ) {
             $akses_kesehatan = new akseskesehatan();
         }
+        $akses_kesehatan->kk = $request->valNokk;      
         $akses_kesehatan->nik = $request->valNIK;      
         $akses_kesehatan-> jaraktempuh_rumahs = $request->valjaraktempuh_rumahs;
         $akses_kesehatan-> waktutempuh_rumahs = $request->valwaktutempuh_rumahs;

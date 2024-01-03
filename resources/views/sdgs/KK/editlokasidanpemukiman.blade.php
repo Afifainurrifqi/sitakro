@@ -17,6 +17,15 @@
                             <form class="form-valide" action="{{ route('lokasipemukiman.update') }}" method="POST">
                                 @csrf
                                 <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valNokk">KK <span
+                                            class="text-danger">*</span>
+                                        <input type="hidden" name="valNokk" value="{{ $datap->detailkk->kk->nokk }}">
+                                    </label>
+                                    <div class="col-lg-6">
+                                        {{ $datap->detailkk->kk->nokk }}
+                                    </div>
+                                </div>
+                                <div class="form-group row" hidden>
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
                                             class="text-danger">*</span>
                                         <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
@@ -184,7 +193,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control @error('valdinding_sebagian') is-invalid @enderror" id="valdinding_sebagian" name="valdinding_sebagian">
-                                            <option value="0" disabled selected>--Pilih Jenis Lantai--</option>
+                                            <option value="0" disabled selected>--Pilih Jenis Dinding--</option>
                                             <option value="Semen/Beton/Kayu berkualitas tinggi" {{ old('valdinding_sebagian') == 'Semen/Beton/Kayu berkualitas tinggi' || (isset($lokasi) && $lokasi->dinding_sebagian == 'Semen/Beton/Kayu berkualitas tinggi') ? 'selected' : '' }}>Semen/Beton/Kayu berkualitas tinggi</option>
                                             <option value="Kayu berkualitas rendah/bambu" {{ old('valdinding_sebagian') == 'Kayu berkualitas rendah/bambu' || (isset($lokasi) && $lokasi->dinding_sebagian == 'Kayu berkualitas rendah/bambu') ? 'selected' : '' }}>Kayu berkualitas rendah/bambu</option>
                                             <option value="Lainnya" {{ old('valdinding_sebagian') == 'Lainnya' || (isset($lokasi) && $lokasi->dinding_sebagian == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
@@ -203,7 +212,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <select class="form-control @error('valjendela') is-invalid @enderror" id="valjendela" name="valjendela">
-                                            <option value="0" disabled selected>--Pilih Jenis Lantai--</option>
+                                            <option value="0" disabled selected>--Pilih Jenis Jendela--</option>
                                             <option value="Ada, berfungsi" {{ old('valjendela') == 'Ada, berfungsi' || (isset($lokasi) && $lokasi->jendela == 'Ada, berfungsi') ? 'selected' : '' }}>Ada, berfungsi</option>
                                             <option value="Ada, tidak berfungsi" {{ old('valjendela') == 'Ada, tidak berfungsi' || (isset($lokasi) && $lokasi->jendela == 'Ada, tidak berfungsi') ? 'selected' : '' }}>Ada, tidak berfungsi</option>
                                             <option value="Tidak Ada" {{ old('valjendela') == 'Tidak Ada' || (isset($lokasi) && $lokasi->jendela == 'Tidak Ada') ? 'selected' : '' }}>Tidak Ada</option>

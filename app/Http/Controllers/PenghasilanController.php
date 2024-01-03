@@ -12,6 +12,7 @@ use App\Models\penghasilan;
 use App\Http\Requests\StorepenghasilanRequest;
 use App\Http\Requests\UpdatepenghasilanRequest;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class PenghasilanController extends Controller
 {
@@ -22,31 +23,68 @@ class PenghasilanController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        return view('sdgs.individu.datapenghasilan'); 
+    }
 
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-    
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-    
-        $datapenduduk = $datapenduduk->paginate(100);
-        $penghasilan = penghasilan::all();
-        $datapenghasilanSudahProses = $penghasilan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        
-        if ($datapendudukTotal != 0) {
-            $persentaseProses = ($datapenghasilanSudahProses / $datapendudukTotal) * 100;
-        } else {
-            $persentaseProses = 0; // or handle it in a way that makes sense for your application
-        }
-        $agama = Agama::all(); 
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.individu.datapenghasilan',compact( 'persentaseProses','datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status')); 
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+        ->whereIn('Datak', $allowedDatakValues);
+    
+        return DataTables::of($query)
+         
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('penghasilan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('penghasilan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+           
+            ->addColumn('sumber', function ($row) {
+                $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
+                $sumber = $datapenghasilan ? $datapenghasilan->sumber_penghasilan : '';
+    
+                return '' . $sumber . '';
+            })
+            ->addColumn('jumlah_aset', function ($row) {
+                $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
+                $jumlah_aset = $datapenghasilan ? $datapenghasilan->jumlah_asset_darip : '';
+    
+                return '' . $jumlah_aset . '';
+            })
+            ->addColumn('satuan', function ($row) {
+                $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
+                $satuan = $datapenghasilan ? $datapenghasilan->satuan : '';
+    
+                return '' . $satuan . '';
+            })
+            ->addColumn('penghasilan', function ($row) {
+                $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
+                $penghasilan = $datapenghasilan ? number_format($datapenghasilan->penghasilan_setahun, 0, ',', '.') : '';
+    
+                return 'Rp' . $penghasilan ;
+            })
+            ->addColumn('ekspor', function ($row) {
+                $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
+                $ekspor = $datapenghasilan ? $datapenghasilan->expor : '';
+    
+                return '' . $ekspor . '';
+            })
+            ->rawColumns(['action', 'sumber',
+            'jumlah_aset',
+            'satuan',
+            'penghasilan',
+            'ekspor',])
+            ->toJson();
     }
 
     /**

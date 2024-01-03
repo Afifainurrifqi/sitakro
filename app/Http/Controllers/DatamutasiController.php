@@ -17,6 +17,9 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoredatamutasiRequest;
 use App\Http\Requests\UpdatedatamutasiRequest;
+use Yajra\DataTables\DataTables;
+use App\Models\detailkk;
+use App\Models\kk;
 
 class DatamutasiController extends Controller
 {
@@ -27,21 +30,27 @@ class DatamutasiController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
 
-        $datapenduduk = datapenduduk::whereIn('datak', ['Meninggal', 'Pindah']);
+        $datamutasi = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }  
-        $datapenduduk = $datapenduduk->paginate(100);     
-        $agama = Agama::all(); 
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('datamutasi.datam',compact('datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status')); 
+        return view('datamutasi.datam');
     }
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['pindah', 'meninggal'];
+
+    $datapenduduk = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+        ->whereIn('Datak', $allowedDatakValues)
+        ->limit(100)
+        ->get();
+    
+        return DataTables::of($datapenduduk)
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->make(true);
+    }
+
 
     function exportexcelm()
     {

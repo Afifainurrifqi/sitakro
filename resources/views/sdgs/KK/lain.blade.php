@@ -2,131 +2,144 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">AKSES SARANA PRASARANA</h2>
-                        <form action="{{ route('aksessarpras.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('laink.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('editlaink.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                   
-                </div>
-                
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">LAIN-LAIN</h2>
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="tabledatalaink">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">NIK</th>
+                                        <th rowspan="2">Gelar awal</th>
+                                        <th rowspan="2">Nama</th>
+                                        <th rowspan="2">Gelar akhir</th>
+                                        <th rowspan="2">JUMLAH ANGGOTA KELUARGA PENGGUNA TRANSPORTASI UMUM 1 BULAN
+                                            TERAKHIR</th>
+                                        <th rowspan="2">JUMLAH ANGGOTA KELUARGA PENGGUNA TRANSPORTASI UMUM 1 BULAN
+                                            SEBELUMNYA</th>
+                                        <th colspan="8">PEMANFAAT/PENERIMA PROGRAM PEMERINTAH</th>
+                                        <th rowspan="2">BERAPA RATA-RATA PENGELUARAN SATU KELUARGA DALAM SEBULAN (Rp.)
+                                        </th>
+
+                                    </tr>
+
+                                    <tr>
+                                        <th>BLT</th>
+                                        <th>PKH</th>
+                                        <th>BST</th>
+                                        <th>Bantuan Presiden</th>
+                                        <th>Bantuan UMKM</th>
+                                        <th>Bantuan untuk Pekerja</th>
+                                        <th>Bantuan Pendidikan Anak</th>
+                                        <th>Lainnya</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
-            
         </div>
     </div>
-</div>
 
-<script>
-
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
-
-</script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledatalaink').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/laink/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action'
+                    },
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nokk',
+                        name: 'nokk'
+                    },
+                    {
+                        data: 'gelarawal',
+                        name: 'gelarawal'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'gelarakhir',
+                        name: 'gelarakhir'
+                    },
+                    {
+                        data: 'pengtransportsebelum',
+                        name: 'pengtransportsebelum'
+                    },
+                    {
+                        data: 'pengtransportsesudah',
+                        name: 'pengtransportsesudah'
+                    },
+                    {
+                        data: 'blt',
+                        name: 'blt'
+                    },
+                    {
+                        data: 'pkh',
+                        name: 'pkh'
+                    },
+                    {
+                        data: 'bst',
+                        name: 'bst'
+                    },
+                    {
+                        data: 'bantuan_presiden',
+                        name: 'bantuan_presiden'
+                    },
+                    {
+                        data: 'bantuan_umkm',
+                        name: 'bantuan_umkm'
+                    },
+                    {
+                        data: 'bantuan_pekerja',
+                        name: 'bantuan_pekerja'
+                    },
+                    {
+                        data: 'bantuan_anak',
+                        name: 'bantuan_anak'
+                    },
+                    {
+                        data: 'lainnya',
+                        name: 'lainnya'
+                    },
+                    {
+                        data: 'rata_rata',
+                        name: 'rata_rata'
+                    },
+                ]
+            });
+        });
+    </script>
 @endsection

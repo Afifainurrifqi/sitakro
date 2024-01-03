@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valExport">DI EXPORT <span class="text-danger">*</span>
+                                <label class="col-lg-4 col-form-label" for="valExport">DI  EKSPOR <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-lg-6">
                                     @if (isset($dataph->expor))

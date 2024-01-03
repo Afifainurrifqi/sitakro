@@ -16,7 +16,17 @@
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('akseskesehatan.update') }}" method="POST">
                                 @csrf
+
                                 <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valNokk">KK <span
+                                            class="text-danger">*</span>
+                                        <input type="hidden" name="valNokk" value="{{ $datap->detailkk->kk->nokk }}">
+                                    </label>
+                                    <div class="col-lg-6">
+                                        {{ $datap->detailkk->kk->nokk }}
+                                    </div>
+                                </div>
+                                <div class="form-group row" hidden>
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
                                             class="text-danger">*</span>
                                         <input type="hidden" name="valNIK" value="{{ $datap->nik }}">

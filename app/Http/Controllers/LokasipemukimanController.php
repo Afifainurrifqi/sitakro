@@ -13,6 +13,7 @@ use App\Models\lokasipemukiman;
 use App\Http\Requests\StorelokasipemukimanRequest;
 use App\Http\Requests\UpdatelokasipemukimanRequest;
 use App\Models\dataindividu;
+use Yajra\DataTables\DataTables;
 
 class LokasipemukimanController extends Controller
 {
@@ -23,29 +24,207 @@ class LokasipemukimanController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        return view('sdgs.KK.lokasidanpemukiman');
+    }
 
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $lokasipemukiman = lokasipemukiman::all();
-        $lokasipemukimanSudahProses = $lokasipemukiman->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-        if ($datapendudukTotal != 0) {
-            $persentaseProses = ($lokasipemukimanSudahProses/ $datapendudukTotal) * 100;
-        } else {
-            $persentaseProses = 0; // or handle it in a way that makes sense for your application
-        } // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.KK.lokasidanpemukiman', compact('lokasipemukiman', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return DataTables::of($query)
+
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('lokasipemukiman.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('lokasipemukiman.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+
+            ->addColumn('nowa', function ($row) {
+                $dataIndividu = dataindividu::where('nik', $row->nik)->first();
+                $kondisi = $dataIndividu ? $dataIndividu->nowa : '';
+
+                return $kondisi;
+            })
+            ->addColumn('nohp', function ($row) {
+                $dataIndividu = dataindividu::where('nik', $row->nik)->first();
+                $kondisi = $dataIndividu ? $dataIndividu->nohp : '';
+
+                return $kondisi;
+            })
+            ->addColumn('nik_kepala', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->nik_kepala : '';
+
+                return $kondisi;
+            })
+            ->addColumn('tempat_tinggal', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->tempat_tinggal : '';
+
+                return $kondisi;
+            })
+            ->addColumn('status_lahan', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->status_lahan : '';
+
+                return $kondisi;
+            })
+            ->addColumn('luas_lantai_tinggal', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->luas_lantai_tinggal : '';
+
+                return $kondisi;
+            })
+            ->addColumn('luas_tanah_tinggal', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->luas_tanah_tinggal : '';
+
+                return $kondisi;
+            })
+            ->addColumn('jenis_lantai_tinggal', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->jenis_lantai_tinggal : '';
+
+                return $kondisi;
+            })
+            ->addColumn('dinding_sebagian', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->dinding_sebagian : '';
+
+                return $kondisi;
+            })
+            ->addColumn('jendela', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->jendela : '';
+
+                return $kondisi;
+            })
+            ->addColumn('atap', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->atap : '';
+
+                return $kondisi;
+            })
+            ->addColumn('penerangan', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->penerangan : '';
+
+                return $kondisi;
+            })
+            ->addColumn('energi_masak', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->energi_masak : '';
+
+                return $kondisi;
+            })
+            ->addColumn('jika_kayu_jenis', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->jika_kayu_jenis : '';
+
+                return $kondisi;
+            })
+            ->addColumn('tempat_sampah', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->tempat_sampah : '';
+
+                return $kondisi;
+            })
+            ->addColumn('mck', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->mck : '';
+
+                return $kondisi;
+            })
+            ->addColumn('sumber_air_mandi', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->sumber_air_mandi : '';
+
+                return $kondisi;
+            })
+            ->addColumn('sumber_air_mck', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->sumber_air_mck : '';
+
+                return $kondisi;
+            })
+            ->addColumn('sumber_air_minum', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->sumber_air_minum : '';
+
+                return $kondisi;
+            })
+            ->addColumn('tempat_pembuangan_limbah', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->tempat_pembuangan_limbah : '';
+
+                return $kondisi;
+            })
+            ->addColumn('rumah_sungai', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->rumah_sungai : '';
+
+                return $kondisi;
+            })
+            ->addColumn('rumah_sutet', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->rumah_sutet : '';
+
+                return $kondisi;
+            })
+            ->addColumn('rumah_lereng_gunung', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->rumah_lereng_gunung : '';
+
+                return $kondisi;
+            })
+            ->addColumn('kondi_rumah_kumuh', function ($row) {
+                $lokasi = lokasipemukiman::where('nik', $row->nik)->first();
+                $kondisi = $lokasi ? $lokasi->kondi_rumah_kumuh : '';
+
+                return $kondisi;
+            })
+
+
+            ->rawColumns([
+                'action',
+                'nowa',
+                'nohp',
+                'nik_kepala',
+                'tempat_tinggal',
+                'status_lahan',
+                'luas_lantai_tinggal',
+                'luas_tanah_tinggal',
+                'jenis_lantai_tinggal',
+                'dinding_sebagian',
+                'jendela',
+                'atap',
+                'penerangan',
+                'energi_masak',
+                'jika_kayu_jenis',
+                'tempat_sampah',
+                'mck',
+                'sumber_air_mandi',
+                'sumber_air_mck',
+                'sumber_air_minum',
+                'tempat_pembuangan_limbah',
+                'rumah_sungai',
+                'rumah_sutet',
+                'rumah_lereng_gunung',
+                'kondi_rumah_kumuh',
+            ])
+            ->toJson();
+            
     }
 
     /**
@@ -107,12 +286,10 @@ class LokasipemukimanController extends Controller
         $lokasi->rumah_sungai = $request->valrumah_sungai;
         $lokasi->rumah_lereng_gunung = $request->valrumah_lereng_gunung;
         $lokasi->kondi_rumah_kumuh = $request->valkondi_rumah_kumuh;
-        
+
         $lokasi->save();
 
         return redirect()->route('lokasipemukiman.show', ['show' => $request->valNIK]);
-
-        
     }
 
     /**

@@ -12,6 +12,7 @@ use App\Models\datapekerjaansdgs;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoredatapekerjaansdgsRequest;
 use App\Http\Requests\UpdatedatapekerjaansdgsRequest;
+use Yajra\DataTables\DataTables;
 
 class DatapekerjaansdgsController extends Controller
 {
@@ -22,34 +23,8 @@ class DatapekerjaansdgsController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $datapekerjaan = datapekerjaansdgs::all();
-        $datapekerjaanSudahProses = $datapekerjaan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk     
-        if ($datapendudukTotal != 0) {
-            $persentaseProses = ($datapekerjaanSudahProses/ $datapendudukTotal) * 100;
-        } else {
-            $persentaseProses = 0; // or handle it in a way that makes sense for your application
-        } // Hitung// Hitung persentase
-        $dataPekerjaan = datapekerjaansdgs::all();
-
-        // Siapkan data untuk grafik pie
-        $pekerjaanLabels = $dataPekerjaan->pluck('pekerjaan_utama')->toArray();
-        $pekerjaanCounts = $dataPekerjaan->countBy('pekerjaan_utama')->values()->toArray();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.individu.datasdgspekerjaan', compact('datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses', 'datapekerjaan', 'pekerjaanLabels', 'pekerjaanCounts'));
+       
+        return view('sdgs.individu.datasdgspekerjaan');
     }
 
     /**
@@ -57,6 +32,59 @@ class DatapekerjaansdgsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+        ->whereIn('Datak', $allowedDatakValues);
+    
+        return DataTables::of($query)
+         
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('pekerjaan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('pekerjaan.create', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            ->addColumn('kondisi_pekerjaan', function ($row) {
+                $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->kondisi_pekerjaan : '';
+            
+                return $kondisi;
+            })
+            ->addColumn('pekerjaan_utama', function ($row) {
+                $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
+                $utama = $datapekerjaan ? $datapekerjaan->pekerjaan_utama : '';
+            
+                return $utama;
+            })
+            ->addColumn('jaminan_sosial_ketenagakerjaan', function ($row) {
+                $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
+                $jamkes = $datapekerjaan ? $datapekerjaan->jaminan_sosial_ketenagakerjaan : '';
+            
+                return $jamkes;
+            })
+            ->addColumn('penghasilan_setahun_terakhir', function ($row) {
+                $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
+                $hasil = $datapekerjaan ? number_format($datapekerjaan->penghasilan_setahun_terakhir, 0, ',', '.') : '';
+                return 'Rp ' . $hasil;
+            })
+            
+            ->rawColumns(['action','kondisi_pekerjaan'
+            ,'pekerjaan_utama'
+            ,'jaminan_sosial_ketenagakerjaan'
+            ,'penghasilan_setahun_terakhir'])
+            ->toJson();
+    }
+
     public function create($nik)
     {
         $datap = datapenduduk::where('nik', $nik)->first();

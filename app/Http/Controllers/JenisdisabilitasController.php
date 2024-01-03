@@ -12,6 +12,7 @@ use App\Models\jenisdisabilitas;
 use App\Http\Requests\StorejenisdisabilitasRequest;
 use App\Http\Requests\UpdatejenisdisabilitasRequest;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class JenisdisabilitasController extends Controller
 {
@@ -22,32 +23,43 @@ class JenisdisabilitasController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
 
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-    
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-    
-        $datapenduduk = $datapenduduk->paginate(100);
-        $datadisabilitas = jenisdisabilitas::all();
-        $datadisabilitasProses = $datadisabilitas->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-
-        
-        if ($datapendudukTotal != 0) {
-            $persentaseProses = ($datadisabilitasProses/ $datapendudukTotal) * 100;
-        } else {
-            $persentaseProses = 0; // or handle it in a way that makes sense for your application
-        }
-        $agama = Agama::all(); 
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.individu.datadisabilitas',compact( 'persentaseProses','datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status')); 
+        return view('sdgs.individu.datadisabilitas');
     }
+
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
+
+        return DataTables::of($query)
+
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('disabilitas.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('disabilitas.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            ->addColumn('disabilitas', function ($row) {
+                $datadisabilitas = jenisdisabilitas::where('nik', $row->nik)->first();
+                $kondisi = $datadisabilitas ? $datadisabilitas->jenis_disabilitas : '';
+
+                return $kondisi;
+            })
+
+            ->rawColumns(['action', 'disabilitas',])
+            ->toJson();
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +75,7 @@ class JenisdisabilitasController extends Controller
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
-        
+
         return view('sdgs.individu.editdisabilitas', compact('datap', 'datadisabilitas', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
@@ -76,7 +88,7 @@ class JenisdisabilitasController extends Controller
     public function store(StorejenisdisabilitasRequest $request)
     {
         $datadisabilitas = jenisdisabilitas::where('nik', $request->valNIK)->first();
-        if ($datadisabilitas == NULL ) {
+        if ($datadisabilitas == NULL) {
             $datadisabilitas = new jenisdisabilitas();
         }
         $datadisabilitas->nik = $request->valNIK;
@@ -84,7 +96,7 @@ class JenisdisabilitasController extends Controller
 
         $datadisabilitas->save();
 
-        return redirect()->route('disabilitas.show',['show'=> $request->valNIK ]);
+        return redirect()->route('disabilitas.show', ['show' => $request->valNIK]);
     }
 
     /**
@@ -95,15 +107,15 @@ class JenisdisabilitasController extends Controller
      */
     public function show(jenisdisabilitas $jenisdisabilitas, $nik)
     {
-        $datap = datapenduduk::where('nik',$nik)->first();
+        $datap = datapenduduk::where('nik', $nik)->first();
         $datadisabilitas = jenisdisabilitas::where('nik', $nik)->first();
-        $agama = Agama::all(); 
+        $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.individu.viewjenisdisabilitas',compact('datap', 'datadisabilitas', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status')); 
+        return view('sdgs.individu.viewjenisdisabilitas', compact('datap', 'datadisabilitas', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**

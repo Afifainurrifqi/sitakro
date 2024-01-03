@@ -2,131 +2,265 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">AKSES SARANA PRASARANA</h2>
-                        <form action="{{ route('aksessarpras.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('aksessarpras.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('aksessarpras.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                   
-                </div>
-                
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">AKSES SARANA PRASARANA</h2>
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered " id="tabledataaksessarpras">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">KK</th>
+                                        <th rowspan="2">Gelar awal</th>
+                                        <th rowspan="2">Nama</th>
+                                        <th rowspan="2">Gelar akhir</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">LOKASI
+                                            PEKERJAAN UTAMA</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">LAHAN
+                                            PERTANIAN YANG SEDANG DIUSAHAKAN</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">SEKOLAH
+                                        </th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">BEROBAT
+                                        </th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">BERIBADAH
+                                            MINGGUAN / BULANAN / TAHUNAN</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">REKREASI
+                                            TERDEKAT</th>
+
+                                    </tr>
+                                    <tr>
+                                        <th>JENIS TRANSPORTASI</th>
+                                        <th>PENGGUNAAN TRANSPORTASI UMUM</th>
+                                        <th>WAKTU TEMPUH SEKALI JALAN (JAM)</th>
+                                        <th>BIAYA SEKALI JALAN (Rp.)</th>
+                                        <th style="border-right: 1px solid #000;">KEMUDAHAN</th>
+
+                                        <th>JENIS TRANSPORTASI</th>
+                                        <th>PENGGUNAAN TRANSPORTASI UMUM</th>
+                                        <th>WAKTU TEMPUH SEKALI JALAN (JAM)</th>
+                                        <th>BIAYA SEKALI JALAN (Rp.)</th>
+                                        <th style="border-right: 1px solid #000;">KEMUDAHAN</th>
+
+                                        <th>JENIS TRANSPORTASI</th>
+                                        <th>PENGGUNAAN TRANSPORTASI UMUM</th>
+                                        <th>WAKTU TEMPUH SEKALI JALAN (JAM)</th>
+                                        <th>BIAYA SEKALI JALAN (Rp.)</th>
+                                        <th style="border-right: 1px solid #000;">KEMUDAHAN</th>
+
+                                        <th>JENIS TRANSPORTASI</th>
+                                        <th>PENGGUNAAN TRANSPORTASI UMUM</th>
+                                        <th>WAKTU TEMPUH SEKALI JALAN (JAM)</th>
+                                        <th>BIAYA SEKALI JALAN (Rp.)</th>
+                                        <th style="border-right: 1px solid #000;">KEMUDAHAN</th>
+
+                                        <th>JENIS TRANSPORTASI</th>
+                                        <th>PENGGUNAAN TRANSPORTASI UMUM</th>
+                                        <th>WAKTU TEMPUH SEKALI JALAN (JAM)</th>
+                                        <th>BIAYA SEKALI JALAN (Rp.)</th>
+                                        <th style="border-right: 1px solid #000;">KEMUDAHAN</th>
+
+                                        <th>JENIS TRANSPORTASI</th>
+                                        <th>PENGGUNAAN TRANSPORTASI UMUM</th>
+                                        <th>WAKTU TEMPUH SEKALI JALAN (JAM)</th>
+                                        <th>BIAYA SEKALI JALAN (Rp.)</th>
+                                        <th style="border-right: 1px solid #000;">KEMUDAHAN</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
-            
         </div>
     </div>
-</div>
 
-<script>
-
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
-
-</script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledataaksessarpras').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/aksessarpras/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action'
+                    },
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nokk',
+                        name: 'nokk'
+                    }, 
+                    {
+                        data: 'gelarawal',
+                        name: 'gelarawal'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'gelarakhir',
+                        name: 'gelarakhir'
+                    },
+                    {
+                        data: 'jenistrasport_lokasipu',
+                        name: 'jenistrasport_lokasipu'
+                    },
+                    {
+                        data: 'pengtransportumum_lokasipu',
+                        name: 'pengtransportumum_lokasipu'
+                    },
+                    {
+                        data: 'waktutempuh_lokasipu',
+                        name: 'waktutempuh_lokasipu'
+                    },
+                    {
+                        data: 'biaya_lokasipu',
+                        name: 'biaya_lokasipu'
+                    },
+                    {
+                        data: 'kemudahan_lokasipu',
+                        name: 'kemudahan_lokasipu'
+                    },
+                    {
+                        data: 'jenistrasport_lahanpertanian',
+                        name: 'jenistrasport_lahanpertanian'
+                    },
+                    {
+                        data: 'pengtransportumum_lahanpertanian',
+                        name: 'pengtransportumum_lahanpertanian'
+                    },
+                    {
+                        data: 'waktutempuh_lahanpertanian',
+                        name: 'waktutempuh_lahanpertanian'
+                    },
+                    {
+                        data: 'biaya_lahanpertanian',
+                        name: 'biaya_lahanpertanian'
+                    },
+                    {
+                        data: 'kemudahan_lahanpertanian',
+                        name: 'kemudahan_lahanpertanian'
+                    },
+                    {
+                        data: 'jenistrasport_sekolah',
+                        name: 'jenistrasport_sekolah'
+                    },
+                    {
+                        data: 'pengtransportumum_sekolah',
+                        name: 'pengtransportumum_sekolah'
+                    },
+                    {
+                        data: 'waktutempuh_sekolah',
+                        name: 'waktutempuh_sekolah'
+                    },
+                    {
+                        data: 'biaya_sekolah',
+                        name: 'biaya_sekolah'
+                    },
+                    {
+                        data: 'kemudahan_sekolah',
+                        name: 'kemudahan_sekolah'
+                    },
+                    {
+                        data: 'jenistrasport_berobat',
+                        name: 'jenistrasport_berobat'
+                    },
+                    {
+                        data: 'pengtransportumum_berobat',
+                        name: 'pengtransportumum_berobat'
+                    },
+                    {
+                        data: 'waktutempuh_berobat',
+                        name: 'waktutempuh_berobat'
+                    },
+                    {
+                        data: 'biaya_berobat',
+                        name: 'biaya_berobat'
+                    },
+                    {
+                        data: 'kemudahan_berobat',
+                        name: 'kemudahan_berobat'
+                    },
+                    {
+                        data: 'jenistrasport_beribadah',
+                        name: 'jenistrasport_beribadah'
+                    },
+                    {
+                        data: 'pengtransportumum_beribadah',
+                        name: 'pengtransportumum_beribadah'
+                    },
+                    {
+                        data: 'waktutempuh_beribadah',
+                        name: 'waktutempuh_beribadah'
+                    },
+                    {
+                        data: 'biaya_beribadah',
+                        name: 'biaya_beribadah'
+                    },
+                    {
+                        data: 'kemudahan_beribadah',
+                        name: 'kemudahan_beribadah'
+                    },
+                    {
+                        data: 'jenistrasport_rekreasi',
+                        name: 'jenistrasport_rekreasi'
+                    },
+                    {
+                        data: 'pengtransportumum_rekreasi',
+                        name: 'pengtransportumum_rekreasi'
+                    },
+                    {
+                        data: 'waktutempuh_rekreasi',
+                        name: 'waktutempuh_rekreasi'
+                    },
+                    {
+                        data: 'biaya_rekreasi',
+                        name: 'biaya_rekreasi'
+                    },
+                    {
+                        data: 'kemudahan_rekreasi',
+                        name: 'kemudahan_rekreasi'
+                    }
+                ]
+            });
+        });
+    </script>
 @endsection

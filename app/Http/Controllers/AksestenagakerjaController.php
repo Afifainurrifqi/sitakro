@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\aksestenagakerja;
 use App\Http\Requests\StoreaksestenagakerjaRequest;
 use App\Http\Requests\UpdateaksestenagakerjaRequest;
+use Yajra\DataTables\DataTables;
 
 class AksestenagakerjaController extends Controller
 {
@@ -22,27 +23,126 @@ class AksestenagakerjaController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $akses_tenagakerja = aksestenagakerja::all();
-        $akses_tenagakerjaProses = $akses_tenagakerja->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-
-        $persentaseProses = ($akses_tenagakerjaProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.KK.aksestenagakerja', compact('akses_tenagakerja', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.KK.aksestenagakerja');
     }
+
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
+    
+        return DataTables::of($query)
+
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('aksestenagakerja.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('aksestenagakerja.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            ->addColumn('jaraktempuh_dr_spesialis', function ($row) {
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_dr_spesialis : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('waktutempuh_dr_spesialis', function ($row) {
+                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dr_spesialis : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('kemudahan_dr_spesialis', function ($row) {
+                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dr_spesialis : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('jaraktempuh_dr_umum', function ($row) {
+                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_dr_umum : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('waktutempuh_dr_umum', function ($row) {
+                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dr_umum : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('kemudahan_dr_umum', function ($row) {
+                   $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dr_umum : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('jaraktempuh_bidan', function ($row) {
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_bidan : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('waktutempuh_bidan', function ($row) {
+                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_bidan : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('kemudahan_bidan', function ($row) {
+                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_bidan : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('jaraktempuh_tenagakes', function ($row) {
+                   $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_tenagakes : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('waktutempuh_tenagakes', function ($row) {
+                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_tenagakes : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('kemudahan_tenagakes', function ($row) {
+                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_tenagakes : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('jaraktempuh_dukun', function ($row) {
+                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_dukun : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('waktutempuh_dukun', function ($row) {
+                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dukun : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            ->addColumn('kemudahan_dukun', function ($row) {
+                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dukun : '';
+                return '' . $jaraktempuh_dr_spesialis . '';
+            })
+            
+            ->rawColumns(['action',
+            'jaraktempuh_dr_spesialis',
+            'waktutempuh_dr_spesialis',
+            'kemudahan_dr_spesialis',
+            'jaraktempuh_dr_umum',
+            'waktutempuh_dr_umum',
+            'kemudahan_dr_umum',
+            'jaraktempuh_bidan',
+            'waktutempuh_bidan',
+            'kemudahan_bidan',
+            'jaraktempuh_tenagakes',
+            'waktutempuh_tenagakes',
+            'kemudahan_tenagakes',
+            'jaraktempuh_dukun',
+            'waktutempuh_dukun',
+            'kemudahan_dukun',])
+            ->toJson();
+    }
+
 
     /**
      * Show the form for creating a new resource.

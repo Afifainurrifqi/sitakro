@@ -132,21 +132,7 @@
                                     <input type="text" value="{{ $datapk->penghasilan_setahun_terakhir ?? '' }}"
                                     class="form-control @error('valPenghasilansetahun') is-invalid @enderror"
                                     id="valPenghasilansetahun" name="valPenghasilansetahun" placeholder="Tulis Nominalnya"
-                                    oninput="formatNumber(this)">
-                                
-                                <script>
-                                    function formatNumber(input) {
-                                        // Menghapus karakter selain digit (0-9)
-                                        var sanitized = input.value.replace(/[^0-9]/g, '');
-                                
-                                        // Menambahkan tanda titik setiap tiga angka dari belakang
-                                        var formatted = sanitized.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-                                
-                                        // Memasukkan hasil format kembali ke dalam input
-                                        input.value = formatted;
-                                    }
-                                </script>
-                                
+                                    >                               
                                     @error('valPenghasilansetahun')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}

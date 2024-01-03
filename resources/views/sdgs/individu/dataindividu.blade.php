@@ -2,59 +2,59 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">SDGS DATA INDIVIDU</h2>
-                        <form action="{{ route('individu.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>KK</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">SDGS DATA INDIVIDU</h2>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered zero-configuration" id="tabledataindividu">
+                                <thead>
+                                    <!-- DATA INDIVIDU -->
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>No</th>
+                                        <th>KK</th>
+                                        <th>NIK</th>
+                                        <th>Gelar awal</th>
+                                        <th>Nama</th>
+                                        <th>Gelar akhir</th>
+                                        <th>Jenis kelamin</th>
+                                        <th>Tempat lahir</th>
+                                        <th>Tanggal_lahir</th>
+                                        <th>Usia</th>
+                                        <th>Status</th>
+                                        <th>Usia Saat pertama kali menikah</th>
+                                        <th>Agama</th>
+                                        <th>Suku Bangsa</th>
+                                        <th>Warga Negara</th>
+                                        <th>No. Hp</th>
+                                        <th>No. Wa</th>
+                                        <th>Email</th>
+                                        <th>Facebook</th>
+                                        <th>Twitter</th>
+                                        <th>Instagram</th>
+                                        
+                                        
+                                        
+                                    </tr>
+                                    
+                                </thead>
                                 
-                                @foreach ( $dataindividu as $row )
+                                <tbody>
+
+                                    {{-- @foreach ($datapenduduk as $row)
                                     <tr> 
                                         <td><a href="{{ route('individu.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
                                             <i class="fas fa-book"></i>                                        </a>
@@ -69,7 +69,7 @@
                                         <td>{{ $row->gelarawal }}</td>
                                         <td>{{ $row->nama }}</td>
                                         <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
+                                        <td>@if ($row->jenis_kelamin == 1)
                                             Laki-Laki
                                             @else
                                             Perempuan
@@ -81,7 +81,7 @@
                                         <td>{{ $row->pekerjaan->nama }}</td>
                                         <td>{{ $row->goldar->nama }}</td>
                                         <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
+                                        <td>@if ($row->tanggal_perkawinan == '1970-01-01')
                                             Belum Kawin
                                         @else
                                             {{ $row->tanggal_perkawinan }}
@@ -96,39 +96,121 @@
                                     </tr>   
                                     
 
-                                @endforeach
+                                @endforeach --}}
 
 
-                                
-                            </tbody>
-                        </table>
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
-                   
+
                 </div>
                 
+
             </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
         </div>
     </div>
-</div>
-
-<script>
-
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
-
-</script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledataindividu').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/dataindividu/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action'
+                    },
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nokk',
+                        name: 'nokk'
+                    }, // Use dot notation to access related data
+                    {
+                        data: 'nik',
+                        name: 'nik'
+                    },
+                    {
+                        data: 'gelarawal',
+                        name: 'gelarawal'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'gelarakhir',
+                        name: 'gelarakhir'
+                    },
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin'
+                    },
+                    {
+                        data: 'tempat_lahir',
+                        name: 'tempat_lahir'
+                    },
+                    {
+                        data: 'tanggal_lahir',
+                        name: 'tanggal_lahir'
+                    },
+                    {
+                        data: 'Usia',
+                        name: 'Usia'
+                    },
+                    {
+                        data: 'status.nama',
+                        name: 'status.nama'
+                    },
+                    {
+                        data: 'usia_nikah',
+                        name: 'usia_nikah'
+                    },
+                    {
+                        data: 'agama.nama',
+                        name: 'agama.nama'
+                    }, // Use dot notation for related table fields
+                    {
+                        data: 'suku_bangsa',
+                        name: 'suku_bangsa'
+                    },
+                    {
+                        data: 'warga_negara',
+                        name: 'warga_negara'
+                    },
+                    {
+                        data: 'hp',
+                        name: 'hp'
+                    },
+                    {
+                        data: 'wa',
+                        name: 'wa'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'facebook',
+                        name: 'facebook'
+                    },
+                    {
+                        data: 'twitter',
+                        name: 'twitter'
+                    },
+                    {
+                        data: 'instagram',
+                        name: 'instagram'
+                    },
+                ]
+            });
+        });
+    </script>
 @endsection

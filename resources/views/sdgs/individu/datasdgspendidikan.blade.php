@@ -2,117 +2,185 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">SDGS PENDIDIKAN</h2>
-                        <form action="{{ route('pendidikan.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('pendidikan.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('pendidikan.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">SDGS PENDIDIKAN</h2>
+
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="tabledatapendidikansdgs">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>No</th>
+                                        <th>KK</th>
+                                        <th>NIK</th>
+                                        <th>Gelar awal</th>
+                                        <th>Nama</th>
+                                        <th>Gelar akhir</th>
+                                        <th>Pendidikan Tertinggi</th>
+                                        <th>Berapa Tahun mengenyam pendidikan dasar (SD,SMP,SMA)</th>
+                                        <th>Pendidikan yang sedang di ikuti</th>
+                                        <th>Bahasa yang digunakan di Rumah dan Pemukiman</th>
+                                        <th>Bahasa yang digunakan di Lembaga Formal</th>
+                                        <th>Jumlah kerja bakti 1 tahun terakhir</th>
+                                        <th>Siskamling 1 tahun terakhir</th>
+                                        <th>Pesta Rakyat (Adat) 1 tahun terakhir</th>
+                                        <th>Frekuensi Melayat 1 tahun terakhir</th>
+                                        <th>Frekuensi besuk orang sakit 1 tahun terakhir</th>
+                                        <th>Frekuensi menolong kecelakaan 1 tahun terakhir</th>
+                                        <th>Mendapatkan Pelayanan Desa 1 tahun terakhir</th>
+                                        <th>Bagaimana pelayanan desa yang diperoleh?</th>
+                                        <th>Pernah menyampaikan masukan/saran kepada pihak Desa?</th>
+                                        <th>Bagaimana keterbukaan desa terhadap masukan?</th>
+                                        <th>Terjadi Bencana 1 tahun terakhir</th>
+                                        <th>Apakah anda terkena dampak bencana</th>
+                                        <th>Apakah menerima pemenuhan Kebutuhan Dasar saat Bencana (makanan, pakaian, tempat tinggal)?</th>
+                                        <th>Apakah ada penanganan psikososial keluarga terdampak bencana (penyuluhan/konseling/terapi)?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledatapendidikansdgs').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/datasdgspendidikan/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action'
+                    },
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nokk',
+                        name: 'nokk'
+                    }, // Use dot notation to access related data
+                    {
+                        data: 'nik',
+                        name: 'nik'
+                    },
+                    {
+                        data: 'gelarawal',
+                        name: 'gelarawal'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'gelarakhir',
+                        name: 'gelarakhir'
+                    },
+                    {
+                        data: 'pendidikan_tertinggi',
+                        name: 'pendidikan_tertinggi'
+                    },
+                    {
+                        data: 'berapa_tahunp',
+                        name: 'berapa_tahunp'
+                    },
+                    {
+                        data: 'pendidikan_diikuti',
+                        name: 'pendidikan_diikuti'
+                    },
+                    {
+                        data: 'bahasa_Rumah',
+                        name: 'bahasa_Rumah'
+                    },
+                    {
+                        data: 'bahasa_Formal',
+                        name: 'bahasa_Formal'
+                    },
+                    {
+                        data: 'jumlah_kerja1',
+                        name: 'jumlah_kerja1'
+                    },
+                    {
+                        data: 'skamling1',
+                        name: 'skamling1'
+                    },
+                    {
+                        data: 'pesta_rakyat1',
+                        name: 'pesta_rakyat1'
+                    },
+                    {
+                        data: 'frekuensiml',
+                        name: 'frekuensiml'
+                    },
+                    {
+                        data: 'frekuensib',
+                        name: 'frekuensib'
+                    },
+                    {
+                        data: 'frekuensimn',
+                        name: 'frekuensimn'
+                    },
+                    {
+                        data: 'mendapatp1',
+                        name: 'mendapatp1'
+                    },
+                    {
+                        data: 'bagaiamanap',
+                        name: 'bagaiamanap'
+                    },
+
+                    {
+                        data: 'pernahmasukan',
+                        name: 'pernahmasukan'
+                    },
+                    {
+                        data: 'keterbukaands',
+                        name: 'keterbukaands'
+                    },
+                    {
+                        data: 'bencana1',
+                        name: 'bencana1'
+                    },
+                    {
+                        data: 'apakahb',
+                        name: 'apakahb'
+                    },
+                    {
+                        data: 'apakahd',
+                        name: 'apakahd'
+                    },
+                    {
+                        data: 'apakahp',
+                        name: 'apakahp'
+                    },
+
+
+                ]
+            });
+        });
+    </script>
 @endsection

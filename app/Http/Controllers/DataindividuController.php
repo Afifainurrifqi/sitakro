@@ -12,6 +12,8 @@ use App\Models\dataindividu;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoredataindividuRequest;
 use App\Http\Requests\UpdatedataindividuRequest;
+use Illuminate\Support\Carbon;
+use Yajra\DataTables\DataTables;
 
 class DataindividuController extends Controller
 {
@@ -20,32 +22,110 @@ class DataindividuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+   
+
     public function index(Request $request)
     {
-        $search = $request->input('search');
+       
+        return view('sdgs.individu.dataindividu');
+    }
 
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $dataindividu = DataIndividu::all(); 
-        $dataindividuSudahProses = $dataindividu->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-
-        if ($datapendudukTotal != 0) {
-            $persentaseProses = ($dataindividuSudahProses / $datapendudukTotal) * 100;
-        } else {
-            $persentaseProses = 0; // or handle it in a way that makes sense for your application
-        } // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.individu.dataindividu', compact('dataindividu', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
+    
+            return DataTables::of($query)
+         
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('individu.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('individu.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            ->addColumn('Usia', function ($row) {
+                $usia = Carbon::parse($row->tanggal_lahir)->age;
+    
+                return '' . $usia . ' tahun.';
+            })
+            ->addColumn('usia_nikah', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $usianikah = $dataIndividu ? $dataIndividu->usia_saat_pertama_kali_menikah : '';
+    
+                return '' . $usianikah . '';
+            })
+            ->addColumn('warga_negara', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $warga_negara = $dataIndividu ? $dataIndividu->warga_negarawarga_negara : '';
+    
+                return '' . $warga_negara . '';
+            })
+            ->addColumn('hp', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $hp = $dataIndividu ? $dataIndividu->nohp : '';
+    
+                return '' . $hp . '';
+            })
+            ->addColumn('wa', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $wa = $dataIndividu ? $dataIndividu->nowa : '';
+    
+                return '' . $wa . '';
+            })
+            ->addColumn('email', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $email = $dataIndividu ? $dataIndividu->email : '';
+    
+                return '' . $email . '';
+            })
+            ->addColumn('facebook', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $facebook = $dataIndividu ? $dataIndividu->facebook : '';
+    
+                return   $facebook . '';
+            })
+    
+            ->addColumn('twitter', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $twitter = $dataIndividu ? $dataIndividu->twitter : '';
+    
+                return  $twitter . '';
+            })
+    
+            ->addColumn('instagram', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $instagram = $dataIndividu ? $dataIndividu->instagram : '';
+    
+                return $instagram  .'';
+            })
+            ->addColumn('suku_bangsa', function ($row) {
+                $dataIndividu = Dataindividu::where('nik', $row->nik)->first();
+                $sukuBangsa = $dataIndividu ? $dataIndividu->suku_bangsa : '';
+    
+                return '' . $sukuBangsa . '';
+            })
+            
+            ->rawColumns([
+                'action','Usia',
+            'usia_nikah',
+            'warga_negara',
+            'hp',
+            'wa',
+            'email',
+            'facebook',
+            'twitter',
+            'instagram',
+            'suku_bangsa'])
+            ->toJson();
     }
 
     /**

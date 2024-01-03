@@ -13,6 +13,7 @@
         "maatwebsite/excel": "^3.1",
         "mongodb/laravel-mongodb": "^3.9",
         "nesbot/carbon": "^2.71",
+        "phpoffice/phpspreadsheet": "^1.29",
         "yajra/laravel-datatables": "9.0"
     },
     "require-dev": {

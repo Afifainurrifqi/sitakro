@@ -12,6 +12,7 @@ use App\Models\sdgspendidikan;
 use App\Http\Requests\StoresdgspendidikanRequest;
 use App\Http\Requests\UpdatesdgspendidikanRequest;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class SdgspendidikanController extends Controller
 {
@@ -22,30 +23,172 @@ class SdgspendidikanController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        return view('sdgs.individu.datasdgspendidikan');
+    }
 
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-    
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-    
-        $datapenduduk = $datapenduduk->paginate(100);
-        $datasdgspendidikan = sdgspendidikan::all();
-        $datasdgspendidikanSudahProses = $datasdgspendidikan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
 
-        if ($datapendudukTotal != 0) {
-            $persentaseProses = ($datasdgspendidikanSudahProses / $datapendudukTotal) * 100;
-        } else {
-            $persentaseProses = 0; // or handle it in a way that makes sense for your application
-        }
-        $agama = Agama::all(); 
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.individu.datasdgspendidikan',compact( 'persentaseProses', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status')); 
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
+
+        return DataTables::of($query)
+
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('pendidikan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('pendidikan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            ->addColumn('pendidikan_tertinggi', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->pendidikan_tertinggi : '';
+
+                return $kondisi;
+            })
+            ->addColumn('berapa_tahunp', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->berapa_tahunp : '';
+
+                return $kondisi;
+            })
+            ->addColumn('pendidikan_diikuti', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->pendidikan_diikuti : '';
+
+                return $kondisi;
+            })
+            ->addColumn('bahasa_Rumah', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->bahasa_Rumah : '';
+
+                return $kondisi;
+            })
+            ->addColumn('bahasa_Formal', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->bahasa_Formal : '';
+
+                return $kondisi;
+            })
+            ->addColumn('jumlah_kerja1', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->jumlah_kerja1 : '';
+
+                return $kondisi;
+            })
+            ->addColumn('skamling1', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->skamling1 : '';
+
+                return $kondisi;
+            })
+            ->addColumn('pesta_rakyat1', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->pesta_rakyat1 : '';
+
+                return $kondisi;
+            })
+            ->addColumn('frekuensiml', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->frekuensiml : '';
+
+                return $kondisi;
+            })
+            ->addColumn('frekuensib', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->frekuensib : '';
+
+                return $kondisi;
+            })
+            ->addColumn('frekuensimn', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->frekuensimn : '';
+
+                return $kondisi;
+            })
+            ->addColumn('mendapatp1', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->mendapatp1 : '';
+
+                return $kondisi;
+            })
+            ->addColumn('bagaiamanap', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->bagaiamanap : '';
+
+                return $kondisi;
+            })
+            ->addColumn('pernahmasukan', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->pernahmasukan : '';
+
+                return $kondisi;
+            })
+            ->addColumn('keterbukaands', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->keterbukaands : '';
+
+                return $kondisi;
+            })
+            ->addColumn('bencana1', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->bencana1 : '';
+
+                return $kondisi;
+            })
+            ->addColumn('apakahb', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->apakahb : '';
+
+                return $kondisi;
+            })
+            ->addColumn('apakahd', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->apakahd : '';
+
+                return $kondisi;
+            })
+            ->addColumn('apakahp', function ($row) {
+                $datapekerjaan = sdgspendidikan::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->apakahp : '';
+
+                return $kondisi;
+            })
+
+
+            ->rawColumns([
+                'action',
+                'pendidikan_tertinggi',
+                'berapa_tahunp',
+                'pendidikan_diikuti',
+                'bahasa_Rumah',
+                'bahasa_Formal',
+                'jumlah_kerja1',
+                'skamling1',
+                'pesta_rakyat1',
+                'frekuensiml',
+                'frekuensib',
+                'frekuensimn',
+                'mendapatp1',
+                'bagaiamanap',
+                'pernahmasukan',
+                'keterbukaands',
+                'bencana1',
+                'apakahb',
+                'apakahd',
+                'apakahp',
+            ])
+            ->toJson();
+            
     }
 
     /**
@@ -55,14 +198,14 @@ class SdgspendidikanController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik',$nik)->first();
-        $datasdgspendidikan = sdgspendidikan::where('nik',$nik)->first();
-        $agama = Agama::all(); 
+        $datap = datapenduduk::where('nik', $nik)->first();
+        $datasdgspendidikan = sdgspendidikan::where('nik', $nik)->first();
+        $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
-        return view('sdgs.individu.editsdgspendidikan',compact('datap', 'datasdgspendidikan', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.individu.editsdgspendidikan', compact('datap', 'datasdgspendidikan', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
@@ -74,11 +217,11 @@ class SdgspendidikanController extends Controller
     public function store(StoresdgspendidikanRequest $request)
     {
         $datasdgspendidikan = sdgspendidikan::where('nik', $request->valNIK)->first();
-        if ($datasdgspendidikan == NULL ) {
+        if ($datasdgspendidikan == NULL) {
             $datasdgspendidikan = new sdgspendidikan();
         }
         $datasdgspendidikan->nik = $request->valNIK;
-        $datasdgspendidikan->pendidikan_tertinggi= $request->valpendidikan_tertinggi;
+        $datasdgspendidikan->pendidikan_tertinggi = $request->valpendidikan_tertinggi;
         $datasdgspendidikan->berapa_tahunp = $request->valberapa_tahunp;
         $datasdgspendidikan->pendidikan_diikuti = $request->valpendidikan_diikuti;
         $datasdgspendidikan->bahasa_Rumah = $request->valbahasa_Rumah;
@@ -97,10 +240,10 @@ class SdgspendidikanController extends Controller
         $datasdgspendidikan->apakahb = $request->valapakahb;
         $datasdgspendidikan->apakahd = $request->valapakahd;
         $datasdgspendidikan->apakahp = $request->valapakahp;
-        
+
         $datasdgspendidikan->save();
 
-        return redirect()->route('pendidikan.show',['show'=> $request->valNIK ]);
+        return redirect()->route('pendidikan.show', ['show' => $request->valNIK]);
     }
 
     /**
@@ -111,15 +254,15 @@ class SdgspendidikanController extends Controller
      */
     public function show(sdgspendidikan $sdgspendidikan, $nik)
     {
-        $datap = datapenduduk::where('nik',$nik)->first();
-        $datasdgspendidikan = sdgspendidikan::where('nik',$nik)->first();
-        $agama = Agama::all(); 
+        $datap = datapenduduk::where('nik', $nik)->first();
+        $datasdgspendidikan = sdgspendidikan::where('nik', $nik)->first();
+        $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.individu.viewsdgspendidikan',compact('datap', 'datasdgspendidikan', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status')); 
+        return view('sdgs.individu.viewsdgspendidikan', compact('datap', 'datasdgspendidikan', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**

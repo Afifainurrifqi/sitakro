@@ -7,7 +7,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">EDIT LOKASI DAN PEMUKIMAN {{ $datap->nama }}</h1>
+                        <h1 class="card-title">LOKASI DAN PEMUKIMAN {{ $datap->nama }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                         onclick="window.location='{{ route('lokasipemukiman.index')}}'">Kembali
                         </button>
@@ -25,7 +25,7 @@
                                         {{ $datap->detailkk->kk->nokk }}
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row" hidden>
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
                                             class="text-danger">*</span>
                                         <input type="hidden" name="valNIK" value="{{ $datap->nik }}">

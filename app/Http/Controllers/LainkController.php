@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\laink;
 use App\Http\Requests\StorelainkRequest;
 use App\Http\Requests\UpdatelainkRequest;
+use Yajra\DataTables\DataTables;
 
 class LainkController extends Controller
 {
@@ -22,26 +23,125 @@ class LainkController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+       return view('sdgs.KK.lain');
+    }
+    
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
+    
+        return DataTables::of($query)
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('laink.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('editlaink.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $laink = laink::all();
-        $lainkSudahProses = $laink->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
+            ->addColumn('pengtransportsebelum', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $pengtransportsebelum = $datakesehatan ? $datakesehatan->pengtransportsebelum : '';
 
-        $persentaseProses = ($lainkSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.KK.lain', compact('laink', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+                return '' . $pengtransportsebelum . '';
+            })
+            
+            ->addColumn('pengtransportsesudah', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $pengtransportsesudah = $datakesehatan ? $datakesehatan->pengtransportsesudah : '';
+
+                return '' . $pengtransportsesudah . '';
+            })
+
+            ->addColumn('blt', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $blt = $datakesehatan ? $datakesehatan->blt : '';
+
+                return '' . $blt . '';
+            })
+
+            ->addColumn('pkh', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $pkh = $datakesehatan ? $datakesehatan->pkh : '';
+
+                return '' . $pkh . '';
+            })
+
+            ->addColumn('bst', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $bst = $datakesehatan ? $datakesehatan->bst : '';
+
+                return '' . $bst . '';
+            })
+
+            ->addColumn('bantuan_presiden', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $bantuan_presiden = $datakesehatan ? $datakesehatan->bantuan_presiden : '';
+
+                return '' . $bantuan_presiden . '';
+            })
+
+            ->addColumn('bantuan_umkm', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $bantuan_umkm = $datakesehatan ? $datakesehatan->bantuan_umkm : '';
+
+                return '' . $bantuan_umkm . '';
+            })
+
+            ->addColumn('bantuan_pekerja', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $bantuan_pekerja = $datakesehatan ? $datakesehatan->bantuan_pekerja : '';
+
+                return '' . $bantuan_pekerja . '';
+            })
+
+            ->addColumn('bantuan_anak', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $bantuan_anak = $datakesehatan ? $datakesehatan->bantuan_anak : '';
+
+                return '' . $bantuan_anak . '';
+            })
+
+            ->addColumn('lainnya', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $lainnya = $datakesehatan ? $datakesehatan->lainnya : '';
+
+                return '' . $lainnya . '';
+            })
+
+            ->addColumn('rata_rata', function ($row) {
+                $datakesehatan = laink::where('nik', $row->nik)->first();
+                $rata_rata = $datakesehatan ? $datakesehatan->rata_rata : '';
+
+                return '' . $rata_rata . '';
+            })
+            
+            ->rawColumns([
+                'action',
+                'pengtransportsebelum',
+                'pengtransportsesudah',
+                'blt',
+                'pkh',
+                'bst',
+                'bantuan_presiden',
+                'bantuan_umkm',
+                'bantuan_pekerja',
+                'bantuan_anak',
+                'lainnya',
+                'rata_rata',
+            ])
+            
+            ->toJson();
     }
 
     /**

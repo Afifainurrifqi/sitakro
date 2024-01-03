@@ -39,6 +39,8 @@ use App\Http\Controllers\RtTkejahatanController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\UserController;
+use App\Models\akseskesehatan;
+use App\Models\datakesehatan;
 use App\Models\datamutasi;
 use App\Models\rt_kejadianluarbiasa;
 use App\Models\rtlembaga_keagamaan;
@@ -101,6 +103,25 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
 
         // JSON DATATABLES
         Route::get('datapenduduk/json', [DatapendudukController::class, 'json']);
+        Route::get('/datam/json', [DatamutasiController::class, 'json']);
+        Route::get('/dataindividu/json', [DataindividuController::class, 'json']);
+        Route::get('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);
+        Route::get('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);
+        Route::get('/datapenghasilan/json', [PenghasilanController::class, 'json']);
+        Route::get('/datakesehatan/json', [DatakesehatanController::class, 'json']);
+        Route::get('/datadisabilitas/json', [JenisdisabilitasController::class, 'json']);
+        Route::get('/datasdgspendidikan/json', [SdgspendidikanController::class, 'json']);
+        Route::get('/lokasidanpemukiman/json', [LokasipemukimanController::class, 'json']);
+        Route::get('/aksespendidikan/json', [AksesPendidikanController::class, 'json']);
+        Route::get('/akseskesehatan/json', [AkseskesehatanController::class, 'json']);
+        Route::get('/aksestenagakerja/json', [AksestenagakerjaController::class, 'json']);
+        Route::get('/aksessarpras/json', [AksessarprasController::class, 'json']);
+        Route::get('/laink/json', [LainkController::class, 'json']);
+
+        
+
+
+
 
 
         Route::get('/home', function () {

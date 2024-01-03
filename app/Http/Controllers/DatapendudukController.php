@@ -19,6 +19,9 @@ use App\Http\Requests\UpdatedatapendudukRequest;
 use App\Imports\Importdatapenduduk;
 use App\Models\detailkk;
 use App\Models\kk;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
+
 
 class DatapendudukController extends Controller
 {
@@ -29,14 +32,6 @@ class DatapendudukController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-
-        $datapenduduk = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
         return view('datapenduduk.data');
     }
 
@@ -44,38 +39,35 @@ class DatapendudukController extends Controller
 
     public function json(Request $request)
     {
-        $datapenduduk = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-            ->limit(10)
-            ->get();
-
-        $datapenduduk->transform(function ($datapenduduk) {
-            $editUrl = route('datapenduduk.show', ['nik' => $datapenduduk->nik]);
-            $deleteForm = '<form onsubmit="return deleteData(\'' . $datapenduduk->nama . '\')"
-                        action="' . url('datapenduduk') . '/' . $datapenduduk->nik . '" style="display: inline"
-                        method="POST">
-                        ' . csrf_field() . '
-                        ' . method_field('DELETE') . '
-                    </form>';
-            $actionsHtml = '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        ' . $deleteForm;
-
-            $datapenduduk->action = $actionsHtml;
-            $datapenduduk->nokk = optional($datapenduduk->detailkk)->kk->nokk;
-
-            return $datapenduduk;
-        });
-
-        return DataTables::of($datapenduduk)
-            ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+    
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
+    
+        return DataTables::of($query)
+            ->addColumn('nokk', function ($datapenduduk) {
+                return optional($datapenduduk->detailkk)->kk->nokk;
             })
-            ->addColumn('action', function ($row) {
-                return $row->action;
+            ->addColumn('action', function ($datapenduduk) {
+                $editUrl = route('datapenduduk.show', ['nik' => $datapenduduk->nik]);
+                $deleteForm = '<form onsubmit="return deleteData(\'' . $datapenduduk->nama . '\')"
+                                action="' . url('datapenduduk') . '/' . $datapenduduk->nik . '" style="display: inline"
+                                method="POST">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                            </form>';
+                $actionsHtml = '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            ' . $deleteForm;
+    
+                return $actionsHtml;
             })
-            ->make(true);
+            ->rawColumns(['action'])
+            ->toJson();
     }
+    
+    
 
 
     public function add()
@@ -89,35 +81,32 @@ class DatapendudukController extends Controller
         return view('datapenduduk.tambahpenduduk', compact('datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
-    function export_excel()
-    {
-        return Excel::download(new Exportdatapenduduk, "datapenduduk.xlsx");
-    }
+    public function export_excel()
+{
+    return Excel::download(new Exportdatapenduduk, "datapenduduk.xlsx");
+}
 
     public function import_excel(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required'
+            'file' => 'required|mimes:csv,txt',
         ]);
-
-        // menangkap file excel
+    
         $file = $request->file('file');
-
-        // membuat nama file unik
-        $nama_file = rand() . $file->getClientOriginalName();
-
-        // upload ke folder file_siswa di dalam folder public
-        $file->move('file_datapenduduk', $nama_file);
-
-        // import data
-        Excel::import(new Importdatapenduduk, storage_path('app/public/file_datapenduduk/' . $nama_file));
-
-
-        // notifikasi dengan session
-
-        // alihkan halaman kembali
+        $spreadsheet = IOFactory::load($file->getPathname());
+        $sheet = $spreadsheet->getActiveSheet();
+        $data = $sheet->toArray();
+    
+        // Skip the header row
+        array_shift($data);
+    
+        foreach ($data as $rowData) {
+            (new Importdatapenduduk())->model($rowData);
+        }
+    
         return redirect('datapenduduk');
     }
+    
 
 
 

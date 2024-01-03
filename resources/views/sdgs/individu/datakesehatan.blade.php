@@ -16,44 +16,45 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS DATA KESEHATAN</h2>
-                            <form action="{{ route('datakesehatan.index') }}" method="GET">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                    <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                                </div>
-                            </form>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
+                            <table class="table table-striped table-bordered" id="tabledatakesehatan">
                                 <thead>
                                     <tr>
-                                        <th>Action</th>
-                                        <th>No</th>
-                                        <th>NIK</th>
-                                        <th>Gelar awal</th>
-                                        <th>Nama</th>
-                                        <th>Gelar akhir</th>
-                                        <th>Jenis kelamin</th>
-                                        <th>Tempat lahir</th>
-                                        <th>Tanggal_lahir</th>
-                                        <th>Agama</th>
-                                        <th>Pendidikan</th>
-                                        <th>Pekejaan</th>
-                                        <th>Goldar</th>
-                                        <th>Status</th>
-                                        <th>Tanggal perkawinan</th>
-                                        <th>Hubungan</th>
-                                        <th>Ayah</th>
-                                        <th>Ibu</th>
-                                        <th>alamat</th>
-                                        <th>RT</th>
-                                        <th>RW</th>
-                                        <th>Statu kependudukan</th>
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">KK</th>
+                                        <th rowspan="2">NIK</th>
+                                        <th rowspan="2">Gelar awal</th>
+                                        <th rowspan="2">Nama</th>
+                                        <th rowspan="2">Gelar akhir</th>
+                                        <th rowspan="2">PENYAKIT YANG DIDERITA SETAHUN TERAKHIR</th>
+                                        <th colspan="16" style="border-bottom: 1px solid #000;" >FASILITAS KESEHATAN</th>
+                                        <th rowspan="2">JAMKES</th>
+                                        <th rowspan="2">BAYI Usia 1-6 bulan Konsumsi ASI</th>
+                                    </tr>
+                                    <tr>
+                                        <th>RUMAH SAKIT</th>
+                                        <th>RUMAH SAKIT BERSALIN</th>
+                                        <th>PUSKESMAS DENGAN RAWAT INAP</th>
+                                    	<th>PUSKESMAS TANPA RAWAT INAP</th>
+                                        <th>PUSKEMAS PEMBANTU</th>
+                                        <th>POLIKLINIK</th>
+                                        <th>TEMPAT PRAKTEK DOKTER</th>
+                                        <th>RUMAH BERSALIN</th>
+                                        <th>TEMPAT PRAKTEK BIDAN</th>
+                                        <th>POSKESDES</th>
+                                        <th>POLINDES</th>
+                                        <th>APOTIK</th>
+                                        <th>TOKO KHUSUS OBAT / JAMU</th>
+                                        <th>POSYANDU</th>
+                                        <th>POSBINDU</th>
+                                        <th>TEMPAT PRAKTIK DUKUN BAYI / BERSALIN</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($datapenduduk as $row)
+                                    {{-- @foreach ($datapenduduk as $row)
                                         <tr>
                                             <td><a href="{{ route('kesehatan.show', ['show' => $row->nik]) }}"
                                                 class="btn mb-1 btn-info btn-sm" title="Lihat Data">
@@ -96,7 +97,7 @@
                                             <td>{{ $row->rw }}</td>
                                             <td>{{ $row->datak }}</td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
 
 
 
@@ -105,25 +106,124 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Progress bars</h4>
-                            <div class="progress" style="height: 9px">
-                                <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        function deleteData(name) {
-            pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-            if (pesan) return true;
-            else return false;
-        }
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledatakesehatan').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/datakesehatan/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action'
+                    },
+                    {
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nokk',
+                        name: 'nokk'
+                    }, // Use dot notation to access related data
+                    {
+                        data: 'nik',
+                        name: 'nik'
+                    },
+                    {
+                        data: 'gelarawal',
+                        name: 'gelarawal'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'gelarakhir',
+                        name: 'gelarakhir'
+                    },
+                    {
+                        data: 'penyakit',
+                        name: 'penyakit'
+                    },
+                    {
+                        data: 'rumahsakit',
+                        name: 'rumahsakit'
+                    },
+                    {
+                        data: 'rumahsakitb',
+                        name: 'rumahsakitb'
+                    },
+                    {
+                        data: 'pusekesmas_denganri',
+                        name: 'pusekesmas_denganri'
+                    },
+                    {
+                        data: 'pusekesmas_tanpari',
+                        name: 'pusekesmas_tanpari'
+                    },
+                    {
+                        data: 'puskesmas_pembantu',
+                        name: 'puskesmas_pembantu'
+                    },
+                    {
+                        data: 'poliklinik',
+                        name: 'poliklinik'
+                    },
+                    {
+                        data: 'tempat_prakterkdr',
+                        name: 'tempat_prakterkdr'
+                    },
+                    {
+                        data: 'rumah_bersalin',
+                        name: 'rumah_bersalin'
+                    },
+                    {
+                        data: 'tempat_praktek',
+                        name: 'tempat_praktek'
+                    },
+                    {
+                        data: 'poskedes',
+                        name: 'poskedes'
+                    },
+                    {
+                        data: 'polindes',
+                        name: 'polindes'
+                    },
+                    {
+                        data: 'apotik',
+                        name: 'apotik'
+                    },
+                    {
+                        data: 'toko_obat',
+                        name: 'toko_obat'
+                    },
+                    {
+                        data: 'posyandu',
+                        name: 'posyandu'
+                    },
+                    {
+                        data: 'posbindu',
+                        name: 'posbindu'
+                    },
+                    {
+                        data: 'tempat_praktikdb',
+                        name: 'tempat_praktikdb'
+                    },
+                    {
+                        data: 'jamkes',
+                        name: 'jamkes'
+                    },
+                    {
+                        data: 'bayi',
+                        name: 'bayi'
+                    },
+                ]
+            });
+        });
     </script>
 @endsection
