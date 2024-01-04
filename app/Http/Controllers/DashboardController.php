@@ -44,7 +44,7 @@ class DashboardController extends Controller
     
 
 
-        return view('dashboard', compact('disabilitasCounts','disabilitasLabels','datapenduduk_ada', 'datapenduduk_tetap','datapenduduk_tidaktetap', 'datapenduduk_pindah', 'datapenduduk_meninggal', 'datapekerjaan', 'pekerjaanLabels', 'pekerjaanCounts' ));
+        return view('dashboard');
     }
 
     public function landingpage()
