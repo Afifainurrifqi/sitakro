@@ -22,25 +22,8 @@ class RtlokasiController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_lokasi = rtlokasi::all();
-        $rt_lokasiSudahProses = $rt_lokasi->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-
-        $persentaseProses = ($rt_lokasiSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rtlokasi', compact('rt_lokasi', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.RT.rtlokasi');
     }
 
     /**

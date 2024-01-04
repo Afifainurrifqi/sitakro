@@ -8,7 +8,7 @@ use App\Http\Requests\UpdatedashboardRequest;
 use App\Models\datadasawisma;
 use App\Models\datamutasi;
 use App\Models\datapekerjaansdgs;
-use App\Models\datapenduduk;
+use App\Models\Datapenduduk;
 use App\Models\jenisdisabilitas;
 use Carbon\Carbon;
 use Illuminate\Http\Request as HttpRequest;
@@ -23,11 +23,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $datapenduduk_tetap = datapenduduk::where('datak', 'tetap')->get();
-        $datapenduduk_tidaktetap = datapenduduk::where('datak', 'Tidaktetap')->get();
-        $datapenduduk_ada = datapenduduk::where('datak', ['Tetap', 'Tidaktetap'])->get();
-        $datapenduduk_pindah = datapenduduk::where('datak', 'Pindah')->get();
-        $datapenduduk_meninggal = datapenduduk::where('datak', 'Meninggal')->get();
+        $datapenduduk_tetap = Datapenduduk::where('datak', 'tetap')->get();
+        $datapenduduk_tidaktetap = Datapenduduk::where('datak', 'Tidaktetap')->get();
+        $datapenduduk_ada = Datapenduduk::where('datak', ['Tetap', 'Tidaktetap'])->get();
+        $datapenduduk_pindah = Datapenduduk::where('datak', 'Pindah')->get();
+        $datapenduduk_meninggal = Datapenduduk::where('datak', 'Meninggal')->get();
     
         $datapekerjaan = datapekerjaansdgs::all();
         $datapekerjaanSudahProses = $datapekerjaan->count(); // Jumlah data individu yang sudah diproses
@@ -49,9 +49,9 @@ class DashboardController extends Controller
 
     public function landingpage()
     {
-        $datapenduduk_ada = datapenduduk::where('datak', ['Tetap', 'Tidaktetap'])->get();
-        $datapenduduk_laki = datapenduduk::where('jenis_kelamin', 'laki-laki')->get();
-        $datapenduduk_perempuan = datapenduduk::where('jenis_kelamin', 'perempuan')->get();
+        $datapenduduk_ada = Datapenduduk::where('datak', ['Tetap', 'Tidaktetap'])->get();
+        $datapenduduk_laki = Datapenduduk::where('jenis_kelamin', 'laki-laki')->get();
+        $datapenduduk_perempuan = Datapenduduk::where('jenis_kelamin', 'perempuan')->get();
         return view('landing', compact('datapenduduk_ada','datapenduduk_laki', 'datapenduduk_perempuan'));
     }
     public function getBirthData($year) {
@@ -73,7 +73,7 @@ class DashboardController extends Controller
         $birthData = [];
         
         foreach ($months as $monthNumber => $monthName) {
-            $count = datapenduduk::where('tanggal_lahir', 'LIKE', "$year-$monthNumber-%")->count();
+            $count = Datapenduduk::where('tanggal_lahir', 'LIKE', "$year-$monthNumber-%")->count();
             $birthData[$monthName] = $count;
         }
         
