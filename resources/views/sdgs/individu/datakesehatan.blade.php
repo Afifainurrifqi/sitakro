@@ -29,7 +29,7 @@
                                         <th rowspan="2">Nama</th>
                                         <th rowspan="2">Gelar akhir</th>
                                         <th rowspan="2">PENYAKIT YANG DIDERITA SETAHUN TERAKHIR</th>
-                                        <th colspan="16" style="border-bottom: 1px solid #000;" >FASILITAS KESEHATAN</th>
+                                        <th colspan="16" style="border-bottom: 1px solid #000;">FASILITAS KESEHATAN</th>
                                         <th rowspan="2">JAMKES</th>
                                         <th rowspan="2">BAYI Usia 1-6 bulan Konsumsi ASI</th>
                                     </tr>
@@ -37,7 +37,7 @@
                                         <th>RUMAH SAKIT</th>
                                         <th>RUMAH SAKIT BERSALIN</th>
                                         <th>PUSKESMAS DENGAN RAWAT INAP</th>
-                                    	<th>PUSKESMAS TANPA RAWAT INAP</th>
+                                        <th>PUSKESMAS TANPA RAWAT INAP</th>
                                         <th>PUSKEMAS PEMBANTU</th>
                                         <th>POLIKLINIK</th>
                                         <th>TEMPAT PRAKTEK DOKTER</th>
@@ -54,55 +54,32 @@
                                 </thead>
                                 <tbody>
 
-                                    {{-- @foreach ($datapenduduk as $row)
-                                        <tr>
-                                            <td><a href="{{ route('kesehatan.show', ['show' => $row->nik]) }}"
-                                                class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                                <i class="fas fa-book"></i> </a>
-                                                <a href="{{ route('kesehatan.edit', ['nik' => $row->nik]) }}"
-                                                    class="btn mb-1 btn-info btn-sm" title="Edit Kesehatan">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                
-                                            </td>
-                                            <th>{{ $loop->iteration }}</th>
-                                            <td>{{ $row->nik }}</td>
-                                            <td>{{ $row->gelarawal }}</td>
-                                            <td>{{ $row->nama }}</td>
-                                            <td>{{ $row->gelarakhir }}</td>
-                                            <td>
-                                                @if ($row->jenis_kelamin == 1)
-                                                    Laki-Laki
-                                                @else
-                                                    Perempuan
-                                                @endif
-                                            </td>
-                                            <td>{{ $row->tempat_lahir }}</td>
-                                            <td>{{ $row->tanggal_lahir }}</td>
-                                            <td>{{ $row->agama->nama }}</td>
-                                            <td>{{ $row->pendidikan->nama }}</td>
-                                            <td>{{ $row->pekerjaan->nama }}</td>
-                                            <td>{{ $row->goldar->nama }}</td>
-                                            <td>{{ $row->status->nama }}</td>
-                                            <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                                Belum Kawin
-                                            @else
-                                                {{ $row->tanggal_perkawinan }}
-                                            @endif</td>
-                                            <td>{{ $row->hubungan }}</td>
-                                            <td>{{ $row->ayah }}</td>
-                                            <td>{{ $row->ibu }}</td>
-                                            <td>{{ $row->alamat }}</td>
-                                            <td>{{ $row->rt }}</td>
-                                            <td>{{ $row->rw }}</td>
-                                            <td>{{ $row->datak }}</td>
-                                        </tr>
-                                    @endforeach --}}
-
-
 
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Card Pertama (Lebar 8) -->
+                    <div class="col-lg-8 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">JUMLAH PENYAKIT YANG DIDERITA SELAMA SETAHUN TERAKHIR</h4>
+                                <div id="penyakitChart"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Kedua (Lebar 4) -->
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-body">
+                                    <h4 class="card-title">peserta/bukan peserta masyarakat JAMKES </h4>
+                                    <div id="jamkesChart"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -110,14 +87,29 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
     <script>
-        var $ = jQuery.noConflict();
         $(function() {
-            $('#tabledatakesehatan').DataTable({
+            // Initialize DataTable
+            var dataTable = $('#tabledatakesehatan').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/datakesehatan/json',
+                ajax: {
+                    url: '/datakesehatan/json',
+                    type: 'GET',
+                    dataType: 'json',
+                    dataSrc: function(data) {
+                        // Process data for Morris Bar Chart
+                        var chartData = processDataForChart(data.data);
+                        renderMorrisBarChart(chartData);
+
+                        // Return data for DataTables
+                        return data.data;
+                    },
+                },
                 columns: [{
                         data: 'action',
                         name: 'action'
@@ -224,6 +216,96 @@
                     },
                 ]
             });
+
+            function processDataForChart(data) {
+                var diseases = [
+                    'MUNTABER',
+                    'DEMAM BERDARAH',
+                    'CAMPAK',
+                    'MALARIA',
+                    'FLU BURUNG',
+                    'COVID-19',
+                    'HEPATITIS B',
+                    'LEPTOSPIROSIS',
+                    'KOLERA',
+                    'GIZI BURUK (STUNTING)',
+                    'JANTUNG',
+                    'TBC PARU PARU',
+                    'KANKER',
+                    'DIABETES / KENCING MANIS / GULA',
+                    'HEPATITIS E',
+                    'DIFTERI',
+                    'CHIKUNGUNYA',
+                    'LUMPUH',
+                ];
+
+                var chartData = {};
+                var jamkesData = {
+                    'Peserta': 0,
+                    'Bukan Peserta': 0
+                };
+                diseases.forEach(function(disease) {
+                    chartData[disease] = 0;
+                });
+
+                data.forEach(function(row) {
+                    var rowDiseases = row.penyakit.split(', ');
+                    rowDiseases.forEach(function(disease) {
+                        if (diseases.includes(disease)) {
+                            chartData[disease]++;
+                        }
+                    });
+                    if (row.jamkes.toLowerCase() === 'peserta') {
+                        jamkesData['Peserta']++;
+                    } else if (row.jamkes.toLowerCase() === 'bukan peserta') {
+                        jamkesData['Bukan Peserta']++;
+                    }
+                });
+                chartData = {
+                    ...chartData,
+                    ...jamkesData
+                };
+                return chartData;
+            }
+
+            function renderMorrisBarChart(chartData) {
+                var chartArray = [];
+                for (var key in chartData) {
+                    if (chartData.hasOwnProperty(key) && key !== 'Peserta' && key !== 'Bukan Peserta') {
+                        chartArray.push({
+                            y: key,
+                            value: chartData[key],
+                        });
+                    }
+                }
+                Morris.Bar({
+                    element: 'penyakitChart',
+                    data: chartArray,
+                    xkey: 'y',
+                    ykeys: ['value'],
+                    labels: ['Jumlah'],
+                    barColors: ['#7571F9'],
+                    hideHover: 'auto',
+                    resize: true,
+                });
+
+                // Donut chart for Peserta and Bukan Peserta
+                Morris.Donut({
+                    element: 'jamkesChart',
+                    data: [{
+                            label: 'Peserta',
+                            value: chartData['Peserta']
+                        },
+                        {
+                            label: 'Bukan Peserta',
+                            value: chartData['Bukan Peserta']
+                        }
+                    ],
+                    resize: true,
+                    colors: ['#4d7cff', '#7571F9'],
+                });
+            }
+
         });
     </script>
 @endsection

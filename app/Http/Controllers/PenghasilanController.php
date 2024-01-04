@@ -12,6 +12,7 @@ use App\Models\penghasilan;
 use App\Http\Requests\StorepenghasilanRequest;
 use App\Http\Requests\UpdatepenghasilanRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 class PenghasilanController extends Controller
@@ -25,6 +26,7 @@ class PenghasilanController extends Controller
     {
         return view('sdgs.individu.datapenghasilan'); 
     }
+
 
     public function json(Request $request)
     {

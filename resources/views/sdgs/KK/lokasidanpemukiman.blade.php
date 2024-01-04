@@ -61,6 +61,48 @@
                     </div>
 
                 </div>
+                <div class="row">
+\
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">TEMPAT TINGGAL YANG DITEMPATI</h4>
+                                <div id=""></div>
+                            </div>
+                        </div>
+                    </div>
+         \
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-body">
+                                    <h4 class="card-title">STATUS LAHAN</h4>
+                                    <div id=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">FASILITAS MCK</h4>
+                                <div id=""></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card Kedua (Lebar 4) -->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-body">
+                                    <h4 class="card-title">FASILITAS BUANG AIR BESAR</h4>
+                                    <div id=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>

@@ -51,9 +51,9 @@ class DatakesehatanController extends Controller
 
             ->addColumn('penyakit', function ($row) {
                 $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
-                $penyakit = $datakesehatan ? $datakesehatan->penyakitsetahun : '';
-
-                return '' . $penyakit . '';
+                $penyakitsetahun = $datakesehatan ? explode(',', $datakesehatan->penyakitsetahun) : [];
+            
+                return implode(', ', $penyakitsetahun);
             })
             ->addColumn('rumahsakit', function ($row) {
                 $datakesehatan = datakesehatan::where('nik', $row->nik)->first();

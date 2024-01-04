@@ -1,6 +1,5 @@
 @extends('layout.main')
 
-
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -40,18 +39,41 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">SUMBER PENGHASILAN</h4>
+                        <div id="sumberPenghasilanChart"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
     <script>
-        var $ = jQuery.noConflict();
         $(function() {
-            $('#tabledatapenghasilan').DataTable({
+            // Initialize DataTable
+            var dataTable = $('#tabledatapenghasilan').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/datapenghasilan/json',
+                ajax: {
+                    url: '/datapenghasilan/json',
+                    type: 'GET',
+                    dataType: 'json',
+                    dataSrc: function(data) {
+                        // Process data for Morris Bar Chart
+                        var chartData = processDataForChart(data.data);
+                        renderMorrisBarChart(chartData);
+
+                        // Return data for DataTables
+                        return data.data;
+                    },
+                },
                 columns: [{
                         data: 'action',
                         name: 'action'
@@ -63,7 +85,7 @@
                     {
                         data: 'nokk',
                         name: 'nokk'
-                    }, // Use dot notation to access related data
+                    },
                     {
                         data: 'nik',
                         name: 'nik'
@@ -102,6 +124,79 @@
                     },
                 ]
             });
+
+            // Fetch data for Morris Bar Chart
+
+
+            function processDataForChart(data) {
+                var chartData = {
+                    'Padi': 0,
+                    'Paliwijaya': 0,
+                    'Hortikultura': 0,
+                    'Karet': 0,
+                    'Kelapa Sawit': 0,
+                    'Kakao': 0,
+                    'Kelapa': 0,
+                    'Lada': 0,
+                    'Tembakau': 0,
+                    'Tebu': 0,
+                    'Sapi Potong': 0,
+                    'Susu Sapi': 0,
+                    'Ternak Besar Lainnya (Kuda, Kerbau dll)': 0,
+                    ' Perikanan Tangkap (termasuk biota lainnya)': 0,
+                    'Perikanan Budidaya (termasuk biota lainnya)': 0,
+                    ' Budidaya Tanaman Kehutanan (Jati, Mahoni, Sengon, dll)': 0,
+                    ' Pemungutan Hasil Hutan (Madu, Gaharu, Buah-buahan, Kayu Bakar, Rotan,dll)': 0,
+                    ' Penangkapan Satwa Liar (Babi, Ayam Hutan, Kijang, dll)': 0,
+                    'Penangkaran Satwa Liar (Arwana, Buaya, dll)': 0,
+                    'Jasa Pertanian (Sewa Traktor, Penggilingan, dll)': 0,
+                    'Pertambangan dan Penggalian': 0,
+                    'Industri Kerajinan': 0,
+                    'Perdagangan': 0,
+                    'Komunikasi': 0,
+                    'Jasa Pertanian': 0,
+                    'Lainnya': 0,
+                    'Karyawan Tetap': 0,
+                    'Karyawan Tidak Tetap': 0,
+                    'PNS': 0,
+                    'Uang Pensiunan': 0,
+                    ' TKI di luar ngeri': 0,
+                    'Uang Pensiunan': 0,
+                    'Sumbangan (dari keluarga, dari pemerintah)': 0,
+                };
+
+                data.forEach(function(row) {
+                    var selectedOption = row.sumber;
+                    if (selectedOption in chartData) {
+                        chartData[selectedOption]++;
+                    }
+                });
+
+                return chartData;
+            }
+
+            function renderMorrisBarChart(chartData) {
+                var chartArray = [];
+                for (var key in chartData) {
+                    if (chartData.hasOwnProperty(key)) {
+                        chartArray.push({
+                            y: key,
+                            value: chartData[key],
+                        });
+                    }
+                }
+
+                Morris.Bar({
+                    element: 'sumberPenghasilanChart',
+                    data: chartArray,
+                    xkey: 'y',
+                    ykeys: ['value'],
+                    labels: ['Jumlah'],
+                    barColors: ['#7571F9'],
+                    hideHover: 'auto',
+                    resize: true,
+                });
+            }
         });
     </script>
 @endsection
