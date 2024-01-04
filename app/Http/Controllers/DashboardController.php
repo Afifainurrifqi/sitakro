@@ -29,22 +29,22 @@ class DashboardController extends Controller
         $datapenduduk_pindah = Datapenduduk::where('datak', 'Pindah')->get();
         $datapenduduk_meninggal = Datapenduduk::where('datak', 'Meninggal')->get();
     
-        // $datapekerjaan = datapekerjaansdgs::all();
-        // $datapekerjaanSudahProses = $datapekerjaan->count(); // Jumlah data individu yang sudah diproses
-        // $datapendudukTotal = $datapenduduk_ada->count(); // Jumlah total data penduduk
-        // $persentaseProses = ($datapekerjaanSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        // $dataPekerjaan = datapekerjaansdgs::all();
+        $datapekerjaan = datapekerjaansdgs::all();
+        $datapekerjaanSudahProses = $datapekerjaan->count(); // Jumlah data individu yang sudah diproses
+        $datapendudukTotal = $datapenduduk_ada->count(); // Jumlah total data penduduk
+        $persentaseProses = ($datapekerjaanSudahProses / $datapendudukTotal) * 100; // Hitung persentase
+        $dataPekerjaan = datapekerjaansdgs::all();
 
-        // // Siapkan data untuk grafik pie
-        // $pekerjaanLabels = $dataPekerjaan->pluck('pekerjaan_utama')->toArray();
-        // $pekerjaanCounts = $dataPekerjaan->countBy('pekerjaan_utama')->values()->toArray();
-        // $dataDisabilitas = jenisdisabilitas::all();
-        // $disabilitasLabels = $dataDisabilitas->pluck('jenis_disabilitas')->toArray();
-        // $disabilitasCounts = $dataDisabilitas->countBy('jenis_disabilitas')->values()->toArray();
+        // Siapkan data untuk grafik pie
+        $pekerjaanLabels = $dataPekerjaan->pluck('pekerjaan_utama')->toArray();
+        $pekerjaanCounts = $dataPekerjaan->countBy('pekerjaan_utama')->values()->toArray();
+        $dataDisabilitas = jenisdisabilitas::all();
+        $disabilitasLabels = $dataDisabilitas->pluck('jenis_disabilitas')->toArray();
+        $disabilitasCounts = $dataDisabilitas->countBy('jenis_disabilitas')->values()->toArray();
     
 
 
-        return view('dashboard', compact('datapenduduk_ada', 'datapenduduk_tetap','datapenduduk_tidaktetap', 'datapenduduk_pindah', 'datapenduduk_meninggal'));
+        return view('dashboard', compact('disabilitasCounts','disabilitasLabels','datapenduduk_ada', 'datapenduduk_tetap','datapenduduk_tidaktetap', 'datapenduduk_pindah', 'datapenduduk_meninggal', 'datapekerjaan', 'pekerjaanLabels', 'pekerjaanCounts' ));
     }
 
     public function landingpage()
