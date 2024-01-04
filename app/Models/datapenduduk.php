@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Datapenduduk extends Model
+class datapenduduk extends Model
 
 
 
