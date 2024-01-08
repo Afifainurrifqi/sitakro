@@ -16,7 +16,7 @@ class Datapenduduk extends Model
 
     protected $fillable = [
         'user_id',
-        'nik', 
+        'nik',
         'gelarawal',
         'nama',
         'gelarakhir',
@@ -59,7 +59,7 @@ class Datapenduduk extends Model
     {
         return $this->belongsTo('App\Models\status', 'status_id');
     }
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
@@ -70,7 +70,7 @@ class Datapenduduk extends Model
         return $this->belongsTo(kk::class, 'idkk');
     }
     public function detailkk()
-{
-    return $this->hasOne(detailkk::class, 'idpenduduk');
-}
+    {
+        return $this->hasOne(detailkk::class, 'idpenduduk');
+    }
 }

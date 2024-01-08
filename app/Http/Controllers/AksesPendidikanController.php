@@ -53,7 +53,7 @@ class AksesPendidikanController extends Controller
 
             ->addColumn('jaraktempuh_paud', function ($row) {
                 $akses_pendidikan = akses_pendidikan::where('nik', $row->nik)->first();
-                $kondisi = $akses_pendidikan ? $akses_pendidikan->waktutempuh_paud : '';
+                $kondisi = $akses_pendidikan ? $akses_pendidikan->jaraktempuh_paud : '';
                 return $kondisi;
             })
 

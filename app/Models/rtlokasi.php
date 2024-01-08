@@ -14,11 +14,6 @@ class rtlokasi extends Eloquent
     protected $connection = 'mongodb';
     protected $collection = 'rt_lokasi';
     protected $fillable = [
-        'nama_ketuart',
-        'alamat',
-        'rt',
-        'rw',
-        'nohp',
         'lokasi_rt_pulau',
         'topo_terluas_rt',
         'jumlah_warga_lereng',

@@ -1,0 +1,115 @@
+@extends('layout.main')
+
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Edit Data RT</h1>
+                        <button type="button" class="btn mb-1 btn-warning"
+                            onclick="window.location='{{ route('datart.index') }}'">Kembali
+                        </button> <br><br><br>
+                        <div class="form-validation">
+                            <form class="form-valide" action="{{ route('datart.update', ['nik' => $datart->nik]) }}"
+                                method="POST">
+                                @csrf
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnik">NIK <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text"value="{{ old('valnik', $datart->nik) }}"
+                                            class="form-control @error('valnik') is-invalid @enderror" id="valnik"
+                                            name="valnik" placeholder="Nama Lengkap...">
+                                        @error('valnik')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valNama">Nama <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" value="{{ old('valnama_ketuart', $datart->nama) }}"
+                                            class="form-control @error('valnama_ketuart') is-invalid @enderror"
+                                            id="valnama_ketuart" name="valnama_ketuart" placeholder="Nama Lengkap...">
+
+                                        @error('valnama_ketuart')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valalamat">ALAMAT<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->alamat) }}" type="text"
+                                            class="form-control @error('valalamat') is-invalid @enderror" id="valalamat"
+                                            name="valalamat" placeholder="Alamat...">
+                                        @error('valalamat')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrt">RT<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->rt) }}" type="number"
+                                            class="form-control @error('valrt') is-invalid @enderror" id="valrt"
+                                            name="valrt" placeholder="RT...">
+                                        @error('valrt')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrw">RW <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->rw) }}" type="number"
+                                            class="form-control @error('valrw') is-invalid @enderror" id="valrw"
+                                            name="valrw" placeholder="RW..">
+                                        @error('valrw')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnohp">NO HP <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->nohp) }}" type="number"
+                                            class="form-control @error('valnohp') is-invalid @enderror" id="valnohp"
+                                            name="valnohp" placeholder="RW..">
+                                        @error('valnohp')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

@@ -2,131 +2,338 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">INDUSTRI</h2>
-                        <form action="{{ route('rtindustri.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('rtindustri.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('rtindustri.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                   
-                </div>
-                
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">INDUSTRI</h2>
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="tabledatartindustri">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">NIK</th>
+                                        <th rowspan="2">NAMA KETUA RT</th>
+                                        <th rowspan="2">ALAMAT</th>
+                                        <th rowspan="2">RT</th>
+                                        <th rowspan="2">RW</th>
+                                        <th rowspan="2">NO. HP / TELEPON</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            Barang dari Kulit (Tas, Sepatu, Sandal, dll)</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            Barang dari Kayu (Meja, Kursi, Lemari, dll)</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            Barang dari Logam Mulia atau bahan Logam (Perabot, Perhiasan, dll)</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            Logam Berat</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            Barang dari Kain (Tenun, Konveksi, dll)</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            gerabah/keramik/batu (porselen, keramik, tegel, dll)</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            Genteng dan Batu Bata</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            Anyaman dari Rotan / Bambu / Rumput / Pandan, dll</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            makanan dan minuman</th>
+                                        <th colspan="4"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">Industri
+                                            lainnya, tuliskan di bawah</th>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                        <th>JUMLAH INDUSTRI KECIL DAN RUMAH TANGGA</th>
+                                        <th>JUMLAH INDUSTRI SEDANG DAN BESAR</th>
+                                        <th>JUMLAH MANAJEMEN</th>
+                                        <th tyle="border-right: 1px solid #000;">JUMLAH PEKERJA</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
-            
         </div>
     </div>
-</div>
 
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledatartindustri').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/rtindustri/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action',
+                    },
+                    {
+                        data: 'id',
+                        name: 'id',
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat',
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt',
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw',
+                    },
+                    {
+                        data: 'nohp',
+                        name: 'nohp',
+                    },
+                    {
+                        data: 'jumlahindustrik_kulit',
+                        name: 'jumlahindustrik_kulit',
+                    },
+                    {
+                        data: 'jumlahindustris_kulit',
+                        name: 'jumlahindustris_kulit',
+                    },
+                    {
+                        data: 'jumlahmanajemen_kulit',
+                        name: 'jumlahmanajemen_kulit',
+                    },
+                    {
+                        data: 'jumlahpekerja_kulit',
+                        name: 'jumlahpekerja_kulit',
+                    },
+                    {
+                        data: 'jumlahindustrik_kayu',
+                        name: 'jumlahindustrik_kayu',
+                    },
+                    {
+                        data: 'jumlahindustris_kayu',
+                        name: 'jumlahindustris_kayu',
+                    },
+                    {
+                        data: 'jumlahmanajemen_kayu',
+                        name: 'jumlahmanajemen_kayu',
+                    },
+                    {
+                        data: 'jumlahpekerja_kayu',
+                        name: 'jumlahpekerja_kayu',
+                    },
+                    {
+                        data: 'jumlahindustrik_logam',
+                        name: 'jumlahindustrik_logam',
+                    },
+                    {
+                        data: 'jumlahindustris_logam',
+                        name: 'jumlahindustris_logam',
+                    },
+                    {
+                        data: 'jumlahmanajemen_logam',
+                        name: 'jumlahmanajemen_logam',
+                    },
+                    {
+                        data: 'jumlahpekerja_logam',
+                        name: 'jumlahpekerja_logam',
+                    },
+                    {
+                        data: 'jumlahindustrik_logamb',
+                        name: 'jumlahindustrik_logamb',
+                    },
+                    {
+                        data: 'jumlahindustris_logamb',
+                        name: 'jumlahindustris_logamb',
+                    },
+                    {
+                        data: 'jumlahmanajemen_logamb',
+                        name: 'jumlahmanajemen_logamb',
+                    },
+                    {
+                        data: 'jumlahpekerja_logamb',
+                        name: 'jumlahpekerja_logamb',
+                    },
+                    {
+                        data: 'jumlahindustrik_kain',
+                        name: 'jumlahindustrik_kain',
+                    },
+                    {
+                        data: 'jumlahindustris_kain',
+                        name: 'jumlahindustris_kain',
+                    },
+                    {
+                        data: 'jumlahmanajemen_kain',
+                        name: 'jumlahmanajemen_kain',
+                    },
+                    {
+                        data: 'jumlahpekerja_kain',
+                        name: 'jumlahpekerja_kain',
+                    },
+                    {
+                        data: 'jumlahindustrik_keramik',
+                        name: 'jumlahindustrik_keramik',
+                    },
+                    {
+                        data: 'jumlahindustris_keramik',
+                        name: 'jumlahindustris_keramik',
+                    },
+                    {
+                        data: 'jumlahmanajemen_keramik',
+                        name: 'jumlahmanajemen_keramik',
+                    },
+                    {
+                        data: 'jumlahpekerja_keramik',
+                        name: 'jumlahpekerja_keramik',
+                    },
+                    {
+                        data: 'jumlahindustrik_genteng',
+                        name: 'jumlahindustrik_genteng',
+                    },
+                    {
+                        data: 'jumlahindustris_genteng',
+                        name: 'jumlahindustris_genteng',
+                    },
+                    {
+                        data: 'jumlahmanajemen_genteng',
+                        name: 'jumlahmanajemen_genteng',
+                    },
+                    {
+                        data: 'jumlahpekerja_genteng',
+                        name: 'jumlahpekerja_genteng',
+                    },
+                    {
+                        data: 'jumlahindustrik_anyaman',
+                        name: 'jumlahindustrik_anyaman',
+                    },
+                    {
+                        data: 'jumlahindustris_anyaman',
+                        name: 'jumlahindustris_anyaman',
+                    },
+                    {
+                        data: 'jumlahmanajemen_anyaman',
+                        name: 'jumlahmanajemen_anyaman',
+                    },
+                    {
+                        data: 'jumlahpekerja_anyaman',
+                        name: 'jumlahpekerja_anyaman',
+                    },
+                    {
+                        data: 'jumlahindustrik_makanan',
+                        name: 'jumlahindustrik_makanan',
+                    },
+                    {
+                        data: 'jumlahindustris_makanan',
+                        name: 'jumlahindustris_makanan',
+                    },
+                    {
+                        data: 'jumlahmanajemen_makanan',
+                        name: 'jumlahmanajemen_makanan',
+                    },
+                    {
+                        data: 'jumlahpekerja_makanan',
+                        name: 'jumlahpekerja_makanan',
+                    },
+                    {
+                        data: 'jumlahindustrik_lainnya',
+                        name: 'jumlahindustrik_lainnya',
+                    },
+                    {
+                        data: 'jumlahindustris_lainnya',
+                        name: 'jumlahindustris_lainnya',
+                    },
+                    {
+                        data: 'jumlahmanajemen_lainnya',
+                        name: 'jumlahmanajemen_lainnya',
+                    },
+                    {
+                        data: 'jumlahpekerja_lainnya',
+                        name: 'jumlahpekerja_lainnya',
+                    },
 
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
 
-</script>
+                ]
+
+            });
+        });
+    </script>
 @endsection

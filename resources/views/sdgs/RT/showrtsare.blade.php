@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title">SARANA EKONOMI
-                            {{ $datap->nama }}</h1>
+                            <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1></h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtsare.index') }}'">Kembali
                         </button>
@@ -26,12 +26,112 @@
                             <form class="form-valide" action="{{ route('rtsare.update') }}" method="POST">
                                 @csrf
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
+                                    <label class="col-lg-4 col-form-label" for="valnik">NIK <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nik))
+                                            <br>
+                                            {{ $datart->nik }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnik')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nama))
+                                            <br>
+                                            {{ $datart->nama }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnama_ketuart')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valalamat">ALAMAT<span
                                             class="text-danger">*</span>
-                                        <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
                                     </label>
                                     <div class="col-lg-6">
-                                        {{ $datap->nik }}
+                                        @if (isset($datart->nik))
+                                            <br>
+                                            {{ $datart->nik }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valalamat')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrt">RT<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->rt))
+                                            <br>
+                                            {{ $datart->rt }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valrt')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrw">RW <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->rw))
+                                            <br>
+                                            {{ $datart->rw }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valrw')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnohp">NO HP <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nohp))
+                                            <br>
+                                            {{ $datart->nohp }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnohp')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -822,7 +922,7 @@
                                             <label for="valJarak_hostel">JARAK TERDEKAT
 
                                             </label>
-                                             @if (isset($rt_sare->Jarak_hostel))
+                                            @if (isset($rt_sare->Jarak_hostel))
                                                 <br>
                                                 {{ $rt_sare->Jarak_hostel }}
                                             @else
@@ -838,7 +938,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_hostel">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_hostel))
+                                            @if (isset($rt_sare->kemudahan_hostel))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_hostel }}
                                             @else
@@ -862,7 +962,7 @@
                                         <div class="form-group">
                                             <label for="valjumlah_bengkelm">JUMLAH
                                             </label>
-                                           @if (isset($rt_sare->jumlah_bengkelm))
+                                            @if (isset($rt_sare->jumlah_bengkelm))
                                                 <br>
                                                 {{ $rt_sare->jumlah_bengkelm }}
                                             @else
@@ -878,7 +978,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bengkelm">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bengkelm))
+                                            @if (isset($rt_sare->kondisi_bengkelm))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bengkelm }}
                                             @else
@@ -896,7 +996,7 @@
                                             <label for="valJarak_bengkelm">JARAK TERDEKAT
 
                                             </label>
-                                             @if (isset($rt_sare->Jarak_bengkelm))
+                                            @if (isset($rt_sare->Jarak_bengkelm))
                                                 <br>
                                                 {{ $rt_sare->Jarak_bengkelm }}
                                             @else
@@ -912,7 +1012,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bengkelm">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_bengkelm))
+                                            @if (isset($rt_sare->kemudahan_bengkelm))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bengkelm }}
                                             @else
@@ -952,7 +1052,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_salonk">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_salonk))
+                                            @if (isset($rt_sare->kondisi_salonk))
                                                 <br>
                                                 {{ $rt_sare->kondisi_salonk }}
                                             @else
@@ -969,7 +1069,7 @@
                                             <label for="valJarak_salonk">JARAK TERDEKAT
 
                                             </label>
-                                             @if (isset($rt_sare->Jarak_salonk))
+                                            @if (isset($rt_sare->Jarak_salonk))
                                                 <br>
                                                 {{ $rt_sare->Jarak_salonk }}
                                             @else
@@ -985,7 +1085,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_salonk">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_salonk))
+                                            @if (isset($rt_sare->kemudahan_salonk))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_salonk }}
                                             @else
@@ -1010,7 +1110,7 @@
                                         <div class="form-group">
                                             <label for="valjumlah_agent">JUMLAH
                                             </label>
-                                             @if (isset($rt_sare->jumlah_agent))
+                                            @if (isset($rt_sare->jumlah_agent))
                                                 <br>
                                                 {{ $rt_sare->jumlah_agent }}
                                             @else
@@ -1026,7 +1126,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_agent">KONDISI
                                             </label>
-                                              @if (isset($rt_sare->kondisi_agent))
+                                            @if (isset($rt_sare->kondisi_agent))
                                                 <br>
                                                 {{ $rt_sare->kondisi_agent }}
                                             @else
@@ -1101,7 +1201,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankbri">KONDISI
                                             </label>
-                                              @if (isset($rt_sare->kondisi_bankbri))
+                                            @if (isset($rt_sare->kondisi_bankbri))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankbri }}
                                             @else
@@ -1119,7 +1219,7 @@
                                             <label for="valJarak_bankbri">JARAK TERDEKAT
 
                                             </label>
-                                           @if (isset($rt_sare->Jarak_bankbri))
+                                            @if (isset($rt_sare->Jarak_bankbri))
                                                 <br>
                                                 {{ $rt_sare->Jarak_bankbri }}
                                             @else
@@ -1135,7 +1235,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bankbri">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_bankbri))
+                                            @if (isset($rt_sare->kemudahan_bankbri))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bankbri }}
                                             @else
@@ -1176,7 +1276,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_briag">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_briag))
+                                            @if (isset($rt_sare->kondisi_briag))
                                                 <br>
                                                 {{ $rt_sare->kondisi_briag }}
                                             @else
@@ -1210,7 +1310,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_briag">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                              @if (isset($rt_sare->kemudahan_briag))
+                                            @if (isset($rt_sare->kemudahan_briag))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_briag }}
                                             @else
@@ -1249,7 +1349,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankbni">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bankbni))
+                                            @if (isset($rt_sare->kondisi_bankbni))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankbni }}
                                             @else
@@ -1283,7 +1383,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bankbni">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_bankbni))
+                                            @if (isset($rt_sare->kemudahan_bankbni))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bankbni }}
                                             @else
@@ -1322,7 +1422,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bniag">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bniag))
+                                            @if (isset($rt_sare->kondisi_bniag))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bniag }}
                                             @else
@@ -1356,7 +1456,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bniag">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_bniag))
+                                            @if (isset($rt_sare->kemudahan_bniag))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bniag }}
                                             @else
@@ -1396,7 +1496,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankmandiri">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bankmandiri))
+                                            @if (isset($rt_sare->kondisi_bankmandiri))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankmandiri }}
                                             @else
@@ -1414,7 +1514,7 @@
                                             <label for="valJarak_bankmandiri">JARAK TERDEKAT
 
                                             </label>
-                                             @if (isset($rt_sare->Jarak_bankmandiri))
+                                            @if (isset($rt_sare->Jarak_bankmandiri))
                                                 <br>
                                                 {{ $rt_sare->Jarak_bankmandiri }}
                                             @else
@@ -1430,7 +1530,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bankmandiri">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_bankmandiri))
+                                            @if (isset($rt_sare->kemudahan_bankmandiri))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bankmandiri }}
                                             @else
@@ -1471,7 +1571,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_mandiriag">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_mandiriag))
+                                            @if (isset($rt_sare->kondisi_mandiriag))
                                                 <br>
                                                 {{ $rt_sare->kondisi_mandiriag }}
                                             @else
@@ -1489,7 +1589,7 @@
                                             <label for="valJarak_mandiriag">JARAK TERDEKAT
 
                                             </label>
-                                          @if (isset($rt_sare->Jarak_mandiriag))
+                                            @if (isset($rt_sare->Jarak_mandiriag))
                                                 <br>
                                                 {{ $rt_sare->Jarak_mandiriag }}
                                             @else
@@ -1505,7 +1605,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_mandiriag">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_mandiriag))
+                                            @if (isset($rt_sare->kemudahan_mandiriag))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_mandiriag }}
                                             @else
@@ -1545,7 +1645,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankbpd">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bankbpd))
+                                            @if (isset($rt_sare->kondisi_bankbpd))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankbpd }}
                                             @else
@@ -1579,7 +1679,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bankbpd">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_bankbpd))
+                                            @if (isset($rt_sare->kemudahan_bankbpd))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bankbpd }}
                                             @else
@@ -1620,7 +1720,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bpdag">KONDISI
                                             </label>
-                                              @if (isset($rt_sare->kondisi_bpdag))
+                                            @if (isset($rt_sare->kondisi_bpdag))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bpdag }}
                                             @else
@@ -1638,7 +1738,7 @@
                                             <label for="valJarak_bpdag">JARAK TERDEKAT
 
                                             </label>
-                                             @if (isset($rt_sare->Jarak_bpdag))
+                                            @if (isset($rt_sare->Jarak_bpdag))
                                                 <br>
                                                 {{ $rt_sare->Jarak_bpdag }}
                                             @else
@@ -1654,7 +1754,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bpdag">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                           @if (isset($rt_sare->kemudahan_bpdag))
+                                            @if (isset($rt_sare->kemudahan_bpdag))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bpdag }}
                                             @else
@@ -1695,7 +1795,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankumum">KONDISI
                                             </label>
-                                              @if (isset($rt_sare->kondisi_bankumum))
+                                            @if (isset($rt_sare->kondisi_bankumum))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankumum }}
                                             @else
@@ -1729,7 +1829,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bankumum">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                             @if (isset($rt_sare->kemudahan_bankumum))
+                                            @if (isset($rt_sare->kemudahan_bankumum))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bankumum }}
                                             @else
@@ -1768,7 +1868,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankbca">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bankbca))
+                                            @if (isset($rt_sare->kondisi_bankbca))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankbca }}
                                             @else
@@ -1841,7 +1941,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankcimb">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bankcimb))
+                                            @if (isset($rt_sare->kondisi_bankcimb))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankcimb }}
                                             @else
@@ -1875,7 +1975,7 @@
                                         <div class="form-group">
                                             <label for="valkemudahan_bankcimb">KEMUDAHAN UNTUK MENCAPAI
                                             </label>
-                                              @if (isset($rt_sare->kemudahan_bankcimb))
+                                            @if (isset($rt_sare->kemudahan_bankcimb))
                                                 <br>
                                                 {{ $rt_sare->kemudahan_bankcimb }}
                                             @else
@@ -1900,7 +2000,7 @@
                                         <div class="form-group">
                                             <label for="valjumlah_banksinarm">JUMLAH
                                             </label>
-                                             @if (isset($rt_sare->jumlah_banksinarm))
+                                            @if (isset($rt_sare->jumlah_banksinarm))
                                                 <br>
                                                 {{ $rt_sare->jumlah_banksinarm }}
                                             @else
@@ -1916,7 +2016,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_banksinarm">KONDISI
                                             </label>
-                                              @if (isset($rt_sare->kondisi_banksinarm))
+                                            @if (isset($rt_sare->kondisi_banksinarm))
                                                 <br>
                                                 {{ $rt_sare->kondisi_banksinarm }}
                                             @else
@@ -1975,7 +2075,7 @@
                                         <div class="form-group">
                                             <label for="valjumlah_bankpermata">JUMLAH
                                             </label>
-                                             @if (isset($rt_sare->jumlah_bankpermata))
+                                            @if (isset($rt_sare->jumlah_bankpermata))
                                                 <br>
                                                 {{ $rt_sare->jumlah_bankpermata }}
                                             @else
@@ -1991,7 +2091,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankpermata">KONDISI
                                             </label>
-                                              @if (isset($rt_sare->kondisi_bankpermata))
+                                            @if (isset($rt_sare->kondisi_bankpermata))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankpermata }}
                                             @else
@@ -2064,7 +2164,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankswastalain">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bankswastalain))
+                                            @if (isset($rt_sare->kondisi_bankswastalain))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankswastalain }}
                                             @else
@@ -2140,7 +2240,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bankbpr">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_bankbpr))
+                                            @if (isset($rt_sare->kondisi_bankbpr))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankbpr }}
                                             @else
@@ -2199,7 +2299,7 @@
                                         <div class="form-group">
                                             <label for="valjumlah_bmt">JUMLAH
                                             </label>
-                                             @if (isset($rt_sare->jumlah_bankbmt))
+                                            @if (isset($rt_sare->jumlah_bankbmt))
                                                 <br>
                                                 {{ $rt_sare->jumlah_bankbmt }}
                                             @else
@@ -2215,7 +2315,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_bmt">KONDISI
                                             </label>
-                                              @if (isset($rt_sare->kondisi_bankbmt))
+                                            @if (isset($rt_sare->kondisi_bankbmt))
                                                 <br>
                                                 {{ $rt_sare->kondisi_bankbmt }}
                                             @else
@@ -2233,7 +2333,7 @@
                                             <label for="valJarak_bmt">JARAK TERDEKAT
 
                                             </label>
-                                           @if (isset($rt_sare->Jarak_bankbmt))
+                                            @if (isset($rt_sare->Jarak_bankbmt))
                                                 <br>
                                                 {{ $rt_sare->Jarak_bankbmt }}
                                             @else
@@ -2291,7 +2391,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_pegadaian">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_pegadaian))
+                                            @if (isset($rt_sare->kondisi_pegadaian))
                                                 <br>
                                                 {{ $rt_sare->kondisi_pegadaian }}
                                             @else
@@ -2349,7 +2449,7 @@
                                         <div class="form-group">
                                             <label for="valjumlah_atm">JUMLAH
                                             </label>
-                                             @if (isset($rt_sare->jumlah_atm))
+                                            @if (isset($rt_sare->jumlah_atm))
                                                 <br>
                                                 {{ $rt_sare->jumlah_atm }}
                                             @else
@@ -2365,7 +2465,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_atm">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_atm))
+                                            @if (isset($rt_sare->kondisi_atm))
                                                 <br>
                                                 {{ $rt_sare->kondisi_atm }}
                                             @else
@@ -2442,7 +2542,7 @@
                                         <div class="form-group">
                                             <label for="valkondisi_saranalain">KONDISI
                                             </label>
-                                             @if (isset($rt_sare->kondisi_saranalain))
+                                            @if (isset($rt_sare->kondisi_saranalain))
                                                 <br>
                                                 {{ $rt_sare->kondisi_saranalain }}
                                             @else
@@ -2460,7 +2560,7 @@
                                             <label for="valJarak_saranalain">JARAK TERDEKAT
 
                                             </label>
-                                          @if (isset($rt_sare->Jarak_saranalain))
+                                            @if (isset($rt_sare->Jarak_saranalain))
                                                 <br>
                                                 {{ $rt_sare->Jarak_saranalain }}
                                             @else

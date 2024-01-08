@@ -13,6 +13,7 @@ use App\Http\Controllers\DataindividuController;
 use App\Http\Controllers\DatakesehatanController;
 use App\Http\Controllers\DatamutasiController;
 use App\Http\Controllers\DatapekerjaansdgsController;
+use App\Http\Controllers\DataRtController;
 use App\Http\Controllers\JenisdisabilitasController;
 use App\Http\Controllers\KkController;
 use App\Http\Controllers\LembagaMasyarakatController;
@@ -43,8 +44,10 @@ use App\Models\akseskesehatan;
 use App\Models\datakesehatan;
 use App\Models\datamutasi;
 use App\Models\rt_kejadianluarbiasa;
+use App\Models\rtlembaga_ekonomi;
 use App\Models\rtlembaga_keagamaan;
 use App\Models\rtlokasi;
+use App\Models\rtpuengurus;
 
 Route::get('/', [DashboardController::class, 'landingpage'])->name('landingpage');
 
@@ -65,7 +68,7 @@ Route::get('KK/{id}', [KkController::class, 'show']);
 
 Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
     function () {
-       
+
         Route::get('sdgs/individu/dataindividu/{show}', [DataindividuController::class, 'show'])->name('individu.show');
         Route::get('sdgs/individu/datakesehatan', [DatakesehatanController::class, 'index'])->name('datakesehatan.index');
         Route::get('sdgs/individu/datapenghasilan', [PenghasilanController::class, 'index'])->name('datapenghasilan.index');
@@ -96,6 +99,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/rt/rtlembaga_keagamaan', [RtlembagaKeagamaanController::class, 'index'])->name('rtlembaga_keagamaan.index');
         Route::get('sdgs/rt/rtlembaga_masyarakat', [LembagaMasyarakatController::class, 'index'])->name('rtlembaga_masyarakat.index');
         Route::get('sdgs/rt/rt_kegiatanwarga', [RtkegiatanWargaController::class, 'index'])->name('rt_kegiatanwarga.index');
+        Route::get('sdgs/rt/datart', [DataRtController::class, 'index'])->name('datart.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
@@ -117,11 +121,21 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('/aksestenagakerja/json', [AksestenagakerjaController::class, 'json']);
         Route::get('/aksessarpras/json', [AksessarprasController::class, 'json']);
         Route::get('/laink/json', [LainkController::class, 'json']);
-
-
-   
+        Route::get('/rtlokasi/json', [RtlokasiController::class, 'json']);
+        Route::get('/rtpengurus/json', [RtpuengurusController::class, 'json']);
+        Route::get('/rtlembaga_ekonomi/json', [RtlembagaEkonomiController::class, 'json']);
+        Route::get('/datart/json', [DataRtController::class, 'json']);
+        Route::get('/rtindustri/json', [RtindustriController::class, 'json']);
+        Route::get('/rtsare/json', [RtSaranaEkonomiController::class, 'json']);
+        Route::get('/rt_fasilitas_ekonomi/json', [RtFasilitasEkonomiController::class, 'json']);
 
         
+       
+
+
+
+
+
 
 
 
@@ -253,33 +267,10 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
         Route::post('sdgs/RT/editrt_kegiatanwarga', [RtkegiatanWargaController::class, 'store'])->name('rt_kegiatanwarga.update');
         Route::get('sdgs/RT/rt_kegiatanwarga/{show}', [RtkegiatanWargaController::class, 'show'])->name('rt_kegiatanwarga.show');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Route::get('sdgs/RT/tambahdatart', [DataRtController::class, 'add'])->name('datart.create');
+        Route::post('sdgs/RT/tambahdatart', [DataRtController::class, 'store'])->name('datart.add');
+        Route::get('sdgs/RT/editdatart/{nik}', [DataRtController::class, 'edit'])->name('datart.edit');
+        Route::post('sdgs/RT/editdatart/{nik}', [DataRtController::class, 'update'])->name('datart.update');
     }
 );
 

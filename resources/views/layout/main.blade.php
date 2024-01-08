@@ -219,6 +219,7 @@
                             <i class="icon-graph menu-icon"></i> <span class="nav-text">RT</span>
                         </a>
                         <ul aria-expanded="false">
+                            <li><a href="{{ route('datart.index') }}">Data RT</a></li>
                             <li><a href="{{ route('rtlokasi.index') }}">Lokasi</a></li>
                             <li><a href="{{ route('rtpengurus.index') }}">Pengurus</a></li>
                             <li><a href="{{ route('rtlembaga_ekonomi.index') }}">Lembaga Ekonomi</a></li>

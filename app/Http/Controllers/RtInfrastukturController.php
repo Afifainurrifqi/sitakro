@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\rt_infrastuktur;
 use App\Http\Requests\Storert_infrastukturRequest;
 use App\Http\Requests\Updatert_infrastukturRequest;
+use App\Models\Datart;
 
 class RtInfrastukturController extends Controller
 {
@@ -22,25 +23,7 @@ class RtInfrastukturController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rtinfrastuktur = rt_infrastuktur::all();
-        $rtinfrastukturSudahProses = $rtinfrastuktur->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-
-        $persentaseProses = ($rtinfrastukturSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rt_infrastuktur', compact('rtinfrastuktur', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.RT.rt_infrastuktur');
     }
 
     /**
@@ -50,15 +33,10 @@ class RtInfrastukturController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rtinfrastuktur = rt_infrastuktur::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-
-        return view('sdgs.RT.editrt_infrastuktur', compact('rtinfrastuktur','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+    
+        return view('sdgs.RT.editrt_infrastuktur', compact('rtinfrastuktur','datart'));
     }
 
     /**
@@ -69,11 +47,16 @@ class RtInfrastukturController extends Controller
      */
     public function store(Storert_infrastukturRequest $request)
     {
-        $rtinfrastuktur = rt_infrastuktur::where('nik', $request->valNIK)->first();
+        $rtinfrastuktur = rt_infrastuktur::where('nik', $request->valnik)->first();
         if ($rtinfrastuktur == NULL ) {
             $rtinfrastuktur = new rt_infrastuktur();
         }
-        $rtinfrastuktur->nik = $request->valNIK;         
+        $rtinfrastuktur->nik = $request->valnik;
+        $rtinfrastuktur->nama_ketuart = $request->valnama_ketuart;
+        $rtinfrastuktur->alamat = $request->valalamat;
+        $rtinfrastuktur->rt = $request->valrt;
+        $rtinfrastuktur->rw = $request->valrw;
+        $rtinfrastuktur->nohp = $request->valnohp;
         
         $rtinfrastuktur->penerangan_jalan = $request -> valpenerangan_jalan;
         $rtinfrastuktur->pra_transportrt = $request -> valpra_transportrt;
@@ -130,7 +113,7 @@ class RtInfrastukturController extends Controller
         $rtinfrastuktur->pemukiman_khusus_lp = $request -> valpemukiman_khusus_lp;
 
         $rtinfrastuktur->save();
-        return redirect()->route('rtinfrastuktur.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rtinfrastuktur.show',['show'=> $request->valnik ]);
 
     }
 
@@ -142,15 +125,10 @@ class RtInfrastukturController extends Controller
      */
     public function show(rt_infrastuktur $rt_infrastuktur, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rtinfrastuktur = rt_infrastuktur::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.showrt_infrastuktur', compact('rtinfrastuktur','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.showrt_infrastuktur', compact('rtinfrastuktur','datart'));
     }
 
     /**

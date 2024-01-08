@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\rt_fasilitas_ekonomi;
 use App\Http\Requests\Storert_fasilitas_ekonomiRequest;
 use App\Http\Requests\Updatert_fasilitas_ekonomiRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtFasilitasEkonomiController extends Controller
 {
@@ -22,25 +24,58 @@ class RtFasilitasEkonomiController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+        return view('sdgs.RT.rt_fasilitas_ekonomi');
+    }
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_fasilitas_ekonomi = rt_fasilitas_ekonomi::all();
-        $rt_fasilitas_ekonomiSudahProses = $rt_fasilitas_ekonomi->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
 
-        $persentaseProses = ($rt_fasilitas_ekonomiSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rt_fasilitas_ekonomi', compact('rt_fasilitas_ekonomi', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rt_fasilitas_ekonomi.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rt_fasilitas_ekonomi.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>                           
+                        </td>';
+            })
+
+            ->addColumn('kredit_usaha_rakyat', function ($row) {
+                $kreditUsahaRakyat = rt_fasilitas_ekonomi::where('your_column', $row->your_column_related_to_kredit_usaha_rakyat)->first();
+                $value = $kreditUsahaRakyat ? $kreditUsahaRakyat->kredit_usaha_rakyat : '';
+
+                return $value;
+            })
+            ->addColumn('kredit_ketahanan_pangan_energi', function ($row) {
+                $kreditKetahananPanganEnergi = rt_fasilitas_ekonomi::where('your_column', $row->your_column_related_to_kredit_ketahanan_pangan_energi)->first();
+                $value = $kreditKetahananPanganEnergi ? $kreditKetahananPanganEnergi->kredit_ketahanan_pangan_energi : '';
+
+                return $value;
+            })
+            ->addColumn('kredit_usaha_kecil', function ($row) {
+                $kreditUsahaKecil = rt_fasilitas_ekonomi::where('your_column', $row->your_column_related_to_kredit_usaha_kecil)->first();
+                $value = $kreditUsahaKecil ? $kreditUsahaKecil->kredit_usaha_kecil : '';
+
+                return $value;
+            })
+            ->addColumn('kelompok_usaha_bersama', function ($row) {
+                $kelompokUsahaBersama = rt_fasilitas_ekonomi::where('your_column', $row->your_column_related_to_kelompok_usaha_bersama)->first();
+                $value = $kelompokUsahaBersama ? $kelompokUsahaBersama->kelompok_usaha_bersama : '';
+
+                return $value;
+            })
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
     }
 
     /**
@@ -50,15 +85,10 @@ class RtFasilitasEkonomiController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_fasilitas_ekonomi = rt_fasilitas_ekonomi::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.editrt_fasilitas_ekonomi', compact('rt_fasilitas_ekonomi','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.editrt_fasilitas_ekonomi', compact('rt_fasilitas_ekonomi', 'datart'));
     }
 
     /**
@@ -69,19 +99,24 @@ class RtFasilitasEkonomiController extends Controller
      */
     public function store(Storert_fasilitas_ekonomiRequest $request)
     {
-        $rt_fasilitas_ekonomi = rt_fasilitas_ekonomi::where('nik', $request->valNIK)->first();
-        if ($rt_fasilitas_ekonomi == NULL ) {
+        $rt_fasilitas_ekonomi = rt_fasilitas_ekonomi::where('nik', $request->valnik)->first();
+        if ($rt_fasilitas_ekonomi == NULL) {
             $rt_fasilitas_ekonomi = new rt_fasilitas_ekonomi();
         }
-        $rt_fasilitas_ekonomi->nik = $request->valNIK;         
-        $rt_fasilitas_ekonomi->kredit_usaha = $request -> valkredit_usaha;
-        $rt_fasilitas_ekonomi->kredit_ketahanan = $request -> valkredit_ketahanan;
-        $rt_fasilitas_ekonomi->kredit_kecil = $request -> valkredit_kecil;
-        $rt_fasilitas_ekonomi->kelompok_usaha = $request -> valkelompok_usaha;
-       
+        $rt_fasilitas_ekonomi->nik = $request->valnik;
+        $rt_fasilitas_ekonomi->nama_ketuart = $request->valnama_ketuart;
+        $rt_fasilitas_ekonomi->alamat = $request->valalamat;
+        $rt_fasilitas_ekonomi->rt = $request->valrt;
+        $rt_fasilitas_ekonomi->rw = $request->valrw;
+        $rt_fasilitas_ekonomi->nohp = $request->valnohp;
+        $rt_fasilitas_ekonomi->kredit_usaha = $request->valkredit_usaha;
+        $rt_fasilitas_ekonomi->kredit_ketahanan = $request->valkredit_ketahanan;
+        $rt_fasilitas_ekonomi->kredit_kecil = $request->valkredit_kecil;
+        $rt_fasilitas_ekonomi->kelompok_usaha = $request->valkelompok_usaha;
+
 
         $rt_fasilitas_ekonomi->save();
-        return redirect()->route('rt_fasilitas_ekonomi.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rt_fasilitas_ekonomi.show', ['show' => $request->valnik]);
     }
 
     /**
@@ -90,17 +125,12 @@ class RtFasilitasEkonomiController extends Controller
      * @param  \App\Models\rt_fasilitas_ekonomi  $rt_fasilitas_ekonomi
      * @return \Illuminate\Http\Response
      */
-    public function show(rt_fasilitas_ekonomi $rt_fasilitas_ekonomi , $nik)
+    public function show(rt_fasilitas_ekonomi $rt_fasilitas_ekonomi, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_fasilitas_ekonomi = rt_fasilitas_ekonomi::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-
-        return view('sdgs.RT.showrt_fasilitas_ekonomi', compact('rt_fasilitas_ekonomi','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        
+        return view('sdgs.RT.showrt_fasilitas_ekonomi', compact('rt_fasilitas_ekonomi', 'datart'));
     }
 
     /**

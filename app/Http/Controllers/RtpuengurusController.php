@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\rtpuengurus;
 use App\Http\Requests\StorertpuengurusRequest;
 use App\Http\Requests\UpdatertpuengurusRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtpuengurusController extends Controller
 {
@@ -22,25 +24,133 @@ class RtpuengurusController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+        return view('sdgs.RT.rtpengurus');
+    }
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_pengurus = rtpuengurus::all();
-        $rt_pengurusSudahProses = $rt_pengurus->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtpengurus.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtpengurus.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+                           
+                           
+                        </td>';
+            })
 
-        $persentaseProses = ($rt_pengurusSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rtpengurus', compact('rt_pengurus', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+            ->addColumn('nama_ketuarw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                $kondisi = $rt_pengurus ? $rt_pengurus->nama_ketuarw : '';
+                return $kondisi;
+            })
+
+            ->addColumn('nik_ketuarw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_ketuarw : '';
+            })
+            ->addColumn('nohp_ketuarw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_ketuarw : '';
+            })
+            ->addColumn('menjabat_ketuarw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_ketuarw : '';
+            })
+            ->addColumn('nama_sekrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama_sekrw : '';
+            })
+            ->addColumn('nik_sekrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_sekrw : '';
+            })
+            ->addColumn('nohp_sekrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_sekrw : '';
+            })
+            ->addColumn('menjabat_sekrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_sekrw : '';
+            })
+            ->addColumn('nama_benrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama_benrw : '';
+            })
+            ->addColumn('nik_benrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_benrw : '';
+            })
+            ->addColumn('nohp_benrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_benrw : '';
+            })
+            ->addColumn('menjabat_benrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_benrw : '';
+            })
+            ->addColumn('nama_ketuart', function ($row) {
+                $rt_pengurus = Datart::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama : '';
+            })
+            ->addColumn('nik_ketuart', function ($row) {
+                $rt_pengurus = Datart::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik : '';
+            })
+            ->addColumn('nohp_ketuart', function ($row) {
+                $rt_pengurus = Datart::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp : '';
+            })
+            ->addColumn('menjabat_ketuart', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_ketuart : '';
+            })
+            ->addColumn('nama_sekrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama_sekrt : '';
+            })
+            ->addColumn('nik_sekrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_sekrt : '';
+            })
+            ->addColumn('nohp_sekrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_sekrt : '';
+            })
+            ->addColumn('menjabat_sekrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_sekrt : '';
+            })
+            ->addColumn('nama_benrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama_benrt : '';
+            })
+            ->addColumn('nik_benrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_benrt : '';
+            })
+            ->addColumn('nohp_benrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_benrt : '';
+            })
+            ->addColumn('menjabat_benrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_benrt : '';
+            })
+            
+
+
+            ->rawColumns([
+                'action',
+              
+            ])
+            ->toJson();
     }
 
     /**
@@ -50,7 +160,7 @@ class RtpuengurusController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_pengurus = rtpuengurus::where('nik', $nik)->first();
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
@@ -58,7 +168,7 @@ class RtpuengurusController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.RT.editrtpengurus', compact('rt_pengurus','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.editrtpengurus', compact('rt_pengurus', 'datart', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
@@ -70,10 +180,15 @@ class RtpuengurusController extends Controller
     public function store(StorertpuengurusRequest $request)
     {
         $rt_pengurus = rtpuengurus::where('nik', $request->valNIK)->first();
-        if ($rt_pengurus == NULL ) {
+        if ($rt_pengurus == NULL) {
             $rt_pengurus = new rtpuengurus();
         }
-        $rt_pengurus->nik = $request->valNIK; 
+        $rt_pengurus->nik = $request->valnik;
+        $rt_pengurus->nama_ketuart = $request->valnama_ketuart;
+        $rt_pengurus->alamat = $request->valalamat;
+        $rt_pengurus->rt = $request->valrt;
+        $rt_pengurus->rw = $request->valrw;
+        $rt_pengurus->nohp = $request->valnohp;
         $rt_pengurus->nama_ketuarw = $request->valnama_ketuarw;
         $rt_pengurus->nik_ketuarw = $request->valnik_ketuarw;
         $rt_pengurus->nohp_ketuarw = $request->valnohp_ketuarw;
@@ -100,7 +215,7 @@ class RtpuengurusController extends Controller
         $rt_pengurus->menjabat_benrt = $request->valmenjabat_benrt;
 
         $rt_pengurus->save();
-        return redirect()->route('rtpengurus.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rtpengurus.show', ['show' => $request->valnik]);
     }
 
     /**
@@ -111,15 +226,10 @@ class RtpuengurusController extends Controller
      */
     public function show(rtpuengurus $rtpuengurus, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_pengurus = rtpuengurus::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-
-        return view('sdgs.RT.showrtpengurus', compact('rt_pengurus','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+       
+        return view('sdgs.RT.showrtpengurus', compact('rt_pengurus', 'datart'));
     }
 
     /**

@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title">EDIT PENGURUS
-                            {{ $datap->nama }}</h1>
+                            <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1></h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtpengurus.index') }}'">Kembali
                         </button>
@@ -17,12 +17,106 @@
                             <form class="form-valide" action="{{ route('rtpengurus.update') }}" method="POST">
                                 @csrf
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
+                                    <label class="col-lg-4 col-form-label" for="valnik">NIK <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="hidden" value="{{ old('valnik', $datart->nik) }}"
+                                            class="form-control @error('valnik') is-invalid @enderror" id="valnik"
+                                            name="valnik" placeholder="Nama Lengkap...">
+                                        <div class="col-lg-6">
+                                            {{ $datart->nik }}
+                                        </div>
+                                        @error('valnik')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="hidden" value="{{ old('valnama_ketuart', $datart->nama) }}"
+                                            class="form-control @error('valnama_ketuart') is-invalid @enderror"
+                                            id="valnama_ketuart" name="valnama_ketuart" placeholder="Nama Lengkap...">
+                                        <div class="col-lg-6">
+                                            {{ $datart->nama }}
+                                        </div>
+                                        @error('valnama_ketuart')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valalamat">ALAMAT<span
                                             class="text-danger">*</span>
-                                        <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
                                     </label>
                                     <div class="col-lg-6">
-                                        {{ $datap->nik }}
+                                        <input value="{{ old('valnama_ketuart', $datart->alamat) }}" type="hidden"
+                                            class="form-control @error('valalamat') is-invalid @enderror" id="valalamat"
+                                            name="valalamat" placeholder="Alamat...">
+                                        <div class="col-lg-6">
+                                            {{ $datart->alamat }}
+                                        </div>
+                                        @error('valalamat')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrt">RT<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->rt) }}" type="hidden"
+                                            class="form-control @error('valrt') is-invalid @enderror" id="valrt"
+                                            name="valrt" placeholder="RT...">
+                                        <div class="col-lg-6">
+                                            {{ $datart->rt }}
+                                        </div>
+                                        @error('valrt')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrw">RW <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->rw) }}" type="hidden"
+                                            class="form-control @error('valrw') is-invalid @enderror" id="valrw"
+                                            name="valrw" placeholder="RW..">
+                                        <div class="col-lg-6">
+                                            {{ $datart->rw }}
+                                        </div>
+                                        @error('valrw')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnohp">NO HP <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->nohp) }}" type="hidden"
+                                            class="form-control @error('valnohp') is-invalid @enderror" id="valnohp"
+                                            name="valnohp" placeholder="RW..">
+                                        <div class="col-lg-6">
+                                            {{ $datart->nohp }}
+                                        </div>
+                                        @error('valnohp')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -44,13 +138,10 @@
                                         <div class="form-group">
                                             <label for="valnik_ketuarw">NIK
                                             </label>
-                                            <input type="text"
-                                            value="{{ $rt_pengurus->nik_ketuarw ?? '' }}"
-                                            class="form-control @error('valnik_ketuarw') is-invalid @enderror"
-                                            id="valnik_ketuarw"
-                                            name="valnik_ketuarw"
-                                            placeholder="NIK..."
-                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            <input type="text" value="{{ $rt_pengurus->nik_ketuarw ?? '' }}"
+                                                class="form-control @error('valnik_ketuarw') is-invalid @enderror"
+                                                id="valnik_ketuarw" name="valnik_ketuarw" placeholder="NIK..."
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                             @error('valnik_ketuarw')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -74,7 +165,8 @@
                                             </label>
                                             <input type="number" value="{{ $rt_pengurus->menjabat_ketuarw ?? '' }}"
                                                 class="form-control @error('valmenjabat_ketuarw') is-invalid @enderror"
-                                                id="valmenjabat_ketuarw" name="valmenjabat_ketuarw" placeholder="jumlah...">
+                                                id="valmenjabat_ketuarw" name="valmenjabat_ketuarw"
+                                                placeholder="jumlah...">
                                             @error('valmenjabat_ketuarw')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -85,7 +177,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">SEKRETARIS RW			
+                                    <label class="col-lg-4 col-form-label">SEKRETARIS RW
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -104,13 +196,10 @@
                                         <div class="form-group">
                                             <label for="valnik_sekrw">NIK
                                             </label>
-                                            <input type="text"
-                                            value="{{ $rt_pengurus->nik_sekrw ?? '' }}"
-                                            class="form-control @error('valnik_sekrw') is-invalid @enderror"
-                                            id="valnik_sekrw"
-                                            name="valnik_sekrw"
-                                            placeholder="NIK..."
-                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            <input type="text" value="{{ $rt_pengurus->nik_sekrw ?? '' }}"
+                                                class="form-control @error('valnik_sekrw') is-invalid @enderror"
+                                                id="valnik_sekrw" name="valnik_sekrw" placeholder="NIK..."
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                             @error('valnik_sekrw')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -145,7 +234,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BENDAHARA RW	
+                                    <label class="col-lg-4 col-form-label">BENDAHARA RW
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -163,13 +252,10 @@
                                         <div class="form-group">
                                             <label for="valnik_benrw">NIK
                                             </label>
-                                            <input type="text"
-                                            value="{{ $rt_pengurus->nik_benrw ?? '' }}"
-                                            class="form-control @error('valnik_benrw') is-invalid @enderror"
-                                            id="valnik_benrw"
-                                            name="valnik_benrw"
-                                            placeholder="NIK..."
-                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            <input type="text" value="{{ $rt_pengurus->nik_benrw ?? '' }}"
+                                                class="form-control @error('valnik_benrw') is-invalid @enderror"
+                                                id="valnik_benrw" name="valnik_benrw" placeholder="NIK..."
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                             @error('valnik_benrw')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -204,15 +290,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">KETUA RT		
+                                    <label class="col-lg-4 col-form-label">KETUA RT
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valnama_ketuart">NAMA
                                             </label>
-                                            <input type="text" value="{{ $rt_pengurus->nama_ketuart ?? '' }}"
+                                            <input type="hidden" value="{{ $datart->nama ?? '' }}"
                                                 class="form-control @error('valnama_ketuart') is-invalid @enderror"
                                                 id="valnama_ketuart" name="valnama_ketuart" placeholder="Nama...">
+                                            <div class="col-lg-6">
+                                                {{ $datart->nama }}
+                                            </div>
                                             @error('valnama_ketuart')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -222,13 +311,13 @@
                                         <div class="form-group">
                                             <label for="valnik_ketuart">NIK
                                             </label>
-                                            <input type="text"
-                                            value="{{ $rt_pengurus->nik_ketuart ?? '' }}"
-                                            class="form-control @error('valnik_ketuart') is-invalid @enderror"
-                                            id="valnik_ketuart"
-                                            name="valnik_ketuart"
-                                            placeholder="NIK..."
-                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            <input type="hidden" value="{{ $datart->nik ?? '' }}"
+                                                class="form-control @error('valnik_ketuart') is-invalid @enderror"
+                                                id="valnik_ketuart" name="valnik_ketuart" placeholder="NIK..."
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            <div class="col-lg-6">
+                                                {{ $datart->nik }}
+                                            </div>
                                             @error('valnik_ketuart')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -238,9 +327,12 @@
                                         <div class="form-group">
                                             <label for="valnohp_ketuart">NO HP
                                             </label>
-                                            <input type="number" value="{{ $rt_pengurus->nohp_ketuart ?? '' }}"
+                                            <input type="hidden" value="{{ $datart->nohp ?? '' }}"
                                                 class="form-control @error('valnohp_ketuart') is-invalid @enderror"
                                                 id="valnohp_ketuart" name="valnohp_ketuart" placeholder="Nohp...">
+                                                <div class="col-lg-6">
+                                                    {{ $datart->nohp }}
+                                                </div>
                                             @error('valnohp_ketuart')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -252,7 +344,11 @@
                                             </label>
                                             <input type="number" value="{{ $rt_pengurus->menjabat_ketuart ?? '' }}"
                                                 class="form-control @error('valmenjabat_ketuart') is-invalid @enderror"
-                                                id="valmenjabat_ketuart" name="valmenjabat_ketuart" placeholder="jumlah...">
+                                                id="valmenjabat_ketuart" name="valmenjabat_ketuart"
+                                                placeholder="jumlah...">
+                                            <div class="col-lg-6">
+
+                                            </div>
                                             @error('valmenjabat_ketuart')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -281,13 +377,10 @@
                                         <div class="form-group">
                                             <label for="valnik_sekrt">NIK
                                             </label>
-                                            <input type="text"
-                                            value="{{ $rt_pengurus->nik_sekrt ?? '' }}"
-                                            class="form-control @error('valnik_sekrt') is-invalid @enderror"
-                                            id="valnik_sekrt"
-                                            name="valnik_sekrt"
-                                            placeholder="NIK..."
-                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            <input type="text" value="{{ $rt_pengurus->nik_sekrt ?? '' }}"
+                                                class="form-control @error('valnik_sekrt') is-invalid @enderror"
+                                                id="valnik_sekrt" name="valnik_sekrt" placeholder="NIK..."
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                             @error('valnik_sekrt')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -322,7 +415,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BENDAHARA RT	
+                                    <label class="col-lg-4 col-form-label">BENDAHARA RT
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -340,13 +433,10 @@
                                         <div class="form-group">
                                             <label for="valnik_benrt">NIK
                                             </label>
-                                            <input type="text"
-                                            value="{{ $rt_pengurus->nik_benrt ?? '' }}"
-                                            class="form-control @error('valnik_benrt') is-invalid @enderror"
-                                            id="valnik_benrt"
-                                            name="valnik_benrt"
-                                            placeholder="NIK..."
-                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                            <input type="text" value="{{ $rt_pengurus->nik_benrt ?? '' }}"
+                                                class="form-control @error('valnik_benrt') is-invalid @enderror"
+                                                id="valnik_benrt" name="valnik_benrt" placeholder="NIK..."
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                             @error('valnik_benrt')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}

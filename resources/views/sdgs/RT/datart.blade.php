@@ -15,29 +15,27 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <h2 class="card-title">FASILITAS EKONOMI</h2>
+                            <h2 class="card-title">DATA RT</h2>
+                            <button type="button" class="btn mb-1 btn-primary"
+                                onclick="window.location='{{ route('datart.create') }}'">
+                                Tambah Data RT<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                            </button>
                         </div>
-
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered" id="tablert_fasilitas_ekonomi">
+                            <table class="table table-striped table-bordered" id="tabledatart">
                                 <thead>
                                     <tr>
                                         <th>Action</th>
                                         <th>No</th>
                                         <th>NIK</th>
-                                        <th>NAMA KETUA RT</th>
+                                        <th>NAMA RT</th>
                                         <th>ALAMAT</th>
                                         <th>RT</th>
                                         <th>RW</th>
-                                        <th>NO. HP / TELEPON</th>
-                                        <th>KREDIT USAHA RAKYAT</th>
-                                        <th>KREDIT KETAHANAN PANGAN DAN ENERGI</th>
-                                        <th>KREDIT USAHA KECIL</th>
-                                        <th>KELOMPOK USAHA BERSAMA</th>
+                                        <th>NO HP</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
@@ -45,71 +43,66 @@
                     </div>
 
                 </div>
+
             </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         var $ = jQuery.noConflict();
         $(function() {
-            $('#tablert_fasilitas_ekonomi').DataTable({
+            $('#tabledatart').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/rt_fasilitas_ekonomi/json',
+                ajax: '/datart/json',
                 columns: [{
                         data: 'action',
-                        name: 'action',
+                        name: 'action'
                     },
                     {
                         data: 'id',
-                        name: 'id',
+                        name: 'id'
                     },
                     {
                         data: 'nik',
-                        name: 'nik',
+                        name: 'nik'
                     },
                     {
                         data: 'nama',
-                        name: 'nama',
+                        name: 'nama'
                     },
+
+                    // Columns related to 'alamat'
                     {
                         data: 'alamat',
-                        name: 'alamat',
+                        name: 'alamat'
                     },
+
+                    // Columns related to 'rt'
                     {
                         data: 'rt',
-                        name: 'rt',
+                        name: 'rt'
                     },
+
+                    // Columns related to 'rw'
                     {
                         data: 'rw',
-                        name: 'rw',
+                        name: 'rw'
                     },
+
+                    // Columns related to 'nohp'
                     {
                         data: 'nohp',
-                        name: 'nohp',
-                    },
-                    {
-                        data: 'kredit_usaha_rakyat',
-                        name: 'kredit_usaha_rakyat',
-                    },
-                    {
-                        data: 'kredit_ketahanan_pangan_energi',
-                        name: 'kredit_ketahanan_pangan_energi',
-                    },
-                    {
-                        data: 'kredit_usaha_kecil',
-                        name: 'kredit_usaha_kecil',
-                    },
-                    {
-                        data: 'kelompok_usaha_bersama',
-                        name: 'kelompok_usaha_bersama',
+                        name: 'nohp'
                     },
 
 
-
-                ]
+                ],
+                rowCallback: function(row, data, index) {
+                    var table = $('#tabledatart').DataTable();
+                    $('td:eq(1)', row).html(table.page.info().start + index + 1);
+                }
 
             });
         });

@@ -18,7 +18,6 @@
                             <h2 class="card-title">AKSES PENDIDIKAN</h2>
 
                         </div>
-
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledataaksespendidikan">
                                 <thead>
@@ -106,11 +105,6 @@
 
                     </div>
 
-                </div>
-                <div class="col-md-12">
-                    <div class="card">
-
-                    </div>
                 </div>
 
             </div>

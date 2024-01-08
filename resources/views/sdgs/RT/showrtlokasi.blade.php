@@ -7,8 +7,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">LOKASI RT
-                            {{ $datap->nama }}</h1>
+                        <h1 class="card-title">LOKASI RT</h1>
+                        <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1>
+                       
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtlokasi.index') }}'">Kembali
                         </button>
@@ -16,47 +17,53 @@
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('rtlokasi.update') }}" method="POST">
                                 @csrf
+                                
+                              
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
-                                            class="text-danger">*</span>
-                                        <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
-                                    </label>
+                                    <label class="col-lg-4 col-form-label" for="valnik">NIK <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        {{ $datap->nik }}
+                                       @if (isset($datart->nik))
+                                                <br>
+                                                {{ $datart->nik }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
+                                        @error('valnik')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valnama_ketuart">NAMA KETUA RT
 
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        @if (isset($rt_lokasi->nama_ketuart))
-                                            <br>
-                                            {{ $rt_lokasi->nama_ketuart }}
-                                        @else
-                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                            Data tidak tersedia.
-                                        @endif
+                                       @if (isset($datart->nama))
+                                                <br>
+                                                {{ $datart->nama }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                         @error('valnama_ketuart')
-                                            <div id="" class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valalamat">ALAMAT <span
+                                    <label class="col-lg-4 col-form-label" for="valalamat">ALAMAT<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        @if (isset($rt_lokasi->alamat))
-                                        <br>
-                                        {{ $rt_lokasi->alamat }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                       @if (isset($datart->nik))
+                                                <br>
+                                                {{ $datart->nik }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                         @error('valalamat')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -65,17 +72,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valrt">RT <span
+                                    <label class="col-lg-4 col-form-label" for="valrt">RT<span
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        @if (isset($rt_lokasi->rt))
-                                        <br>
-                                        {{ $rt_lokasi->rt }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                      @if (isset($datart->rt))
+                                                <br>
+                                                {{ $datart->rt }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                         @error('valrt')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -88,13 +95,13 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        @if (isset($rt_lokasi->rw))
-                                        <br>
-                                        {{ $rt_lokasi->rw }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                        @if (isset($datart->rw))
+                                                <br>
+                                                {{ $datart->rw }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                         @error('valrw')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -103,17 +110,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valnohp">NO. HP / TELEPON
-                                        <span class="text-danger">*</span>
+                                    <label class="col-lg-4 col-form-label" for="valnohp">NO HP <span
+                                            class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        @if (isset($rt_lokasi->nohp))
-                                        <br>
-                                        {{ $rt_lokasi->nohp }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                        @if (isset($datart->nohp))
+                                                <br>
+                                                {{ $datart->nohp }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                         @error('valnohp')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
