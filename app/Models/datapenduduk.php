@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Datapenduduk extends Model
 
-
-
 {
 
     protected $fillable = [
