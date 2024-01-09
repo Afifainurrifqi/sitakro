@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\rt_mitigasib;
 use App\Http\Requests\Storert_mitigasibRequest;
 use App\Http\Requests\Updatert_mitigasibRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtMitigasibController extends Controller
 {
@@ -22,25 +24,7 @@ class RtMitigasibController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rtmitigasib = rt_mitigasib::all();
-        $rtmitigasibSudahProses = $rtmitigasib->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-
-        $persentaseProses = ($rtmitigasibSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rtmitigasib', compact('rtmitigasib', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.RT.rtmitigasib');
     }
 
     /**
@@ -50,15 +34,60 @@ class RtMitigasibController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rtmitigasib = rt_mitigasib::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.editrtmitigasib', compact('rtmitigasib','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.editrtmitigasib', compact('rtmitigasib','datart'));
+    }
+
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtmitigasib.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtmitigasib.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+                           
+                           
+                        </td>';
+            })
+
+            ->addColumn('mitigasi_sp', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_sp : '';
+            })
+            ->addColumn('mitigasi_spd', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_spd : '';
+            })
+            ->addColumn('mitigasi_pk', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_pk : '';
+            })
+            ->addColumn('mitigasi_rrj', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_rrj : '';
+            })
+            ->addColumn('mitigasi_ppn', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_ppn : '';
+            })
+            
+
+          
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
     }
     /**
      * Store a newly created resource in storage.
@@ -68,11 +97,16 @@ class RtMitigasibController extends Controller
      */
     public function store(Storert_mitigasibRequest $request)
     {
-        $rtmitigasib = rt_mitigasib::where('nik', $request->valNIK)->first();
+        $rtmitigasib = rt_mitigasib::where('nik', $request->valnik)->first();
         if ($rtmitigasib == NULL ) {
             $rtmitigasib = new rt_mitigasib();
         }
-        $rtmitigasib->nik = $request->valNIK; 
+        $rtmitigasib->nik = $request->valnik;
+        $rtmitigasib->nama_ketuart = $request->valnama_ketuart;
+        $rtmitigasib->alamat = $request->valalamat;
+        $rtmitigasib->rt = $request->valrt;
+        $rtmitigasib->rw = $request->valrw;
+        $rtmitigasib->nohp = $request->valnohp;
         $rtmitigasib->mitigasi_sp = $request->valmitigasi_sp;
         $rtmitigasib->mitigasi_spd = $request->valmitigasi_spd;
         $rtmitigasib->mitigasi_pk = $request->valmitigasi_pk;
@@ -80,7 +114,7 @@ class RtMitigasibController extends Controller
         $rtmitigasib->mitigasi_ppn = $request->valmitigasi_ppn;
 
         $rtmitigasib->save();
-        return redirect()->route('rtmitigasib.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rtmitigasib.show',['show'=> $request->valnik ]);
     }
 
     /**
@@ -91,15 +125,9 @@ class RtMitigasibController extends Controller
      */
     public function show(rt_mitigasib $rt_mitigasib, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rtmitigasib = rt_mitigasib::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-
-        return view('sdgs.RT.showrtmitigasib', compact('rtmitigasib','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.showrtmitigasib', compact('rtmitigasib','datart'));
     }
 
     /**

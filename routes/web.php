@@ -128,6 +128,13 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('/rtindustri/json', [RtindustriController::class, 'json']);
         Route::get('/rtsare/json', [RtSaranaEkonomiController::class, 'json']);
         Route::get('/rt_fasilitas_ekonomi/json', [RtFasilitasEkonomiController::class, 'json']);
+        Route::get('/rtinfrastuktur/json', [RtInfrastukturController::class, 'json']);
+        Route::get('/rtlingkungan/json', [RtLingkunganController::class, 'json']);
+        Route::get('/rtbencana/json', [RtBencanaController::class, 'json']);
+        Route::get('/rtmitigasib/json', [RtMitigasibController::class, 'json']);
+
+
+       
 
         
        

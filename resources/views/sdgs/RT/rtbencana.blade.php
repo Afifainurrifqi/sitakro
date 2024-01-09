@@ -2,131 +2,364 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">BENCANA</h2>
-                        <form action="{{ route('rtbencana.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('rtbencana.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('rtbencana.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                   
-                </div>
-                
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">BENCANA</h2>
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="tabledatartbencana">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">NIK</th>
+                                        <th rowspan="2">NAMA KETUA RT</th>
+                                        <th rowspan="2">ALAMAT</th>
+                                        <th rowspan="2">RT</th>
+                                        <th rowspan="2">RW</th>
+                                        <th rowspan="2">NO. HP / TELEPON</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">TANAH
+                                            LONGSOR</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">BANJIR</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">BANJIR
+                                            BANDANG</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">GEMPA BUMI
+                                        </th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">TSUNAMI
+                                        </th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANGIN PUYUH
+                                            / PUTING BELIUNG / TOPAN</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">GUNUNG
+                                            MELETUS</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KEBAKARAN
+                                            HUTAN / LAHAN</th>
+                                        <th colspan="5"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KEKERINGAN
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+                                        <th>KEJADIAN</th>
+                                        <th>FREKUENSI KEJADIAN</th>
+                                        <th>KORBAN JIWA</th>
+                                        <th>JUMLAH PENGUNGSI</th>
+                                        <th style="border-right: 1px solid #000;">WARGA TERDAMPAK</th>
+
+
+
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
-            
         </div>
     </div>
-</div>
 
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledatartbencana').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/rtbencana/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action',
+                    },
+                    {
+                        data: 'id',
+                        name: 'id',
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat',
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt',
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw',
+                    },
+                    {
+                        data: 'nohp',
+                        name: 'nohp',
+                    },
+                    {
+                        data: 'k_longsor',
+                        name: 'k_longsor'
+                    },
+                    {
+                        data: 'f_longsor',
+                        name: 'f_longsor'
+                    },
+                    {
+                        data: 'kj_longsor',
+                        name: 'kj_longsor'
+                    },
+                    {
+                        data: 'jp_longsor',
+                        name: 'jp_longsor'
+                    },
+                    {
+                        data: 'wt_longsor',
+                        name: 'wt_longsor'
+                    },
+                    {
+                        data: 'k_banjir',
+                        name: 'k_banjir'
+                    },
+                    {
+                        data: 'f_banjir',
+                        name: 'f_banjir'
+                    },
+                    {
+                        data: 'kj_banjir',
+                        name: 'kj_banjir'
+                    },
+                    {
+                        data: 'jp_banjir',
+                        name: 'jp_banjir'
+                    },
+                    {
+                        data: 'wt_banjir',
+                        name: 'wt_banjir'
+                    },
+                    {
+                        data: 'k_bandang',
+                        name: 'k_bandang'
+                    },
+                    {
+                        data: 'f_bandang',
+                        name: 'f_bandang'
+                    },
+                    {
+                        data: 'kj_bandang',
+                        name: 'kj_bandang'
+                    },
+                    {
+                        data: 'jp_bandang',
+                        name: 'jp_bandang'
+                    },
+                    {
+                        data: 'wt_bandang',
+                        name: 'wt_bandang'
+                    },
+                    {
+                        data: 'k_gempa',
+                        name: 'k_gempa'
+                    },
+                    {
+                        data: 'f_gempa',
+                        name: 'f_gempa'
+                    },
+                    {
+                        data: 'kj_gempa',
+                        name: 'kj_gempa'
+                    },
+                    {
+                        data: 'jp_gempa',
+                        name: 'jp_gempa'
+                    },
+                    {
+                        data: 'wt_gempa',
+                        name: 'wt_gempa'
+                    },
+                    {
+                        data: 'k_tsunami',
+                        name: 'k_tsunami'
+                    },
+                    {
+                        data: 'f_tsunami',
+                        name: 'f_tsunami'
+                    },
+                    {
+                        data: 'kj_tsunami',
+                        name: 'kj_tsunami'
+                    },
+                    {
+                        data: 'jp_tsunami',
+                        name: 'jp_tsunami'
+                    },
+                    {
+                        data: 'wt_tsunami',
+                        name: 'wt_tsunami'
+                    },
+                    {
+                        data: 'k_puyuh',
+                        name: 'k_puyuh'
+                    },
+                    {
+                        data: 'f_puyuh',
+                        name: 'f_puyuh'
+                    },
+                    {
+                        data: 'kj_puyuh',
+                        name: 'kj_puyuh'
+                    },
+                    {
+                        data: 'jp_puyuh',
+                        name: 'jp_puyuh'
+                    },
+                    {
+                        data: 'wt_puyuh',
+                        name: 'wt_puyuh'
+                    },
+                    {
+                        data: 'k_gunungm',
+                        name: 'k_gunungm'
+                    },
+                    {
+                        data: 'f_gunungm',
+                        name: 'f_gunungm'
+                    },
+                    {
+                        data: 'kj_gunungm',
+                        name: 'kj_gunungm'
+                    },
+                    {
+                        data: 'jp_gunungm',
+                        name: 'jp_gunungm'
+                    },
+                    {
+                        data: 'wt_gunungm',
+                        name: 'wt_gunungm'
+                    },
+                    {
+                        data: 'k_hutank',
+                        name: 'k_hutank'
+                    },
+                    {
+                        data: 'f_hutank',
+                        name: 'f_hutank'
+                    },
+                    {
+                        data: 'kj_hutank',
+                        name: 'kj_hutank'
+                    },
+                    {
+                        data: 'jp_hutank',
+                        name: 'jp_hutank'
+                    },
+                    {
+                        data: 'wt_hutank',
+                        name: 'wt_hutank'
+                    },
+                    {
+                        data: 'k_kekeringan',
+                        name: 'k_kekeringan'
+                    },
+                    {
+                        data: 'f_kekeringan',
+                        name: 'f_kekeringan'
+                    },
+                    {
+                        data: 'kj_kekeringan',
+                        name: 'kj_kekeringan'
+                    },
+                    {
+                        data: 'jp_kekeringan',
+                        name: 'jp_kekeringan'
+                    },
+                    {
+                        data: 'wt_kekeringan',
+                        name: 'wt_kekeringan'
+                    },
 
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
 
-</script>
+                ]
+
+            });
+        });
+    </script>
 @endsection

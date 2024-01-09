@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\rt_lingkungan;
 use App\Http\Requests\Storert_lingkunganRequest;
 use App\Http\Requests\Updatert_lingkunganRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtLingkunganController extends Controller
 {
@@ -22,27 +24,128 @@ class RtLingkunganController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_lingkungan = rt_lingkungan::all();
-        $rt_lingkunganSudahProses = $rt_lingkungan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-
-        $persentaseProses = ($rt_lingkunganSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rtlingkungan', compact('rt_lingkungan', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.RT.rtlingkungan');
     }
 
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtlingkungan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtlingkungan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>                           
+                        </td>';
+            })
+
+
+            ->addColumn('lingkungan_lsi', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_lsi');
+            })
+            ->addColumn('lingkungan_slno', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_slno');
+            })
+            ->addColumn('lingkungan_k', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_k');
+            })
+            ->addColumn('lingkungan_hl', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_hl');
+            })
+            ->addColumn('lingkungan_t', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_t');
+            })
+            ->addColumn('lingkungan_kte', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_kte');
+            })
+            ->addColumn('lingkungan_lgt', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_lgt');
+            })
+            ->addColumn('lingkungan_lpp', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_lpp');
+            })
+            ->addColumn('lingkungan_ah', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_ah');
+            })
+            ->addColumn('lingkungan_lpns', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_lpns');
+            })
+            ->addColumn('lingkungan_lpertambangan', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_lpertambangan');
+            })
+            ->addColumn('lingkungan_lperumahan', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_lperumahan');
+            })
+            ->addColumn('lingkungan_lperkantoran', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_lperkantoran');
+            })
+            ->addColumn('lingkungan_lindustri', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_lindustri');
+            })
+            ->addColumn('lingkungan_fu', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_fu');
+            })
+            ->addColumn('lingkungan_ll', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_ll');
+            })
+            ->addColumn('lingkungan_nsym', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_nsym');
+            })
+            ->addColumn('lingkungan_ndws', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_ndws');
+            })
+            ->addColumn('lingkungan_jma', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_jma');
+            })
+            ->addColumn('lingkungan_je', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_je');
+            })
+            ->addColumn('lingkungan_ksb', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_ksb');
+            })
+            ->addColumn('lingkungan_ks', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_ks');
+            })
+            ->addColumn('lingkungan_ki', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_ki');
+            })
+            ->addColumn('lingkungan_kd', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_kd');
+            })
+            ->addColumn('lingkungan_ke', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_ke');
+            })
+            ->addColumn('lingkungan_pair', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_pair');
+            })
+            ->addColumn('lingkungan_ptanah', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_ptanah');
+            })
+            ->addColumn('lingkungan_pudara', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_pudara');
+            })
+            ->addColumn('lingkungan_pdusl', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_pdusl');
+            })
+            ->addColumn('lingkungan_kmml', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_kmml');
+            })
+            ->addColumn('lingkungan_klpg', function ($row) {
+                return rt_lingkungan::where('nik', $row->nik)->value('lingkungan_klpg');
+            })
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -50,15 +153,10 @@ class RtLingkunganController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_lingkungan = rt_lingkungan::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-
-        return view('sdgs.RT.editrtlingkungan', compact('rt_lingkungan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+      
+        return view('sdgs.RT.editrtlingkungan', compact('rt_lingkungan','datart'));
     }
 
     /**
@@ -69,11 +167,16 @@ class RtLingkunganController extends Controller
      */
     public function store(Storert_lingkunganRequest $request)
     {
-        $rt_lingkungan = rt_lingkungan::where('nik', $request->valNIK)->first();
+        $rt_lingkungan = rt_lingkungan::where('nik', $request->valnik)->first();
         if ($rt_lingkungan == NULL ) {
             $rt_lingkungan = new rt_lingkungan();
         }
-        $rt_lingkungan->nik = $request->valNIK;         
+        $rt_lingkungan->nik = $request->valnik;
+        $rt_lingkungan->nama_ketuart = $request->valnama_ketuart;
+        $rt_lingkungan->alamat = $request->valalamat;
+        $rt_lingkungan->rt = $request->valrt;
+        $rt_lingkungan->rw = $request->valrw;
+        $rt_lingkungan->nohp = $request->valnohp;
         $rt_lingkungan->lingkungan_lsi = $request -> vallingkungan_lsi;
         $rt_lingkungan->lingkungan_slno = $request -> vallingkungan_slno;
         $rt_lingkungan->lingkungan_k = $request -> vallingkungan_k;
@@ -109,7 +212,7 @@ class RtLingkunganController extends Controller
 
 
         $rt_lingkungan->save();
-        return redirect()->route('rtlingkungan.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rtlingkungan.show',['show'=> $request->valnik ]);
     }
 
     /**
@@ -120,15 +223,11 @@ class RtLingkunganController extends Controller
      */
     public function show(rt_lingkungan $rt_lingkungan, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_lingkungan = rt_lingkungan::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.showrtlingkungan', compact('rt_lingkungan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+
+        return view('sdgs.RT.showrtlingkungan', compact('rt_lingkungan','datart'));
     }
 
     /**

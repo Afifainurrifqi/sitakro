@@ -16,94 +16,28 @@
                                 </div>
                             @endif
                             <h2 class="card-title">MITIGASI BENCANA</h2>
-                            <form action="{{ route('rtmitigasib.index') }}" method="GET">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Cari berdasarkan NIK"
-                                        name="search" value="{{ request('search') }}">
-                                    <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                                </div>
-                            </form>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
+                            <table class="table table-striped table-bordered" id="tabledatartmitigasib">
                                 <thead>
                                     <tr>
                                         <th>Action</th>
                                         <th>No</th>
                                         <th>NIK</th>
-                                        <th>Gelar awal</th>
-                                        <th>Nama</th>
-                                        <th>Gelar akhir</th>
-                                        <th>Jenis kelamin</th>
-                                        <th>Tempat lahir</th>
-                                        <th>Tanggal_lahir</th>
-                                        <th>Agama</th>
-                                        <th>Pendidikan</th>
-                                        <th>Pekejaan</th>
-                                        <th>Goldar</th>
-                                        <th>Status</th>
-                                        <th>Tanggal perkawinan</th>
-                                        <th>Hubungan</th>
-                                        <th>Ayah</th>
-                                        <th>Ibu</th>
-                                        <th>alamat</th>
+                                        <th>NAMA KETUA RT</th>
+                                        <th>ALAMAT</th>
                                         <th>RT</th>
                                         <th>RW</th>
-                                        <th>Statu kependudukan</th>
+                                        <th>NO. HP / TELEPON</th>
+                                        <th>SISTEM PERINGATAN DINI BENCANA ALAM</th>
+                                        <th>SISTEM PERINGATAN DINI KHUSUS TSUNAMI</th>
+                                        <th>PERLENGKAPAN KESELAMATAN</th>
+                                        <th>RAMBU-RAMBU JALUR EVAKUASI BENCANA</th>
+                                        <th>PEMBUATAN / PERAWATAN / NORMALISASI SUNGAI, KANAL, PARIT, DRAINASE, DLL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    @foreach ($datapenduduk as $row)
-                                        <tr>
-                                            <td><a href="{{ route('rtmitigasib.show', ['show' => $row->nik]) }}"
-                                                    class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                                    <i class="fas fa-book"></i> </a>
-                                                <a href="{{ route('rtmitigasib.edit', ['nik' => $row->nik]) }}"
-                                                    class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-
-                                            </td>
-                                            <th>{{ $loop->iteration }}</th>
-                                            <td>{{ $row->nik }}</td>
-                                            <td>{{ $row->gelarawal }}</td>
-                                            <td>{{ $row->nama }}</td>
-                                            <td>{{ $row->gelarakhir }}</td>
-                                            <td>
-                                                @if ($row->jenis_kelamin == 1)
-                                                    Laki-Laki
-                                                @else
-                                                    Perempuan
-                                                @endif
-                                            </td>
-                                            <td>{{ $row->tempat_lahir }}</td>
-                                            <td>{{ $row->tanggal_lahir }}</td>
-                                            <td>{{ $row->agama->nama }}</td>
-                                            <td>{{ $row->pendidikan->nama }}</td>
-                                            <td>{{ $row->pekerjaan->nama }}</td>
-                                            <td>{{ $row->goldar->nama }}</td>
-                                            <td>{{ $row->status->nama }}</td>
-                                            <td>
-                                                @if ($row->tanggal_perkawinan == '1970-01-01')
-                                                    Belum Kawin
-                                                @else
-                                                    {{ $row->tanggal_perkawinan }}
-                                                @endif
-                                            </td>
-                                            <td>{{ $row->hubungan }}</td>
-                                            <td>{{ $row->ayah }}</td>
-                                            <td>{{ $row->ibu }}</td>
-                                            <td>{{ $row->alamat }}</td>
-                                            <td>{{ $row->rt }}</td>
-                                            <td>{{ $row->rw }}</td>
-                                            <td>{{ $row->datak }}</td>
-                                        </tr>
-                                    @endforeach
-
-
-
                                 </tbody>
                             </table>
                         </div>
@@ -111,21 +45,77 @@
                     </div>
 
                 </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Progress bars</h4>
-                            <div class="progress" style="height: 9px">
-                                <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;"
-                                    role="progressbar">{{ $persentaseProses }}%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
     </div>
 
-   
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledatartmitigasib').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/rtmitigasib/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action',
+                    },
+                    {
+                        data: 'id',
+                        name: 'id',
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat',
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt',
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw',
+                    },
+                    {
+                        data: 'nohp',
+                        name: 'nohp',
+                    },
+                    {
+                        data: 'mitigasi_sp',
+                        name: 'mitigasi_sp',
+                    },
+                    {
+                        data: 'mitigasi_spd',
+                        name: 'mitigasi_spd',
+                    },
+                    {
+                        data: 'mitigasi_pk',
+                        name: 'mitigasi_pk',
+                    },
+                    {
+                        data: 'mitigasi_rrj',
+                        name: 'mitigasi_rrj',
+                    },
+                    {
+                        data: 'mitigasi_ppn',
+                        name: 'mitigasi_ppn',
+                    },
+
+
+                ]
+
+            });
+        });
+    </script>
 @endsection

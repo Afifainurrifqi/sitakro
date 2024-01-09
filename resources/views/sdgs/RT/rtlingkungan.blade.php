@@ -2,131 +2,259 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">LINGKUNGAN</h2>
-                        <form action="{{ route('rtlingkungan.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('rtlingkungan.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('rtlingkungan.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                   
-                </div>
-                
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">LINGKUNGAN</h2>
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="tabledatartlingkungan">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">NIK</th>
+                                        <th rowspan="2">NAMA KETUA RT</th>
+                                        <th rowspan="2">ALAMAT</th>
+                                        <th rowspan="2">RT</th>
+                                        <th rowspan="2">RW</th>
+                                        <th rowspan="2">NO. HP / TELEPON</th>
+                                        <th rowspan="2">LAHAN SAWAH IRIGASI (Ha)</th>
+                                        <th rowspan="2">LAHAN SAWAH NON IRIGASI (Ha)</th>
+                                        <th rowspan="2">KEBUN (Ha)</th>
+                                        <th rowspan="2">HUMA / LADANG (Ha)</th>
+                                        <th rowspan="2">TAMBAK (Ha)</th>
+                                        <th rowspan="2">KOLAM / TEBAT / EMPANG (Ha)</th>
+                                        <th rowspan="2">LAHAN GEMBALA TERNAK (Ha)</th>
+                                        <th rowspan="2">LAHAN PERUSAHAAN PERKEBUNAN (Ha)</th>
+                                        <th rowspan="2">AREA HUTAN (Ha)</th>
+                                        <th rowspan="2">LAHAN PERTANIAN NON SAWAH LAINNYA (Ha)</th>
+                                        <th rowspan="2">LAHAN PERTAMBANGAN (Ha)</th>
+                                        <th rowspan="2">LAHAN PERUMAHAN (Ha)</th>
+                                        <th rowspan="2">LAHAN PERKANTORAN (Ha)</th>
+                                        <th rowspan="2">LAHAN INDUSTRI (Ha)</th>
+                                        <th rowspan="2">FASILITAS UMUM (Lapangan, Jalan, dll) (Ha)</th>
+                                        <th rowspan="2">LAHAN LAINNYA (Ha)</th>
+                                        <th rowspan="2">NAMA SUNGAI YANG MELINTASI</th>
+                                        <th rowspan="2">NAMA DANAU / WADUK / SITU</th>
+                                        <th rowspan="2">JUMLAH MATA AIR</th>
+                                        <th rowspan="2">JUMLAH EMBUNG</th>
+                                        <th rowspan="2">KETERSEDIAAN SUMUR BOR</th>
+                                        <th rowspan="2">KONDISI SUNGAI</th>
+                                        <th rowspan="2">KONDISI IRIGASI</th>
+                                        <th rowspan="2">KONDISI DANAU</th>
+                                        <th rowspan="2">KONDISI EMBUNG</th>
+                                        <th colspan="3"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">PENCEMARAN
+                                            1 TAHUN TERAKHIR</th>
+                                        <th rowspan="2">PENGOLAHAN / DAUR ULANG SAMPAH / LIMBAH</th>
+                                        <th rowspan="2">KEBIASAAN MASYARAKAT MEMBAKAR LADANG UNTUK PROSES USAHA PERTANIAN
+                                        </th>
+                                        <th rowspan="2">KEBERADAAN LOKASI PENGGALIAN GOLONGAN C</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>AIR</th>
+                                        <th>TANAH</th>
+                                        <th style="border-right: 1px solid #000;">UDARA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
+
+
             </div>
-            
         </div>
     </div>
-</div>
 
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledatartlingkungan').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/rtlingkungan/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action',
+                    },
+                    {
+                        data: 'id',
+                        name: 'id',
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat',
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt',
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw',
+                    },
+                    {
+                        data: 'nohp',
+                        name: 'nohp',
+                    },
+                    {
+                        data: 'lingkungan_lsi',
+                        name: 'lingkungan_lsi',
+                    },
+                    {
+                        data: 'lingkungan_slno',
+                        name: 'lingkungan_slno',
+                    },
+                    {
+                        data: 'lingkungan_k',
+                        name: 'lingkungan_k',
+                    },
+                    {
+                        data: 'lingkungan_hl',
+                        name: 'lingkungan_hl',
+                    },
+                    {
+                        data: 'lingkungan_t',
+                        name: 'lingkungan_t',
+                    },
+                    {
+                        data: 'lingkungan_kte',
+                        name: 'lingkungan_kte',
+                    },
+                    {
+                        data: 'lingkungan_lgt',
+                        name: 'lingkungan_lgt',
+                    },
+                    {
+                        data: 'lingkungan_lpp',
+                        name: 'lingkungan_lpp',
+                    },
+                    {
+                        data: 'lingkungan_ah',
+                        name: 'lingkungan_ah',
+                    },
+                    {
+                        data: 'lingkungan_lpns',
+                        name: 'lingkungan_lpns',
+                    },
+                    {
+                        data: 'lingkungan_lpertambangan',
+                        name: 'lingkungan_lpertambangan',
+                    },
+                    {
+                        data: 'lingkungan_lperumahan',
+                        name: 'lingkungan_lperumahan',
+                    },
+                    {
+                        data: 'lingkungan_lperkantoran',
+                        name: 'lingkungan_lperkantoran',
+                    },
+                    {
+                        data: 'lingkungan_lindustri',
+                        name: 'lingkungan_lindustri',
+                    },
+                    {
+                        data: 'lingkungan_fu',
+                        name: 'lingkungan_fu',
+                    },
+                    {
+                        data: 'lingkungan_ll',
+                        name: 'lingkungan_ll',
+                    },
+                    {
+                        data: 'lingkungan_nsym',
+                        name: 'lingkungan_nsym',
+                    },
+                    {
+                        data: 'lingkungan_ndws',
+                        name: 'lingkungan_ndws',
+                    },
+                    {
+                        data: 'lingkungan_jma',
+                        name: 'lingkungan_jma',
+                    },
+                    {
+                        data: 'lingkungan_je',
+                        name: 'lingkungan_je',
+                    },
+                    {
+                        data: 'lingkungan_ksb',
+                        name: 'lingkungan_ksb',
+                    },
+                    {
+                        data: 'lingkungan_ks',
+                        name: 'lingkungan_ks',
+                    },
+                    {
+                        data: 'lingkungan_ki',
+                        name: 'lingkungan_ki',
+                    },
+                    {
+                        data: 'lingkungan_kd',
+                        name: 'lingkungan_kd',
+                    },
+                    {
+                        data: 'lingkungan_ke',
+                        name: 'lingkungan_ke',
+                    },
+                    {
+                        data: 'lingkungan_pair',
+                        name: 'lingkungan_pair',
+                    },
+                    {
+                        data: 'lingkungan_ptanah',
+                        name: 'lingkungan_ptanah',
+                    },
+                    {
+                        data: 'lingkungan_pudara',
+                        name: 'lingkungan_pudara',
+                    },
+                    {
+                        data: 'lingkungan_pdusl',
+                        name: 'lingkungan_pdusl',
+                    },
+                    {
+                        data: 'lingkungan_kmml',
+                        name: 'lingkungan_kmml',
+                    },
+                    {
+                        data: 'lingkungan_klpg',
+                        name: 'lingkungan_klpg',
+                    },
 
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
 
-</script>
+                ]
+
+            });
+        });
+    </script>
 @endsection

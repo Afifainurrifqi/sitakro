@@ -16,7 +16,6 @@
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('rtlokasi.update') }}" method="POST">
                                 @csrf
-
                                 <div class="form-group row" >
                                     <label class="col-lg-4 col-form-label" for="valnik">NIK <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
