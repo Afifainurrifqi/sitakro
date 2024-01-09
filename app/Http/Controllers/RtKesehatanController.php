@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Models\rt_kesehatan;
 use App\Http\Requests\Storert_kesehatanRequest;
 use App\Http\Requests\Updatert_kesehatanRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtKesehatanController extends Controller
 {
@@ -23,27 +25,454 @@ class RtKesehatanController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_kesehatan = rt_kesehatan::all();
-        $rt_kesehatanSudahProses = $rt_kesehatan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-
-        $persentaseProses = ($rt_kesehatanSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rt_kesehatan', compact('rt_kesehatan', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.RT.rt_kesehatan');
     }
 
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rt_kesehatan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rt_kesehatan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+                           
+                           
+                        </td>';
+            })
+
+            ->addColumn('nama_rs', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_rs : '';
+            })
+            ->addColumn('pemilik_rs', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_rs : '';
+            })
+            ->addColumn('jd_rs', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_rs : '';
+            })
+            ->addColumn('jb_rs', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_rs : '';
+            })
+            ->addColumn('jts_rs', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_rs : '';
+            })
+            ->addColumn('jp_rs', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_rs : '';
+            })
+            
+            ->addColumn('nama_rsb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_rsb : '';
+            })
+            ->addColumn('pemilik_rsb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_rsb : '';
+            })
+            ->addColumn('jd_rsb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_rsb : '';
+            })
+            ->addColumn('jb_rsb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_rsb : '';
+            })
+            ->addColumn('jts_rsb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_rsb : '';
+            })
+            ->addColumn('jp_rsb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_rsb : '';
+            })
+
+            ->addColumn('nama_pdri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_pdri : '';
+            })
+            ->addColumn('pemilik_pdri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_pdri : '';
+            })
+            ->addColumn('jd_pdri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_pdri : '';
+            })
+            ->addColumn('jb_pdri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_pdri : '';
+            })
+            ->addColumn('jts_pdri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_pdri : '';
+            })
+            ->addColumn('jp_pdri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_pdri : '';
+            })
+
+            ->addColumn('nama_ptri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_ptri : '';
+            })
+            ->addColumn('pemilik_ptri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_ptri : '';
+            })
+            ->addColumn('jd_ptri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_ptri : '';
+            })
+            ->addColumn('jb_ptri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_ptri : '';
+            })
+            ->addColumn('jts_ptri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_ptri : '';
+            })
+            ->addColumn('jp_ptri', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_ptri : '';
+            })
+
+            ->addColumn('nama_pp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_pp : '';
+            })
+            ->addColumn('pemilik_pp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_pp : '';
+            })
+            ->addColumn('jd_pp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_pp : '';
+            })
+            ->addColumn('jb_pp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_pp : '';
+            })
+            ->addColumn('jts_pp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_pp : '';
+            })
+            ->addColumn('jp_pp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_pp : '';
+            })
+
+
+            ->addColumn('nama_pbp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_pbp : '';
+            })
+            ->addColumn('pemilik_pbp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_pbp : '';
+            })
+            ->addColumn('jd_pbp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_pbp : '';
+            })
+            ->addColumn('jb_pbp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_pbp : '';
+            })
+            ->addColumn('jts_pbp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_pbp : '';
+            })
+            ->addColumn('jp_pbp', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_pbp : '';
+            })
+
+
+
+            ->addColumn('nama_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_tpd : '';
+            })
+            ->addColumn('pemilik_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_tpd : '';
+            })
+            ->addColumn('jd_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_tpd : '';
+            })
+            ->addColumn('jb_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_tpd : '';
+            })
+            ->addColumn('jts_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_tpd : '';
+            })
+            ->addColumn('jp_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_tpd : '';
+            })
+
+
+            ->addColumn('nama_rb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_rb : '';
+            })
+            ->addColumn('pemilik_rb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_rb : '';
+            })
+            ->addColumn('jd_rb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_rb : '';
+            })
+            ->addColumn('jb_rb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_rb : '';
+            })
+            ->addColumn('jts_rb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_rb : '';
+            })
+            ->addColumn('jp_rb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_rb : '';
+            })
+
+
+            ->addColumn('nama_tpb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_tpb : '';
+            })
+            ->addColumn('pemilik_tpb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_tpb : '';
+            })
+            ->addColumn('jd_tpb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_tpb : '';
+            })
+            ->addColumn('jb_tpb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_tpb : '';
+            })
+            ->addColumn('jts_tpb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_tpb : '';
+            })
+            ->addColumn('jp_tpb', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_tpb : '';
+            })
+
+            
+            
+            ->addColumn('nama_poskedes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_poskedes : '';
+            })
+            ->addColumn('pemilik_poskedes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_poskedes : '';
+            })
+            ->addColumn('jd_poskedes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_poskedes : '';
+            })
+            ->addColumn('jb_poskedes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_poskedes : '';
+            })
+            ->addColumn('jts_poskedes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_poskedes : '';
+            })
+            ->addColumn('jp_poskedes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_poskedes : '';
+            })
+
+
+            ->addColumn('nama_polindes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_polindes : '';
+            })
+            ->addColumn('pemilik_polindes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_polindes : '';
+            })
+            ->addColumn('jd_polindes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_polindes : '';
+            })
+            ->addColumn('jb_polindes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_polindes : '';
+            })
+            ->addColumn('jts_polindes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_polindes : '';
+            })
+            ->addColumn('jp_polindes', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_polindes : '';
+            })
+
+
+
+            ->addColumn('nama_apotik', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_apotik : '';
+            })
+            ->addColumn('pemilik_apotik', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_apotik : '';
+            })
+            ->addColumn('jd_apotik', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_apotik : '';
+            })
+            ->addColumn('jb_apotik', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_apotik : '';
+            })
+            ->addColumn('jts_apotik', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_apotik : '';
+            })
+            ->addColumn('jp_apotik', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_apotik : '';
+            })
+
+
+            ->addColumn('nama_tokojamu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_tokojamu : '';
+            })
+            ->addColumn('pemilik_tokojamu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_tokojamu : '';
+            })
+            ->addColumn('jd_tokojamu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_tokojamu : '';
+            })
+            ->addColumn('jb_tokojamu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_tokojamu : '';
+            })
+            ->addColumn('jts_tokojamu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_tokojamu : '';
+            })
+            ->addColumn('jp_tokojamu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_tokojamu : '';
+            })
+
+
+            ->addColumn('nama_posyandu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_posyandu : '';
+            })
+            ->addColumn('pemilik_posyandu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_posyandu : '';
+            })
+            ->addColumn('jd_posyandu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_posyandu : '';
+            })
+            ->addColumn('jb_posyandu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_posyandu : '';
+            })
+            ->addColumn('jts_posyandu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_posyandu : '';
+            })
+            ->addColumn('jp_posyandu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_posyandu : '';
+            })
+
+
+            ->addColumn('nama_posbindu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_posbindu : '';
+            })
+            ->addColumn('pemilik_posbindu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_posbindu : '';
+            })
+            ->addColumn('jd_posbindu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_posbindu : '';
+            })
+            ->addColumn('jb_posbindu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_posbindu : '';
+            })
+            ->addColumn('jts_posbindu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_posbindu : '';
+            })
+            ->addColumn('jp_posbindu', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_posbindu : '';
+            })
+
+
+            ->addColumn('nama_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->nama_tpd : '';
+            })
+            ->addColumn('pemilik_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->pemilik_tpd : '';
+            })
+            ->addColumn('jd_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jd_tpd : '';
+            })
+            ->addColumn('jb_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jb_tpd : '';
+            })
+            ->addColumn('jts_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jts_tpd : '';
+            })
+            ->addColumn('jp_tpd', function ($row) {
+                $rt_kesehatan = rt_kesehatan::where('nik', $row->nik)->first();
+                return $rt_kesehatan ? $rt_kesehatan->jp_tpd : '';
+            })
+
+
+
+            
+
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -51,15 +480,10 @@ class RtKesehatanController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_kesehatan = rt_kesehatan::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.editrt_kesehatan', compact('rt_kesehatan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.editrt_kesehatan', compact('rt_kesehatan','datart'));
     }
 
     /**
@@ -70,11 +494,16 @@ class RtKesehatanController extends Controller
      */
     public function store(Storert_kesehatanRequest $request)
     {
-        $rt_kesehatan = rt_kesehatan::where('nik', $request->valNIK)->first();
+        $rt_kesehatan = rt_kesehatan::where('nik', $request->valnik)->first();
         if ($rt_kesehatan == NULL ) {
             $rt_kesehatan = new rt_kesehatan();
         }
-        $rt_kesehatan->nik = $request->valNIK;      
+        $rt_kesehatan->nik = $request->valnik;
+        $rt_kesehatan->nama_ketuart = $request->valnama_ketuart;
+        $rt_kesehatan->alamat = $request->valalamat;
+        $rt_kesehatan->rt = $request->valrt;
+        $rt_kesehatan->rw = $request->valrw;
+        $rt_kesehatan->nohp = $request->valnohp;  
         $rt_kesehatan->nama_rs = $request->valnama_rs;
         $rt_kesehatan->pemilik_rs = $request->valpemilik_rs;
         $rt_kesehatan->jd_rs = $request->valjd_rs;
@@ -173,7 +602,7 @@ class RtKesehatanController extends Controller
         $rt_kesehatan->jp_tpd = $request->valjp_tpd;
 
         $rt_kesehatan->save();
-        return redirect()->route('rt_kesehatan.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rt_kesehatan.show',['show'=> $request->valnik ]);
 
     }
 
@@ -185,15 +614,9 @@ class RtKesehatanController extends Controller
      */
     public function show(rt_kesehatan $rt_kesehatan, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_kesehatan = rt_kesehatan::where('nik', $nik)->first();
-        $agama   = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-
-        return view('sdgs.RT.showrt_kesehatan', compact('rt_kesehatan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.showrt_kesehatan', compact('rt_kesehatan','datart'));
     }
 
     /**

@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\rt_saranapendidikan;
 use App\Http\Requests\Storert_saranapendidikanRequest;
 use App\Http\Requests\Updatert_saranapendidikanRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtSaranapendidikanController extends Controller
 {
@@ -22,25 +24,819 @@ class RtSaranapendidikanController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
+        return view('sdgs.RT.rt_saranapendidikan');
+    }
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_saranapendidikan = rt_saranapendidikan::all();
-        $rt_industriSudahProses = $rt_saranapendidikan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
 
-        $persentaseProses = ($rt_industriSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rt_saranapendidikan', compact('rt_saranapendidikan', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rt_saranapendidikan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rt_saranapendidikan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+                        </td>';
+            })
+
+            ->addColumn('nama_paud', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_paud : '';
+            })
+            ->addColumn('pemilik_paud', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_paud : '';
+            })
+            ->addColumn('kondisi_paud', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_paud : '';
+            })
+            ->addColumn('jumlahguru_paud', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_paud : '';
+            })
+            ->addColumn('jumlahmurid_paud', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_paud : '';
+            })
+            ->addColumn('jumlahpegawai_paud', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_paud : '';
+            })
+
+            ->addColumn('nama_tk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_tk : '';
+            })
+            ->addColumn('pemilik_tk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_tk : '';
+            })
+            ->addColumn('kondisi_tk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_tk : '';
+            })
+            ->addColumn('jumlahguru_tk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_tk : '';
+            })
+            ->addColumn('jumlahmurid_tk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_tk : '';
+            })
+            ->addColumn('jumlahpegawai_tk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_tk : '';
+            })
+
+
+            ->addColumn('nama_sd', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_sd : '';
+            })
+            ->addColumn('pemilik_sd', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_sd : '';
+            })
+            ->addColumn('kondisi_sd', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_sd : '';
+            })
+            ->addColumn('jumlahguru_sd', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_sd : '';
+            })
+            ->addColumn('jumlahmurid_sd', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_sd : '';
+            })
+            ->addColumn('jumlahpegawai_sd', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_sd : '';
+            })
+
+
+            ->addColumn('nama_smp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_smp : '';
+            })
+            ->addColumn('pemilik_smp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_smp : '';
+            })
+            ->addColumn('kondisi_smp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_smp : '';
+            })
+            ->addColumn('jumlahguru_smp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_smp : '';
+            })
+            ->addColumn('jumlahmurid_smp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_smp : '';
+            })
+            ->addColumn('jumlahpegawai_smp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_smp : '';
+            })
+
+
+            ->addColumn('nama_smplb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_smplb : '';
+            })
+            ->addColumn('pemilik_smplb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_smplb : '';
+            })
+            ->addColumn('kondisi_smplb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_smplb : '';
+            })
+            ->addColumn('jumlahguru_smplb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_smplb : '';
+            })
+            ->addColumn('jumlahmurid_smplb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_smplb : '';
+            })
+            ->addColumn('jumlahpegawai_smplb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_smplb : '';
+            })
+
+
+            ->addColumn('nama_sma', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_sma : '';
+            })
+            ->addColumn('pemilik_sma', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_sma : '';
+            })
+            ->addColumn('kondisi_sma', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_sma : '';
+            })
+            ->addColumn('jumlahguru_sma', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_sma : '';
+            })
+            ->addColumn('jumlahmurid_sma', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_sma : '';
+            })
+            ->addColumn('jumlahpegawai_sma', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_sma : '';
+            })
+
+            ->addColumn('nama_smk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_smk : '';
+            })
+            ->addColumn('pemilik_smk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_smk : '';
+            })
+            ->addColumn('kondisi_smk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_smk : '';
+            })
+            ->addColumn('jumlahguru_smk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_smk : '';
+            })
+            ->addColumn('jumlahmurid_smk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_smk : '';
+            })
+            ->addColumn('jumlahpegawai_smk', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_smk : '';
+            })
+
+
+            ->addColumn('nama_smalb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_smalb : '';
+            })
+            ->addColumn('pemilik_smalb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_smalb : '';
+            })
+            ->addColumn('kondisi_smalb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_smalb : '';
+            })
+            ->addColumn('jumlahguru_smalb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_smalb : '';
+            })
+            ->addColumn('jumlahmurid_smalb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_smalb : '';
+            })
+            ->addColumn('jumlahpegawai_smalb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_smalb : '';
+            })
+
+
+            ->addColumn('nama_akademi', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_akademi : '';
+            })
+            ->addColumn('pemilik_akademi', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_akademi : '';
+            })
+            ->addColumn('kondisi_akademi', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_akademi : '';
+            })
+            ->addColumn('jumlahguru_akademi', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_akademi : '';
+            })
+            ->addColumn('jumlahmurid_akademi', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_akademi : '';
+            })
+            ->addColumn('jumlahpegawai_akademi', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_akademi : '';
+            })
+
+
+            ->addColumn('nama_pesantren', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_pesantren : '';
+            })
+            ->addColumn('pemilik_pesantren', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_pesantren : '';
+            })
+            ->addColumn('kondisi_pesantren', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_pesantren : '';
+            })
+            ->addColumn('jumlahguru_pesantren', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_pesantren : '';
+            })
+            ->addColumn('jumlahmurid_pesantren', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_pesantren : '';
+            })
+            ->addColumn('jumlahpegawai_pesantren', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_pesantren : '';
+            })
+
+            ->addColumn('nama_madrasahdn', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_madrasahdn : '';
+            })
+            ->addColumn('pemilik_madrasahdn', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_madrasahdn : '';
+            })
+            ->addColumn('kondisi_madrasahdn', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_madrasahdn : '';
+            })
+            ->addColumn('jumlahguru_madrasahdn', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_madrasahdn : '';
+            })
+            ->addColumn('jumlahmurid_madrasahdn', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_madrasahdn : '';
+            })
+            ->addColumn('jumlahpegawai_madrasahdn', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_madrasahdn : '';
+            })
+
+
+            ->addColumn('nama_seminari', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_seminari : '';
+            })
+            ->addColumn('pemilik_seminari', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_seminari : '';
+            })
+            ->addColumn('kondisi_seminari', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_seminari : '';
+            })
+            ->addColumn('jumlahguru_seminari', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_seminari : '';
+            })
+            ->addColumn('jumlahmurid_seminari', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_seminari : '';
+            })
+            ->addColumn('jumlahpegawai_seminari', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_seminari : '';
+            })
+
+
+            ->addColumn('nama_sekolahag', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_sekolahag : '';
+            })
+            ->addColumn('pemilik_sekolahag', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_sekolahag : '';
+            })
+            ->addColumn('kondisi_sekolahag', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_sekolahag : '';
+            })
+            ->addColumn('jumlahguru_sekolahag', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_sekolahag : '';
+            })
+            ->addColumn('jumlahmurid_sekolahag', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_sekolahag : '';
+            })
+            ->addColumn('jumlahpegawai_sekolahag', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_sekolahag : '';
+            })
+
+
+            ->addColumn('nama_butaaksara', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_butaaksara : '';
+            })
+            ->addColumn('pemilik_butaaksara', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_butaaksara : '';
+            })
+            ->addColumn('kondisi_butaaksara', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_butaaksara : '';
+            })
+            ->addColumn('jumlahguru_butaaksara', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_butaaksara : '';
+            })
+            ->addColumn('jumlahmurid_butaaksara', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_butaaksara : '';
+            })
+            ->addColumn('jumlahpegawai_butaaksara', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_butaaksara : '';
+            })
+
+
+            ->addColumn('nama_paketa', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_paketa : '';
+            })
+            ->addColumn('pemilik_paketa', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_paketa : '';
+            })
+            ->addColumn('kondisi_paketa', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_paketa : '';
+            })
+            ->addColumn('jumlahguru_paketa', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_paketa : '';
+            })
+            ->addColumn('jumlahmurid_paketa', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_paketa : '';
+            })
+            ->addColumn('jumlahpegawai_paketa', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_paketa : '';
+            })
+
+
+            ->addColumn('nama_paketb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_paketb : '';
+            })
+            ->addColumn('pemilik_paketb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_paketb : '';
+            })
+            ->addColumn('kondisi_paketb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_paketb : '';
+            })
+            ->addColumn('jumlahguru_paketb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_paketb : '';
+            })
+            ->addColumn('jumlahmurid_paketb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_paketb : '';
+            })
+            ->addColumn('jumlahpegawai_paketb', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_paketb : '';
+            })
+
+            ->addColumn('nama_paketc', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_paketc : '';
+            })
+            ->addColumn('pemilik_paketc', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_paketc : '';
+            })
+            ->addColumn('kondisi_paketc', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_paketc : '';
+            })
+            ->addColumn('jumlahguru_paketc', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_paketc : '';
+            })
+            ->addColumn('jumlahmurid_paketc', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_paketc : '';
+            })
+            ->addColumn('jumlahpegawai_paketc', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_paketc : '';
+            })
+
+            ->addColumn('nama_playgrup', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_playgrup : '';
+            })
+            ->addColumn('pemilik_playgrup', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_playgrup : '';
+            })
+            ->addColumn('kondisi_playgrup', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_playgrup : '';
+            })
+            ->addColumn('jumlahguru_playgrup', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_playgrup : '';
+            })
+            ->addColumn('jumlahmurid_playgrup', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_playgrup : '';
+            })
+            ->addColumn('jumlahpegawai_playgrup', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_playgrup : '';
+            })
+
+            ->addColumn('nama_penitipananak', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_penitipananak : '';
+            })
+            ->addColumn('pemilik_penitipananak', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_penitipananak : '';
+            })
+            ->addColumn('kondisi_penitipananak', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_penitipananak : '';
+            })
+            ->addColumn('jumlahguru_penitipananak', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_penitipananak : '';
+            })
+            ->addColumn('jumlahmurid_penitipananak', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_penitipananak : '';
+            })
+            ->addColumn('jumlahpegawai_penitipananak', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_penitipananak : '';
+            })
+
+
+            ->addColumn('nama_pendidikanq', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_pendidikanq : '';
+            })
+            ->addColumn('pemilik_pendidikanq', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_pendidikanq : '';
+            })
+            ->addColumn('kondisi_pendidikanq', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_pendidikanq : '';
+            })
+            ->addColumn('jumlahguru_pendidikanq', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_pendidikanq : '';
+            })
+            ->addColumn('jumlahmurid_pendidikanq', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_pendidikanq : '';
+            })
+            ->addColumn('jumlahpegawai_pendidikanq', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_pendidikanq : '';
+            })
+
+            ->addColumn('nama_bahasaas', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_bahasaas : '';
+            })
+            ->addColumn('pemilik_bahasaas', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_bahasaas : '';
+            })
+            ->addColumn('kondisi_bahasaas', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_bahasaas : '';
+            })
+            ->addColumn('jumlahguru_bahasaas', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_bahasaas : '';
+            })
+            ->addColumn('jumlahmurid_bahasaas', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_bahasaas : '';
+            })
+            ->addColumn('jumlahpegawai_bahasaas', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_bahasaas : '';
+            })
+
+            ->addColumn('nama_kursuskomp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursuskomp : '';
+            })
+            ->addColumn('pemilik_kursuskomp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursuskomp : '';
+            })
+            ->addColumn('kondisi_kursuskomp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursuskomp : '';
+            })
+            ->addColumn('jumlahguru_kursuskomp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursuskomp : '';
+            })
+            ->addColumn('jumlahmurid_kursuskomp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursuskomp : '';
+            })
+            ->addColumn('jumlahpegawai_kursuskomp', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursuskomp : '';
+            })
+
+            ->addColumn('nama_kursusmenjahit', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursusmenjahit : '';
+            })
+            ->addColumn('pemilik_kursusmenjahit', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursusmenjahit : '';
+            })
+            ->addColumn('kondisi_kursusmenjahit', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursusmenjahit : '';
+            })
+            ->addColumn('jumlahguru_kursusmenjahit', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursusmenjahit : '';
+            })
+            ->addColumn('jumlahmurid_kursusmenjahit', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursusmenjahit : '';
+            })
+            ->addColumn('jumlahpegawai_kursusmenjahit', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursusmenjahit : '';
+            })
+
+
+            ->addColumn('nama_kursuskecantikan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursuskecantikan : '';
+            })
+            ->addColumn('pemilik_kursuskecantikan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursuskecantikan : '';
+            })
+            ->addColumn('kondisi_kursuskecantikan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursuskecantikan : '';
+            })
+            ->addColumn('jumlahguru_kursuskecantikan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursuskecantikan : '';
+            })
+            ->addColumn('jumlahmurid_kursuskecantikan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursuskecantikan : '';
+            })
+            ->addColumn('jumlahpegawai_kursuskecantikan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursuskecantikan : '';
+            })
+
+            ->addColumn('nama_kursusmontir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursusmontir : '';
+            })
+            ->addColumn('pemilik_kursusmontir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursusmontir : '';
+            })
+            ->addColumn('kondisi_kursusmontir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursusmontir : '';
+            })
+            ->addColumn('jumlahguru_kursusmontir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursusmontir : '';
+            })
+            ->addColumn('jumlahmurid_kursusmontir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursusmontir : '';
+            })
+            ->addColumn('jumlahpegawai_kursusmontir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursusmontir : '';
+            })
+
+            ->addColumn('nama_kursussetir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursussetir : '';
+            })
+            ->addColumn('pemilik_kursussetir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursussetir : '';
+            })
+            ->addColumn('kondisi_kursussetir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursussetir : '';
+            })
+            ->addColumn('jumlahguru_kursussetir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursussetir : '';
+            })
+            ->addColumn('jumlahmurid_kursussetir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursussetir : '';
+            })
+            ->addColumn('jumlahpegawai_kursussetir', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursussetir : '';
+            })
+
+            ->addColumn('nama_kursuselektronik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursuselektronik : '';
+            })
+            ->addColumn('pemilik_kursuselektronik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursuselektronik : '';
+            })
+            ->addColumn('kondisi_kursuselektronik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursuselektronik : '';
+            })
+            ->addColumn('jumlahguru_kursuselektronik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursuselektronik : '';
+            })
+            ->addColumn('jumlahmurid_kursuselektronik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursuselektronik : '';
+            })
+            ->addColumn('jumlahpegawai_kursuselektronik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursuselektronik : '';
+            })
+
+            ->addColumn('nama_tataboga', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_tataboga : '';
+            })
+            ->addColumn('pemilik_tataboga', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_tataboga : '';
+            })
+            ->addColumn('kondisi_tataboga', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_tataboga : '';
+            })
+            ->addColumn('jumlahguru_tataboga', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_tataboga : '';
+            })
+            ->addColumn('jumlahmurid_tataboga', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_tataboga : '';
+            })
+            ->addColumn('jumlahpegawai_tataboga', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_tataboga : '';
+            })
+
+            ->addColumn('nama_kursusketik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursusketik : '';
+            })
+            ->addColumn('pemilik_kursusketik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursusketik : '';
+            })
+            ->addColumn('kondisi_kursusketik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursusketik : '';
+            })
+            ->addColumn('jumlahguru_kursusketik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursusketik : '';
+            })
+            ->addColumn('jumlahmurid_kursusketik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursusketik : '';
+            })
+            ->addColumn('jumlahpegawai_kursusketik', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursusketik : '';
+            })
+
+            ->addColumn('nama_kursusakuntan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursusakuntan : '';
+            })
+            ->addColumn('pemilik_kursusakuntan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursusakuntan : '';
+            })
+            ->addColumn('kondisi_kursusakuntan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursusakuntan : '';
+            })
+            ->addColumn('jumlahguru_kursusakuntan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursusakuntan : '';
+            })
+            ->addColumn('jumlahmurid_kursusakuntan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursusakuntan : '';
+            })
+            ->addColumn('jumlahpegawai_kursusakuntan', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursusakuntan : '';
+            })
+
+            ->addColumn('nama_kursuslain', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama_kursuslain : '';
+            })
+            ->addColumn('pemilik_kursuslain', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemilik_kursuslain : '';
+            })
+            ->addColumn('kondisi_kursuslain', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kondisi_kursuslain : '';
+            })
+            ->addColumn('jumlahguru_kursuslain', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahguru_kursuslain : '';
+            })
+            ->addColumn('jumlahmurid_kursuslain', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahmurid_kursuslain : '';
+            })
+            ->addColumn('jumlahpegawai_kursuslain', function ($row) {
+                $rtlokasi = rt_saranapendidikan::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlahpegawai_kursuslain : '';
+            })
+
+            ->rawColumns([
+                'action',
+            ])
+            ->toJson();
     }
 
     /**
@@ -50,15 +846,10 @@ class RtSaranapendidikanController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_saranapendidikan = rt_saranapendidikan::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.editrt_saranapendidikan', compact('rt_saranapendidikan', 'datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.editrt_saranapendidikan', compact('rt_saranapendidikan', 'datart'));
     }
 
     /**
@@ -69,11 +860,16 @@ class RtSaranapendidikanController extends Controller
      */
     public function store(Storert_saranapendidikanRequest $request)
     {
-        $rt_saranapendidikan = rt_saranapendidikan::where('nik', $request->valNIK)->first();
+        $rt_saranapendidikan = rt_saranapendidikan::where('nik', $request->valnik)->first();
         if ($rt_saranapendidikan == NULL ) {
             $rt_saranapendidikan = new rt_saranapendidikan();
         }     
-        $rt_saranapendidikan->nik = $request->valNIK;           
+        $rt_saranapendidikan->nik = $request->valnik;
+        $rt_saranapendidikan->nama_ketuart = $request->valnama_ketuart;
+        $rt_saranapendidikan->alamat = $request->valalamat;
+        $rt_saranapendidikan->rt = $request->valrt;
+        $rt_saranapendidikan->rw = $request->valrw;
+        $rt_saranapendidikan->nohp = $request->valnohp;   
         $rt_saranapendidikan->nama_paud = $request->valnama_paud;
         $rt_saranapendidikan->pemilik_paud = $request->valpemilik_paud;
         $rt_saranapendidikan->kondisi_paud = $request->valkondisi_paud;
@@ -264,7 +1060,7 @@ class RtSaranapendidikanController extends Controller
 
 
         $rt_saranapendidikan->save();
-        return redirect()->route('rt_saranapendidikan.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rt_saranapendidikan.show',['show'=> $request->valnik ]);
     }
 
     /**
@@ -275,15 +1071,10 @@ class RtSaranapendidikanController extends Controller
      */
     public function show(rt_saranapendidikan $rt_saranapendidikan, $nik)
     {
-         $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_saranapendidikan = rt_saranapendidikan::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.showrt_saranapendidikan', compact('rt_saranapendidikan', 'datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.showrt_saranapendidikan', compact('rt_saranapendidikan', 'datart'));
     }
 
     /**

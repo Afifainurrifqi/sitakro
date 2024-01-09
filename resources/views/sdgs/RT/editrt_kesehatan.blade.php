@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title">EDIT KESEHATAN
-                            {{ $datap->nama }}</h1>
+                            <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rt_kesehatan.index') }}'">Kembali
                         </button>
@@ -25,13 +25,101 @@
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('rt_kesehatan.update') }}" method="POST">
                                 @csrf   
+                                <div class="form-group row" >
+                                    <label class="col-lg-4 col-form-label" for="valnik">NIK <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="hidden" value="{{ old('valnik', $datart->nik) }}" class="form-control @error('valnik') is-invalid @enderror" id="valnik" name="valnik" placeholder="Nama Lengkap...">
+                                        <div class="col-lg-6">
+                                            {{ $datart->nik }}
+                                        </div>
+                                        @error('valnik')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                              
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
+                                    <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="hidden" value="{{ old('valnama_ketuart', $datart->nama) }}" class="form-control @error('valnama_ketuart') is-invalid @enderror" id="valnama_ketuart" name="valnama_ketuart" placeholder="Nama Lengkap...">
+                                        <div class="col-lg-6">
+                                            {{ $datart->nama }}
+                                        </div>
+                                        @error('valnama_ketuart')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valalamat">ALAMAT<span
                                             class="text-danger">*</span>
-                                        <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
                                     </label>
                                     <div class="col-lg-6">
-                                        {{ $datap->nik }}
+                                        <input value="{{ old('valnama_ketuart', $datart->alamat) }}" type="hidden"
+                                            class="form-control @error('valalamat') is-invalid @enderror" id="valalamat"
+                                            name="valalamat" placeholder="Alamat...">
+                                            <div class="col-lg-6">
+                                                {{ $datart->alamat }}
+                                            </div>
+                                        @error('valalamat')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>                         
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrt">RT<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->rt) }}" type="hidden"
+                                            class="form-control @error('valrt') is-invalid @enderror" id="valrt"
+                                            name="valrt" placeholder="RT...">
+                                            <div class="col-lg-6">
+                                                {{ $datart->rt }}
+                                            </div>
+                                        @error('valrt')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrw">RW <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->rw) }}" type="hidden"
+                                            class="form-control @error('valrw') is-invalid @enderror" id="valrw"
+                                            name="valrw" placeholder="RW..">
+                                            <div class="col-lg-6">
+                                                {{ $datart->rw }}
+                                            </div>
+                                        @error('valrw')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnohp">NO HP <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input value="{{ old('valnama_ketuart', $datart->nohp) }}" type="hidden"
+                                            class="form-control @error('valnohp') is-invalid @enderror" id="valnohp"
+                                            name="valnohp" placeholder="RW..">
+                                            <div class="col-lg-6">
+                                                {{ $datart->nohp }}
+                                            </div>
+                                        @error('valnohp')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">

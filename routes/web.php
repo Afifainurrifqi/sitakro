@@ -102,6 +102,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('sdgs/rt/datart', [DataRtController::class, 'index'])->name('datart.index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
+        Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_individu']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
         Route::get('sdgs/individu/dataindividu', [DataindividuController::class, 'index'])->name('individu.index');
 
@@ -132,6 +133,10 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('/rtlingkungan/json', [RtLingkunganController::class, 'json']);
         Route::get('/rtbencana/json', [RtBencanaController::class, 'json']);
         Route::get('/rtmitigasib/json', [RtMitigasibController::class, 'json']);
+        Route::get('/rt_saranapendidikan/json', [RtSaranapendidikanController::class, 'json']);
+        Route::get('/rt_kesehatan/json', [RtKesehatanController::class, 'json']);
+
+
 
 
        

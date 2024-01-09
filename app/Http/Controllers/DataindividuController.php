@@ -25,8 +25,7 @@ class DataindividuController extends Controller
    
 
     public function index(Request $request)
-    {
-       
+    {       
         return view('sdgs.individu.dataindividu');
     }
 

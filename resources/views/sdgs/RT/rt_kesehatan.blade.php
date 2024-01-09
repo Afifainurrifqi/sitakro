@@ -2,131 +2,667 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">KESEHATAN</h2>
-                        <form action="{{ route('rt_kesehatan.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('rt_kesehatan.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('rt_kesehatan.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                   
-                </div>
-                
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">KESEHATAN</h2>
+
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="tablert_kesehatan">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">NIK</th>
+                                        <th rowspan="2">NAMA KETUA RT</th>
+                                        <th rowspan="2">ALAMAT</th>
+                                        <th rowspan="2">RT</th>
+                                        <th rowspan="2">RW</th>
+                                        <th rowspan="2">NO. HP / TELEPON</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">RUMAH SAKIT
+                                        </th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">RUMAH SAKIT
+                                            BERSALIN</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">PUSKESMAS
+                                            DENGAN RAWAT INAP</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">PUSKESMAS
+                                            TANPA RAWAT INAP</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">PUSKESMAS
+                                            PEMBANTU</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            POLIKLINIK/BALAI PENGOBATAN</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">TEMPAT
+                                            PRAKTIK DOKTER</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">RUMAH
+                                            BERSALIN</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">TEMPAT
+                                            PRAKTEK BIDAN</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">POSKESDES
+                                        </th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">POLINDES
+                                        </th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">APOTIK</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">TOKO KHUSUS
+                                            OBAT / JAMU</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">POSYANDU
+                                        </th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">POSBINDU
+                                        </th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">TEMPAT
+                                            PRAKTEK DUKUN</th>
+                                    </tr>
+
+                                    <tr>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+                                        <th>NAMA</th>
+                                        <th>PEMILIK</th>
+                                        <th>JUMLAH DOKTER</th>
+                                        <th>JUMLAH BIDAN</th>
+                                        <th>JUMLAH TENAGA KESEHATAN</th>
+                                        <th style="border-right: 1px solid #000;">JUMLAH PEGAWAI</th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
-            
         </div>
     </div>
-</div>
 
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tablert_kesehatan').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: '/rt_kesehatan/json',
+                columns: [{
+                        data: 'action',
+                        name: 'action',
+                    },
+                    {
+                        data: 'id',
+                        name: 'id',
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat',
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt',
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw',
+                    },
+                    {
+                        data: 'nohp',
+                        name: 'nohp',
+                    },
+                    //1
+                    {
+                        data: 'nama_rs',
+                        name: 'nama_rs'
+                    },
+                    {
+                        data: 'pemilik_rs',
+                        name: 'pemilik_rs'
+                    },
+                    {
+                        data: 'jd_rs',
+                        name: 'jd_rs'
+                    },
+                    {
+                        data: 'jb_rs',
+                        name: 'jb_rs'
+                    },
+                    {
+                        data: 'jts_rs',
+                        name: 'jts_rs'
+                    },
+                    {
+                        data: 'jp_rs',
+                        name: 'jp_rs'
+                    },
+                    {
+                        data: 'nama_rsb',
+                        name: 'nama_rsb'
+                    },
+                    {
+                        data: 'pemilik_rsb',
+                        name: 'pemilik_rsb'
+                    },
+                    {
+                        data: 'jd_rsb',
+                        name: 'jd_rsb'
+                    },
+                    {
+                        data: 'jb_rsb',
+                        name: 'jb_rsb'
+                    },
+                    {
+                        data: 'jts_rsb',
+                        name: 'jts_rsb'
+                    },
+                    {
+                        data: 'jp_rsb',
+                        name: 'jp_rsb'
+                    },
+                    {
+                        data: 'nama_pdri',
+                        name: 'nama_pdri'
+                    },
+                    {
+                        data: 'pemilik_pdri',
+                        name: 'pemilik_pdri'
+                    },
+                    {
+                        data: 'jd_pdri',
+                        name: 'jd_pdri'
+                    },
+                    {
+                        data: 'jb_pdri',
+                        name: 'jb_pdri'
+                    },
+                    {
+                        data: 'jts_pdri',
+                        name: 'jts_pdri'
+                    },
+                    {
+                        data: 'jp_pdri',
+                        name: 'jp_pdri'
+                    },
+                    {
+                        data: 'nama_ptri',
+                        name: 'nama_ptri'
+                    },
+                    {
+                        data: 'pemilik_ptri',
+                        name: 'pemilik_ptri'
+                    },
+                    {
+                        data: 'jd_ptri',
+                        name: 'jd_ptri'
+                    },
+                    {
+                        data: 'jb_ptri',
+                        name: 'jb_ptri'
+                    },
+                    {
+                        data: 'jts_ptri',
+                        name: 'jts_ptri'
+                    },
+                    {
+                        data: 'jp_ptri',
+                        name: 'jp_ptri'
+                    },
+                    {
+                        data: 'nama_pp',
+                        name: 'nama_pp'
+                    },
+                    {
+                        data: 'pemilik_pp',
+                        name: 'pemilik_pp'
+                    },
+                    {
+                        data: 'jd_pp',
+                        name: 'jd_pp'
+                    },
+                    {
+                        data: 'jb_pp',
+                        name: 'jb_pp'
+                    },
+                    {
+                        data: 'jts_pp',
+                        name: 'jts_pp'
+                    },
+                    {
+                        data: 'jp_pp',
+                        name: 'jp_pp'
+                    },
+                    {
+                        data: 'nama_pbp',
+                        name: 'nama_pbp'
+                    },
+                    {
+                        data: 'pemilik_pbp',
+                        name: 'pemilik_pbp'
+                    },
+                    {
+                        data: 'jd_pbp',
+                        name: 'jd_pbp'
+                    },
+                    {
+                        data: 'jb_pbp',
+                        name: 'jb_pbp'
+                    },
+                    {
+                        data: 'jts_pbp',
+                        name: 'jts_pbp'
+                    },
+                    {
+                        data: 'jp_pbp',
+                        name: 'jp_pbp'
+                    },
+                    {
+                        data: 'nama_tpd',
+                        name: 'nama_tpd'
+                    },
+                    {
+                        data: 'pemilik_tpd',
+                        name: 'pemilik_tpd'
+                    },
+                    {
+                        data: 'jd_tpd',
+                        name: 'jd_tpd'
+                    },
+                    {
+                        data: 'jb_tpd',
+                        name: 'jb_tpd'
+                    },
+                    {
+                        data: 'jts_tpd',
+                        name: 'jts_tpd'
+                    },
+                    {
+                        data: 'jp_tpd',
+                        name: 'jp_tpd'
+                    },
+                    {
+                        data: 'nama_rb',
+                        name: 'nama_rb'
+                    },
+                    {
+                        data: 'pemilik_rb',
+                        name: 'pemilik_rb'
+                    },
+                    {
+                        data: 'jd_rb',
+                        name: 'jd_rb'
+                    },
+                    {
+                        data: 'jb_rb',
+                        name: 'jb_rb'
+                    },
+                    {
+                        data: 'jts_rb',
+                        name: 'jts_rb'
+                    },
+                    {
+                        data: 'jp_rb',
+                        name: 'jp_rb'
+                    },
+                    {
+                        data: 'nama_tpb',
+                        name: 'nama_tpb'
+                    },
+                    {
+                        data: 'pemilik_tpb',
+                        name: 'pemilik_tpb'
+                    },
+                    {
+                        data: 'jd_tpb',
+                        name: 'jd_tpb'
+                    },
+                    {
+                        data: 'jb_tpb',
+                        name: 'jb_tpb'
+                    },
+                    {
+                        data: 'jts_tpb',
+                        name: 'jts_tpb'
+                    },
+                    {
+                        data: 'jp_tpb',
+                        name: 'jp_tpb'
+                    },
+                    {
+                        data: 'nama_poskedes',
+                        name: 'nama_poskedes'
+                    },
+                    {
+                        data: 'pemilik_poskedes',
+                        name: 'pemilik_poskedes'
+                    },
+                    {
+                        data: 'jd_poskedes',
+                        name: 'jd_poskedes'
+                    },
+                    {
+                        data: 'jb_poskedes',
+                        name: 'jb_poskedes'
+                    },
+                    {
+                        data: 'jts_poskedes',
+                        name: 'jts_poskedes'
+                    },
+                    {
+                        data: 'jp_poskedes',
+                        name: 'jp_poskedes'
+                    },
 
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
+                    {
+                        data: 'nama_polindes',
+                        name: 'nama_polindes'
+                    },
+                    {
+                        data: 'pemilik_polindes',
+                        name: 'pemilik_polindes'
+                    },
+                    {
+                        data: 'jd_polindes',
+                        name: 'jd_polindes'
+                    },
+                    {
+                        data: 'jb_polindes',
+                        name: 'jb_polindes'
+                    },
+                    {
+                        data: 'jts_polindes',
+                        name: 'jts_polindes'
+                    },
+                    {
+                        data: 'jp_polindes',
+                        name: 'jp_polindes'
+                    },
+                    {
+                        data: 'nama_apotik',
+                        name: 'nama_apotik'
+                    },
+                    {
+                        data: 'pemilik_apotik',
+                        name: 'pemilik_apotik'
+                    },
+                    {
+                        data: 'jd_apotik',
+                        name: 'jd_apotik'
+                    },
+                    {
+                        data: 'jb_apotik',
+                        name: 'jb_apotik'
+                    },
+                    {
+                        data: 'jts_apotik',
+                        name: 'jts_apotik'
+                    },
+                    {
+                        data: 'jp_apotik',
+                        name: 'jp_apotik'
+                    },
+                    {
+                        data: 'nama_tokojamu',
+                        name: 'nama_tokojamu'
+                    },
+                    {
+                        data: 'pemilik_tokojamu',
+                        name: 'pemilik_tokojamu'
+                    },
+                    {
+                        data: 'jd_tokojamu',
+                        name: 'jd_tokojamu'
+                    },
+                    {
+                        data: 'jb_tokojamu',
+                        name: 'jb_tokojamu'
+                    },
+                    {
+                        data: 'jts_tokojamu',
+                        name: 'jts_tokojamu'
+                    },
+                    {
+                        data: 'jp_tokojamu',
+                        name: 'jp_tokojamu'
+                    },
+                    {
+                        data: 'nama_posyandu',
+                        name: 'nama_posyandu'
+                    },
+                    {
+                        data: 'pemilik_posyandu',
+                        name: 'pemilik_posyandu'
+                    },
+                    {
+                        data: 'jd_posyandu',
+                        name: 'jd_posyandu'
+                    },
+                    {
+                        data: 'jb_posyandu',
+                        name: 'jb_posyandu'
+                    },
+                    {
+                        data: 'jts_posyandu',
+                        name: 'jts_posyandu'
+                    },
+                    {
+                        data: 'jp_posyandu',
+                        name: 'jp_posyandu'
+                    },
+                    {
+                        data: 'nama_posbindu',
+                        name: 'nama_posbindu'
+                    },
+                    {
+                        data: 'pemilik_posbindu',
+                        name: 'pemilik_posbindu'
+                    },
+                    {
+                        data: 'jd_posbindu',
+                        name: 'jd_posbindu'
+                    },
+                    {
+                        data: 'jb_posbindu',
+                        name: 'jb_posbindu'
+                    },
+                    {
+                        data: 'jts_posbindu',
+                        name: 'jts_posbindu'
+                    },
+                    {
+                        data: 'jp_posbindu',
+                        name: 'jp_posbindu'
+                    },
+                    {
+                        data: 'nama_tpd',
+                        name: 'nama_tpd'
+                    },
+                    {
+                        data: 'pemilik_tpd',
+                        name: 'pemilik_tpd'
+                    },
+                    {
+                        data: 'jd_tpd',
+                        name: 'jd_tpd'
+                    },
+                    {
+                        data: 'jb_tpd',
+                        name: 'jb_tpd'
+                    },
+                    {
+                        data: 'jts_tpd',
+                        name: 'jts_tpd'
+                    },
+                    {
+                        data: 'jp_tpd',
+                        name: 'jp_tpd'
+                    },
 
-</script>
+
+
+                ]
+
+            });
+        });
+    </script>
 @endsection

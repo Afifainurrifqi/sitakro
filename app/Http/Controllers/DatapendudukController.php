@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\data_individu;
 use Carbon\Carbon;
 use App\Exports\Exportdatapenduduk;
 use App\Models\agama;
@@ -40,10 +41,10 @@ class DatapendudukController extends Controller
     public function json(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
-    
+
         $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
             ->whereIn('Datak', $allowedDatakValues);
-    
+
         return DataTables::of($query)
             ->addColumn('nokk', function ($datapenduduk) {
                 return optional($datapenduduk->detailkk)->kk->nokk;
@@ -60,14 +61,14 @@ class DatapendudukController extends Controller
                                 <i class="fas fa-edit"></i>
                             </a>
                             ' . $deleteForm;
-    
+
                 return $actionsHtml;
             })
             ->rawColumns(['action'])
             ->toJson();
     }
-    
-    
+
+
 
 
     public function add()
@@ -82,31 +83,38 @@ class DatapendudukController extends Controller
     }
 
     public function export_excel()
-{
-    return Excel::download(new Exportdatapenduduk, "datapenduduk.xlsx");
-}
+    {
+        return Excel::download(new Exportdatapenduduk, "datapenduduk.xlsx");
+    }
+
+    public function export_individu()
+    {
+
+        return Excel::download(new data_individu, "dataindividu.xlsx");
+
+    }
 
     public function import_excel(Request $request)
     {
         $this->validate($request, [
             'file' => 'required|mimes:csv,txt',
         ]);
-    
+
         $file = $request->file('file');
         $spreadsheet = IOFactory::load($file->getPathname());
         $sheet = $spreadsheet->getActiveSheet();
         $data = $sheet->toArray();
-    
+
         // Skip the header row
         array_shift($data);
-    
+
         foreach ($data as $rowData) {
             (new Importdatapenduduk())->model($rowData);
         }
-    
+
         return redirect('datapenduduk');
     }
-    
+
 
 
 
