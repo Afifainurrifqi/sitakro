@@ -69,9 +69,11 @@
                                         <th rowspan="2">Bagaimana keterbukaan desa terhadap masukan?</th>
                                         <th rowspan="2">Terjadi Bencana 1 tahun terakhir</th>
                                         <th rowspan="2">Apakah anda terkena dampak bencana</th>
-                                        <th rowspan="2">Apakah menerima pemenuhan Kebutuhan Dasar saat Bencana (makanan, pakaian, tempat tinggal)?</th>
-                                        <th rowspan="2">Apakah ada penanganan psikososial keluarga terdampak bencana (penyuluhan/konseling/terapi)?</th>
-                                        
+                                        <th rowspan="2">Apakah menerima pemenuhan Kebutuhan Dasar saat Bencana (makanan,
+                                            pakaian, tempat tinggal)?</th>
+                                        <th rowspan="2">Apakah ada penanganan psikososial keluarga terdampak bencana
+                                            (penyuluhan/konseling/terapi)?</th>
+
                                     </tr>
 
                                     <tr>
@@ -103,7 +105,7 @@
                                         <th>POSYANDU</th>
                                         <th>POSBINDU</th>
                                         <th>TEMPAT PRAKTIK DUKUN BAYI / BERSALIN</th>
-                                        
+
 
 
 
@@ -148,6 +150,7 @@
                         className: 'btn rounded btn-success btn-icon-split mx-2',
                         exportOptions: {
                             columns: [
+                                0,
                                 1,
                                 2,
                                 3,
@@ -169,6 +172,39 @@
                                 19,
                                 20,
                                 21,
+                                22,
+                                23,
+                                24,
+                                25,
+                                26,
+                                27,
+                                28,
+                                29,
+                                30,
+                                31,
+                                32,
+                                33,
+                                34,
+                                35,
+                                36,
+                                37,
+                                38,
+                                39,
+                                40,
+                                41,
+                                42,
+                                43,
+                                44,
+                                45,
+                                46,
+                                47,
+                                48,
+                                49,
+                                50,
+                                51,
+                                52,
+                                53,
+                                
                             ]
 
                         }
