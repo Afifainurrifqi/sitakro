@@ -26,7 +26,7 @@ class UpdatesdgspendidikanRequest extends FormRequest
         return [
             'valpendidikan_tertinggi' => 'required',
             'valberapa_tahunp' => 'required',
-            'valpendidikan_diikuti' => 'required',
+           
             'valbahasa_Rumah' => 'required',
             'valbahasa_Formal' => 'required',
             'valjumlah_kerja1' => 'required',
@@ -56,7 +56,7 @@ class UpdatesdgspendidikanRequest extends FormRequest
 
             'valpendidikan_tertinggi.required' => ':attribute kolom tidak bileh kosong',
             'valberapa_tahunp.required' => ':attribute kolom tidak bileh kosong',
-            'valpendidikan_diikuti.required' => ':attribute kolom tidak bileh kosong',
+          
             'valbahasa_Rumah.required' => ':attribute kolom tidak bileh kosong',
             'valbahasa_Formal.required' => ':attribute kolom tidak bileh kosong',
             'valjumlah_kerja1.required' => ':attribute kolom tidak bileh kosong',
@@ -85,7 +85,7 @@ class UpdatesdgspendidikanRequest extends FormRequest
 
             'valpendidikan_tertinggi' => 'pendidikan_tertinggi',
             'valberapa_tahunp' => 'berapa_tahunp',
-            'valpendidikan_diikuti' => 'pendidikan_diikuti',
+           
             'valbahasa_Rumah' => 'bahasa_Rumah',
             'valbahasa_Formal' => 'bahasa_Formal',
             'valjumlah_kerja1' => 'jumlah_kerja1',

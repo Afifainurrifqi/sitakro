@@ -108,6 +108,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
 
         // JSON DATATABLES
         Route::get('datapenduduk/json', [DatapendudukController::class, 'json']);
+        Route::get('datadasawisma/datadw/json', [DatadasawismaController::class, 'json']);
         Route::get('/datam/json', [DatamutasiController::class, 'json']);
         Route::get('/dataindividu/json', [DataindividuController::class, 'json']);
         Route::get('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);

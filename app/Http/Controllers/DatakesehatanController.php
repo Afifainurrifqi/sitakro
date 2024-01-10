@@ -52,9 +52,14 @@ class DatakesehatanController extends Controller
             ->addColumn('penyakit', function ($row) {
                 $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
                 $penyakitsetahun = $datakesehatan ? explode(',', $datakesehatan->penyakitsetahun) : [];
-            
-                return implode(', ', $penyakitsetahun);
+                
+                if (is_array($penyakitsetahun)) {
+                    return implode(', ', $penyakitsetahun);
+                } else {
+                    return $penyakitsetahun;
+                }
             })
+            
             ->addColumn('rumahsakit', function ($row) {
                 $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
                 $rumahsakit = $datakesehatan ? $datakesehatan->rumah_sakit : '';
@@ -222,7 +227,12 @@ class DatakesehatanController extends Controller
             $datakesehatan = new datakesehatan();
         }
         $datakesehatan->nik = $request->valNIK;
-        $datakesehatan->penyakitsetahun = implode(",", $request->valpenyakitsetahun);
+        if (is_array($request->valpenyakitsetahun)) {
+            $datakesehatan->penyakitsetahun = implode(",", $request->valpenyakitsetahun);
+        } else {
+            // Handle the case where $request->valpenyakitsetahun is not an array
+            $datakesehatan->penyakitsetahun = $request->valpenyakitsetahun;
+        }
         $datakesehatan->rumah_sakit = $request->valrumah_sakit;
         $datakesehatan->rumah_sakitb = $request->valrumah_sakitb;
         $datakesehatan->puskesmas_denganri = $request->valpuskesmas_denganri;

@@ -37,43 +37,6 @@
                                 </thead>
                                 <tbody>
 
-                                    {{-- @foreach ($datapenduduk as $row)
-                                <tr> 
-                                    <td><a href="{{ route('pekerjaan.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                        <i class="fas fa-book"></i></a>
-                                        <a href="{{ route('pekerjaan.create', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                    </td>
-                                    <th>{{ $loop->iteration }}</th>
-                                    <td>{{ $row->nik }}</td>
-                                    <td>{{ $row->nama }}</td>
-                                    <td>@if ($row->jenis_kelamin == 1)
-                                        Laki-Laki
-                                        @else
-                                        Perempuan
-                                        @endif</td>
-                                    <td>{{ $row->tempat_lahir }}</td>
-                                    <td>{{ $row->tanggal_lahir }}</td>
-                                    <td>{{ $row->agama->nama }}</td>
-                                    <td>{{ $row->pendidikan->nama }}</td>
-                                    <td>{{ $row->pekerjaan->nama }}</td>
-                                    <td>{{ $row->goldar->nama }}</td>
-                                    <td>{{ $row->status->nama }}</td>
-                                    <td>@if ($row->tanggal_perkawinan == '1970-01-01')
-                                        Belum Kawin
-                                    @else
-                                        {{ $row->tanggal_perkawinan }}
-                                    @endif</td>
-                                    <td>{{ $row->hubungan }}</td>
-                                    <td>{{ $row->ayah }}</td>
-                                    <td>{{ $row->ibu }}</td>
-                                    <td>{{ $row->alamat }}</td>
-                                    <td>{{ $row->rt }}</td>
-                                    <td>{{ $row->rw }}</td>    
-                                    <td>{{ $row->datak }}</td>                          
-                                </tr>   
-                            @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -81,14 +44,7 @@
 
                 </div>
 
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Pie Chart</h4>
-                            <canvas id="pie-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

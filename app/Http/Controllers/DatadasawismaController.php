@@ -10,6 +10,7 @@ use App\Http\Requests\StoredatadasawismaRequest;
 use App\Http\Requests\UpdatedatadasawismaRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class DatadasawismaController extends Controller
 {
@@ -20,15 +21,44 @@ class DatadasawismaController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
 
-        $datap = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+        return view('datadasawisma.datadw'); // Pass it to the view
+    }
 
-        if ($search) {
-            $datap->where('nik', 'like', '%' . $search . '%');
-        }
-        $datap = $datap->paginate(100);
-        return view('datadasawisma.datadw', compact('datap')); // Pass it to the view
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
+
+        return DataTables::of($query)
+            ->addColumn('nokk', function ($datapenduduk) {
+                return optional($datapenduduk->detailkk)->kk->nokk;
+            })
+            ->addColumn('action', function ($datadasawisma) {
+                $editUrl = route('dasawisma.show', ['nik' => $datadasawisma->nik]);
+                $deleteForm = '<form onsubmit="return deleteData(\'' . $datadasawisma->nama . '\')"
+                                action="' . url('dasa$datadasawisma') . '/' . $datadasawisma->nik . '" style="display: inline"
+                                method="POST">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                            </form>';
+                $actionsHtml = '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            ' . $deleteForm;
+
+                return $actionsHtml;
+            })
+
+            ->editColumn('statusdw',function(datapenduduk $item) {
+                return $item && $item->user_id == NULL ? 'penduduk' : 'dasawisma';
+            })
+            
+
+            ->rawColumns(['action'])
+            ->toJson();
     }
 
     /**
@@ -51,7 +81,7 @@ class DatadasawismaController extends Controller
     {
         //
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -63,9 +93,9 @@ class DatadasawismaController extends Controller
     {
         $datapenduduk = datapenduduk::where('nik', $nik)->first();
         $datadasawismas = Datadasawisma::all(); // Use a different variable name to avoid overwriting the model variable
-        $user = User::first(); 
+        $user = User::first();
         // Assuming you want to get the first user. Adjust this according to your logic.
-    
+
         return view('datadasawisma/tambahdw', compact('datapenduduk', 'datadasawismas', 'user', 'nik'))->with([
             'valNIK' => $nik,
             'valNama' => $datapenduduk->nama,
@@ -77,7 +107,6 @@ class DatadasawismaController extends Controller
             'valRole' => $user->role,
             'valNamakelompok' => $datadasawisma->nama_kelompok,
         ]);
-        
     }
 
     /**
@@ -99,22 +128,22 @@ class DatadasawismaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $nik)
-{
-    // Validasi data dari request
-    // dd($request);
-    // Temukan data penduduk
-    $datapenduduk = datapenduduk::where('nik', $request->nik)->first();
-    $user = new User();
-    $user->name = $datapenduduk->nama;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
-    $user->role = $request->role;
-    $user->save();
+    {
+        // Validasi data dari request
+        // dd($request);
+        // Temukan data penduduk
+        $datapenduduk = datapenduduk::where('nik', $request->nik)->first();
+        $user = new User();
+        $user->name = $datapenduduk->nama;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->save();
 
-    $datapenduduk->user_id = $user->id;
-    $datapenduduk->save();
-    return redirect()->route('dasawisma.index')->with('success', 'Data berhasil diperbarui');
-}
+        $datapenduduk->user_id = $user->id;
+        $datapenduduk->save();
+        return redirect()->route('dasawisma.index')->with('success', 'Data berhasil diperbarui');
+    }
 
 
     /**

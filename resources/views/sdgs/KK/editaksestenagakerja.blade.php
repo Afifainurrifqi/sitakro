@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">DOKYER UMUM<span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label">DOKTER UMUM<span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjaraktempuh_dr_umum">JARAK TEMPUH (KM)</label>
