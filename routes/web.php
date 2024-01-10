@@ -105,6 +105,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_individu']);
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
         Route::get('sdgs/individu/dataindividu', [DataindividuController::class, 'index'])->name('individu.index');
+        Route::get('datadasawisma/datadw', [DatadasawismaController::class, 'index'])->name('dasawisma.index');
 
         // JSON DATATABLES
         Route::get('datapenduduk/json', [DatapendudukController::class, 'json']);
@@ -292,7 +293,7 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
 Route::middleware(['checkrole:operator'])->group(
     function () {
         Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
-        Route::get('datadasawisma/datadw', [DatadasawismaController::class, 'index'])->name('dasawisma.index');
+       
         Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
     }
 );
