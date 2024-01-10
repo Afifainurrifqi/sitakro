@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\DataPenduduk;
+use App\Models\Datapenduduk;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -10,7 +10,7 @@ class Exportdatapenduduk implements FromCollection, WithHeadings
 {
     public function collection()
 {
-    $datapenduduk = DataPenduduk::with('detailkk.kk')->get();
+    $datapenduduk = Datapenduduk::with('detailkk.kk')->get();
 
     // Modify NIK column values
     $modifiedData = $datapenduduk->map(function ($item) {
