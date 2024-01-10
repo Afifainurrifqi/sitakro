@@ -23,38 +23,98 @@
                                 <thead>
                                     <!-- DATA INDIVIDU -->
                                     <tr>
-                                        <th>Action</th>
-                                        <th>No</th>
-                                        <th>KK</th>
-                                        <th>NIK</th>
-                                        <th>Gelar awal</th>
-                                        <th>Nama</th>
-                                        <th>Gelar akhir</th>
-                                        <th>Jenis kelamin</th>
-                                        <th>Tempat lahir</th>
-                                        <th>Tanggal_lahir</th>
-                                        <th>Usia</th>
-                                        <th>Status</th>
-                                        <th>Usia Saat pertama kali menikah</th>
-                                        <th>Agama</th>
-                                        <th>Suku Bangsa</th>
-                                        <th>Warga Negara</th>
-                                        <th>No. Hp</th>
-                                        <th>No. Wa</th>
-                                        <th>Email</th>
-                                        <th>Facebook</th>
-                                        <th>Twitter</th>
-                                        <th>Instagram</th>
-                                        
-                                        
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">KK</th>
+                                        <th rowspan="2">NIK</th>
+                                        <th rowspan="2">Gelar awal</th>
+                                        <th rowspan="2">Nama</th>
+                                        <th rowspan="2">Gelar akhir</th>
+                                        <th rowspan="2">Jenis kelamin</th>
+                                        <th rowspan="2">Tempat lahir</th>
+                                        <th rowspan="2">Tanggal_lahir</th>
+                                        <th rowspan="2">Usia</th>
+                                        <th rowspan="2">Status</th>
+                                        <th rowspan="2">Usia Saat pertama kali menikah</th>
+                                        <th rowspan="2">Agama</th>
+                                        <th rowspan="2">Suku Bangsa</th>
+                                        <th rowspan="2">Warga Negara</th>
+                                        <th rowspan="2">No. Hp</th>
+                                        <th rowspan="2">No. Wa</th>
+                                        <th rowspan="2">Email</th>
+                                        <th rowspan="2">Facebook</th>
+                                        <th rowspan="2">Twitter</th>
+                                        <th rowspan="2">Instagram</th>
+                                        <th colspan="4">PEKRJAAN</th>
+                                        <th colspan="5">PENGHASILAN</th>
+                                        <th rowspan="2">PENYAKIT YANG DIDERITA SETAHUN TERAKHIR</th>
+                                        <th colspan="16" style="border-bottom: 1px solid #000;">FASILITAS KESEHATAN</th>
+                                        <th rowspan="2">JAMKES</th>
+                                        <th rowspan="2">BAYI Usia 1-6 bulan Konsumsi ASI</th>
+                                        <th rowspan="2">JENIS DISABILITAS</th>
+                                        <th rowspan="2">Pendidikan Tertinggi</th>
+                                        <th rowspan="2">Berapa Tahun mengenyam pendidikan dasar (SD,SMP,SMA)</th>
+                                        <th rowspan="2">Pendidikan yang sedang di ikuti</th>
+                                        <th rowspan="2">Bahasa yang digunakan di Rumah dan Pemukiman</th>
+                                        <th rowspan="2">Bahasa yang digunakan di Lembaga Formal</th>
+                                        <th rowspan="2">Jumlah kerja bakti 1 tahun terakhir</th>
+                                        <th rowspan="2">Siskamling 1 tahun terakhir</th>
+                                        <th rowspan="2">Pesta Rakyat (Adat) 1 tahun terakhir</th>
+                                        <th rowspan="2">Frekuensi Melayat 1 tahun terakhir</th>
+                                        <th rowspan="2">Frekuensi besuk orang sakit 1 tahun terakhir</th>
+                                        <th rowspan="2">Frekuensi menolong kecelakaan 1 tahun terakhir</th>
+                                        <th rowspan="2">Mendapatkan Pelayanan Desa 1 tahun terakhir</th>
+                                        <th rowspan="2">Bagaimana pelayanan desa yang diperoleh?</th>
+                                        <th rowspan="2">Pernah menyampaikan masukan/saran kepada pihak Desa?</th>
+                                        <th rowspan="2">Bagaimana keterbukaan desa terhadap masukan?</th>
+                                        <th rowspan="2">Terjadi Bencana 1 tahun terakhir</th>
+                                        <th rowspan="2">Apakah anda terkena dampak bencana</th>
+                                        <th rowspan="2">Apakah menerima pemenuhan Kebutuhan Dasar saat Bencana (makanan, pakaian, tempat tinggal)?</th>
+                                        <th rowspan="2">Apakah ada penanganan psikososial keluarga terdampak bencana (penyuluhan/konseling/terapi)?</th>
                                         
                                     </tr>
-                                    
+
+                                    <tr>
+                                        <th>Kondisi pekerjaan</th>
+                                        <th>Pekerjaan Utama</th>
+                                        <th>Jaminan Sosial Ketenagakerjaan</th>
+                                        <th>Penghasilan Setahun Terakhir</th>
+
+
+                                        <th>SUMBER PENGHASILAN</th>
+                                        <th>JUMLAH ASET DARI SUMBER PENGHASILAN</th>
+                                        <th>SATUAN</th>
+                                        <th>PENGHASILAN SETAHUN</th>
+                                        <th>DI EKSPOR</th>
+
+                                        <th>RUMAH SAKIT</th>
+                                        <th>RUMAH SAKIT BERSALIN</th>
+                                        <th>PUSKESMAS DENGAN RAWAT INAP</th>
+                                        <th>PUSKESMAS TANPA RAWAT INAP</th>
+                                        <th>PUSKEMAS PEMBANTU</th>
+                                        <th>POLIKLINIK</th>
+                                        <th>TEMPAT PRAKTEK DOKTER</th>
+                                        <th>RUMAH BERSALIN</th>
+                                        <th>TEMPAT PRAKTEK BIDAN</th>
+                                        <th>POSKESDES</th>
+                                        <th>POLINDES</th>
+                                        <th>APOTIK</th>
+                                        <th>TOKO KHUSUS OBAT / JAMU</th>
+                                        <th>POSYANDU</th>
+                                        <th>POSBINDU</th>
+                                        <th>TEMPAT PRAKTIK DUKUN BAYI / BERSALIN</th>
+                                        
+
+
+
+
+                                    </tr>
+
                                 </thead>
-                                
+
                                 <tbody>
 
-                             
+
 
 
                                 </tbody>
@@ -64,7 +124,7 @@
                     </div>
 
                 </div>
-                
+
 
             </div>
         </div>
@@ -76,8 +136,45 @@
             $('#tabledataindividu').DataTable({
                 processing: true,
                 serverSide: true,
+                dom: "<'row'<'col-sm-12 mb-4'B>>" +
+                    "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 scrollX: true,
                 ajax: '/dataindividu/json',
+                buttons: [{
+                        extend: 'excelHtml5',
+                        text: "<span class='icon'><i class='ti ti-file-spreadsheet'></i></span> <span class='text'>Export Excel</span>",
+                        className: 'btn rounded btn-success btn-icon-split mx-2',
+                        exportOptions: {
+                            columns: [
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14,
+                                15,
+                                16,
+                                17,
+                                18,
+                                19,
+                                20,
+                                21,
+                            ]
+
+                        }
+                    },
+                    'colvis'
+                ],
                 columns: [{
                         data: 'action',
                         name: 'action'
@@ -166,7 +263,205 @@
                         data: 'instagram',
                         name: 'instagram'
                     },
-                ]
+
+                    {
+                        data: 'kondisi_pekerjaan',
+                        name: 'kondisi_pekerjaan'
+                    },
+                    {
+                        data: 'pekerjaan_utama',
+                        name: 'pekerjaan_utama'
+                    },
+                    {
+                        data: 'jaminan_sosial_ketenagakerjaan',
+                        name: 'jaminan_sosial_ketenagakerjaan'
+                    },
+                    {
+                        data: 'penghasilan_setahun_terakhir',
+                        name: 'penghasilan_setahun_terakhir'
+                    },
+
+                    {
+                        data: 'sumber',
+                        name: 'sumber'
+                    },
+                    {
+                        data: 'jumlah_aset',
+                        name: 'jumlah_aset'
+                    },
+                    {
+                        data: 'satuan',
+                        name: 'satuan'
+                    },
+                    {
+                        data: 'penghasilan',
+                        name: 'penghasilan'
+                    },
+                    {
+                        data: 'ekspor',
+                        name: 'ekspor'
+                    },
+
+                    {
+                        data: 'penyakit',
+                        name: 'penyakit'
+                    },
+                    {
+                        data: 'rumahsakit',
+                        name: 'rumahsakit'
+                    },
+                    {
+                        data: 'rumahsakitb',
+                        name: 'rumahsakitb'
+                    },
+                    {
+                        data: 'pusekesmas_denganri',
+                        name: 'pusekesmas_denganri'
+                    },
+                    {
+                        data: 'pusekesmas_tanpari',
+                        name: 'pusekesmas_tanpari'
+                    },
+                    {
+                        data: 'puskesmas_pembantu',
+                        name: 'puskesmas_pembantu'
+                    },
+                    {
+                        data: 'poliklinik',
+                        name: 'poliklinik'
+                    },
+                    {
+                        data: 'tempat_prakterkdr',
+                        name: 'tempat_prakterkdr'
+                    },
+                    {
+                        data: 'rumah_bersalin',
+                        name: 'rumah_bersalin'
+                    },
+                    {
+                        data: 'tempat_praktek',
+                        name: 'tempat_praktek'
+                    },
+                    {
+                        data: 'poskedes',
+                        name: 'poskedes'
+                    },
+                    {
+                        data: 'polindes',
+                        name: 'polindes'
+                    },
+                    {
+                        data: 'apotik',
+                        name: 'apotik'
+                    },
+                    {
+                        data: 'toko_obat',
+                        name: 'toko_obat'
+                    },
+                    {
+                        data: 'posyandu',
+                        name: 'posyandu'
+                    },
+                    {
+                        data: 'posbindu',
+                        name: 'posbindu'
+                    },
+                    {
+                        data: 'tempat_praktikdb',
+                        name: 'tempat_praktikdb'
+                    },
+                    {
+                        data: 'jamkes',
+                        name: 'jamkes'
+                    },
+                    {
+                        data: 'bayi',
+                        name: 'bayi'
+                    },
+
+                    {
+                        data: 'disabilitas',
+                        name: 'disabilitas'
+                    },
+                    {
+                        data: 'pendidikan_tertinggi',
+                        name: 'pendidikan_tertinggi'
+                    },
+                    {
+                        data: 'berapa_tahunp',
+                        name: 'berapa_tahunp'
+                    },
+                    {
+                        data: 'pendidikan_diikuti',
+                        name: 'pendidikan_diikuti'
+                    },
+                    {
+                        data: 'bahasa_Rumah',
+                        name: 'bahasa_Rumah'
+                    },
+                    {
+                        data: 'bahasa_Formal',
+                        name: 'bahasa_Formal'
+                    },
+                    {
+                        data: 'jumlah_kerja1',
+                        name: 'jumlah_kerja1'
+                    },
+                    {
+                        data: 'skamling1',
+                        name: 'skamling1'
+                    },
+                    {
+                        data: 'pesta_rakyat1',
+                        name: 'pesta_rakyat1'
+                    },
+                    {
+                        data: 'frekuensiml',
+                        name: 'frekuensiml'
+                    },
+                    {
+                        data: 'frekuensib',
+                        name: 'frekuensib'
+                    },
+                    {
+                        data: 'frekuensimn',
+                        name: 'frekuensimn'
+                    },
+                    {
+                        data: 'mendapatp1',
+                        name: 'mendapatp1'
+                    },
+                    {
+                        data: 'bagaiamanap',
+                        name: 'bagaiamanap'
+                    },
+
+                    {
+                        data: 'pernahmasukan',
+                        name: 'pernahmasukan'
+                    },
+                    {
+                        data: 'keterbukaands',
+                        name: 'keterbukaands'
+                    },
+                    {
+                        data: 'bencana1',
+                        name: 'bencana1'
+                    },
+                    {
+                        data: 'apakahb',
+                        name: 'apakahb'
+                    },
+                    {
+                        data: 'apakahd',
+                        name: 'apakahd'
+                    },
+                    {
+                        data: 'apakahp',
+                        name: 'apakahp'
+                    },
+                ],
+
             });
         });
     </script>

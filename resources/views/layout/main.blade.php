@@ -11,7 +11,7 @@
     <!-- Pignose Calender -->
     <link href="/assets/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
-    
+
     <link rel="stylesheet" href="/assets/plugins/chartist/css/chartist.min.css">
     <link rel="stylesheet" href="/assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
@@ -20,8 +20,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"> --}}
     <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
+
 
 
 </head>
@@ -55,7 +57,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a  href="{{ route('dashboard') }}">
+                <a href="{{ route('dashboard') }}">
                     <b class="logo-abbr"><img src="/assets/images/logositakro.png" alt=""> </b>
                     <span class="logo-compact"><img src="/assets/images/logositakro.png" alt=""></span>
                     <span class="brand-title">
@@ -82,9 +84,9 @@
                 </div>
                 <div class="header-left">
                     <div class="input-group icons">
-                        <span class="brand-title">                            
-                          <img src="/assets/images/logodesa.png" alt=""> 
-                        </span>                 
+                        <span class="brand-title">
+                            <img src="/assets/images/logodesa.png" alt="">
+                        </span>
                     </div>
                 </div>
                 <div class="header-right">
@@ -97,7 +99,8 @@
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <li><a href="{{ route('logout') }}"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                        <li><a href="{{ route('logout') }}"><i class="icon-key"></i>
+                                                <span>Logout</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -223,7 +226,7 @@
                             <li><a href="{{ route('rtlokasi.index') }}">Lokasi</a></li>
                             <li><a href="{{ route('rtpengurus.index') }}">Pengurus</a></li>
                             <li><a href="{{ route('rtlembaga_ekonomi.index') }}">Lembaga Ekonomi</a></li>
-                            <li><a  href="{{ route('rtindustri.index') }}">Industri</a></li>
+                            <li><a href="{{ route('rtindustri.index') }}">Industri</a></li>
                             <li><a href="{{ route('rtsare.index') }}">Sarana Ekonomi</a></li>
                             <li><a href="{{ route('rt_fasilitas_ekonomi.index') }}">Fasilitas Ekonomi</a></li>
                             <li><a href="{{ route('rtinfrastuktur.index') }}">Infrastuktur</a></li>
@@ -232,17 +235,17 @@
                             <li><a href="{{ route('rtmitigasib.index') }}">Mitigasi Bencana</a></li>
                             <li><a href="{{ route('rt_saranapendidikan.index') }}">Sarana pendidikan</a></li>
                             <li><a href="{{ route('rt_kesehatan.index') }}">Kesehatan</a></li>
-                            <li><a href="{{ route('rt_kejadianluarbiasa.index') }}">Kajian Luar biasa</a></li>
+                            {{-- <li><a href="{{ route('rt_kejadianluarbiasa.index') }}">Kajian Luar biasa</a></li>
                             <li><a href="{{ route('rt_agama.index') }}">Agama/Sosbud</a></li>
                             <li><a href="{{ route('rtlembaga_keagamaan.index') }}">Lembaga agama</a></li>
                             <li><a href="{{ route('rtlembaga_masyarakat.index') }}">Lembaga masyarakat</a></li>
                             <li><a href="{{ route('rt_keamanan.index') }}">Keamanan</a></li>
                             <li><a href="{{ route('rt_tkejahatan.index') }}">Tindak kejahatan</a></li>
                             <li><a href="{{ route('rt_kegiatanwarga.index') }}">KEGIATAN WARGA UNTUK MENJAGA KEAMANAN
-                                    LINGKUNGAN SELAMA SATU TAHUN TERAKHIR</a></li>
+                                    LINGKUNGAN SELAMA SATU TAHUN TERAKHIR</a></li> --}}
                         </ul>
                     </li>
-            
+
                 </ul>
                 </li>
                 </ul>
@@ -273,8 +276,8 @@
         ***********************************-->
     <div class="footer">
         <div class="copyright">
-            <p>Copyright &copy; Designed & Developed by <a href="https://wa.me/62811988274">Tim Smart Village Nasional 
-                    </a> 2023</p>
+            <p>Copyright &copy; Designed & Developed by <a href="https://wa.me/62811988274">Tim Smart Village Nasional
+                </a> 2023</p>
         </div>
     </div>
 
@@ -321,9 +324,17 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 
+  
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
 
-    
-    
+
+
+
 
 
     {{-- <script>
@@ -340,8 +351,8 @@
         document.addEventListener('mousemove', resetTimer);
         document.addEventListener('keypress', resetTimer);
     </script> --}}
-    
-    
+
+
 
 
 </body>
