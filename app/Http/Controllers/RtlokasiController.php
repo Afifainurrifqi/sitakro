@@ -42,141 +42,140 @@ class RtlokasiController extends Controller
                             <i class="fas fa-book"></i>
                         </a>
                            
-                           
                         </td>';
             })
 
-            ->addColumn('lokasi_rt_pulau', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->lokasi_rt_pulau : '';
-                return $nama_ketuart;
-            })
+            // ->addColumn('lokasi_rt_pulau', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->lokasi_rt_pulau : '';
+            //     return $nama_ketuart;
+            // })
 
-            ->addColumn('topo_terluas_rt', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->topo_terluas_rt : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('jumlah_warga_lereng', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_warga_lereng : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('penanaman_pohon_lahan_kritis', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->penanaman_pohon_lahan_kritis : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('pantai_garis_panjang', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->pantai_garis_panjang : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('pemanfaatan_laut_perangkap', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_perangkap : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('pemanfaatan_laut_budidaya', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_budidaya : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('pemanfaatan_laut_tambakg', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_tambakg : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('pemanfaatan_laut_bahari', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_bahari : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('pemanfaatan_laut_transport', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_transport : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('kondisi_mangrove', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->kondisi_mangrove : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('penanaman_mangrove', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->penanaman_mangrove : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('jumlah_warga_pesisir', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_warga_pesisir : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('jumlah_warga_atasair', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_warga_atasair : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('wilayah_desa_dalamhutan', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->wilayah_desa_dalamhutan : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('wilayah_desa_tepihutan', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->wilayah_desa_tepihutan : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('fungsihutan_kons', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->fungsihutan_kons : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('fungsihutan_lindung', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->fungsihutan_lindung : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('fungsihutan_produk', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->fungsihutan_produk : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('fungsihutan_hutandes', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->fungsihutan_hutandes : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('jumlahwarga_tinggal_dalamhutan', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->jumlahwarga_tinggal_dalamhutan : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('jumlahwarga_tinggal_sekitarhutan', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->jumlahwarga_tinggal_sekitarhutan : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('ketergantungan_hutan', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->ketergantungan_hutan : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('reboisasi', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->reboisasi : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('jumlah_produk_luardesa_masuk', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_produk_luardesa_masuk : '';
-                return $nama_ketuart;
-            })
-            ->addColumn('jumlah_produk_luardesa_keluar', function ($row) {
-                $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
-                $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_produk_luardesa_keluar : '';
-                return $nama_ketuart;
-            })
+            // ->addColumn('topo_terluas_rt', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->topo_terluas_rt : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('jumlah_warga_lereng', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_warga_lereng : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('penanaman_pohon_lahan_kritis', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->penanaman_pohon_lahan_kritis : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('pantai_garis_panjang', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->pantai_garis_panjang : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('pemanfaatan_laut_perangkap', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_perangkap : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('pemanfaatan_laut_budidaya', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_budidaya : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('pemanfaatan_laut_tambakg', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_tambakg : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('pemanfaatan_laut_bahari', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_bahari : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('pemanfaatan_laut_transport', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->pemanfaatan_laut_transport : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('kondisi_mangrove', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->kondisi_mangrove : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('penanaman_mangrove', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->penanaman_mangrove : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('jumlah_warga_pesisir', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_warga_pesisir : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('jumlah_warga_atasair', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_warga_atasair : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('wilayah_desa_dalamhutan', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->wilayah_desa_dalamhutan : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('wilayah_desa_tepihutan', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->wilayah_desa_tepihutan : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('fungsihutan_kons', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->fungsihutan_kons : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('fungsihutan_lindung', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->fungsihutan_lindung : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('fungsihutan_produk', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->fungsihutan_produk : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('fungsihutan_hutandes', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->fungsihutan_hutandes : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('jumlahwarga_tinggal_dalamhutan', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->jumlahwarga_tinggal_dalamhutan : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('jumlahwarga_tinggal_sekitarhutan', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->jumlahwarga_tinggal_sekitarhutan : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('ketergantungan_hutan', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->ketergantungan_hutan : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('reboisasi', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->reboisasi : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('jumlah_produk_luardesa_masuk', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_produk_luardesa_masuk : '';
+            //     return $nama_ketuart;
+            // })
+            // ->addColumn('jumlah_produk_luardesa_keluar', function ($row) {
+            //     $rtlokasi = rtlokasi::where('nik', $row->nik)->first();
+            //     $nama_ketuart = $rtlokasi ? $rtlokasi->jumlah_produk_luardesa_keluar : '';
+            //     return $nama_ketuart;
+            // })
 
 
             ->rawColumns([
