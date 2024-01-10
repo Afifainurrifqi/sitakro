@@ -87,13 +87,6 @@ class DatapendudukController extends Controller
         return Excel::download(new Exportdatapenduduk, "datapenduduk.xlsx");
     }
 
-    public function export_individu()
-    {
-
-        return Excel::download(new data_individu, "dataindividu.xlsx");
-
-    }
-
     public function import_excel(Request $request)
     {
         $this->validate($request, [
