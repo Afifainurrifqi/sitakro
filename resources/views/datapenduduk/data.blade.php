@@ -23,8 +23,6 @@
                                 onclick="window.location='{{ url('datapenduduk/add') }}'">Tambah penduduk<span
                                     class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                             </button>
-                            <a href="{{ url('datapenduduk/export/datapenduduk') }}"
-                                class="btn btn-primary btn-sm">Export</a>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#importModal">Impor Data</button> <br><br>
                         </div>
