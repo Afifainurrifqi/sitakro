@@ -9,11 +9,11 @@ use App\Models\status;
 use App\Models\goldar;
 use App\Models\datapenduduk;
 use Illuminate\Http\Request;
-use App\Models\rtlokasi;
 use App\Http\Requests\StorertlokasiRequest;
 use App\Http\Requests\UpdatertlokasiRequest;
-use App\Models\Datart;
 use Yajra\DataTables\DataTables;
+use App\Models\Datart;
+use App\Models\rtlokasi;
 
 class RtlokasiController extends Controller
 {
@@ -178,7 +178,12 @@ class RtlokasiController extends Controller
             })
 
 
-            ->make(true);
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
     }
 
     /**

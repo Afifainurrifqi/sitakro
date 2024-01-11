@@ -124,6 +124,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('/aksessarpras/json', [AksessarprasController::class, 'json']);
         Route::get('/laink/json', [LainkController::class, 'json']);
         Route::get('/rtlokasi/json', [RtlokasiController::class, 'json'])->name('rtlokasi.json');
+
         Route::get('/rtpengurus/json', [RtpuengurusController::class, 'json']);
         Route::get('/rtlembaga_ekonomi/json', [RtlembagaEkonomiController::class, 'json']);
         Route::get('/datart/json', [DataRtController::class, 'json']);
