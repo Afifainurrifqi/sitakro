@@ -178,11 +178,6 @@ class RtlokasiController extends Controller
             })
 
 
-            ->rawColumns([
-                'action',
-
-
-            ])
             ->make(true);
     }
 
