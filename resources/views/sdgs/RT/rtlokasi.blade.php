@@ -18,7 +18,7 @@
                             <h2 class="card-title">LOKASI</h2>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered" id="tablertlokasi">
+                            <table class="table table-striped table-bordered" id="tabledatartlokasi">
                                 <thead>
                                     <tr>
                                         <th rowspan="2">Action</th>
@@ -80,13 +80,11 @@
     <script>
         var $ = jQuery.noConflict();
         $(function() {
-            $('#tablertlokasi').DataTable({
+            $('#tabledatartlokasi').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: {
-                    url: "{{ route('rtlokasi.json') }}",
-                },
+                ajax: '/rtlokasi/json',
                 columns: [{
                         data: 'action',
                         name: 'action',

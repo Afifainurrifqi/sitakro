@@ -183,7 +183,7 @@ class RtlokasiController extends Controller
 
 
             ])
-            ->toJson();
+            ->make(true);
     }
 
     /**
