@@ -85,9 +85,8 @@
                 serverSide: true,
                 scrollX: true,
                 ajax: {
-                url: "{{ route('rtlokasi.json') }}",
-                dataSrc: 'data'
-            },
+                    url: "{{ route('rtlokasi.json') }}",
+                },
                 columns: [{
                         data: 'action',
                         name: 'action',

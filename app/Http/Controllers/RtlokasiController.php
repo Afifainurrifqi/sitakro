@@ -28,7 +28,7 @@ class RtlokasiController extends Controller
         return view('sdgs.RT.rtlokasi');
     }
 
-    public function json()
+    public function json(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
 
