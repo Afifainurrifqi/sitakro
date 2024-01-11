@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Models\rt_kejadianluarbiasa;
 use App\Http\Requests\Storert_kejadianluarbiasaRequest;
 use App\Http\Requests\Updatert_kejadianluarbiasaRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtKejadianluarbiasaController extends Controller
 {
@@ -23,24 +25,7 @@ class RtKejadianluarbiasaController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_kejadianluarbiasa = rt_kejadianluarbiasa::all();
-        $rt_kejadianluarbiasaSudahProses = $rt_kejadianluarbiasa->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-        $persentaseProses = ($rt_kejadianluarbiasaSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rt_kejadianluarbiasa', compact('rt_kejadianluarbiasa', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.RT.rt_kejadianluarbiasa');
     }
 
     /**
@@ -48,17 +33,44 @@ class RtKejadianluarbiasaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                             <a href="' . route('rt_kejadianluarbiasa.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                 <i class="fas fa-edit"></i>
+                             </a>
+                             <a href="' . route('rt_kejadianluarbiasa.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                             <i class="fas fa-book"></i>
+                         </a>
+                            
+                         </td>';
+            })
+
+            ->addColumn('nama_muntaber', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                $nama_ketuart = $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_muntaber : '';
+                return $nama_ketuart;
+            })
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.editrt_kejadianluarbiasa', compact('rt_kejadianluarbiasa','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.editrt_kejadianluarbiasa', compact('rt_kejadianluarbiasa', 'datart'));
     }
 
     /**
@@ -68,12 +80,17 @@ class RtKejadianluarbiasaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Storert_kejadianluarbiasaRequest $request)
-    {   
-        $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $request->valNIK)->first();
-        if ($rt_kejadianluarbiasa == NULL ) {
+    {
+        $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $request->valnik)->first();
+        if ($rt_kejadianluarbiasa == NULL) {
             $rt_kejadianluarbiasa = new rt_kejadianluarbiasa();
         }
-        $rt_kejadianluarbiasa->nik = $request->valNIK;   
+        $rt_kejadianluarbiasa->nik = $request->valnik;
+        $rt_kejadianluarbiasa->nama_ketuart = $request->valnama_ketuart;
+        $rt_kejadianluarbiasa->alamat = $request->valalamat;
+        $rt_kejadianluarbiasa->rt = $request->valrt;
+        $rt_kejadianluarbiasa->rw = $request->valrw;
+        $rt_kejadianluarbiasa->nohp = $request->valnohp;
         $rt_kejadianluarbiasa->nama_muntaber = $request->valnama_muntaber;
         $rt_kejadianluarbiasa->jp_muntaber = $request->valjp_muntaber;
         $rt_kejadianluarbiasa->jm_muntaber = $request->valjm_muntaber;
@@ -115,7 +132,7 @@ class RtKejadianluarbiasaController extends Controller
         $rt_kejadianluarbiasa->jm_lainnya = $request->valjm_lainnya;
 
         $rt_kejadianluarbiasa->save();
-        return redirect()->route('rt_kejadianluarbiasa.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rt_kejadianluarbiasa.show', ['show' => $request->valnik]);
     }
 
     /**
@@ -126,15 +143,10 @@ class RtKejadianluarbiasaController extends Controller
      */
     public function show(rt_kejadianluarbiasa $rt_kejadianluarbiasa, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $nik)->first();
-        $agama   = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.showrt_kejadianluarbiasa', compact('rt_kejadianluarbiasa','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.showrt_kejadianluarbiasa', compact('rt_kejadianluarbiasa', 'datart'));
     }
     /**
      * Show the form for editing the specified resource.

@@ -235,14 +235,14 @@
                             <li><a href="{{ route('rtmitigasib.index') }}">Mitigasi Bencana</a></li>
                             <li><a href="{{ route('rt_saranapendidikan.index') }}">Sarana pendidikan</a></li>
                             <li><a href="{{ route('rt_kesehatan.index') }}">Kesehatan</a></li>
-                            {{-- <li><a href="{{ route('rt_kejadianluarbiasa.index') }}">Kajian Luar biasa</a></li>
+                            <li><a href="{{ route('rt_kejadianluarbiasa.index') }}">Kajian Luar biasa</a></li>
                             <li><a href="{{ route('rt_agama.index') }}">Agama/Sosbud</a></li>
                             <li><a href="{{ route('rtlembaga_keagamaan.index') }}">Lembaga agama</a></li>
                             <li><a href="{{ route('rtlembaga_masyarakat.index') }}">Lembaga masyarakat</a></li>
                             <li><a href="{{ route('rt_keamanan.index') }}">Keamanan</a></li>
                             <li><a href="{{ route('rt_tkejahatan.index') }}">Tindak kejahatan</a></li>
                             <li><a href="{{ route('rt_kegiatanwarga.index') }}">KEGIATAN WARGA UNTUK MENJAGA KEAMANAN
-                                    LINGKUNGAN SELAMA SATU TAHUN TERAKHIR</a></li> --}}
+                                    LINGKUNGAN SELAMA SATU TAHUN TERAKHIR</a></li>
                         </ul>
                     </li>
 

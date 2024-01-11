@@ -110,13 +110,13 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('datapenduduk/json', [DatapendudukController::class, 'json']);
         Route::get('datadasawisma/datadw/json', [DatadasawismaController::class, 'json']);
         Route::get('/datam/json', [DatamutasiController::class, 'json']);
-        Route::get('/sdgs/individu/dataindividu/json', [DataindividuController::class, 'json']);
-        Route::get('/sdgs/individu/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);
-        Route::get('/sdgs/individu/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);
-        Route::get('/sdgs/individu/datapenghasilan/json', [PenghasilanController::class, 'json']);
-        Route::get('/sdgs/individu/datakesehatan/json', [DatakesehatanController::class, 'json']);
-        Route::get('/sdgs/individu/datadisabilitas/json', [JenisdisabilitasController::class, 'json']);
-        Route::get('/sdgs/individu/datasdgspendidikan/json', [SdgspendidikanController::class, 'json']);
+        Route::get('/dataindividu/json', [DataindividuController::class, 'json']);
+        Route::get('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);
+        Route::get('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);
+        Route::get('/datapenghasilan/json', [PenghasilanController::class, 'json']);
+        Route::get('/datakesehatan/json', [DatakesehatanController::class, 'json']);
+        Route::get('/datadisabilitas/json', [JenisdisabilitasController::class, 'json']);
+        Route::get('/datasdgspendidikan/json', [SdgspendidikanController::class, 'json']);
         Route::get('/lokasidanpemukiman/json', [LokasipemukimanController::class, 'json']);
         Route::get('/aksespendidikan/json', [AksesPendidikanController::class, 'json']);
         Route::get('/akseskesehatan/json', [AkseskesehatanController::class, 'json']);
@@ -136,7 +136,8 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('/rtmitigasib/json', [RtMitigasibController::class, 'json']);
         Route::get('/rt_saranapendidikan/json', [RtSaranapendidikanController::class, 'json']);
         Route::get('/rt_kesehatan/json', [RtKesehatanController::class, 'json']);
-
+        Route::get('/rt_kejadianluarbiasa/json', [RtKejadianluarbiasaController::class, 'json']);
+        
 
 
 
