@@ -56,7 +56,7 @@
             $('#tabledatadisabilitas').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollX: true,
+        
                 ajax: '/datadisabilitas/json',
                 columns: [{
                         data: 'action',
