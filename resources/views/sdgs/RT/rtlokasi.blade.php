@@ -84,7 +84,10 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: "{{ route('rtlokasi.json') }}",
+                ajax: {
+                    url: "{{ route('rtlokasi.json') }}",
+                    dataSrc: 'data'
+                },
                 columns: [{
                         data: 'action',
                         name: 'action',
@@ -223,7 +226,8 @@
                     },
 
 
-                ]
+                ],
+                caseInsensitive: true,
 
             });
         });
