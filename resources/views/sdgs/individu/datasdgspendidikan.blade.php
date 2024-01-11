@@ -52,11 +52,16 @@
                                 </thead>
                                 <tbody>
 
-
-
-
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">PENDIDIKAN TERTINGGI</h4>
+                            <canvas id="pendidikanChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -64,6 +69,8 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/morris.js/0.5.1/morris.min.js"></script>
     <script>
         var $ = jQuery.noConflict();
         $(function() {
@@ -182,5 +189,53 @@
                 ]
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+                    var ctxPekerjaan = document.getElementById('pendidikanChart').getContext('2d');
+                    var pendidikanLabels = @json($pendidikanLabels);
+                    var pendidikanCounts = @json($pendidikanCounts);
+
+                    var barChart = new Chart(ctxPekerjaan, {
+                        type: 'pie', // Change the chart type to 'bar'
+                        data: {
+                            labels: pendidikanLabels,
+                            datasets: [{
+                                data: pendidikanCounts,
+                                backgroundColor: [
+                                    'rgba(75, 192, 192, 0.7)',
+                                    'rgba(54, 162, 235, 0.7)',
+                                    // ... add other colors if needed
+                                ],
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                x: [{
+                                    gridLines: {
+                                        display: false,
+                                    }
+                                }],
+                                y: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                    },
+                                    gridLines: {
+                                        display: false,
+                                    }
+                                }]
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        var label = data.labels[tooltipItem.index];
+                                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
+                                            .index];
+                                        return label + ': ' + value;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
     </script>
 @endsection

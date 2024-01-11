@@ -23,7 +23,12 @@ class SdgspendidikanController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.individu.datasdgspendidikan');
+        $dataPendidikan = sdgspendidikan::all();
+
+        $pendidikanLabels = $dataPendidikan->pluck('pendidikan_tertinggi')->toArray();
+        $pendidikanCounts = $dataPendidikan->countBy('pendidikan_tertinggi')->values()->toArray();
+
+        return view('sdgs.individu.datasdgspendidikan', compact('dataPendidikan', 'pendidikanLabels', 'pendidikanCounts'));
     }
 
 
@@ -188,7 +193,6 @@ class SdgspendidikanController extends Controller
                 'apakahp',
             ])
             ->toJson();
-            
     }
 
     /**

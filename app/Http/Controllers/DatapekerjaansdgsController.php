@@ -23,8 +23,12 @@ class DatapekerjaansdgsController extends Controller
      */
     public function index(Request $request)
     {
+        $dataPekerjaan = datapekerjaansdgs::all();
+
+        $pekerjaanLabels = $dataPekerjaan->pluck('pekerjaan_utama')->toArray();
+        $pekerjaanCounts = $dataPekerjaan->countBy('pekerjaan_utama')->values()->toArray();
        
-        return view('sdgs.individu.datasdgspekerjaan');
+        return view('sdgs.individu.datasdgspekerjaan' , compact('dataPekerjaan', 'pekerjaanLabels', 'pekerjaanCounts' ));
     }
 
     /**

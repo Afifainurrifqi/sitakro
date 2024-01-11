@@ -43,11 +43,20 @@
                     </div>
 
                 </div>
-
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">PERKEJAAN UTAMA</h4>
+                            <canvas id="pekerjaanChart"></canvas>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+            <script src="https://cdn.jsdelivr.net/morris.js/0.5.1/morris.min.js"></script>
             <script>
                 var $ = jQuery.noConflict();
                 $(function() {
@@ -102,6 +111,54 @@
                             },
 
                         ]
+                    });
+                });
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    var ctxPekerjaan = document.getElementById('pekerjaanChart').getContext('2d');
+                    var pekerjaanLabels = @json($pekerjaanLabels);
+                    var pekerjaanCounts = @json($pekerjaanCounts);
+
+                    var barChart = new Chart(ctxPekerjaan, {
+                        type: 'pie', // Change the chart type to 'bar'
+                        data: {
+                            labels: pekerjaanLabels,
+                            datasets: [{
+                                data: pekerjaanCounts,
+                                backgroundColor: [
+                                    'rgba(75, 192, 192, 0.7)',
+                                    'rgba(54, 162, 235, 0.7)',
+                                    // ... add other colors if needed
+                                ],
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                x: [{
+                                    gridLines: {
+                                        display: false,
+                                    }
+                                }],
+                                y: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                    },
+                                    gridLines: {
+                                        display: false,
+                                    }
+                                }]
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        var label = data.labels[tooltipItem.index];
+                                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
+                                            .index];
+                                        return label + ': ' + value;
+                                    }
+                                }
+                            }
+                        }
                     });
                 });
             </script>
