@@ -78,9 +78,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
-        var $ = jQuery.noConflict();
-        $(function() {
-            $('#tabledatartlokasi').DataTable({
+        $(document).ready(function() {
+            var table = $('#tabledatartlokasi').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
