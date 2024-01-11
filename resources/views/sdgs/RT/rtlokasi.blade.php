@@ -75,16 +75,16 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var table = $('#tabledatartlokasi').DataTable({
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tabledatartlokasi').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: "{{ route('rtlokasi.json') }}",
+                ajax: '/rtlokasi/json',
                 columns: [{
                         data: 'action',
                         name: 'action',
