@@ -84,7 +84,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/sdgs/rt/rtlokasi/json',
+                ajax: '/rtlokasi/json',
                 columns: [{
                         data: 'action',
                         name: 'action',
