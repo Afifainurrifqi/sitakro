@@ -20,6 +20,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatartlokasi">
                                 <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
@@ -76,7 +77,7 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         var $ = jQuery.noConflict();
         $(function() {
@@ -84,7 +85,13 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '{!! route('rtlokasi.json') !!}',
+                ajax: {
+                url: '{!! route('rtlokasi.json') !!}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            },
                 columns: [{
                         data: 'action',
                         name: 'action',

@@ -9,11 +9,11 @@ use App\Models\status;
 use App\Models\goldar;
 use App\Models\datapenduduk;
 use Illuminate\Http\Request;
+use App\Models\rtlokasi;
 use App\Http\Requests\StorertlokasiRequest;
 use App\Http\Requests\UpdatertlokasiRequest;
-use Yajra\DataTables\DataTables;
 use App\Models\Datart;
-use App\Models\rtlokasi;
+use Yajra\DataTables\DataTables;
 
 class RtlokasiController extends Controller
 {
@@ -195,7 +195,7 @@ class RtlokasiController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rt_lokasi = rtlokasi::where('nik', $nik)->first();
-       
+
 
         return view('sdgs.RT.editrtlokasi', compact('rt_lokasi', 'datart'));
     }
@@ -260,7 +260,7 @@ class RtlokasiController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rt_lokasi = rtlokasi::where('nik', $nik)->first();
-       
+
 
         return view('sdgs.RT.showrtlokasi', compact('rt_lokasi', 'datart'));
     }
