@@ -107,37 +107,35 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::get('datadasawisma/datadw', [DatadasawismaController::class, 'index'])->name('dasawisma.index');
 
         // JSON DATATABLES
-        Route::get('datapenduduk/json', [DatapendudukController::class, 'json']);
-        Route::get('datadasawisma/datadw/json', [DatadasawismaController::class, 'json']);
-        Route::get('datam/json', [DatamutasiController::class, 'json']);
-        Route::get('/dataindividu/json', [DataindividuController::class, 'json']);
-        Route::get('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);
-        Route::get('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json']);
-        Route::get('/datapenghasilan/json', [PenghasilanController::class, 'json']);
-        Route::get('/datakesehatan/json', [DatakesehatanController::class, 'json']);
-        Route::get('/datadisabilitas/json', [JenisdisabilitasController::class, 'json']);
-        Route::get('/datasdgspendidikan/json', [SdgspendidikanController::class, 'json']);
-        Route::get('/lokasidanpemukiman/json', [LokasipemukimanController::class, 'json']);
-        Route::get('/aksespendidikan/json', [AksesPendidikanController::class, 'json']);
-        Route::get('/akseskesehatan/json', [AkseskesehatanController::class, 'json']);
-        Route::get('/aksestenagakerja/json', [AksestenagakerjaController::class, 'json']);
-        Route::get('/aksessarpras/json', [AksessarprasController::class, 'json']);
-        Route::get('/laink/json', [LainkController::class, 'json']);
-        Route::post('/rtlokasi/json', [RtlokasiController::class, 'json'])->name('rtlokasi.json');
-
-        Route::get('/rtpengurus/json', [RtpuengurusController::class, 'json']);
-        Route::get('/rtlembaga_ekonomi/json', [RtlembagaEkonomiController::class, 'json']);
-        Route::get('/datart/json', [DataRtController::class, 'json']);
-        Route::get('/rtindustri/json', [RtindustriController::class, 'json']);
-        Route::get('/rtsare/json', [RtSaranaEkonomiController::class, 'json']);
-        Route::get('/rt_fasilitas_ekonomi/json', [RtFasilitasEkonomiController::class, 'json']);
-        Route::get('/rtinfrastuktur/json', [RtInfrastukturController::class, 'json']);
-        Route::get('/rtlingkungan/json', [RtLingkunganController::class, 'json']);
-        Route::get('/rtbencana/json', [RtBencanaController::class, 'json']);
-        Route::get('/rtmitigasib/json', [RtMitigasibController::class, 'json']);
-        Route::get('/rt_saranapendidikan/json', [RtSaranapendidikanController::class, 'json']);
-        Route::get('/rt_kesehatan/json', [RtKesehatanController::class, 'json']);
-        Route::get('/rt_kejadianluarbiasa/json', [RtKejadianluarbiasaController::class, 'json']);
+        Route::post('datapenduduk/json', [DatapendudukController::class, 'json'])->name('datapenduduk.json');
+        Route::post('datadasawisma/datadw/json', [DatadasawismaController::class, 'json'])->name('datadw.json');
+        Route::post('datam/json', [DatamutasiController::class, 'json'])->name('datam.json');
+        Route::post('/dataindividu/json', [DataindividuController::class, 'json'])->name('dataindividu.json');
+        Route::post('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json'])->name('datasdgspekerjaan.json');
+        Route::post('/datapenghasilan/json', [PenghasilanController::class, 'json'])->name('datapenghasilan.json');
+        Route::post('/datakesehatan/json', [DatakesehatanController::class, 'json'])->name('datakesehatan.json');
+        Route::post('/datadisabilitas/json', [JenisdisabilitasController::class, 'json'])->name('datadisabilitas.json');
+        Route::post('/datasdgspendidikan/json', [SdgspendidikanController::class, 'json'])->name('datasdgspendidikan.json');
+        Route::post('/lokasidanpemukiman/json', [LokasipemukimanController::class, 'json'])->name('lokasidanpemukiman.json');
+        Route::post('/aksespendidikan/json', [AksesPendidikanController::class, 'json'])->name('aksespendidikan.json');
+        Route::post('/akseskesehatan/json', [AkseskesehatanController::class, 'json'])->name('akseskesehatan.json');
+        Route::post('/aksestenagakerja/json', [AksestenagakerjaController::class, 'json'])->name('aksestenagakerja.json');
+        Route::post('/aksessarpras/json', [AksessarprasController::class, 'json'])->name('aksessarpras.json');
+        Route::post('/laink/json', [LainkController::class, 'json'])->name('laink.json');
+        Route::post('/rtlokasi/json', [RtlokasiController::class, 'json'])->name('rtlokasi.json')->name('rtlokasi.json');
+        Route::post('/rtpengurus/json', [RtpuengurusController::class, 'json'])->name('rtpengurus.json');
+        Route::post('/rtlembaga_ekonomi/json', [RtlembagaEkonomiController::class, 'json'])->name('rtlembaga_ekonomi.json');
+        Route::post('/datart/json', [DataRtController::class, 'json'])->name('datart.json');
+        Route::post('/rtindustri/json', [RtindustriController::class, 'json'])->name('rtindustri.json');
+        Route::post('/rtsare/json', [RtSaranaEkonomiController::class, 'json'])->name('rtsare.json');
+        Route::post('/rt_fasilitas_ekonomi/json', [RtFasilitasEkonomiController::class, 'json'])->name('rt_fasilitas_ekonomi.json');
+        Route::post('/rtinfrastuktur/json', [RtInfrastukturController::class, 'json'])->name('rtinfrastuktur.json');
+        Route::post('/rtlingkungan/json', [RtLingkunganController::class, 'json'])->name('rtlingkungan.json');
+        Route::post('/rtbencana/json', [RtBencanaController::class, 'json'])->name('rtbencana.json');
+        Route::post('/rtmitigasib/json', [RtMitigasibController::class, 'json'])->name('rtmitigasib.json');
+        Route::post('/rt_saranapendidikan/json', [RtSaranapendidikanController::class, 'json'])->name('rt_saranapendidikan.json');
+        Route::post('/rt_kesehatan/json', [RtKesehatanController::class, 'json'])->name('rt_kesehatan.json');
+        Route::post('/rt_kejadianluarbiasa/json', [RtKejadianluarbiasaController::class, 'json'])->name('rt_kejadianluarbiasa.json');
         
 
 

@@ -18,6 +18,7 @@
                         </div>
                         <table class="table table-striped table-bordered zero-configuration" id="tabledatapenghasilan">
                             <thead>
+                                <meta name="csrf-token" content="{{ csrf_token() }}">
                                 <tr>
                                     <th>Action</th>
                                     <th>No</th>
@@ -62,8 +63,11 @@
                 serverSide: true,
                 scrollX: true,
                 ajax: {
-                    url: '/datapenghasilan/json',
-                    type: 'GET',
+                    url: '{!! route('datapenghasilan.json') !!}',
+                    type: 'POST',
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                     dataType: 'json',
                     dataSrc: function(data) {
                         // Process data for Morris Bar Chart

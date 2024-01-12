@@ -21,8 +21,10 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration" id="tabledataindividu">
                                 <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <!-- DATA INDIVIDU -->
                                     <tr>
+                                         <meta name="csrf-token" content="{{ csrf_token() }}">
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
                                         <th rowspan="2">KK</th>
@@ -140,7 +142,13 @@
                 serverSide: true,
                 dom: 'Bfrtip',
                 scrollX: true,
-                ajax: '/dataindividu/json',
+                ajax: {
+                url: '{!! route('dataindividu.json') !!}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            },
                 "buttons": [{
                     "extend": 'excel',
                     "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',

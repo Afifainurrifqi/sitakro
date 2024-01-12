@@ -16,6 +16,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatadw">
                                 <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th>action</th>
                                         <th>Status</th>
@@ -45,10 +46,6 @@
                                 </thead>
                                 <tbody>
     
-                                 
-                                    <!-- Modal Import -->
-    
-    
                                 </tbody>
                             </table>
                         </div>
@@ -70,7 +67,13 @@
                 serverSide: true,
                 scrollX: true,
                 
-                ajax: 'datadw/json',
+                ajax: {
+                url: '{!! route('datadw.json') !!}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            },
                 columns: [
                     {data: 'action', name: 'action'},
                     {data: 'statusdw', name: 'statusdw'},

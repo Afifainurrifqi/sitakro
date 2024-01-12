@@ -23,6 +23,7 @@
                             id="tabledatamutasi">
                                 <thead>
                                     <tr>
+                                        <meta name="csrf-token" content="{{ csrf_token() }}">
                                         {{-- <th>Action</th> --}}
                                         <th>No</th>
                                         <th>No KK</th>
@@ -106,7 +107,13 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/datam/json',
+                ajax: {
+                url: '{!! route('datam.json') !!}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            },
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'nokk', name: 'nokk'}, // Use dot notation to access related data

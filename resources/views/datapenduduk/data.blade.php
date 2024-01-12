@@ -30,7 +30,7 @@
                             <table class="table table-striped table-bordered zero-configuration" id="tabledatapenduduk">
 
                                 <thead>
-
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th>Action</th>
                                         <th>No</th>
@@ -117,7 +117,13 @@
                 serverSide: true,
                 scrollX: true,
                 dom: 'Bfrtip',
-                ajax: 'datapenduduk/json',
+                ajax: {
+                url: '{!! route('datapenduduk.json') !!}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+            },
                 "buttons": [{
                     "extend": 'excel',
                     "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
