@@ -223,7 +223,7 @@
                     },
 
 
-                ]
+                ],
                 "error": function(xhr, error, thrown) {
                     console.log(xhr.responseText);
                 }
