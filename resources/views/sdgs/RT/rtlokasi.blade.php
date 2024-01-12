@@ -84,7 +84,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/rtlokasi/json',
+                ajax: '{{ url("/rtlokasi/json") }}',
                 columns: [{
                         data: 'action',
                         name: 'action',
