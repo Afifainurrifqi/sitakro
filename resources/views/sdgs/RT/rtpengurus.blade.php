@@ -16,11 +16,12 @@
                                 </div>
                             @endif
                             <h2 class="card-title">PENGURUS</h2>
-                            
+
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatartpengurus">
                                 <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
@@ -102,7 +103,13 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/rtpengurus/json',
+                ajax: {
+                    url: '{!! route('rtpengurus.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                },
                 columns: [{
                         data: 'action',
                         name: 'action'

@@ -122,7 +122,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::post('/aksestenagakerja/json', [AksestenagakerjaController::class, 'json'])->name('aksestenagakerja.json');
         Route::post('/aksessarpras/json', [AksessarprasController::class, 'json'])->name('aksessarpras.json');
         Route::post('/laink/json', [LainkController::class, 'json'])->name('laink.json');
-        Route::post('/rtlokasi/json', [RtlokasiController::class, 'json'])->name('rtlokasi.json')->name('rtlokasi.json');
+        Route::post('/rtlokasi/json', [RtlokasiController::class, 'json'])->name('rtlokasi.json');
         Route::post('/rtpengurus/json', [RtpuengurusController::class, 'json'])->name('rtpengurus.json');
         Route::post('/rtlembaga_ekonomi/json', [RtlembagaEkonomiController::class, 'json'])->name('rtlembaga_ekonomi.json');
         Route::post('/datart/json', [DataRtController::class, 'json'])->name('datart.json');
@@ -136,7 +136,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::post('/rt_saranapendidikan/json', [RtSaranapendidikanController::class, 'json'])->name('rt_saranapendidikan.json');
         Route::post('/rt_kesehatan/json', [RtKesehatanController::class, 'json'])->name('rt_kesehatan.json');
         Route::post('/rt_kejadianluarbiasa/json', [RtKejadianluarbiasaController::class, 'json'])->name('rt_kejadianluarbiasa.json');
-        
+        Route::post('/rt_agama/json', [RtAgamaController::class, 'json'])->name('rt_agama.json'); 
 
 
 

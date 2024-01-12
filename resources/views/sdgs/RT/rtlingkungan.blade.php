@@ -22,6 +22,7 @@
                             <table class="table table-striped table-bordered" id="tabledatartlingkungan">
                                 <thead>
                                     <tr>
+                                        <meta name="csrf-token" content="{{ csrf_token() }}">
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
                                         <th rowspan="2">NIK</th>
@@ -93,7 +94,13 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/rtlingkungan/json',
+                ajax: {
+                    url: '{!! route('rtlingkungan.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                },
                 columns: [{
                         data: 'action',
                         name: 'action',

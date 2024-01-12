@@ -21,6 +21,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tablert_fasilitas_ekonomi">
                                 <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th>Action</th>
                                         <th>No</th>
@@ -57,7 +58,13 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/rt_fasilitas_ekonomi/json',
+                ajax: {
+                    url: '{!! route('rt_fasilitas_ekonomi.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                },
                 columns: [{
                         data: 'action',
                         name: 'action',

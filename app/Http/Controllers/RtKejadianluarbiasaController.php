@@ -52,11 +52,185 @@ class RtKejadianluarbiasaController extends Controller
                          </td>';
             })
 
+           
             ->addColumn('nama_muntaber', function ($row) {
                 $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
-                $nama_ketuart = $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_muntaber : '';
-                return $nama_ketuart;
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_muntaber : '';
             })
+            ->addColumn('jp_muntaber', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_muntaber : '';
+            })
+            ->addColumn('jm_muntaber', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_muntaber : '';
+            })
+            ->addColumn('nama_dbd', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_dbd : '';
+            })
+            ->addColumn('jp_dbd', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_dbd : '';
+            })
+            ->addColumn('jm_dbd', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_dbd : '';
+            })
+            ->addColumn('nama_campak', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_campak : '';
+            })
+            ->addColumn('jp_campak', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_campak : '';
+            })
+            ->addColumn('jm_campak', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_campak : '';
+            })
+            ->addColumn('nama_malaria', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_malaria : '';
+            })
+            ->addColumn('jp_malaria', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_malaria : '';
+            })
+            ->addColumn('jm_malaria', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_malaria : '';
+            })
+            ->addColumn('nama_fluburung', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_fluburung : '';
+            })
+            ->addColumn('jp_fluburung', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_fluburung : '';
+            })
+            ->addColumn('jm_fluburung', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_fluburung : '';
+            })
+            ->addColumn('nama_covid19', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_covid19 : '';
+            })
+            ->addColumn('jp_covid19', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_covid19 : '';
+            })
+            ->addColumn('jm_covid19', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_covid19 : '';
+            })
+            ->addColumn('nama_hepatitisb', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_hepatitisb : '';
+            })
+            ->addColumn('jp_hepatitisb', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_hepatitisb : '';
+            })
+            ->addColumn('jm_hepatitisb', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_hepatitisb : '';
+            })
+            ->addColumn('nama_hepatitise', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_hepatitise : '';
+            })
+            ->addColumn('jp_hepatitise', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_hepatitise : '';
+            })
+            ->addColumn('jm_hepatitise', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_hepatitise : '';
+            })
+            ->addColumn('nama_dipteri', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_dipteri : '';
+            })
+            ->addColumn('jp_dipteri', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_dipteri : '';
+            })
+            ->addColumn('jm_dipteri', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_dipteri : '';
+            })
+            ->addColumn('nama_chikung', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_chikung : '';
+            })
+            ->addColumn('jp_chikung', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_chikung : '';
+            })
+            ->addColumn('jm_chikung', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_chikung : '';
+            })
+
+            ->addColumn('nama_leptos', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_leptos : '';
+            })
+            ->addColumn('jp_leptos', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_leptos : '';
+            })
+            ->addColumn('jm_leptos', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_leptos : '';
+            })
+            
+
+            ->addColumn('nama_kolera', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_kolera : '';
+            })
+            ->addColumn('jp_kolera', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_kolera : '';
+            })
+            ->addColumn('jm_kolera', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_kolera : '';
+            })
+            
+
+            ->addColumn('nama_giziburuk', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_giziburuk : '';
+            })
+            ->addColumn('jp_giziburuk', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_giziburuk : '';
+            })
+            ->addColumn('jm_giziburuk', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_giziburuk : '';
+            })
+
+
+            ->addColumn('nama_lainnya', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->nama_lainnya : '';
+            })
+            ->addColumn('jp_lainnya', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jp_lainnya : '';
+            })
+            ->addColumn('jm_lainnya', function ($row) {
+                $rt_kejadianluarbiasa = rt_kejadianluarbiasa::where('nik', $row->nik)->first();
+                return $rt_kejadianluarbiasa ? $rt_kejadianluarbiasa->jm_lainnya : '';
+            })
+            
+            
+                
 
             ->rawColumns([
                 'action',

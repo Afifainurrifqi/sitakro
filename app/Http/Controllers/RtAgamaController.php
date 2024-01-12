@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\rt_agama;
 use App\Http\Requests\Storert_agamaRequest;
 use App\Http\Requests\Updatert_agamaRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtAgamaController extends Controller
 {
@@ -22,24 +24,34 @@ class RtAgamaController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+        return view('sdgs.RT.rt_agama');
+    }
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_agama = rt_agama::all();
-        $rt_agamaSudahProses = $rt_agama->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-        $persentaseProses = ($rt_agamaSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rt_agama', compact('rt_agama', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rt_agama.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rt_agama.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+                           
+                        </td>';
+            })
+
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
     }
 
     /**
@@ -49,15 +61,11 @@ class RtAgamaController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_agama = rt_agama::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.editrt_agama', compact('rt_agama','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+
+        return view('sdgs.RT.editrt_agama', compact('rt_agama', 'datart'));
     }
 
     /**
@@ -68,11 +76,16 @@ class RtAgamaController extends Controller
      */
     public function store(Storert_agamaRequest $request)
     {
-        $rt_agama = rt_agama::where('nik', $request->valNIK)->first();
-        if ($rt_agama == NULL ) {
+        $rt_agama = rt_agama::where('nik', $request->valnik)->first();
+        if ($rt_agama == NULL) {
             $rt_agama = new rt_agama();
         }
-        $rt_agama->nik = $request->valNIK;  
+        $rt_agama->nik = $request->valnik;
+        $rt_agama->nama_ketuart = $request->valnama_ketuart;
+        $rt_agama->alamat = $request->valalamat;
+        $rt_agama->rt = $request->valrt;
+        $rt_agama->rw = $request->valrw;
+        $rt_agama->nohp = $request->valnohp;
         $rt_agama->jumlahwarga_jamkes = $request->valjumlahwarga_jamkes;
         $rt_agama->jumlahwarga_jamketerangan = $request->valjumlahwarga_jamketerangan;
         $rt_agama->jumlahtempat_masjid = $request->valjumlahtempat_masjid;
@@ -99,7 +112,7 @@ class RtAgamaController extends Controller
         $rt_agama->adat_kematian = $request->valadat_kematian;
 
         $rt_agama->save();
-        return redirect()->route('rt_agama.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rt_agama.show', ['show' => $request->valnik]);
     }
 
     /**
@@ -110,15 +123,10 @@ class RtAgamaController extends Controller
      */
     public function show(rt_agama $rt_agama, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first(); 
         $rt_agama = rt_agama::where('nik', $nik)->first();
-        $agama   = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-
-        return view('sdgs.RT.showrt_agama', compact('rt_agama','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+       
+        return view('sdgs.RT.showrt_agama', compact('rt_agama', 'datart'));
     }
 
     /**

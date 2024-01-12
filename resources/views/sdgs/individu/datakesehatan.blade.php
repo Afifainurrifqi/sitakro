@@ -20,6 +20,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatakesehatan">
                                 <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
@@ -98,9 +99,12 @@
                 serverSide: true,
                 scrollX: true,
                 ajax: {
-                    url: '/datakesehatan/json',
-                    type: 'GET',
+                    url: '{!! route('datakesehatan.json') !!}',
+                    type: 'POST',
                     dataType: 'json',
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                     dataSrc: function(data) {
                         // Process data for Morris Bar Chart
                         var chartData = processDataForChart(data.data);

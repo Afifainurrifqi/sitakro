@@ -86,12 +86,12 @@
                 serverSide: true,
                 scrollX: true,
                 ajax: {
-                url: '{!! route('rtlokasi.json') !!}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{!! route('rtlokasi.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                 },
-            },
                 columns: [{
                         data: 'action',
                         name: 'action',

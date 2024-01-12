@@ -21,6 +21,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered " id="tabledataaksessarpras">
                                 <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
@@ -114,7 +115,13 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                ajax: '/aksessarpras/json',
+                ajax: {
+                    url: '{!! route('aksessarpras.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                },
                 columns: [{
                         data: 'action',
                         name: 'action'
@@ -126,7 +133,7 @@
                     {
                         data: 'nokk',
                         name: 'nokk'
-                    }, 
+                    },
                     {
                         data: 'gelarawal',
                         name: 'gelarawal'
