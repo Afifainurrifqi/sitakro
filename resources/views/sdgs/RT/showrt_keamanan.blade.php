@@ -16,8 +16,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">KEAMANAN
-                            {{ $datap->nama }}</h1>
+                        <h1 class="card-title">KEAMANAN</h1>
+                        <h1 class="card-title"> RT : {{ $datart->rt }}</h1>
+                        <h1 class="card-title"> RW : {{ $datart->rw }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rt_keamanan.index') }}'">Kembali
                         </button>
@@ -26,12 +27,112 @@
                             <form class="form-valide" action="{{ route('rt_keamanan.update') }}" method="POST">
                                 @csrf
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
+                                    <label class="col-lg-4 col-form-label" for="valnik">NIK <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nik))
+                                            <br>
+                                            {{ $datart->nik }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnik')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nama))
+                                            <br>
+                                            {{ $datart->nama }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnama_ketuart')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valalamat">ALAMAT<span
                                             class="text-danger">*</span>
-                                        <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
                                     </label>
                                     <div class="col-lg-6">
-                                        {{ $datap->nik }}
+                                        @if (isset($datart->nik))
+                                            <br>
+                                            {{ $datart->nik }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valalamat')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrt">RT<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->rt))
+                                            <br>
+                                            {{ $datart->rt }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valrt')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrw">RW <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->rw))
+                                            <br>
+                                            {{ $datart->rw }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valrw')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnohp">NO HP <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nohp))
+                                            <br>
+                                            {{ $datart->nohp }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnohp')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -125,7 +226,7 @@
                                         <div class="form-group">
                                             <label for="valpp_antarkelompokmas">PIHAK PENDAMAI
                                             </label>
-                                                @if (isset($rt_keamanan->pp_antarkelompokmas))
+                                            @if (isset($rt_keamanan->pp_antarkelompokmas))
                                                 <br>
                                                 {{ $rt_keamanan->pp_antarkelompokmas }}
                                             @else
@@ -148,7 +249,7 @@
                                         <div class="form-group">
                                             <label for="valpenyebabu_antardesa">PENYEBAB UTAMA
                                             </label>
-                                             @if (isset($rt_keamanan->penyebabu_antardesa))
+                                            @if (isset($rt_keamanan->penyebabu_antardesa))
                                                 <br>
                                                 {{ $rt_keamanan->penyebabu_antardesa }}
                                             @else
@@ -164,7 +265,7 @@
                                         <div class="form-group">
                                             <label for="valjk_antardesa">JUMLAH KEJADIAN
                                             </label>
-                                              @if (isset($rt_keamanan->jk_antardesa))
+                                            @if (isset($rt_keamanan->jk_antardesa))
                                                 <br>
                                                 {{ $rt_keamanan->jk_antardesa }}
                                             @else
@@ -182,7 +283,7 @@
                                         <div class="form-group">
                                             <label for="valjkl_antardesa">JUMLAH KORBAN LUKA
                                             </label>
-                                             @if (isset($rt_keamanan->jkl_antardesa))
+                                            @if (isset($rt_keamanan->jkl_antardesa))
                                                 <br>
                                                 {{ $rt_keamanan->jkl_antardesa }}
                                             @else
@@ -198,7 +299,7 @@
                                         <div class="form-group">
                                             <label for="valjt_antardesa">JUMLAH TEWAS
                                             </label>
-                                           @if (isset($rt_keamanan->jkl_antardesa))
+                                            @if (isset($rt_keamanan->jkl_antardesa))
                                                 <br>
                                                 {{ $rt_keamanan->jkl_antardesa }}
                                             @else
@@ -230,7 +331,7 @@
                                         <div class="form-group">
                                             <label for="valpp_antardesa">PIHAK PENDAMAI
                                             </label>
-                                             @if (isset($rt_keamanan->pp_antardesa))
+                                            @if (isset($rt_keamanan->pp_antardesa))
                                                 <br>
                                                 {{ $rt_keamanan->pp_antardesa }}
                                             @else
@@ -336,7 +437,7 @@
                                         <div class="form-group">
                                             <label for="valpp_aparatmk">PIHAK PENDAMAI
                                             </label>
-                                             @if (isset($rt_keamanan->pp_aparatmk))
+                                            @if (isset($rt_keamanan->pp_aparatmk))
                                                 <br>
                                                 {{ $rt_keamanan->pp_aparatmk }}
                                             @else
@@ -360,7 +461,7 @@
                                         <div class="form-group">
                                             <label for="valpenyebabu_aparatmp">PENYEBAB UTAMA
                                             </label>
-                                             @if (isset($rt_keamanan->penyebabu_aparatmp))
+                                            @if (isset($rt_keamanan->penyebabu_aparatmp))
                                                 <br>
                                                 {{ $rt_keamanan->penyebabu_aparatmp }}
                                             @else
@@ -376,7 +477,7 @@
                                         <div class="form-group">
                                             <label for="valjk_aparatmp">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_keamanan->jk_aparatmp))
+                                            @if (isset($rt_keamanan->jk_aparatmp))
                                                 <br>
                                                 {{ $rt_keamanan->jk_aparatmp }}
                                             @else
@@ -394,7 +495,7 @@
                                         <div class="form-group">
                                             <label for="valjkl_aparatmp">JUMLAH KORBAN LUKA
                                             </label>
-                                           @if (isset($rt_keamanan->jkl_aparatmp))
+                                            @if (isset($rt_keamanan->jkl_aparatmp))
                                                 <br>
                                                 {{ $rt_keamanan->jkl_aparatmp }}
                                             @else
@@ -410,7 +511,7 @@
                                         <div class="form-group">
                                             <label for="valjt_aparatmp">JUMLAH TEWAS
                                             </label>
-                                           @if (isset($rt_keamanan->jkl_aparatmp))
+                                            @if (isset($rt_keamanan->jkl_aparatmp))
                                                 <br>
                                                 {{ $rt_keamanan->jkl_aparatmp }}
                                             @else
@@ -442,7 +543,7 @@
                                         <div class="form-group">
                                             <label for="valpp_aparatmp">PIHAK PENDAMAI
                                             </label>
-                                             @if (isset($rt_keamanan->pp_aparatmp))
+                                            @if (isset($rt_keamanan->pp_aparatmp))
                                                 <br>
                                                 {{ $rt_keamanan->pp_aparatmp }}
                                             @else
@@ -467,7 +568,7 @@
                                         <div class="form-group">
                                             <label for="valpenyebabu_aparatk">PENYEBAB UTAMA
                                             </label>
-                                             @if (isset($rt_keamanan->penyebabu_aparatk))
+                                            @if (isset($rt_keamanan->penyebabu_aparatk))
                                                 <br>
                                                 {{ $rt_keamanan->penyebabu_aparatk }}
                                             @else
@@ -483,7 +584,7 @@
                                         <div class="form-group">
                                             <label for="valjk_aparatk">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_keamanan->jk_aparatk))
+                                            @if (isset($rt_keamanan->jk_aparatk))
                                                 <br>
                                                 {{ $rt_keamanan->jk_aparatk }}
                                             @else
@@ -548,7 +649,7 @@
                                         <div class="form-group">
                                             <label for="valpp_aparatk">PIHAK PENDAMAI
                                             </label>
-                                              @if (isset($rt_keamanan->pp_aparatk))
+                                            @if (isset($rt_keamanan->pp_aparatk))
                                                 <br>
                                                 {{ $rt_keamanan->pp_aparatk }}
                                             @else
@@ -572,7 +673,7 @@
                                         <div class="form-group">
                                             <label for="valpenyebabu_aparatp">PENYEBAB UTAMA
                                             </label>
-                                             @if (isset($rt_keamanan->penyebabu_aparatp))
+                                            @if (isset($rt_keamanan->penyebabu_aparatp))
                                                 <br>
                                                 {{ $rt_keamanan->penyebabu_aparatp }}
                                             @else
@@ -588,7 +689,7 @@
                                         <div class="form-group">
                                             <label for="valjk_aparatp">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_keamanan->jk_aparatp))
+                                            @if (isset($rt_keamanan->jk_aparatp))
                                                 <br>
                                                 {{ $rt_keamanan->jk_aparatp }}
                                             @else
@@ -606,7 +707,7 @@
                                         <div class="form-group">
                                             <label for="valjkl_aparatp">JUMLAH KORBAN LUKA
                                             </label>
-                                              @if (isset($rt_keamanan->jkl_aparatp))
+                                            @if (isset($rt_keamanan->jkl_aparatp))
                                                 <br>
                                                 {{ $rt_keamanan->jkl_aparatp }}
                                             @else
@@ -622,7 +723,7 @@
                                         <div class="form-group">
                                             <label for="valjt_aparatp">JUMLAH TEWAS
                                             </label>
-                                           @if (isset($rt_keamanan->jkl_aparatp))
+                                            @if (isset($rt_keamanan->jkl_aparatp))
                                                 <br>
                                                 {{ $rt_keamanan->jkl_aparatp }}
                                             @else
@@ -654,7 +755,7 @@
                                         <div class="form-group">
                                             <label for="valpp_aparatp">PIHAK PENDAMAI
                                             </label>
-                                             @if (isset($rt_keamanan->pp_aparatp))
+                                            @if (isset($rt_keamanan->pp_aparatp))
                                                 <br>
                                                 {{ $rt_keamanan->pp_aparatp }}
                                             @else
@@ -695,7 +796,7 @@
                                         <div class="form-group">
                                             <label for="valjk_pelajar">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_keamanan->jk_pelajar))
+                                            @if (isset($rt_keamanan->jk_pelajar))
                                                 <br>
                                                 {{ $rt_keamanan->jk_pelajar }}
                                             @else
@@ -713,7 +814,7 @@
                                         <div class="form-group">
                                             <label for="valjkl_pelajar">JUMLAH KORBAN LUKA
                                             </label>
-                                              @if (isset($rt_keamanan->jkl_pelajar))
+                                            @if (isset($rt_keamanan->jkl_pelajar))
                                                 <br>
                                                 {{ $rt_keamanan->jkl_pelajar }}
                                             @else
@@ -802,7 +903,7 @@
                                         <div class="form-group">
                                             <label for="valjk_suku">JUMLAH KEJADIAN
                                             </label>
-                                           @if (isset($rt_keamanan->jk_suku))
+                                            @if (isset($rt_keamanan->jk_suku))
                                                 <br>
                                                 {{ $rt_keamanan->jk_suku }}
                                             @else
@@ -835,7 +936,7 @@
                                         <div class="form-group">
                                             <label for="valjt_suku">JUMLAH TEWAS
                                             </label>
-                                          @if (isset($rt_keamanan->jkl_suku))
+                                            @if (isset($rt_keamanan->jkl_suku))
                                                 <br>
                                                 {{ $rt_keamanan->jkl_suku }}
                                             @else
@@ -867,7 +968,7 @@
                                         <div class="form-group">
                                             <label for="valpp_suku">PIHAK PENDAMAI
                                             </label>
-                                           @if (isset($rt_keamanan->pp_suku))
+                                            @if (isset($rt_keamanan->pp_suku))
                                                 <br>
                                                 {{ $rt_keamanan->pp_suku }}
                                             @else
@@ -892,7 +993,7 @@
                                         <div class="form-group">
                                             <label for="valpenyebabu_lainnya">PENYEBAB UTAMA
                                             </label>
-                                             @if (isset($rt_keamanan->penyebabu_lainnya))
+                                            @if (isset($rt_keamanan->penyebabu_lainnya))
                                                 <br>
                                                 {{ $rt_keamanan->penyebabu_lainnya }}
                                             @else
@@ -908,7 +1009,7 @@
                                         <div class="form-group">
                                             <label for="valjk_lainnya">JUMLAH KEJADIAN
                                             </label>
-                                             @if (isset($rt_keamanan->jk_lainnya))
+                                            @if (isset($rt_keamanan->jk_lainnya))
                                                 <br>
                                                 {{ $rt_keamanan->jk_lainnya }}
                                             @else
@@ -958,7 +1059,7 @@
                                         <div class="form-group">
                                             <label for="valpen_lainnya">PENYELESAIAN
                                             </label>
-                                             @if (isset($rt_keamanan->pen_lainnya))
+                                            @if (isset($rt_keamanan->pen_lainnya))
                                                 <br>
                                                 {{ $rt_keamanan->pen_lainnya }}
                                             @else
@@ -974,7 +1075,7 @@
                                         <div class="form-group">
                                             <label for="valpp_lainnya">PIHAK PENDAMAI
                                             </label>
-                                             @if (isset($rt_keamanan->pp_lainnya))
+                                            @if (isset($rt_keamanan->pp_lainnya))
                                                 <br>
                                                 {{ $rt_keamanan->pp_lainnya }}
                                             @else

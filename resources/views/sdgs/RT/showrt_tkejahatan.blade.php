@@ -16,8 +16,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">TINDAK KEJAHATAN
-                            {{ $datap->nama }}</h1>
+                        <h1 class="card-title">TINDAK KEJAHATAN</h1>
+                        <h1 class="card-title"> RT : {{ $datart->rt }}</h1>
+                        <h1 class="card-title"> RW : {{ $datart->rw }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rt_tkejahatan.index') }}'">Kembali
                         </button>
@@ -26,12 +27,112 @@
                             <form class="form-valide" action="{{ route('rt_tkejahatan.update') }}" method="POST">
                                 @csrf
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
+                                    <label class="col-lg-4 col-form-label" for="valnik">NIK <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nik))
+                                            <br>
+                                            {{ $datart->nik }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnik')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nama))
+                                            <br>
+                                            {{ $datart->nama }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnama_ketuart')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valalamat">ALAMAT<span
                                             class="text-danger">*</span>
-                                        <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
                                     </label>
                                     <div class="col-lg-6">
-                                        {{ $datap->nik }}
+                                        @if (isset($datart->nik))
+                                            <br>
+                                            {{ $datart->nik }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valalamat')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrt">RT<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->rt))
+                                            <br>
+                                            {{ $datart->rt }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valrt')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valrw">RW <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->rw))
+                                            <br>
+                                            {{ $datart->rw }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valrw')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="valnohp">NO HP <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        @if (isset($datart->nohp))
+                                            <br>
+                                            {{ $datart->nohp }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
+                                        @error('valnohp')
+                                            <div id="" class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -58,8 +159,8 @@
                                             <label for="valjk_antarkelompokmas">JUMLAH SELESAI KASUS YANG DITANGANI
 
                                             </label>
-                                            
-                                                @if (isset($rt_tkejahatan->jumlahselesai_pencurian))
+
+                                            @if (isset($rt_tkejahatan->jumlahselesai_pencurian))
                                                 <br>
                                                 {{ $rt_tkejahatan->jumlahselesai_pencurian }}
                                             @else
@@ -76,7 +177,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_pencurian">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                                @if (isset($rt_tkejahatan->jktbd_pencurian))
+                                            @if (isset($rt_tkejahatan->jktbd_pencurian))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_pencurian }}
                                             @else
@@ -93,7 +194,7 @@
                                             <label for="valkll_pencurian">KORBAN LUKA-LUKA
                                             </label>
 
-                                                @if (isset($rt_tkejahatan->kll_pencurian))
+                                            @if (isset($rt_tkejahatan->kll_pencurian))
                                                 <br>
                                                 {{ $rt_tkejahatan->kll_pencurian }}
                                             @else
@@ -110,7 +211,7 @@
                                             <label for="valkt_pencurian">KORBAN TEWAS
 
                                             </label>
-                                                @if (isset($rt_tkejahatan->kt_pencurian))
+                                            @if (isset($rt_tkejahatan->kt_pencurian))
                                                 <br>
                                                 {{ $rt_tkejahatan->kt_pencurian }}
                                             @else
@@ -165,7 +266,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_pencuriankeras">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_pencuriankeras))
+                                            @if (isset($rt_tkejahatan->jktbd_pencuriankeras))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_pencuriankeras }}
                                             @else
@@ -182,7 +283,7 @@
                                             <label for="valjt_antarkelompokmas">KORBAN LUKA-LUKA
 
                                             </label>
-                                             @if (isset($rt_tkejahatan->kll_pencuriankeras))
+                                            @if (isset($rt_tkejahatan->kll_pencuriankeras))
                                                 <br>
                                                 {{ $rt_tkejahatan->kll_pencuriankeras }}
                                             @else
@@ -222,7 +323,7 @@
                                         <div class="form-group">
                                             <label for="valjk_penipuan">JUMLAH KASUS
                                             </label>
-                                             @if (isset($rt_tkejahatan->jk_penipuan))
+                                            @if (isset($rt_tkejahatan->jk_penipuan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jk_penipuan }}
                                             @else
@@ -239,7 +340,7 @@
                                             <label for="valjk_antarkelompokmas">JUMLAH SELESAI KASUS YANG DITANGANI
 
                                             </label>
-                                             @if (isset($rt_tkejahatan->jumlahselesai_penipuan))
+                                            @if (isset($rt_tkejahatan->jumlahselesai_penipuan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jumlahselesai_penipuan }}
                                             @else
@@ -256,7 +357,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_penipuan">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_penipuan))
+                                            @if (isset($rt_tkejahatan->jktbd_penipuan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_penipuan }}
                                             @else
@@ -313,7 +414,7 @@
                                         <div class="form-group">
                                             <label for="valjk_penganiyayaan">JUMLAH KASUS
                                             </label>
-                                           @if (isset($rt_tkejahatan->jk_penganiyayaan))
+                                            @if (isset($rt_tkejahatan->jk_penganiyayaan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jk_penganiyayaan }}
                                             @else
@@ -330,7 +431,7 @@
                                             <label for="valjk_antarkelompokmas">JUMLAH SELESAI KASUS YANG DITANGANI
 
                                             </label>
-                                           @if (isset($rt_tkejahatan->jumlahselesai_penganiyayaan))
+                                            @if (isset($rt_tkejahatan->jumlahselesai_penganiyayaan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jumlahselesai_penganiyayaan }}
                                             @else
@@ -347,7 +448,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_penganiyayaan">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_penganiyayaan))
+                                            @if (isset($rt_tkejahatan->jktbd_penganiyayaan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_penganiyayaan }}
                                             @else
@@ -438,7 +539,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_pembakaran">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_pembakaran))
+                                            @if (isset($rt_tkejahatan->jktbd_pembakaran))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_pembakaran }}
                                             @else
@@ -455,7 +556,7 @@
                                             <label for="valjt_antarkelompokmas">KORBAN LUKA-LUKA
 
                                             </label>
-                                             @if (isset($rt_tkejahatan->kll_pembakaran))
+                                            @if (isset($rt_tkejahatan->kll_pembakaran))
                                                 <br>
                                                 {{ $rt_tkejahatan->kll_pembakaran }}
                                             @else
@@ -512,7 +613,7 @@
                                             <label for="valjk_antarkelompokmas">JUMLAH SELESAI KASUS YANG DITANGANI
 
                                             </label>
-                                             @if (isset($rt_tkejahatan->jumlahselesai_pemerkosaan))
+                                            @if (isset($rt_tkejahatan->jumlahselesai_pemerkosaan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jumlahselesai_pemerkosaan }}
                                             @else
@@ -529,7 +630,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_pemerkosaan">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_pemerkosaan))
+                                            @if (isset($rt_tkejahatan->jktbd_pemerkosaan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_pemerkosaan }}
                                             @else
@@ -620,7 +721,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_narkoba">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_narkoba))
+                                            @if (isset($rt_tkejahatan->jktbd_narkoba))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_narkoba }}
                                             @else
@@ -677,7 +778,7 @@
                                         <div class="form-group">
                                             <label for="valjk_perjudian">JUMLAH KASUS
                                             </label>
-                                           @if (isset($rt_tkejahatan->jk_perjudian))
+                                            @if (isset($rt_tkejahatan->jk_perjudian))
                                                 <br>
                                                 {{ $rt_tkejahatan->jk_perjudian }}
                                             @else
@@ -711,7 +812,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_perjudian">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                             @if (isset($rt_tkejahatan->jktbd_perjudian))
+                                            @if (isset($rt_tkejahatan->jktbd_perjudian))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_perjudian }}
                                             @else
@@ -745,7 +846,7 @@
                                             <label for="valkt_perjudian">KORBAN TEWAS
 
                                             </label>
-                                           @if (isset($rt_tkejahatan->kt_perjudian))
+                                            @if (isset($rt_tkejahatan->kt_perjudian))
                                                 <br>
                                                 {{ $rt_tkejahatan->kt_perjudian }}
                                             @else
@@ -785,7 +886,7 @@
                                             <label for="valjk_antarkelompokmas">JUMLAH SELESAI KASUS YANG DITANGANI
 
                                             </label>
-                                           @if (isset($rt_tkejahatan->jumlahselesai_pembunuhan))
+                                            @if (isset($rt_tkejahatan->jumlahselesai_pembunuhan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jumlahselesai_pembunuhan }}
                                             @else
@@ -802,7 +903,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_pembunuhan">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_pembunuhan))
+                                            @if (isset($rt_tkejahatan->jktbd_pembunuhan))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_pembunuhan }}
                                             @else
@@ -819,7 +920,7 @@
                                             <label for="valjt_antarkelompokmas">KORBAN LUKA-LUKA
 
                                             </label>
-                                           @if (isset($rt_tkejahatan->kll_pembunuhan))
+                                            @if (isset($rt_tkejahatan->kll_pembunuhan))
                                                 <br>
                                                 {{ $rt_tkejahatan->kll_pembunuhan }}
                                             @else
@@ -859,7 +960,7 @@
                                         <div class="form-group">
                                             <label for="valjk_perdaganganorang">JUMLAH KASUS
                                             </label>
-                                             @if (isset($rt_tkejahatan->jk_perdaganganorang))
+                                            @if (isset($rt_tkejahatan->jk_perdaganganorang))
                                                 <br>
                                                 {{ $rt_tkejahatan->jk_perdaganganorang }}
                                             @else
@@ -893,7 +994,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_perdaganganorang">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_perdaganganorang))
+                                            @if (isset($rt_tkejahatan->jktbd_perdaganganorang))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_perdaganganorang }}
                                             @else
@@ -910,7 +1011,7 @@
                                             <label for="valjt_antarkelompokmas">KORBAN LUKA-LUKA
 
                                             </label>
-                                             @if (isset($rt_tkejahatan->kll_perdaganganorang))
+                                            @if (isset($rt_tkejahatan->kll_perdaganganorang))
                                                 <br>
                                                 {{ $rt_tkejahatan->kll_perdaganganorang }}
                                             @else
@@ -950,7 +1051,7 @@
                                         <div class="form-group">
                                             <label for="valjk_korupsi">JUMLAH KASUS
                                             </label>
-                                             @if (isset($rt_tkejahatan->jk_korupsi))
+                                            @if (isset($rt_tkejahatan->jk_korupsi))
                                                 <br>
                                                 {{ $rt_tkejahatan->jk_korupsi }}
                                             @else
@@ -984,7 +1085,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_korupsi">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                             @if (isset($rt_tkejahatan->jktbd_korupsi))
+                                            @if (isset($rt_tkejahatan->jktbd_korupsi))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_korupsi }}
                                             @else
@@ -1058,7 +1159,7 @@
                                             <label for="valjk_antarkelompokmas">JUMLAH SELESAI KASUS YANG DITANGANI
 
                                             </label>
-                                          @if (isset($rt_tkejahatan->jumlahselesai_lainnya))
+                                            @if (isset($rt_tkejahatan->jumlahselesai_lainnya))
                                                 <br>
                                                 {{ $rt_tkejahatan->jumlahselesai_lainnya }}
                                             @else
@@ -1074,7 +1175,7 @@
                                         <div class="form-group">
                                             <label for="valjktbd_lainnya">JUMLAH KASUS TIDAK BISA DITANGANI
                                             </label>
-                                              @if (isset($rt_tkejahatan->jktbd_lainnya))
+                                            @if (isset($rt_tkejahatan->jktbd_lainnya))
                                                 <br>
                                                 {{ $rt_tkejahatan->jktbd_lainnya }}
                                             @else

@@ -8,8 +8,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title">LOKASI RT</h1>
-                        <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1>
-                       
+                        <h1 class="card-title"> RT : {{ $datart->rt }}</h1>
+                        <h1 class="card-title"> RW : {{ $datart->rw }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtlokasi.index') }}'">Kembali
                         </button>
@@ -17,19 +17,17 @@
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('rtlokasi.update') }}" method="POST">
                                 @csrf
-                                
-                              
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnik">NIK <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                       @if (isset($datart->nik))
-                                                <br>
-                                                {{ $datart->nik }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
+                                        @if (isset($datart->nik))
+                                            <br>
+                                            {{ $datart->nik }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valnik')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -40,13 +38,13 @@
                                     <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span
                                             class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                       @if (isset($datart->nama))
-                                                <br>
-                                                {{ $datart->nama }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
+                                        @if (isset($datart->nama))
+                                            <br>
+                                            {{ $datart->nama }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valnama_ketuart')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -57,13 +55,13 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                       @if (isset($datart->nik))
-                                                <br>
-                                                {{ $datart->nik }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
+                                        @if (isset($datart->nik))
+                                            <br>
+                                            {{ $datart->nik }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valalamat')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -76,13 +74,13 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                      @if (isset($datart->rt))
-                                                <br>
-                                                {{ $datart->rt }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
+                                        @if (isset($datart->rt))
+                                            <br>
+                                            {{ $datart->rt }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valrt')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -96,12 +94,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($datart->rw))
-                                                <br>
-                                                {{ $datart->rw }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
+                                            <br>
+                                            {{ $datart->rw }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valrw')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -115,12 +113,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($datart->nohp))
-                                                <br>
-                                                {{ $datart->nohp }}
-                                            @else
-                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                                Data tidak tersedia.
-                                            @endif
+                                            <br>
+                                            {{ $datart->nohp }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valnohp')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -135,12 +133,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->lokasi_rt_pulau))
-                                        <br>
-                                        {{ $rt_lokasi->lokasi_rt_pulau }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->lokasi_rt_pulau }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('vallokasi_rt_pulau')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -155,12 +153,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->topo_terluas_rt))
-                                        <br>
-                                        {{ $rt_lokasi->topo_terluas_rt }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->topo_terluas_rt }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valtopo_terluas_rt')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -176,12 +174,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->jumlah_warga_lereng))
-                                        <br>
-                                        {{ $rt_lokasi->jumlah_warga_lereng }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->jumlah_warga_lereng }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valjumlah_warga_lereng')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -197,12 +195,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->penanaman_pohon_lahan_kritis))
-                                        <br>
-                                        {{ $rt_lokasi->penanaman_pohon_lahan_kritis }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->penanaman_pohon_lahan_kritis }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valpenanaman_pohon_lahan_kritis')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -217,12 +215,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->pantai_garis_panjang))
-                                        <br>
-                                        {{ $rt_lokasi->pantai_garis_panjang }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->pantai_garis_panjang }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valpantai_garis_panjang')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -238,12 +236,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->pemanfaatan_laut_perangkap))
-                                        <br>
-                                        {{ $rt_lokasi->pemanfaatan_laut_perangkap }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->pemanfaatan_laut_perangkap }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valpemanfaatan_laut_perangkap')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -259,12 +257,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->pemanfaatan_laut_budidaya))
-                                        <br>
-                                        {{ $rt_lokasi->pemanfaatan_laut_budidaya }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->pemanfaatan_laut_budidaya }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valpemanfaatan_laut_budidaya')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -280,12 +278,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->pemanfaatan_laut_tambakg))
-                                        <br>
-                                        {{ $rt_lokasi->pemanfaatan_laut_tambakg }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->pemanfaatan_laut_tambakg }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valpemanfaatan_laut_tambakg')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -301,12 +299,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->pemanfaatan_laut_bahari))
-                                        <br>
-                                        {{ $rt_lokasi->pemanfaatan_laut_bahari }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->pemanfaatan_laut_bahari }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valpemanfaatan_laut_bahari')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -322,12 +320,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->pemanfaatan_laut_transport))
-                                        <br>
-                                        {{ $rt_lokasi->pemanfaatan_laut_transport }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->pemanfaatan_laut_transport }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valpemanfaatan_laut_transport')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -341,12 +339,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->kondisi_mangrove))
-                                        <br>
-                                        {{ $rt_lokasi->kondisi_mangrove }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->kondisi_mangrove }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valkondisi_mangrove')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -360,12 +358,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->penanaman_mangrove))
-                                        <br>
-                                        {{ $rt_lokasi->penanaman_mangrove }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->penanaman_mangrove }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valpenanaman_mangrove')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -381,12 +379,12 @@
                                     <div class="col-lg-6">
                                         </label>
                                         @if (isset($rt_lokasi->jumlah_warga_pesisir))
-                                        <br>
-                                        {{ $rt_lokasi->jumlah_warga_pesisir }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->jumlah_warga_pesisir }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valjumlah_warga_pesisir')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -403,12 +401,12 @@
                                     <div class="col-lg-6">
                                         </label>
                                         @if (isset($rt_lokasi->jumlah_warga_atasair))
-                                        <br>
-                                        {{ $rt_lokasi->jumlah_warga_atasair }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->jumlah_warga_atasair }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valjumlah_warga_atasair')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -425,12 +423,12 @@
                                     <div class="col-lg-6">
                                         </label>
                                         @if (isset($rt_lokasi->wilayah_desa_dalamhutan))
-                                        <br>
-                                        {{ $rt_lokasi->wilayah_desa_dalamhutan }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->wilayah_desa_dalamhutan }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valwilayah_desa_dalamhutan')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -446,12 +444,12 @@
                                     <div class="col-lg-6">
                                         </label>
                                         @if (isset($rt_lokasi->wilayah_desa_tepihutan))
-                                        <br>
-                                        {{ $rt_lokasi->wilayah_desa_tepihutan }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->wilayah_desa_tepihutan }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valwilayah_desa_tepihutan')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -467,12 +465,12 @@
                                             <label for="valfungsihutan_kons">Konservasi (ha)
                                             </label>
                                             @if (isset($rt_lokasi->fungsihutan_kons))
-                                        <br>
-                                        {{ $rt_lokasi->fungsihutan_kons }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                                <br>
+                                                {{ $rt_lokasi->fungsihutan_kons }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                             @error('valfungsihutan_kons')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -483,12 +481,12 @@
                                             <label for="valfungsihutan_lindung">Lindung (ha)
                                             </label>
                                             @if (isset($rt_lokasi->fungsihutan_lindung))
-                                            <br>
-                                            {{ $rt_lokasi->fungsihutan_lindung }}
-                                        @else
-                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                            Data tidak tersedia.
-                                        @endif
+                                                <br>
+                                                {{ $rt_lokasi->fungsihutan_lindung }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                             @error('valfungsihutan_lindung')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -499,12 +497,12 @@
                                             <label for="valfungsihutan_produk">Produksi (ha)
                                             </label>
                                             @if (isset($rt_lokasi->fungsihutan_produk))
-                                            <br>
-                                            {{ $rt_lokasi->fungsihutan_produk }}
-                                        @else
-                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                            Data tidak tersedia.
-                                        @endif
+                                                <br>
+                                                {{ $rt_lokasi->fungsihutan_produk }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                             @error('valfungsihutan_produk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -515,12 +513,12 @@
                                             <label for="valfungsihutan_hutandes">Hutan Desa (ha)
                                             </label>
                                             @if (isset($rt_lokasi->fungsihutan_hutandes))
-                                            <br>
-                                            {{ $rt_lokasi->fungsihutan_hutandes }}
-                                        @else
-                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                            Data tidak tersedia.
-                                        @endif
+                                                <br>
+                                                {{ $rt_lokasi->fungsihutan_hutandes }}
+                                            @else
+                                                <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                                Data tidak tersedia.
+                                            @endif
                                             @error('valfungsihutan_hutandes')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -538,12 +536,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->jumlahwarga_tinggal_dalamhutan))
-                                        <br>
-                                        {{ $rt_lokasi->jumlahwarga_tinggal_dalamhutan }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->jumlahwarga_tinggal_dalamhutan }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valjumlahwarga_tinggal_dalamhutan')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -559,12 +557,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->jumlahwarga_tinggal_sekitarhutan))
-                                        <br>
-                                        {{ $rt_lokasi->jumlahwarga_tinggal_sekitarhutan }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->jumlahwarga_tinggal_sekitarhutan }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valjumlahwarga_tinggal_sekitarhutan')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -580,12 +578,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->ketergantungan_hutan))
-                                        <br>
-                                        {{ $rt_lokasi->ketergantungan_hutan }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->ketergantungan_hutan }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
 
 
                                         @error('valketergantungan_hutan')
@@ -602,12 +600,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->reboisasi))
-                                        <br>
-                                        {{ $rt_lokasi->reboisasi }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->reboisasi }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
 
                                         @error('valreboisasi')
                                             <div id="" class="invalid-feedback">
@@ -624,12 +622,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->jumlah_produk_luardesa_masuk))
-                                        <br>
-                                        {{ $rt_lokasi->jumlah_produk_luardesa_masuk }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->jumlah_produk_luardesa_masuk }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valjumlah_produk_luardesa_masuk')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -645,12 +643,12 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($rt_lokasi->jumlah_produk_luardesa_keluar))
-                                        <br>
-                                        {{ $rt_lokasi->jumlah_produk_luardesa_keluar }}
-                                    @else
-                                        <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
-                                        Data tidak tersedia.
-                                    @endif
+                                            <br>
+                                            {{ $rt_lokasi->jumlah_produk_luardesa_keluar }}
+                                        @else
+                                            <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
+                                            Data tidak tersedia.
+                                        @endif
                                         @error('valjumlah_produk_luardesa_keluar')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}

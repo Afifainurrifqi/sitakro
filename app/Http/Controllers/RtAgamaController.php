@@ -44,6 +44,104 @@ class RtAgamaController extends Controller
                         </td>';
             })
 
+            ->addColumn('jumlahwarga_jamkes', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahwarga_jamkes : '';
+            })
+            ->addColumn('jumlahwarga_jamketerangan', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahwarga_jamketerangan : '';
+            })
+            ->addColumn('jumlahtempat_masjid', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_masjid : '';
+            })
+            ->addColumn('jumlahtempat_musholla', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_musholla : '';
+            })
+            ->addColumn('jumlahtempat_kristen', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_kristen : '';
+            })
+            ->addColumn('jumlahtempat_katolik', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_katolik : '';
+            })
+            ->addColumn('jumlahtempat_kapel', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_kapel : '';
+            })
+            ->addColumn('jumlahtempat_pura', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_pura : '';
+            })
+            ->addColumn('jumlahtempat_wihara', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_wihara : '';
+            })
+            ->addColumn('jumlahtempat_kelenteng', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_kelenteng : '';
+            })
+            ->addColumn('jumlahtempat_lainnya', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->jumlahtempat_lainnya : '';
+            })
+            ->addColumn('cagar_bud1', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->cagar_bud1 : '';
+            })
+            ->addColumn('cagar_bud2', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->cagar_bud2 : '';
+            })
+            ->addColumn('cagar_bud3', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->cagar_bud3 : '';
+            })
+            ->addColumn('sukuasing_keluarga', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->sukuasing_keluarga : '';
+            })
+            ->addColumn('sukuasing_jiwa', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->sukuasing_jiwa : '';
+            })
+            ->addColumn('ruangpublik_terbuka', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->ruangpublik_terbuka : '';
+            })
+            ->addColumn('adat_kehamilan', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->adat_kehamilan : '';
+            })
+            ->addColumn('adat_kelahiran', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->adat_kelahiran : '';
+            })
+            ->addColumn('adat_pekerjaan', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->adat_pekerjaan : '';
+            })
+            ->addColumn('adat_alam', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->adat_alam : '';
+            })
+            ->addColumn('adat_perkawinan', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->adat_perkawinan : '';
+            })
+            ->addColumn('adat_kehidupanwarga', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->adat_kehidupanwarga : '';
+            })
+            ->addColumn('adat_kematian', function ($row) {
+                $rt_agama = rt_agama::where('nik', $row->nik)->first();
+                return $rt_agama ? $rt_agama->adat_kematian : '';
+            })
+            
+
 
 
             ->rawColumns([

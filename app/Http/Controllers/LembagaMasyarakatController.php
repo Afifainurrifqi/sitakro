@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\lembaga_masyarakat;
 use App\Http\Requests\Storelembaga_masyarakatRequest;
 use App\Http\Requests\Updatelembaga_masyarakatRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class LembagaMasyarakatController extends Controller
 {
@@ -22,24 +24,55 @@ class LembagaMasyarakatController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+        return view('sdgs.RT.rtlembaga_masyarakat');
+    }
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rtlembaga_masyarakat = lembaga_masyarakat::all();
-        $rtlembaga_masyarakatSudahProses = $rtlembaga_masyarakat->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-        $persentaseProses = ($rtlembaga_masyarakatSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rtlembaga_masyarakat', compact('rtlembaga_masyarakat', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtlembaga_masyarakat.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtlembaga_masyarakat.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+                           
+                        </td>';
+            })
+
+            ->addColumn('namalembagamas', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama : '';
+            })
+            ->addColumn('jumlah_kel', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlah_kel : '';
+            })
+            ->addColumn('jumlah_peng', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlah_peng : '';
+            })
+            ->addColumn('jumlah_ang', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlah_ang : '';
+            })
+            ->addColumn('fasilitas', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->fasilitas : '';
+            })
+            
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
     }
 
     /**
@@ -49,15 +82,11 @@ class LembagaMasyarakatController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rtlembaga_masyarakat = lembaga_masyarakat::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.editrtlembaga_masyarakat', compact('rtlembaga_masyarakat','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+
+        return view('sdgs.RT.editrtlembaga_masyarakat', compact('rtlembaga_masyarakat','datart'));
     }
 
     /**
@@ -68,18 +97,23 @@ class LembagaMasyarakatController extends Controller
      */
     public function store(Storelembaga_masyarakatRequest $request)
     {
-        $rtlembaga_masyarakat = lembaga_masyarakat::where('nik', $request->valNIK)->first();
+        $rtlembaga_masyarakat = lembaga_masyarakat::where('nik', $request->valnik)->first();
         if ($rtlembaga_masyarakat == NULL ) {
             $rtlembaga_masyarakat = new lembaga_masyarakat();
         }
-        $rtlembaga_masyarakat->nik = $request->valNIK;      
+        $rtlembaga_masyarakat->nik = $request->valnik;
+        $rtlembaga_masyarakat->nama_ketuart = $request->valnama_ketuart;
+        $rtlembaga_masyarakat->alamat = $request->valalamat;
+        $rtlembaga_masyarakat->rt = $request->valrt;
+        $rtlembaga_masyarakat->rw = $request->valrw;
+        $rtlembaga_masyarakat->nohp = $request->valnohp;
         $rtlembaga_masyarakat->nama = $request->valnama;
         $rtlembaga_masyarakat->jumlah_kel = $request->valjumlah_kel;
         $rtlembaga_masyarakat->jumlah_peng = $request->valjumlah_peng;
         $rtlembaga_masyarakat->jumlah_ang = $request->valjumlah_ang;
         $rtlembaga_masyarakat->fasilitas = $request->valfasilitas;
         $rtlembaga_masyarakat->save();
-        return redirect()->route('rtlembaga_masyarakat.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rtlembaga_masyarakat.show',['show'=> $request->valnik ]);
 
     }
 
@@ -91,15 +125,11 @@ class LembagaMasyarakatController extends Controller
      */
     public function show(lembaga_masyarakat $lembaga_masyarakat, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rtlembaga_masyarakat = lembaga_masyarakat::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
+       
 
-        return view('sdgs.RT.showrtlembaga_masyarakat', compact('rtlembaga_masyarakat','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.showrtlembaga_masyarakat', compact('rtlembaga_masyarakat','datart'));
     }
     /**
      * Show the form for editing the specified resource.

@@ -2,131 +2,138 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">LEMBAGA MASYARAKAT</h2>
-                        <form action="{{ route('rtlembaga_masyarakat.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('rtlembaga_masyarakat.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('rtlembaga_masyarakat.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                   
-                </div>
-                
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">LEMBAGA MASYARAKAT</h2>
+                            <form action="{{ route('rtlembaga_masyarakat.index') }}" method="GET">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Cari berdasarkan NIK"
+                                        name="search" value="{{ request('search') }}">
+                                    <button class="btn btn-outline-secondary" type="submit">Cari</button>
+                                </div>
+                            </form>
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="tablertlembagamasyarakat">
+                                <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>No</th>
+                                        <th>NIK</th>
+                                        <th>NAMA KETUA RT</th>
+                                        <th>ALAMAT</th>
+                                        <th>RT</th>
+                                        <th>RW</th>
+                                        <th>NO. HP / TELEPON</th>
+                                        <th>NAMA</th>
+                                        <th>JUMLAH KELOMPOK</th>
+                                        <th>JUMLAH PENGURUS</th>
+                                        <th>JUMLAH ANGGOTA</th>
+                                        <th>FASILITAS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
-            
         </div>
     </div>
-</div>
 
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tablertlembagamasyarakat').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: {
+                    url: '{!! route('rtlembaga_masyarakat.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                },
+                columns: [{
+                        data: 'action',
+                        name: 'action',
+                    },
+                    {
+                        data: 'id',
+                        name: 'id',
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat',
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt',
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw',
+                    },
+                    {
+                        data: 'nohp',
+                        name: 'nohp',
+                    },
+                    {
+                        data: 'namalembagamas',
+                        name: 'namalembagamas',
+                    },
+                    {
+                        data: 'jumlah_kel',
+                        name: 'jumlah_kel',
+                    },
+                    {
+                        data: 'jumlah_peng',
+                        name: 'jumlah_peng',
+                    },
+                    {
+                        data: 'jumlah_ang',
+                        name: 'jumlah_ang',
+                    },
+                    {
+                        data: 'fasilitas',
+                        name: 'fasilitas',
+                    }
 
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
 
-</script>
+                ],
+                "error": function(xhr, error, thrown) {
+                    console.log(xhr.responseText);
+                }
+
+            });
+        });
+    </script>
 @endsection

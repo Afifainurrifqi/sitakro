@@ -2,131 +2,396 @@
 
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-header">
-                        @if (session('msg'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil</strong> {{ session('msg') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                    @endif
-                        <h2 class="card-title">KEJADIAN LUAR BIASA</h2>
-                        <form action="{{ route('rt_keamanan.index') }}" method="GET">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan NIK" name="search" value="{{ request('search') }}">
-                                <button class="btn btn-outline-secondary" type="submit">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                   
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration" data-s-dom="lrtip">
-                            <thead>
-                                <tr>
-                                    <th>Action</th>
-                                    <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Gelar awal</th>
-                                    <th>Nama</th>
-                                    <th>Gelar akhir</th>
-                                    <th>Jenis kelamin</th>
-                                    <th>Tempat lahir</th>
-                                    <th>Tanggal_lahir</th>
-                                    <th>Agama</th>
-                                    <th>Pendidikan</th>
-                                    <th>Pekejaan</th>
-                                    <th>Goldar</th>
-                                    <th>Status</th>
-                                    <th>Tanggal perkawinan</th>
-                                    <th>Hubungan</th>
-                                    <th>Ayah</th>
-                                    <th>Ibu</th>
-                                    <th>alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
-                                    <th>Statu kependudukan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ( $datapenduduk as $row )
-                                    <tr> 
-                                        <td><a href="{{ route('rt_keamanan.show', ['show' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
-                                            <i class="fas fa-book"></i>                                        </a>
-                                            <a href="{{ route('rt_keamanan.edit', ['nik' => $row->nik]) }}" class="btn mb-1 btn-info btn-sm" title="Edit Data">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            
-                                        </td>
-                                        <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->gelarawal }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->gelarakhir}}</td>
-                                        <td>@if ($row->jenis_kelamin ==1)
-                                            Laki-Laki
-                                            @else
-                                            Perempuan
-                                            @endif</td>
-                                        <td>{{ $row->tempat_lahir }}</td>
-                                        <td>{{ $row->tanggal_lahir }}</td>
-                                        <td>{{ $row->agama->nama }}</td>
-                                        <td>{{ $row->pendidikan->nama }}</td>
-                                        <td>{{ $row->pekerjaan->nama }}</td>
-                                        <td>{{ $row->goldar->nama }}</td>
-                                        <td>{{ $row->status->nama }}</td>
-                                        <td>@if($row->tanggal_perkawinan == '1970-01-01')
-                                            Belum Kawin
-                                        @else
-                                            {{ $row->tanggal_perkawinan }}
-                                        @endif</td>
-                                        <td>{{ $row->hubungan }}</td>
-                                        <td>{{ $row->ayah }}</td>
-                                        <td>{{ $row->ibu }}</td>
-                                        <td>{{ $row->alamat }}</td>
-                                        <td>{{ $row->rt }}</td>
-                                        <td>{{ $row->rw }}</td>                              
-                                        <td>{{ $row->datak }}</td>                              
-                                    </tr>   
-                                    
-
-                                @endforeach
-
-
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                   
-                </div>
-                
-            </div>
-            <div class="col-md-12">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Progress bars</h4>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success" style="width: {{ $persentaseProses }}%;" role="progressbar">{{ $persentaseProses }}%</div>
+                        <div class="card-header">
+                            @if (session('msg'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Berhasil</strong> {{ session('msg') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+                            <h2 class="card-title">KEAMANAN</h2>
                         </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="tablertkeamanan">
+                                <thead>
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
+                                    <tr>
+                                        <th rowspan="2">Action</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">NIK</th>
+                                        <th rowspan="2">NAMA KETUA RT</th>
+                                        <th rowspan="2">ALAMAT</th>
+                                        <th rowspan="2">RT</th>
+                                        <th rowspan="2">RW</th>
+                                        <th rowspan="2">NO. HP / TELEPON</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR KELOMPOK MASYARAKAT</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK MASYARAKAT ANTAR DESA</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK MASYARAKAT DENGAN APARAT KEAMANAN</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK MASYARAKAT DENGAN APARAT PEMERINTAH</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR APARAT KEAMANAN</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR APARAT PEMERINTAH</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">PELAJAR/MAHASISWA</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR SUKU</th>
+                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">LAINNYA</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+
+                                        <th>PENYEBAB UTAMA</th>
+                                        <th>JUMLAH KEJADIAN</th>
+                                        <th>JUMLAH KORBAN LUKA</th>
+                                        <th>JUMLAH TEWAS</th>
+                                        <th>PENYELESAIAN</th>
+                                        <th style="border-right: 1px solid #000;">PIHAK PENDAMAI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
-            
         </div>
     </div>
-</div>
 
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        var $ = jQuery.noConflict();
+        $(function() {
+            $('#tablertkeamanan').DataTable({
+                processing: true,
+                serverSide: true,
+                scrollX: true,
+                ajax: {
+                    url: '{!! route('rt_keamanan.json') !!}',
+                    type: 'POST', // Correct the method to POST
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                },
+                columns: [{
+                        data: 'action',
+                        name: 'action',
+                    },
+                    {
+                        data: 'id',
+                        name: 'id',
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat',
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt',
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw',
+                    },
+                    {
+                        data: 'nohp',
+                        name: 'nohp',
+                    },
+                    {
+                        data: 'penyebabu_antarkelompokmas',
+                        name: 'penyebabu_antarkelompokmas',
+                    },
+                    {
+                        data: 'jk_antarkelompokmas',
+                        name: 'jk_antarkelompokmas',
+                    },
+                    {
+                        data: 'jkl_antarkelompokmas',
+                        name: 'jkl_antarkelompokmas',
+                    },
+                    {
+                        data: 'jt_antarkelompokmas',
+                        name: 'jt_antarkelompokmas',
+                    },
+                    {
+                        data: 'pen_antarkelompokmas',
+                        name: 'pen_antarkelompokmas',
+                    },
+                    {
+                        data: 'pp_antarkelompokmas',
+                        name: 'pp_antarkelompokmas',
+                    },
+                    {
+                        data: 'penyebabu_antardesa',
+                        name: 'penyebabu_antardesa',
+                    },
+                    {
+                        data: 'jk_antardesa',
+                        name: 'jk_antardesa',
+                    },
+                    {
+                        data: 'jkl_antardesa',
+                        name: 'jkl_antardesa',
+                    },
+                    {
+                        data: 'jt_antardesa',
+                        name: 'jt_antardesa',
+                    },
+                    {
+                        data: 'pen_antardesa',
+                        name: 'pen_antardesa',
+                    },
+                    {
+                        data: 'pp_antardesa',
+                        name: 'pp_antardesa',
+                    },
+                    {
+                        data: 'penyebabu_aparatmk',
+                        name: 'penyebabu_aparatmk',
+                    },
+                    {
+                        data: 'jk_aparatmk',
+                        name: 'jk_aparatmk',
+                    },
+                    {
+                        data: 'jkl_aparatmk',
+                        name: 'jkl_aparatmk',
+                    },
+                    {
+                        data: 'jt_aparatmk',
+                        name: 'jt_aparatmk',
+                    },
+                    {
+                        data: 'pen_aparatmk',
+                        name: 'pen_aparatmk',
+                    },
+                    {
+                        data: 'pp_aparatmk',
+                        name: 'pp_aparatmk',
+                    },
+                    {
+                        data: 'penyebabu_aparatmp',
+                        name: 'penyebabu_aparatmp',
+                    },
+                    {
+                        data: 'jk_aparatmp',
+                        name: 'jk_aparatmp',
+                    },
+                    {
+                        data: 'jkl_aparatmp',
+                        name: 'jkl_aparatmp',
+                    },
+                    {
+                        data: 'jt_aparatmp',
+                        name: 'jt_aparatmp',
+                    },
+                    {
+                        data: 'pen_aparatmp',
+                        name: 'pen_aparatmp',
+                    },
+                    {
+                        data: 'pp_aparatmp',
+                        name: 'pp_aparatmp',
+                    },
+                    {
+                        data: 'penyebabu_aparatk',
+                        name: 'penyebabu_aparatk',
+                    },
+                    {
+                        data: 'jk_aparatk',
+                        name: 'jk_aparatk',
+                    },
+                    {
+                        data: 'jkl_aparatk',
+                        name: 'jkl_aparatk',
+                    },
+                    {
+                        data: 'jt_aparatk',
+                        name: 'jt_aparatk',
+                    },
+                    {
+                        data: 'pen_aparatk',
+                        name: 'pen_aparatk',
+                    },
+                    {
+                        data: 'pp_aparatk',
+                        name: 'pp_aparatk',
+                    },
+                    {
+                        data: 'penyebabu_aparatp',
+                        name: 'penyebabu_aparatp',
+                    },
+                    {
+                        data: 'jk_aparatp',
+                        name: 'jk_aparatp',
+                    },
+                    {
+                        data: 'jkl_aparatp',
+                        name: 'jkl_aparatp',
+                    },
+                    {
+                        data: 'jt_aparatp',
+                        name: 'jt_aparatp',
+                    },
+                    {
+                        data: 'pen_aparatp',
+                        name: 'pen_aparatp',
+                    },
+                    {
+                        data: 'pp_aparatp',
+                        name: 'pp_aparatp',
+                    },
+                    {
+                        data: 'penyebabu_pelajar',
+                        name: 'penyebabu_pelajar',
+                    },
+                    {
+                        data: 'jk_pelajar',
+                        name: 'jk_pelajar',
+                    },
+                    {
+                        data: 'jkl_pelajar',
+                        name: 'jkl_pelajar',
+                    },
+                    {
+                        data: 'jt_pelajar',
+                        name: 'jt_pelajar',
+                    },
+                    {
+                        data: 'pen_pelajar',
+                        name: 'pen_pelajar',
+                    },
+                    {
+                        data: 'pp_pelajar',
+                        name: 'pp_pelajar',
+                    },
+                    {
+                        data: 'penyebabu_suku',
+                        name: 'penyebabu_suku',
+                    },
+                    {
+                        data: 'jk_suku',
+                        name: 'jk_suku',
+                    },
+                    {
+                        data: 'jkl_suku',
+                        name: 'jkl_suku',
+                    },
+                    {
+                        data: 'jt_suku',
+                        name: 'jt_suku',
+                    },
+                    {
+                        data: 'pen_suku',
+                        name: 'pen_suku',
+                    },
+                    {
+                        data: 'pp_suku',
+                        name: 'pp_suku',
+                    },
+                    {
+                        data: 'penyebabu_lainnya',
+                        name: 'penyebabu_lainnya',
+                    },
+                    {
+                        data: 'jk_lainnya',
+                        name: 'jk_lainnya',
+                    },
+                    {
+                        data: 'jkl_lainnya',
+                        name: 'jkl_lainnya',
+                    },
+                    {
+                        data: 'jt_lainnya',
+                        name: 'jt_lainnya',
+                    },
+                    {
+                        data: 'pen_lainnya',
+                        name: 'pen_lainnya',
+                    },
+                    {
+                        data: 'pp_lainnya',
+                        name: 'pp_lainnya',
+                    },
 
-    function deleteData(name){
-    pesan = confirm('Yakin data penduduk dengan nama $name ini dihapus ?')
-    if (pesan) return true;
-    else return false; 
-    }
 
-</script>
+                ],
+                "error": function(xhr, error, thrown) {
+                    console.log(xhr.responseText);
+                }
+
+            });
+        });
+    </script>
 @endsection

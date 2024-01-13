@@ -136,7 +136,14 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::post('/rt_saranapendidikan/json', [RtSaranapendidikanController::class, 'json'])->name('rt_saranapendidikan.json');
         Route::post('/rt_kesehatan/json', [RtKesehatanController::class, 'json'])->name('rt_kesehatan.json');
         Route::post('/rt_kejadianluarbiasa/json', [RtKejadianluarbiasaController::class, 'json'])->name('rt_kejadianluarbiasa.json');
-        Route::post('/rt_agama/json', [RtAgamaController::class, 'json'])->name('rt_agama.json'); 
+        Route::post('/rt_agama/json', [RtAgamaController::class, 'json'])->name('rt_agama.json');
+        Route::post('/rtlembaga_keagamaan/json', [RtlembagaKeagamaanController::class, 'json'])->name('rtlembaga_keagamaan.json');
+        Route::post('/rtlembaga_masyarakat/json', [LembagaMasyarakatController::class, 'json'])->name('rtlembaga_masyarakat.json');
+        Route::post('/rt_keamanan/json', [RtKeamananController::class, 'json'])->name('rt_keamanan.json');
+        Route::post('/rt_tkejahatan/json', [RtTkejahatanController::class, 'json'])->name('rt_tkejahatan.json');
+        
+
+
 
 
 

@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\rtlembaga_keagamaan;
 use App\Http\Requests\Storertlembaga_keagamaanRequest;
 use App\Http\Requests\Updatertlembaga_keagamaanRequest;
+use App\Models\Datart;
+use Yajra\DataTables\DataTables;
 
 class RtlembagaKeagamaanController extends Controller
 {
@@ -22,24 +24,50 @@ class RtlembagaKeagamaanController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
-
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
-        }
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rtlembaga_keagamaan = rtlembaga_keagamaan::all();
-        $rtlembaga_keagamaanSudahProses = $rtlembaga_keagamaan->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-        $persentaseProses = ($rtlembaga_keagamaanSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rtlembaga_keagamaan', compact('rtlembaga_keagamaan', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return view('sdgs.RT.rtlembaga_keagamaan');
     }
+
+    public function json(Request $request)
+    {
+        $query = Datart::query();
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '
+                <a href="' . route('rtlembaga_keagamaan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="' . route('rtlembaga_keagamaan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                    <i class="fas fa-book"></i>
+                ';
+            })
+
+            ->addColumn('namalembaga', function ($row) {
+                $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $row->nik)->first();
+                return $rtlembaga_keagamaan ? $rtlembaga_keagamaan->nama : '';
+            })
+            ->addColumn('jumlah_peng', function ($row) {
+                $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $row->nik)->first();
+                return $rtlembaga_keagamaan ? $rtlembaga_keagamaan->jumlah_peng : '';
+            })
+            ->addColumn('jumlah_ang', function ($row) {
+                $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $row->nik)->first();
+                return $rtlembaga_keagamaan ? $rtlembaga_keagamaan->jumlah_ang : '';
+            })
+            ->addColumn('fasilitas', function ($row) {
+                $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $row->nik)->first();
+                return $rtlembaga_keagamaan ? $rtlembaga_keagamaan->fasilitas : '';
+            })
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -48,15 +76,10 @@ class RtlembagaKeagamaanController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.editrtlembaga_keagamaan', compact('rtlembaga_keagamaan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.editrtlembaga_keagamaan', compact('rtlembaga_keagamaan', 'datart'));
     }
 
 
@@ -68,18 +91,22 @@ class RtlembagaKeagamaanController extends Controller
      */
     public function store(Storertlembaga_keagamaanRequest $request)
     {
-        $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $request->valNIK)->first();
-        if ($rtlembaga_keagamaan == NULL ) {
+        $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $request->valnik)->first();
+        if ($rtlembaga_keagamaan == NULL) {
             $rtlembaga_keagamaan = new rtlembaga_keagamaan();
         }
-        $rtlembaga_keagamaan->nik = $request->valNIK;      
+        $rtlembaga_keagamaan->nik = $request->valnik;
+        $rtlembaga_keagamaan->nama_ketuart = $request->valnama_ketuart;
+        $rtlembaga_keagamaan->alamat = $request->valalamat;
+        $rtlembaga_keagamaan->rt = $request->valrt;
+        $rtlembaga_keagamaan->rw = $request->valrw;
+        $rtlembaga_keagamaan->nohp = $request->valnohp;
         $rtlembaga_keagamaan->nama = $request->valnama;
         $rtlembaga_keagamaan->jumlah_peng = $request->valjumlah_peng;
         $rtlembaga_keagamaan->jumlah_ang = $request->valjumlah_ang;
         $rtlembaga_keagamaan->fasilitas = $request->valfasilitas;
         $rtlembaga_keagamaan->save();
-        return redirect()->route('rtlembaga_keagamaan.show',['show'=> $request->valNIK ]);
-
+        return redirect()->route('rtlembaga_keagamaan.show', ['show' => $request->valnik]);
     }
 
     /**
@@ -90,15 +117,10 @@ class RtlembagaKeagamaanController extends Controller
      */
     public function show(rtlembaga_keagamaan $rtlembaga_keagamaan, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $nik)->first();
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
 
-        return view('sdgs.RT.showrtlembaga_keagamaan', compact('rtlembaga_keagamaan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.showrtlembaga_keagamaan', compact('rtlembaga_keagamaan', 'datart'));
     }
     /**
      * Show the form for editing the specified resource.
