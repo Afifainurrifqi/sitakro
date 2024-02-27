@@ -24,7 +24,6 @@
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <!-- DATA INDIVIDU -->
                                     <tr>
-                                         <meta name="csrf-token" content="{{ csrf_token() }}">
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
                                         <th rowspan="2">KK</th>
@@ -143,12 +142,12 @@
                 dom: 'Bfrtip',
                 scrollX: true,
                 ajax: {
-                url: '{!! route('dataindividu.json') !!}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{!! route('dataindividu.json') !!}',
+                    type: 'POST', // Make sure to set the type to POST
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                 },
-            },
                 "buttons": [{
                     "extend": 'excel',
                     "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
@@ -160,7 +159,7 @@
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -446,6 +445,7 @@
                 ],
 
             });
+
             function newexportaction(e, dt, button, config) {
                 var self = this;
                 var oldStart = dt.settings()[0]._iDisplayStart;
