@@ -64,8 +64,8 @@
                                         <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS LAINNYA</th>
                                     </tr>
 
-                                    <tr>                                        
-                                        
+                                    <tr>
+
                                         <th>NAMA</th>
                                         <th>PEMILIK</th>
                                         <th>KONDISI BANGUNAN</th>
@@ -321,8 +321,11 @@
                         name: 'action',
                     },
                     {
-                        data: 'id',
-                        name: 'id',
+                         data: null,
+                        render: function(data, type, row, meta) {
+                            // Menambahkan nomor urut otomatis
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        },
                     },
                     {
                         data: 'nik',
@@ -352,7 +355,7 @@
                     {
                         data: 'nama_paud',
                         name: 'nama_paud'
-                    },                   
+                    },
                     {
                         data: 'pemilik_paud',
                         name: 'pemilik_paud'

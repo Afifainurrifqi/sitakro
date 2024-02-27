@@ -16,7 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS JENIS DISABILITAS</h2>
-                           
+
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatadisabilitas">
@@ -31,12 +31,12 @@
                                         <th>Nama</th>
                                         <th>Gelar akhir</th>
                                         <th>JENIS DISABILITAS</th>
-                                      
+
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                   
+
 
 
 
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
             $('#tabledatadisabilitas').DataTable({
                 processing: true,
                 serverSide: true,
-        
+
                 ajax: {
                 url: '{!! route('datadisabilitas.json') !!}',
                 type: 'POST',
@@ -70,8 +70,11 @@
                         name: 'action'
                     },
                     {
-                        data: 'id',
-                        name: 'id'
+                         data: null,
+                        render: function(data, type, row, meta) {
+                            // Menambahkan nomor urut otomatis
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
                     },
                     {
                         data: 'nokk',

@@ -91,7 +91,7 @@
                                         <th>WAKTU TEMPUH (JAM)</th>
                                         <th style="border-right: 1px solid #000;">KEMUDAHAN</th>
 
-                                       
+
                                     </tr>
 
                                 </thead>
@@ -131,8 +131,11 @@
                         name: 'action'
                     },
                     {
-                        data: 'id',
-                        name: 'id'
+                         data: null,
+                        render: function(data, type, row, meta) {
+                            // Menambahkan nomor urut otomatis
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
                     },
                     {
                         data: 'nokk',
