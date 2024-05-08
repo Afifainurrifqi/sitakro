@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h1 class="card-title">Form Tambah dasawisma</h1>
                         <button type="button" class="btn mb-1 btn-warning"
-                            onclick="window.location='{{ url('datapenduduk') }}'">Kembali
+                            onclick="window.location='{{ url('/datadasawisma/datadw') }}'">Kembali
                         </button> <br><br><br>
                         <div class="form-validation">
                             <form class="form-validate" action="{{ route('dasawisma.update', ['nik' => $datapenduduk->nik]) }}" method="POST">
@@ -18,7 +18,7 @@
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
                                             class="text-danger">*</span>
                                     </label>
-                                    <input type="hidden" name="nik" value="{{ $datapenduduk->nik }}">
+                                    <input type="hidden" name="valNIK" value="{{ $datapenduduk->nik }}">
                                     <div class="col-lg-6">
                                         {{ $datapenduduk->nik }}
                                     </div>
@@ -31,35 +31,29 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="email">Email<span
-                                            class="text-danger">*</span>
-                                    </label>
+                                    <label class="col-lg-4 col-form-label" for="email">Email<span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input value="{{ $user->email ?? '' }}" type="text"
-                                            class="form-control @error('email') is-invalid @enderror" id="email"
-                                            name="email" placeholder="Email...">
+                                        <input value="{{ $user->email ?? '' }}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email...">
                                         @error('email')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
-                                </div>  
+                                </div>
+
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="password">Password <span
-                                            class="text-danger">*</span>
-                                    </label>
+                                    <label class="col-lg-4 col-form-label" for="password">Password <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input value="{{ $user->password ?? '' }}" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" id="password"
-                                            name="password" placeholder="password...">
+                                        <input value="{{ $user->password ?? '' }}" type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="password...">
                                         @error('password')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
-                                </div>  
+                                </div>
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="role">Role <span
                                             class="text-danger">*</span>
@@ -74,7 +68,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                </div>  
+                                </div>
                                 {{-- <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valRW">Nama kelompok <span
                                             class="text-danger">*</span>
@@ -97,12 +91,12 @@
                                 </div>
                             </form>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-   
+
 @endsection

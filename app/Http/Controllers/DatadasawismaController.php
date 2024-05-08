@@ -55,7 +55,7 @@ class DatadasawismaController extends Controller
             ->editColumn('statusdw',function(datapenduduk $item) {
                 return $item && $item->user_id == NULL ? 'penduduk' : 'dasawisma';
             })
-            
+
 
             ->rawColumns(['action'])
             ->toJson();
@@ -92,22 +92,21 @@ class DatadasawismaController extends Controller
     public function show(datadasawisma $datadasawisma, $nik)
     {
         $datapenduduk = datapenduduk::where('nik', $nik)->first();
-        $datadasawismas = Datadasawisma::all(); // Use a different variable name to avoid overwriting the model variable
-        $user = User::first();
-        // Assuming you want to get the first user. Adjust this according to your logic.
+        $user = User::where('nik', $nik)->first(); // Retrieve the associated User model
 
-        return view('datadasawisma/tambahdw', compact('datapenduduk', 'datadasawismas', 'user', 'nik'))->with([
+        return view('datadasawisma/tambahdw', compact('datapenduduk',  'user', 'nik'))->with([
             'valNIK' => $nik,
             'valNama' => $datapenduduk->nama,
             'valAlamat' => $datapenduduk->alamat,
             'valRT' => $datapenduduk->rt,
             'valRW' => $datapenduduk->rw,
-            'valEmails' => $user->email,
-            'valPassword' => $user->password,
-            'valRole' => $user->role,
+            'valEmails' => $user->email ?? '', // Retrieve email from the associated User model
+            'valPassword' => $user->password ?? '', // Retrieve password from the associated User model
+            'valRole' => $user->role ?? '', // Retrieve role from the associated User model
             'valNamakelompok' => $datadasawisma->nama_kelompok,
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -134,6 +133,7 @@ class DatadasawismaController extends Controller
         // Temukan data penduduk
         $datapenduduk = datapenduduk::where('nik', $request->nik)->first();
         $user = new User();
+        $user->nik = $datapenduduk->nik;
         $user->name = $datapenduduk->nama;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);

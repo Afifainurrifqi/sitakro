@@ -141,16 +141,16 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
         Route::post('/rtlembaga_masyarakat/json', [LembagaMasyarakatController::class, 'json'])->name('rtlembaga_masyarakat.json');
         Route::post('/rt_keamanan/json', [RtKeamananController::class, 'json'])->name('rt_keamanan.json');
         Route::post('/rt_tkejahatan/json', [RtTkejahatanController::class, 'json'])->name('rt_tkejahatan.json');
-        
 
 
 
 
 
-       
 
-        
-       
+
+
+
+
 
 
 
@@ -300,7 +300,15 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
 Route::middleware(['checkrole:operator'])->group(
     function () {
         Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
-       
+
+        Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
+    }
+);
+
+Route::middleware(['checkrole:admin'])->group(
+    function () {
+        Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
+
         Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
     }
 );

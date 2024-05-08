@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.maindasa')
 
 
 @section('content')
@@ -120,12 +120,12 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
             },
-                "buttons": [{
-                    "extend": 'excel',
-                    "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
-                    "titleAttr": 'Excel',
-                    "action": newexportaction
-                }, ],
+                // "buttons": [{
+                //     "extend": 'excel',
+                //     "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
+                //     "titleAttr": 'Excel',
+                //     "action": newexportaction
+                // }, ],
                 columns: [{
                         data: 'action',
                         name: 'action'

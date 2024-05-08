@@ -36,6 +36,11 @@ class DatapendudukController extends Controller
         return view('datapenduduk.data');
     }
 
+    public function dasawisma(Request $request)
+    {
+        return view('datapenduduk.dasawismaindex');
+    }
+
 
 
     public function json(Request $request)
