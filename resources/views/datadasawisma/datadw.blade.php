@@ -45,12 +45,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-    
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    
+
 
                 </div>
             </div>
@@ -66,7 +66,6 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                
                 ajax: {
                 url: '{!! route('datadw.json') !!}',
                 type: 'POST',
@@ -100,7 +99,7 @@
                     {data: 'rw', name: 'rw'},
                     {data: 'datak', name: 'datak'},
                 ],
-                
+
             });
         });
     </script>

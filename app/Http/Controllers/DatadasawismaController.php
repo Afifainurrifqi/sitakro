@@ -52,7 +52,7 @@ class DatadasawismaController extends Controller
                 return $actionsHtml;
             })
 
-            ->editColumn('statusdw',function(datapenduduk $item) {
+            ->addColumn('statusdw',function(datapenduduk $item) {
                 return $item && $item->user_id == NULL ? 'penduduk' : 'dasawisma';
             })
 
