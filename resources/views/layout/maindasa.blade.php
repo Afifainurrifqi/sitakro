@@ -128,7 +128,7 @@
                     </li>
                     <li class="mega-menu mega-menu-sm">
                         <a class="nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
-                            href="{{ route('datapenduduk.index') }}" aria-expanded="false">
+                            href="{{ route('datapenduduk.dasa') }}" aria-expanded="false">
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Penduduk</span>
                         </a>
                     </li>

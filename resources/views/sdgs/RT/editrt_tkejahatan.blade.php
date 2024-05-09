@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">EDIT KEAMANAN</h1>
+                        <h1 class="card-title">EDIT TINDAK KEJAHATAN</h1>
                         <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rt_tkejahatan.index') }}'">Kembali
@@ -37,7 +37,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -67,7 +67,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                </div>                         
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valrt">RT<span
                                             class="text-danger">*</span>
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PENCURIAN			
+                                    <label class="col-lg-4 col-form-label">PENCURIAN
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -189,9 +189,9 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>    
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">PENCURIAN DENGAN KEKERASAN<span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -257,12 +257,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PENIPUAN / PENGGELAPAN				
-	
+                                    <label class="col-lg-4 col-form-label">PENIPUAN / PENGGELAPAN
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -328,12 +328,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PENGANIAYAAN				
-			
+                                    <label class="col-lg-4 col-form-label">PENGANIAYAAN
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -399,12 +399,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PEMBAKARAN				
-		
+                                    <label class="col-lg-4 col-form-label">PEMBAKARAN
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -470,12 +470,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                   <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PEMERKOSAAN / KEJAHATAN KESUSILAAN				
-		
+                                    <label class="col-lg-4 col-form-label">PEMERKOSAAN / KEJAHATAN KESUSILAAN
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -541,12 +541,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PENYALAHGUNAAN / PEREDARAN NARKOBA				
-			
+                                    <label class="col-lg-4 col-form-label">PENYALAHGUNAAN / PEREDARAN NARKOBA
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -612,12 +612,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PERJUDIAN				
-			
+                                    <label class="col-lg-4 col-form-label">PERJUDIAN
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -683,12 +683,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PEMBUNUHAN				
-	
+                                    <label class="col-lg-4 col-form-label">PEMBUNUHAN
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -754,12 +754,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PERDAGANGAN ORANG				
-			
+                                    <label class="col-lg-4 col-form-label">PERDAGANGAN ORANG
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -825,12 +825,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">KORUPSI				
-			
+                                    <label class="col-lg-4 col-form-label">KORUPSI
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -896,12 +896,12 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">LAINNYA			
-			
+                                    <label class="col-lg-4 col-form-label">LAINNYA
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -967,9 +967,9 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                
+                                        </div>
                                     </div>
-                                </div>                          
+                                </div>
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
                                         <button type="submit" class="btn btn-primary">Simpan</button>
