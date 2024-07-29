@@ -11,16 +11,19 @@
                             @if (session('msg'))
                             @endif
                             <h2 class="card-title">Data Mutasi Penduduk</h2>
+                            <div class="form-group">
+                                <label for="search_nik">Cari berdasarkan NIK:</label>
+                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
+                            </div>
                             <form action="/import" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <a href="{{ route('export.meninggal') }}" class="btn btn-primary">Export Meninggal</a>
                                 <a href="{{ route('export.pindah') }}" class="btn btn-primary">Export Pindah</a>
                             </form><br><br>
                         </div>
-                       
+
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered zero-configuration" 
-                            id="tabledatamutasi">
+                            <table class="table table-striped table-bordered zero-configuration" id="tabledatamutasi">
                                 <thead>
                                     <tr>
                                         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -51,7 +54,7 @@
                                 </thead>
                                 <tbody>
 
-                                  
+
 
                                     <!-- Modal Import -->
                                     <div class="modal fade" id="importModal" tabindex="-1" role="dialog"
@@ -102,44 +105,122 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript">
         var $ = jQuery.noConflict();
-        $(function () {
-            $('#tabledatamutasi').DataTable({
+        $(function() {
+            var table = $('#tabledatamutasi').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
+                searching: false,
                 ajax: {
-                url: '{!! route('datam.json') !!}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{!! route('datam.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: function(d) {
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
-            },
-                columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'nokk', name: 'nokk'}, // Use dot notation to access related data
-                    {data: 'nik', name: 'nik'},
-                    {data: 'gelarawal', name: 'gelarawal'},
-                    {data: 'nama', name: 'nama'},
-                    {data: 'gelarakhir', name: 'gelarakhir'},
-                    {data: 'jenis_kelamin', name: 'jenis_kelamin'},
-                    {data: 'tempat_lahir', name: 'tempat_lahir'},
-                    {data: 'tanggal_lahir', name: 'tanggal_lahir'},
-                    {data: 'agama.nama', name: 'agama.nama'}, // Use dot notation for related table fields
-                    {data: 'pendidikan.nama', name: 'pendidikan.nama'},
-                    {data: 'pekerjaan.nama', name: 'pekerjaan.nama'},
-                    {data: 'goldar.nama', name: 'goldar.nama'},
-                    {data: 'status.nama', name: 'status.nama'},
-                    {data: 'tanggal_perkawinan', name: 'tanggal_perkawinan'},
-                    {data: 'hubungan', name: 'hubungan'},
-                    {data: 'ayah', name: 'ayah'},
-                    {data: 'ibu', name: 'ibu'},
-                    {data: 'alamat', name: 'alamat'},
-                    {data: 'rt', name: 'rt'},
-                    {data: 'rw', name: 'rw'},
-                    {data: 'datak', name: 'datak'},
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nokk',
+                        name: 'nokk'
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik'
+                    },
+                    {
+                        data: 'gelarawal',
+                        name: 'gelarawal'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'gelarakhir',
+                        name: 'gelarakhir'
+                    },
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin'
+                    },
+                    {
+                        data: 'tempat_lahir',
+                        name: 'tempat_lahir'
+                    },
+                    {
+                        data: 'tanggal_lahir',
+                        name: 'tanggal_lahir'
+                    },
+                    {
+                        data: 'agama.nama',
+                        name: 'agama.nama'
+                    },
+                    {
+                        data: 'pendidikan.nama',
+                        name: 'pendidikan.nama'
+                    },
+                    {
+                        data: 'pekerjaan.nama',
+                        name: 'pekerjaan.nama'
+                    },
+                    {
+                        data: 'goldar.nama',
+                        name: 'goldar.nama'
+                    },
+                    {
+                        data: 'status.nama',
+                        name: 'status.nama'
+                    },
+                    {
+                        data: 'tanggal_perkawinan',
+                        name: 'tanggal_perkawinan'
+                    },
+                    {
+                        data: 'hubungan',
+                        name: 'hubungan'
+                    },
+                    {
+                        data: 'ayah',
+                        name: 'ayah'
+                    },
+                    {
+                        data: 'ibu',
+                        name: 'ibu'
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat'
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt'
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw'
+                    },
+                    {
+                        data: 'datak',
+                        name: 'datak'
+                    },
                 ],
-                
+                drawCallback: function(settings) {
+                    if ($('#search_nik').val() === "") {
+                        table.clear().draw();
+                    }
+                }
+            });
+
+            $('#search_nik').on('keyup', function() {
+                table.ajax.reload();
             });
         });
     </script>
+
 @endsection

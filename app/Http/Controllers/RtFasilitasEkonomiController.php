@@ -27,6 +27,10 @@ class RtFasilitasEkonomiController extends Controller
         return view('sdgs.RT.rt_fasilitas_ekonomi');
     }
 
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.RT.admin_rt_fasilitas_ekonomi');
+    }
 
     public function json(Request $request)
     {
@@ -40,7 +44,59 @@ class RtFasilitasEkonomiController extends Controller
                             </a>
                             <a href="' . route('rt_fasilitas_ekonomi.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
-                        </a>                           
+                        </a>
+                        </td>';
+            })
+
+            ->addColumn('kredit_usaha_rakyat', function ($row) {
+                $kreditUsahaRakyat = rt_fasilitas_ekonomi::where('your_column', $row->your_column_related_to_kredit_usaha_rakyat)->first();
+                $value = $kreditUsahaRakyat ? $kreditUsahaRakyat->kredit_usaha_rakyat : '';
+
+                return $value;
+            })
+            ->addColumn('kredit_ketahanan_pangan_energi', function ($row) {
+                $kreditKetahananPanganEnergi = rt_fasilitas_ekonomi::where('your_column', $row->your_column_related_to_kredit_ketahanan_pangan_energi)->first();
+                $value = $kreditKetahananPanganEnergi ? $kreditKetahananPanganEnergi->kredit_ketahanan_pangan_energi : '';
+
+                return $value;
+            })
+            ->addColumn('kredit_usaha_kecil', function ($row) {
+                $kreditUsahaKecil = rt_fasilitas_ekonomi::where('your_column', $row->your_column_related_to_kredit_usaha_kecil)->first();
+                $value = $kreditUsahaKecil ? $kreditUsahaKecil->kredit_usaha_kecil : '';
+
+                return $value;
+            })
+            ->addColumn('kelompok_usaha_bersama', function ($row) {
+                $kelompokUsahaBersama = rt_fasilitas_ekonomi::where('your_column', $row->your_column_related_to_kelompok_usaha_bersama)->first();
+                $value = $kelompokUsahaBersama ? $kelompokUsahaBersama->kelompok_usaha_bersama : '';
+
+                return $value;
+            })
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
+
+
+    public function jsonadmin(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rt_fasilitas_ekonomi.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rt_fasilitas_ekonomi.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
                         </td>';
             })
 
@@ -129,7 +185,7 @@ class RtFasilitasEkonomiController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rt_fasilitas_ekonomi = rt_fasilitas_ekonomi::where('nik', $nik)->first();
-        
+
         return view('sdgs.RT.showrt_fasilitas_ekonomi', compact('rt_fasilitas_ekonomi', 'datart'));
     }
 

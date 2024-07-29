@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -143,7 +143,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->luas_lantai_tinggal))
-                                        {{ $lokasi->luas_lantai_tinggal }} 
+                                        {{ $lokasi->luas_lantai_tinggal }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -162,7 +162,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->luas_tanah_tinggal))
-                                        {{ $lokasi->luas_tanah_tinggal }} 
+                                        {{ $lokasi->luas_tanah_tinggal }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -182,7 +182,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->jenis_lantai_tinggal))
-                                        {{ $lokasi->jenis_lantai_tinggal }} 
+                                        {{ $lokasi->jenis_lantai_tinggal }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -202,7 +202,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->dinding_sebagian))
-                                        {{ $lokasi->dinding_sebagian }} 
+                                        {{ $lokasi->dinding_sebagian }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -220,7 +220,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->jendela))
-                                        {{ $lokasi->jendela }} 
+                                        {{ $lokasi->jendela }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -238,7 +238,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->atap))
-                                        {{ $lokasi->atap }} 
+                                        {{ $lokasi->atap }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -256,7 +256,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->penerangan))
-                                        {{ $lokasi->penerangan }} 
+                                        {{ $lokasi->penerangan }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -274,7 +274,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->energi_masak))
-                                        {{ $lokasi->energi_masak }} 
+                                        {{ $lokasi->energi_masak }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -293,7 +293,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->jika_kayu_jenis))
-                                        {{ $lokasi->jika_kayu_jenis }} 
+                                        {{ $lokasi->jika_kayu_jenis }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -311,7 +311,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->tempat_sampah))
-                                        {{ $lokasi->tempat_sampah }} 
+                                        {{ $lokasi->tempat_sampah }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -329,7 +329,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->mck))
-                                        {{ $lokasi->mck }} 
+                                        {{ $lokasi->mck }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -348,7 +348,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->sumber_air_mandi))
-                                        {{ $lokasi->sumber_air_mandi }} 
+                                        {{ $lokasi->sumber_air_mandi }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -367,7 +367,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->sumber_air_mck))
-                                        {{ $lokasi->sumber_air_mck }} 
+                                        {{ $lokasi->sumber_air_mck }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -386,7 +386,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->sumber_air_minum))
-                                        {{ $lokasi->sumber_air_minum }} 
+                                        {{ $lokasi->sumber_air_minum }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -405,7 +405,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->tempat_pembuangan_limbah))
-                                        {{ $lokasi->tempat_pembuangan_limbah }} 
+                                        {{ $lokasi->tempat_pembuangan_limbah }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -423,7 +423,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->rumah_sutet))
-                                        {{ $lokasi->rumah_sutet }} 
+                                        {{ $lokasi->rumah_sutet }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -441,7 +441,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->rumah_sungai))
-                                        {{ $lokasi->rumah_sungai }} 
+                                        {{ $lokasi->rumah_sungai }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -460,7 +460,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->rumah_lereng_gunung))
-                                        {{ $lokasi->rumah_lereng_gunung }} 
+                                        {{ $lokasi->rumah_lereng_gunung }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
@@ -479,7 +479,7 @@
                                     </label>
                                     <div class="col-lg-6">
                                         @if (isset($lokasi->kondi_rumah_kumuh ))
-                                        {{ $lokasi->kondi_rumah_kumuh  }} 
+                                        {{ $lokasi->kondi_rumah_kumuh  }}
                                     @else
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.

@@ -27,7 +27,12 @@ class RtpuengurusController extends Controller
         return view('sdgs.RT.rtpengurus');
     }
 
-    public function json(Request $request)
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.RT.admin_rtpengurus');
+    }
+
+    public function jsonadmin(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
 
@@ -40,8 +45,8 @@ class RtpuengurusController extends Controller
                             <a href="' . route('rtpengurus.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
-                           
+
+
                         </td>';
             })
 
@@ -143,12 +148,148 @@ class RtpuengurusController extends Controller
                 $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
                 return $rt_pengurus ? $rt_pengurus->menjabat_benrt : '';
             })
-            
+
 
 
             ->rawColumns([
                 'action',
-              
+
+            ])
+            ->toJson();
+    }
+
+
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtpengurus.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtpengurus.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+
+                        </td>';
+            })
+
+            ->addColumn('nama_ketuarw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                $kondisi = $rt_pengurus ? $rt_pengurus->nama_ketuarw : '';
+                return $kondisi;
+            })
+
+            ->addColumn('nik_ketuarw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_ketuarw : '';
+            })
+            ->addColumn('nohp_ketuarw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_ketuarw : '';
+            })
+            ->addColumn('menjabat_ketuarw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_ketuarw : '';
+            })
+            ->addColumn('nama_sekrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama_sekrw : '';
+            })
+            ->addColumn('nik_sekrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_sekrw : '';
+            })
+            ->addColumn('nohp_sekrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_sekrw : '';
+            })
+            ->addColumn('menjabat_sekrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_sekrw : '';
+            })
+            ->addColumn('nama_benrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama_benrw : '';
+            })
+            ->addColumn('nik_benrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_benrw : '';
+            })
+            ->addColumn('nohp_benrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_benrw : '';
+            })
+            ->addColumn('menjabat_benrw', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_benrw : '';
+            })
+            ->addColumn('nama_ketuart', function ($row) {
+                $rt_pengurus = Datart::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama : '';
+            })
+            ->addColumn('nik_ketuart', function ($row) {
+                $rt_pengurus = Datart::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik : '';
+            })
+            ->addColumn('nohp_ketuart', function ($row) {
+                $rt_pengurus = Datart::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp : '';
+            })
+            ->addColumn('menjabat_ketuart', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_ketuart : '';
+            })
+            ->addColumn('nama_sekrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama_sekrt : '';
+            })
+            ->addColumn('nik_sekrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_sekrt : '';
+            })
+            ->addColumn('nohp_sekrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_sekrt : '';
+            })
+            ->addColumn('menjabat_sekrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_sekrt : '';
+            })
+            ->addColumn('nama_benrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nama_benrt : '';
+            })
+            ->addColumn('nik_benrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nik_benrt : '';
+            })
+            ->addColumn('nohp_benrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->nohp_benrt : '';
+            })
+            ->addColumn('menjabat_benrt', function ($row) {
+                $rt_pengurus = rtpuengurus::where('nik', $row->nik)->first();
+                return $rt_pengurus ? $rt_pengurus->menjabat_benrt : '';
+            })
+
+
+
+            ->rawColumns([
+                'action',
+
             ])
             ->toJson();
     }
@@ -228,7 +369,7 @@ class RtpuengurusController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rt_pengurus = rtpuengurus::where('nik', $nik)->first();
-       
+
         return view('sdgs.RT.showrtpengurus', compact('rt_pengurus', 'datart'));
     }
 

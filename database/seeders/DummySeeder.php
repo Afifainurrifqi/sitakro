@@ -35,6 +35,13 @@ class DummySeeder extends Seeder
                 'password'=>bcrypt('123456')
             ],
 
+            [
+                'name'=>"Demo User",
+                'email'=> 'demo@gmail.com',
+                'role'=> 'akundemo',
+                'password'=>bcrypt('123456')
+            ],
+
         ];
 
         foreach($userData as $key => $val){

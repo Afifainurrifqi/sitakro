@@ -27,12 +27,57 @@ class JenisdisabilitasController extends Controller
         return view('sdgs.individu.datadisabilitas');
     }
 
-    public function json(Request $request)
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.individu.admin_sdgs_disabilitas');
+    }
+
+    public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
         $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
             ->whereIn('Datak', $allowedDatakValues);
+
+        return DataTables::of($query)
+
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('disabilitas.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('disabilitas.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            ->addColumn('disabilitas', function ($row) {
+                $datadisabilitas = jenisdisabilitas::where('nik', $row->nik)->first();
+                $kondisi = $datadisabilitas ? $datadisabilitas->jenis_disabilitas : '';
+
+                return $kondisi;
+            })
+
+            ->rawColumns(['action', 'disabilitas',])
+            ->toJson();
+    }
+
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+                ->where('nik', $nik)
+                ->whereIn('Datak', $allowedDatakValues);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+        }
 
         return DataTables::of($query)
 

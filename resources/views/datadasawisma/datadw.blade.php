@@ -1,5 +1,4 @@
-@extends('layout.main')
-
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 @section('content')
     <div class="container-fluid">
@@ -9,97 +8,110 @@
                     <div class="card-body">
                         <div class="card-header">
                             @if (session('msg'))
+                                <div class="alert alert-success">
+                                    {{ session('msg') }}
+                                </div>
                             @endif
-                            <h2 class="card-title">Data Dasa wisma</h2><br>
-
+                            <h2 class="card-title">Data Dasa Wisma</h2><br>
+                             <form id="search-form">
+                                <div class="form-group">
+                                    <label for="nik">Cari berdasarkan NIK:</label>
+                                    <input type="text" class="form-control" id="searchNIK" name="nik" placeholder="Masukkan NIK">
+                                </div>
+                            </form>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatadw">
                                 <thead>
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
-                                        <th>action</th>
+                                        <th>Action</th>
                                         <th>Status</th>
                                         <th>No</th>
-                                        <th>No KK</th>
-                                        <th>NIK</th>
-                                        <th>Gelar awal</th>
+                                        <th>Gelar Awal</th>
                                         <th>Nama</th>
-                                        <th>Gelar akhir</th>
-                                        <th>Jenis kelamin</th>
-                                        <th>Tempat lahir</th>
-                                        <th>Tanggal_lahir</th>
-                                        <th>Agama</th>
-                                        <th>Pendidikan</th>
-                                        <th>Pekejaan</th>
-                                        <th>Goldar</th>
-                                        <th>Status</th>
-                                        <th>Tanggal perkawinan</th>
-                                        <th>Hubungan</th>
-                                        <th>Ayah</th>
-                                        <th>Ibu</th>
-                                        <th>alamat</th>
+                                        <th>Gelar Akhir</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Alamat</th>
                                         <th>RT</th>
                                         <th>RW</th>
-                                        <th>Statu kependudukan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript">
-        var $ = jQuery.noConflict();
-        $(function () {
-            $('#tabledatadw').DataTable({
+        $(function() {
+            var table = $('#tabledatadw').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollX: true,
+                searching: false,
                 ajax: {
-                url: '{!! route('datadw.json') !!}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{!! route('datadw.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: function(d) {
+                        d.nik = $('#searchNIK').val();
+                    }
                 },
-            },
-                columns: [
-                    {data: 'action', name: 'action'},
-                    {data: 'statusdw', name: 'statusdw'},
-                    {data: 'id', name: 'id'},
-                    {data: 'nokk', name: 'nokk'}, // Use dot notation to access related data
-                    {data: 'nik', name: 'nik'},
-                    {data: 'gelarawal', name: 'gelarawal'},
-                    {data: 'nama', name: 'nama'},
-                    {data: 'gelarakhir', name: 'gelarakhir'},
-                    {data: 'jenis_kelamin', name: 'jenis_kelamin'},
-                    {data: 'tempat_lahir', name: 'tempat_lahir'},
-                    {data: 'tanggal_lahir', name: 'tanggal_lahir'},
-                    {data: 'agama.nama', name: 'agama.nama'}, // Use dot notation for related table fields
-                    {data: 'pendidikan.nama', name: 'pendidikan.nama'},
-                    {data: 'pekerjaan.nama', name: 'pekerjaan.nama'},
-                    {data: 'goldar.nama', name: 'goldar.nama'},
-                    {data: 'status.nama', name: 'status.nama'},
-                    {data: 'tanggal_perkawinan', name: 'tanggal_perkawinan'},
-                    {data: 'hubungan', name: 'hubungan'},
-                    {data: 'ayah', name: 'ayah'},
-                    {data: 'ibu', name: 'ibu'},
-                    {data: 'alamat', name: 'alamat'},
-                    {data: 'rt', name: 'rt'},
-                    {data: 'rw', name: 'rw'},
-                    {data: 'datak', name: 'datak'},
+                columns: [{
+                        data: 'action',
+                        name: 'action'
+                    },
+                    {
+                        data: 'statusdw',
+                        name: 'statusdw'
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row, meta) {
+                            // Menambahkan nomor urut otomatis
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'gelarawal',
+                        name: 'gelarawal'
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'gelarakhir',
+                        name: 'gelarakhir'
+                    },
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin'
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat'
+                    },
+                    {
+                        data: 'rt',
+                        name: 'rt'
+                    },
+                    {
+                        data: 'rw',
+                        name: 'rw'
+                    },
                 ],
+            });
 
+            $('#searchNIK').on('keyup', function() {
+                table.draw();
             });
         });
     </script>

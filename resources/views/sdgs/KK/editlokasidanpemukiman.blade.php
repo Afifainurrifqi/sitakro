@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -14,7 +14,7 @@
                         <br><br><br>
                         <div class="form-validation">
 
-                            <form class="form-valide" action="{{ route('lokasipemukiman.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('lokasipemukiman.update') }}" method="POST" id="form-edit-kklokasi">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valNokk">KK <span
@@ -62,7 +62,7 @@
                                         </div>
                                     @endif
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     @if ($datai)
                                         <label class="col-lg-4 col-form-label" for="valNohp">NO. Telpon Rumah
@@ -73,8 +73,8 @@
                                             {{ $datai->nohp }}
                                         </div>
                                     @endif
-                                </div> 
-                                
+                                </div>
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnik_kepala">NIK Kepala Keluarga
                                         <span class="text-danger">*</span>
@@ -102,7 +102,7 @@
                                             <option value="DIpinjami" {{ old('valtempat_tinggal') == 'DIpinjami' || (isset($lokasi) && $lokasi->tempat_tinggal == 'DIpinjami') ? 'selected' : '' }}>DIpinjami</option>
                                             <option value="Dinas" {{ old('valtempat_tinggal') == 'Dinas' || (isset($lokasi) && $lokasi->tempat_tinggal == 'Dinas') ? 'selected' : '' }}>Dinas</option>
                                             <option value="Lainnya" {{ old('valtempat_tinggal') == 'Lainnya' || (isset($lokasi) && $lokasi->tempat_tinggal == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
-                                        </select>                                        
+                                        </select>
                                         @error('valtempat_tinggal')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -122,7 +122,7 @@
                                             <option value="Tanah negara" {{ old('valstatus_lahan') == 'Tanah negara' || (isset($lokasi) && $lokasi->status_lahan == 'Tanah negara') ? 'selected' : '' }}>Tanah negara</option>
                                             <option value="Lainnya" {{ old('valstatus_lahan') == 'Lainnya' || (isset($lokasi) && $lokasi->status_lahan == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valstatus_lahan')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -178,7 +178,7 @@
                                             <option value="Bambu/Kayu/Papan Kualitas rendah" {{ old('valjenis_lantai_tinggal') == 'Bambu/Kayu/Papan Kualitas rendah' || (isset($lokasi) && $lokasi->jenis_lantai_tinggal == 'Bambu/Kayu/Papan Kualitas rendah') ? 'selected' : '' }}>Bambu/Kayu/Papan Kualitas rendah</option>
                                             <option value="Lainnya" {{ old('valjenis_lantai_tinggal') == 'Lainnya' || (isset($lokasi) && $lokasi->jenis_lantai_tinggal == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valjenis_lantai_tinggal')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -198,7 +198,7 @@
                                             <option value="Kayu berkualitas rendah/bambu" {{ old('valdinding_sebagian') == 'Kayu berkualitas rendah/bambu' || (isset($lokasi) && $lokasi->dinding_sebagian == 'Kayu berkualitas rendah/bambu') ? 'selected' : '' }}>Kayu berkualitas rendah/bambu</option>
                                             <option value="Lainnya" {{ old('valdinding_sebagian') == 'Lainnya' || (isset($lokasi) && $lokasi->dinding_sebagian == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valdinding_sebagian')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -217,7 +217,7 @@
                                             <option value="Ada, tidak berfungsi" {{ old('valjendela') == 'Ada, tidak berfungsi' || (isset($lokasi) && $lokasi->jendela == 'Ada, tidak berfungsi') ? 'selected' : '' }}>Ada, tidak berfungsi</option>
                                             <option value="Tidak Ada" {{ old('valjendela') == 'Tidak Ada' || (isset($lokasi) && $lokasi->jendela == 'Tidak Ada') ? 'selected' : '' }}>Tidak Ada</option>
                                         </select>
-                                        
+
                                         @error('valjendela')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -236,7 +236,7 @@
                                             <option value="Kayu/Jerami" {{ old('valatap') == 'Kayu/Jerami' || (isset($lokasi) && $lokasi->atap == 'Kayu/Jerami') ? 'selected' : '' }}>Kayu/Jerami</option>
                                             <option value="Lainnya" {{ old('valatap') == 'Lainnya' || (isset($lokasi) && $lokasi->atap == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valatap')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -257,7 +257,7 @@
                                             <option value="Sumber Penerangan Lainnya" {{ old('valpenerangan') == 'Sumber Penerangan Lainnya' || (isset($lokasi) && $lokasi->penerangan == 'Sumber Penerangan Lainnya') ? 'selected' : '' }}>Sumber Penerangan Lainnya</option>
                                             <option value="Tidak ada" {{ old('valpenerangan') == 'Tidak ada' || (isset($lokasi) && $lokasi->penerangan == 'Tidak ada') ? 'selected' : '' }}>Tidak ada</option>
                                         </select>
-                                        
+
                                         @error('valpenerangan')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -277,7 +277,7 @@
                                             <option value="Kayu Bakar" {{ old('valenergi_masak') == 'Kayu Bakar' || (isset($lokasi) && $lokasi->energi_masak == 'Kayu Bakar') ? 'selected' : '' }}>Kayu Bakar</option>
                                             <option value="Lainnya" {{ old('valenergi_masak') == 'Lainnya' || (isset($lokasi) && $lokasi->energi_masak == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valenergi_masak')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -298,7 +298,7 @@
                                             <option value="Diambil di luar/bukan hutan" {{ old('valjika_kayu_jenis') == 'Diambil di luar/bukan hutan' || (isset($lokasi) && $lokasi->jika_kayu_jenis == 'Diambil di luar/bukan hutan') ? 'selected' : '' }}>Diambil di luar/bukan hutan</option>
                                             <option value="Lainnya" {{ old('valjika_kayu_jenis') == 'Lainnya' || (isset($lokasi) && $lokasi->jika_kayu_jenis == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valjika_kayu_jenis')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -319,7 +319,7 @@
                                             <option value="Tempat Sampah" {{ old('valtempat_sampah') == 'Tempat Sampah' || (isset($lokasi) && $lokasi->tempat_sampah == 'Tempat Sampah') ? 'selected' : '' }}>Tempat Sampah</option>
                                             <option value="Tempat sampah diangkut/reguler" {{ old('valtempat_sampah') == 'Tempat sampah diangkut/reguler' || (isset($lokasi) && $lokasi->tempat_sampah == 'Tempat sampah diangkut/reguler') ? 'selected' : '' }}>Tempat sampah diangkut/reguler</option>
                                         </select>
-                                        
+
                                         @error('valtempat_sampah')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -339,7 +339,7 @@
                                             <option value="MCK Umum" {{ old('valmck') == 'MCK Umum' || (isset($lokasi) && $lokasi->mck == 'MCK Umum') ? 'selected' : '' }}>MCK Umum</option>
                                             <option value="Tidak ada" {{ old('valmck') == 'Tidak ada' || (isset($lokasi) && $lokasi->mck == 'Tidak ada') ? 'selected' : '' }}>Tidak ada</option>
                                         </select>
-                                        
+
                                         @error('valmck')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -360,7 +360,7 @@
                                             <option value="Sungai, Danau, Embung" {{ old('valsumber_air_mandi') == 'Sungai, Danau, Embung' || (isset($lokasi) && $lokasi->sumber_air_mandi == 'Sungai, Danau, Embung') ? 'selected' : '' }}>Sungai, Danau, Embung</option>
                                             <option value="Tadah air hujan" {{ old('valsumber_air_mandi') == 'Tadah air hujan' || (isset($lokasi) && $lokasi->sumber_air_mandi == 'Tadah air hujan') ? 'selected' : '' }}>Tadah air hujan</option>
                                             <option value="Lainnya" {{ old('valsumber_air_mandi') == 'Lainnya' || (isset($lokasi) && $lokasi->sumber_air_mandi == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
-                                        </select>                                        
+                                        </select>
                                         @error('valsumber_air_mandi')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -380,7 +380,7 @@
                                             <option value="Jamban Bersama/Tetangga" {{ old('valsumber_air_mck') == 'Jamban Bersama/Tetangga' || (isset($lokasi) && $lokasi->sumber_air_mck == 'Jamban Bersama/Tetangga') ? 'selected' : '' }}>Jamban Bersama/Tetangga</option>
                                             <option value="Lainnya" {{ old('valsumber_air_mck') == 'Lainnya' || (isset($lokasi) && $lokasi->sumber_air_mck == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valsumber_air_mck')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -401,7 +401,7 @@
                                             <option value="Tadah air hujan" {{ old('valsumber_air_minum') == 'Tadah air hujan' || (isset($lokasi) && $lokasi->sumber_air_minum == 'Tadah air hujan') ? 'selected' : '' }}>Tadah air hujan</option>
                                             <option value="Lainnya" {{ old('valsumber_air_minum') == 'Lainnya' || (isset($lokasi) && $lokasi->sumber_air_minum == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valsumber_air_minum')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -421,7 +421,7 @@
                                             <option value="Lubang di tanah" {{ old('valtempat_pembuangan_limbah') == 'Lubang di tanah' || (isset($lokasi) && $lokasi->tempat_pembuangan_limbah == 'Lubang di tanah') ? 'selected' : '' }}>Lubang di tanah</option>
                                             <option value="Lainnya" {{ old('valtempat_pembuangan_limbah') == 'Lainnya' || (isset($lokasi) && $lokasi->tempat_pembuangan_limbah == 'Lainnya') ? 'selected' : '' }}>Lainnya</option>
                                         </select>
-                                        
+
                                         @error('valtempat_pembuangan_limbah')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -439,7 +439,7 @@
                                             <option value="Ya" {{ old('valrumah_sutet') == 'Ya' || (isset($lokasi) && $lokasi->rumah_sutet == 'Ya') ? 'selected' : '' }}>Ya</option>
                                             <option value="Tidak" {{ old('valrumah_sutet') == 'Tidak' || (isset($lokasi) && $lokasi->rumah_sutet == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valrumah_sutet')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -457,7 +457,7 @@
                                             <option value="Ya" {{ old('valrumah_sungai') == 'Ya' || (isset($lokasi) && $lokasi->rumah_sungai == 'Ya') ? 'selected' : '' }}>Ya</option>
                                             <option value="Tidak" {{ old('valrumah_sungai') == 'Tidak' || (isset($lokasi) && $lokasi->rumah_sungai == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valrumah_sungai')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -475,7 +475,7 @@
                                             <option value="Ya" {{ old('valrumah_lereng_gunung') == 'Ya' || (isset($lokasi) && $lokasi->rumah_lereng_gunung == 'Ya') ? 'selected' : '' }}>Ya</option>
                                             <option value="Tidak" {{ old('valrumah_lereng_gunung') == 'Tidak' || (isset($lokasi) && $lokasi->rumah_lereng_gunung == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valrumah_lereng_gunung')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -493,7 +493,7 @@
                                             <option value="Kumuh" {{ old('valkondi_rumah_kumuh') == 'Kumuh' || (isset($lokasi) && $lokasi->kondi_rumah_kumuh == 'Kumuh') ? 'selected' : '' }}>Kumuh</option>
                                             <option value="Tidak Kumuh" {{ old('valkondi_rumah_kumuh') == 'Tidak Kumuh' || (isset($lokasi) && $lokasi->kondi_rumah_kumuh == 'Tidak Kumuh') ? 'selected' : '' }}>Tidak Kumuh</option>
                                         </select>
-                                        
+
                                         @error('valkondi_rumah_kumuh')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -507,7 +507,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -517,5 +517,33 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-kklokasi').submit();
+        });
+    </script>
+
 
 @endsection

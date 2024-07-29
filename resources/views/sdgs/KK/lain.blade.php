@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -16,6 +16,10 @@
                                 </div>
                             @endif
                             <h2 class="card-title">LAIN-LAIN</h2>
+                            <div class="form-group">
+                                <label for="search_nik">Cari berdasarkan NIK:</label>
+                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
+                            </div>
                         </div>
 
                         <div class="table-responsive">
@@ -25,6 +29,7 @@
                                     <tr>
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
+                                        <th rowspan="2">KK</th>
                                         <th rowspan="2">NIK</th>
                                         <th rowspan="2">Gelar awal</th>
                                         <th rowspan="2">Nama</th>
@@ -70,12 +75,16 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
+ searching: false,
                 ajax: {
                     url: '{!! route('laink.json') !!}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
+                    data: function(d) {
+                                d.nik = $('#search_nik').val(); // Pass the NIK input value
+                            }
                 },
                 columns: [{
                         data: 'action',
@@ -91,6 +100,10 @@
                     {
                         data: 'nokk',
                         name: 'nokk'
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik'
                     },
                     {
                         data: 'gelarawal',
@@ -150,6 +163,9 @@
                     },
                 ]
             });
+            $('#search_nik').on('keyup', function() {
+                        $('#tabledatalaink').DataTable().ajax.reload();
+                    });
         });
     </script>
 @endsection

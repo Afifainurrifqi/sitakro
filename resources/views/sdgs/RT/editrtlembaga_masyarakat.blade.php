@@ -1,16 +1,8 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -19,13 +11,13 @@
                         <h1 class="card-title">EDIT LEMBAGA MASYARAKAT
                             <h1 class="card-title"> RT : {{ $datart->rt }}</h1>
                             <h1 class="card-title"> RW : {{ $datart->rw }}</h1>
-    
+
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtlembaga_masyarakat.index') }}'">Kembali
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('rtlembaga_masyarakat.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('rtlembaga_masyarakat.update') }}" method="POST" id="form-edit-rtlembagamas">
                                 @csrf
                                 <div class="form-group row" >
                                     <label class="col-lg-4 col-form-label" for="valnik">NIK <span class="text-danger">*</span></label>
@@ -39,7 +31,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -69,7 +61,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                </div>                         
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valrt">RT<span
                                             class="text-danger">*</span>
@@ -124,7 +116,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnama">Nama
                                         <span class="text-danger">*</span>
@@ -158,7 +150,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valjumlah_kel">JUMLAH KELOMPOK
 
@@ -230,7 +222,7 @@
                                         Ada, rusak parah
                                     </option>
                                 </select>
-                                
+
                                         @error('valfasilitas')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -241,12 +233,13 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
-                                
 
-                             
+
+
                             </form>
                         </div>
                     </div>
@@ -254,4 +247,32 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-rtlembagamas').submit();
+        });
+    </script>
 @endsection

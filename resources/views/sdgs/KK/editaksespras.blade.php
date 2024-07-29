@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -13,7 +13,7 @@
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('aksessarpras.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('aksessarpras.update') }}" method="POST" id="form-edit-sarpras">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">LOKASI PEKERJAAN UTAMA<span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">                                       
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjenistrasport_lokasipu">JENIS TRANSPORTASI</label>
                                             <select class="form-control @error('valjenistrasport_lokasipu') is-invalid @enderror" id="valjenistrasport_lokasipu" name="valjenistrasport_lokasipu">
@@ -48,7 +48,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valpengtransportumum_lokasipu">PENGGUNAAN TRANSPORTASI UMUM</label>
                                             <select class="form-control @error('valpengtransportumum_lokasipu') is-invalid @enderror" id="valpengtransportumum_lokasipu" name="valpengtransportumum_lokasipu">
@@ -61,7 +61,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valwaktutempuh_lokasipu">WAKTU TEMPUH SEKALI JALAN (JAM)
                                             </label>
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">LAHAN PERTANIAN YANG SEDANG DIUSAHAKAN<span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">                                       
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjenistrasport_lahanpertanian">JENIS TRANSPORTASI</label>
                                             <select class="form-control @error('valjenistrasport_lahanpertanian') is-invalid @enderror" id="valjenistrasport_lahanpertanian" name="valjenistrasport_lahanpertanian">
@@ -123,7 +123,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valpengtransportumum_lahanpertanian">PENGGUNAAN TRANSPORTASI UMUM</label>
                                             <select class="form-control @error('valpengtransportumum_lahanpertanian') is-invalid @enderror" id="valpengtransportumum_lahanpertanian" name="valpengtransportumum_lahanpertanian">
@@ -136,7 +136,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valwaktutempuh_lahanpertanian">WAKTU TEMPUH SEKALI JALAN (JAM)
                                             </label>
@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">SEKOLAH<span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">                                       
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjenistrasport_sekolah">JENIS TRANSPORTASI</label>
                                             <select class="form-control @error('valjenistrasport_sekolah') is-invalid @enderror" id="valjenistrasport_sekolah" name="valjenistrasport_sekolah">
@@ -198,7 +198,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valpengtransportumum_sekolah">PENGGUNAAN TRANSPORTASI UMUM</label>
                                             <select class="form-control @error('valpengtransportumum_sekolah') is-invalid @enderror" id="valpengtransportumum_sekolah" name="valpengtransportumum_sekolah">
@@ -211,7 +211,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valwaktutempuh_sekolah">WAKTU TEMPUH SEKALI JALAN (JAM)
                                             </label>
@@ -259,7 +259,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">BEROBAT<span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">                                       
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjenistrasport_berobat">JENIS TRANSPORTASI</label>
                                             <select class="form-control @error('valjenistrasport_berobat') is-invalid @enderror" id="valjenistrasport_berobat" name="valjenistrasport_berobat">
@@ -273,7 +273,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valpengtransportumum_berobat">PENGGUNAAN TRANSPORTASI UMUM</label>
                                             <select class="form-control @error('valpengtransportumum_berobat') is-invalid @enderror" id="valpengtransportumum_berobat" name="valpengtransportumum_berobat">
@@ -286,7 +286,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valwaktutempuh_berobat">WAKTU TEMPUH SEKALI JALAN (JAM)
                                             </label>
@@ -334,7 +334,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">BERIBADAH  MINGGUAN / BULANAN / TAHUNAN<span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">                                       
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjenistrasport_beribadah">JENIS TRANSPORTASI</label>
                                             <select class="form-control @error('valjenistrasport_beribadah') is-invalid @enderror" id="valjenistrasport_beribadah" name="valjenistrasport_beribadah">
@@ -348,7 +348,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valpengtransportumum_beribadah">PENGGUNAAN TRANSPORTASI UMUM</label>
                                             <select class="form-control @error('valpengtransportumum_beribadah') is-invalid @enderror" id="valpengtransportumum_beribadah" name="valpengtransportumum_beribadah">
@@ -361,7 +361,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valwaktutempuh_beribadah">WAKTU TEMPUH SEKALI JALAN (JAM)
                                             </label>
@@ -409,7 +409,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">REKREASI TERDEKAT<span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">                                       
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valjenistrasport_rekreasi">JENIS TRANSPORTASI</label>
                                             <select class="form-control @error('valjenistrasport_rekreasi') is-invalid @enderror" id="valjenistrasport_rekreasi" name="valjenistrasport_rekreasi">
@@ -423,7 +423,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valpengtransportumum_rekreasi">PENGGUNAAN TRANSPORTASI UMUM</label>
                                             <select class="form-control @error('valpengtransportumum_rekreasi') is-invalid @enderror" id="valpengtransportumum_rekreasi" name="valpengtransportumum_rekreasi">
@@ -436,7 +436,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="valwaktutempuh_rekreasi">WAKTU TEMPUH SEKALI JALAN (JAM)
                                             </label>
@@ -482,10 +482,10 @@
                                         </div>
                                     </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -495,4 +495,32 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-sarpras').submit();
+        });
+    </script>
 @endsection

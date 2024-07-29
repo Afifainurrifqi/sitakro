@@ -1,16 +1,8 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -23,7 +15,7 @@
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('rt_kejadianluarbiasa.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('rt_kejadianluarbiasa.update') }}" method="POST" id="form-edit-rtkejadianluarb">
                                 @csrf
                                 <div class="form-group row" >
                                     <label class="col-lg-4 col-form-label" for="valnik">NIK <span class="text-danger">*</span></label>
@@ -37,7 +29,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -67,7 +59,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                </div>                         
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valrt">RT<span
                                             class="text-danger">*</span>
@@ -180,7 +172,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">DEMAM BERDARAH		
+                                    <label class="col-lg-4 col-form-label">DEMAM BERDARAH
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -239,7 +231,7 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">CAMPAK		
+                                    <label class="col-lg-4 col-form-label">CAMPAK
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -298,7 +290,7 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">MALARIA		
+                                    <label class="col-lg-4 col-form-label">MALARIA
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -357,7 +349,7 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">FLU BURUNG/SARS		
+                                    <label class="col-lg-4 col-form-label">FLU BURUNG/SARS
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -416,7 +408,7 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">COVID-19		
+                                    <label class="col-lg-4 col-form-label">COVID-19
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -475,7 +467,7 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">HEPATITIS B		
+                                    <label class="col-lg-4 col-form-label">HEPATITIS B
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -534,7 +526,7 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">HEPATITIS E		
+                                    <label class="col-lg-4 col-form-label">HEPATITIS E
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -593,7 +585,7 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">DIPTERI		
+                                    <label class="col-lg-4 col-form-label">DIPTERI
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -652,9 +644,9 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">CHIKUNGUNYA		
-                                        <span class="text-danger">*</span></label>		
-                                        
+                                    <label class="col-lg-4 col-form-label">CHIKUNGUNYA
+                                        <span class="text-danger">*</span></label>
+
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valnama_chikung">KEJADIAN
@@ -710,7 +702,7 @@
 
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">LEPTOSPIROSIS
-                                        <span class="text-danger">*</span></label>		
+                                        <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="valnama_leptos">KEJADIAN
@@ -765,7 +757,7 @@
                             </div>
 
 
-                               
+
 
 
                                 <div class="form-group row">
@@ -885,7 +877,7 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">LAINNYA		
+                                    <label class="col-lg-4 col-form-label">LAINNYA
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -940,11 +932,11 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>         
-                            </div>               
+                                </div>
+                            </div>
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -954,4 +946,31 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-rtkejadianluarb').submit();
+        });
+    </script>
 @endsection

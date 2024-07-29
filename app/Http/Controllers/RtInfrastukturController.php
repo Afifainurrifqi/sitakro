@@ -27,7 +27,263 @@ class RtInfrastukturController extends Controller
         return view('sdgs.RT.rt_infrastuktur');
     }
 
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.RT.admin_rt_infrastuktur');
+    }
+
     public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtinfrastuktur.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtinfrastuktur.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+                        </td>';
+            })
+
+            ->addColumn('penerangan_jalan', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                $nama_ketuart = $rtlokasi ? $rtlokasi->penerangan_jalan : '';
+                return $nama_ketuart;
+            })
+
+            ->addColumn('pra_transportrt', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pra_transportrt : '';
+            })
+            ->addColumn('jalan_aspal', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jalan_aspal : '';
+            })
+            ->addColumn('jalan_makadam', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jalan_makadam : '';
+            })
+            ->addColumn('jalan_tanah', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jalan_tanah : '';
+            })
+            ->addColumn('jalan_papan_atasaair', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jalan_papan_atasaair : '';
+            })
+            ->addColumn('jalan_setapak', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jalan_setapak : '';
+            })
+            ->addColumn('jalan_lainnya', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jalan_lainnya : '';
+            })
+            ->addColumn('jalan_darat_roda4', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jalan_darat_roda4 : '';
+            })
+            ->addColumn('angkutanumum_trayek', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->angkutanumum_trayek : '';
+            })
+            ->addColumn('angkutanumum_opra', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->angkutanumum_opra : '';
+            })
+            ->addColumn('angkutanumum_jamopra', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->angkutanumum_jamopra : '';
+            })
+            ->addColumn('dermaga_laut', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->dermaga_laut : '';
+            })
+            ->addColumn('sinyalhp_bts', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->sinyalhp_bts : '';
+            })
+            ->addColumn('sinyalhp_telkom', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->sinyalhp_telkom : '';
+            })
+            ->addColumn('sinyalhp_indo', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->sinyalhp_indo : '';
+            })
+            ->addColumn('sinyalhp_xl', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->sinyalhp_xl : '';
+            })
+            ->addColumn('sinyalhp_hut', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->sinyalhp_hut : '';
+            })
+            ->addColumn('sinyalhp_psn', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->sinyalhp_psn : '';
+            })
+            ->addColumn('sinyalhp_smart', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->sinyalhp_smart : '';
+            })
+            ->addColumn('sinyalhp_bakrie', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->sinyalhp_bakrie : '';
+            })
+            ->addColumn('pos_pembantu', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pos_pembantu : '';
+            })
+            ->addColumn('pos_keliling', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pos_keliling : '';
+            })
+            ->addColumn('agen_jasa', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->agen_jasa : '';
+            })
+            ->addColumn('chanel_tvri', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->chanel_tvri : '';
+            })
+            ->addColumn('parabola_tvri', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->parabola_tvri : '';
+            })
+            ->addColumn('chanel_tvrid', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->chanel_tvrid : '';
+            })
+            ->addColumn('parabola_tvrid', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->parabola_tvrid : '';
+            })
+            ->addColumn('chanel_s', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->chanel_s : '';
+            })
+            ->addColumn('parabola_s', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->parabola_s : '';
+            })
+            ->addColumn('chanel_ln', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->chanel_ln : '';
+            })
+            ->addColumn('parabola_ln', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->parabola_ln : '';
+            })
+            ->addColumn('chanel_rri', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->chanel_rri : '';
+            })
+            ->addColumn('parabola_rri', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->parabola_rri : '';
+            })
+            ->addColumn('chanel_rrid', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->chanel_rrid : '';
+            })
+            ->addColumn('parabola_rrid', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->parabola_rrid : '';
+            })
+            ->addColumn('chanel_radios', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->chanel_radios : '';
+            })
+            ->addColumn('parabola_radios', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->parabola_radios : '';
+            })
+            ->addColumn('chanel_radiok', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->chanel_radiok : '';
+            })
+            ->addColumn('parabola_radiok', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->parabola_radiok : '';
+            })
+            ->addColumn('jumlah_lokasi_air', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlah_lokasi_air : '';
+            })
+            ->addColumn('fasilitas_umump_pasar', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->fasilitas_umump_pasar : '';
+            })
+            ->addColumn('fasilitas_umump_stasiun', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->fasilitas_umump_stasiun : '';
+            })
+            ->addColumn('fasilitas_umump_terminal', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->fasilitas_umump_terminal : '';
+            })
+            ->addColumn('fasilitas_umump_kolong', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->fasilitas_umump_kolong : '';
+            })
+            ->addColumn('fasilitas_umump_pelabuhan', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->fasilitas_umump_pelabuhan : '';
+            })
+            ->addColumn('pemukiman_khusus_mewah', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemukiman_khusus_mewah : '';
+            })
+            ->addColumn('pemukiman_khusus_apart', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemukiman_khusus_apart : '';
+            })
+            ->addColumn('pemukiman_khusus_susun', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemukiman_khusus_susun : '';
+            })
+            ->addColumn('pemukiman_khusus_school', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemukiman_khusus_school : '';
+            })
+            ->addColumn('pemukiman_khusus_kos', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemukiman_khusus_kos : '';
+            })
+            ->addColumn('pemukiman_khusus_asrama', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemukiman_khusus_asrama : '';
+            })
+            ->addColumn('pemukiman_khusus_lp', function ($row) {
+                $rtlokasi = rt_infrastuktur::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->pemukiman_khusus_lp : '';
+            })
+
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
+    public function jsonadmin(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
 
@@ -40,7 +296,7 @@ class RtInfrastukturController extends Controller
                             <a href="' . route('rtinfrastuktur.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
+
                         </td>';
             })
 

@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -118,8 +118,8 @@
                                         KALI MENIKAH <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                    
-                                        @isset($datai->usia_saat_pertama_kali_menikah) 
+
+                                        @isset($datai->usia_saat_pertama_kali_menikah)
                                             {{ $datai->usia_saat_pertama_kali_menikah }} Tahun
                                         @else
                                             Data tidak tersedia.

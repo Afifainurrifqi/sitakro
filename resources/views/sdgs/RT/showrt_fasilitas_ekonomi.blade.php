@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -175,7 +175,7 @@
                                         <!-- Tindakan atau pesan jika kondisi_pekerjaan kosong -->
                                         Data tidak tersedia.
                                     @endif
-                                        
+
                                         @error('valkredit_kecil')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -202,7 +202,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                               
+
                             </form>
                         </div>
                     </div>

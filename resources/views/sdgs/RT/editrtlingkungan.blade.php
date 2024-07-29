@@ -1,16 +1,8 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -23,7 +15,7 @@
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('rtlingkungan.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('rtlingkungan.update') }}" method="POST" id="form-edit-rtlingkungan">
                                 @csrf
                                 <div class="form-group row" >
                                     <label class="col-lg-4 col-form-label" for="valnik">NIK <span class="text-danger">*</span></label>
@@ -37,7 +29,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -67,7 +59,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                </div>                         
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valrt">RT<span
                                             class="text-danger">*</span>
@@ -584,7 +576,7 @@
                                             <label for="vallingkungan_pair">AIR</label>
                                             <select class="form-control @error('vallingkungan_pair') is-invalid @enderror" id="vallingkungan_pair"
                                             name="vallingkungan_pair">
-                                
+
                                             <option value="" disabled selected>Pilih...</option>
                                             <option value="tidak ada"
                                                 {{ old('vallingkungan_pair') == 'tidak ada' || (isset($rt_lingkungan) && $rt_lingkungan->lingkungan_pair == 'tidak ada') ? 'selected' : '' }}>
@@ -603,7 +595,7 @@
                                             <label for="vallingkungan_ptanah">TANAH</label>
                                             <select class="form-control @error('vallingkungan_ptanah') is-invalid @enderror" id="vallingkungan_ptanah"
                                             name="vallingkungan_ptanah">
-                                
+
                                             <option value="" disabled selected>Pilih...</option>
                                             <option value="tidak ada"
                                                 {{ old('vallingkungan_ptanah') == 'tidak ada' || (isset($rt_lingkungan) && $rt_lingkungan->lingkungan_ptanah == 'tidak ada') ? 'selected' : '' }}>
@@ -622,7 +614,7 @@
                                             <label for="vallingkungan_pudara">UDARA</label>
                                             <select class="form-control @error('vallingkungan_pudara') is-invalid @enderror" id="vallingkungan_pudara"
                                             name="vallingkungan_pudara">
-                                
+
                                             <option value="" disabled selected>Pilih...</option>
                                             <option value="tidak ada"
                                                 {{ old('vallingkungan_pudara') == 'tidak ada' || (isset($rt_lingkungan) && $rt_lingkungan->lingkungan_pudara == 'tidak ada') ? 'selected' : '' }}>
@@ -646,7 +638,7 @@
                                     <div class="col-lg-6">
                                         <select class="form-control @error('vallingkungan_pdusl') is-invalid @enderror"
                                         id="vallingkungan_pdusl" name="vallingkungan_pdusl">
-                                    
+
                                         <option value="" disabled selected>Pilih...</option>
                                         <option value="ada sebagian warga terlibat"
                                             {{ old('vallingkungan_pdusl') == 'ada sebagian warga terlibat' || (isset($rt_lingkungan) && $rt_lingkungan->lingkungan_pdusl == 'ada sebagian warga terlibat') ? 'selected' : '' }}>
@@ -658,7 +650,7 @@
                                             {{ old('vallingkungan_pdusl') == 'tidak ada kegiatan' || (isset($rt_lingkungan) && $rt_lingkungan->lingkungan_pdusl == 'tidak ada kegiatan') ? 'selected' : '' }}>
                                             Tidak ada kegiatan</option>
                                     </select>
-                                    
+
                                         @error('vallingkungan_pdusl')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -673,7 +665,7 @@
                                     <div class="col-lg-6">
                                         <select class="form-control @error('vallingkungan_kmml') is-invalid @enderror"
                                         id="vallingkungan_kmml" name="vallingkungan_kmml">
-                                    
+
                                         <option value="" disabled selected>Pilih...</option>
                                         <option value="ya"
                                             {{ old('vallingkungan_kmml') == 'ya' || (isset($rt_lingkungan) && $rt_lingkungan->lingkungan_kmml == 'ya') ? 'selected' : '' }}>
@@ -696,7 +688,7 @@
                                     <div class="col-lg-6">
                                         <select class="form-control @error('vallingkungan_klpg') is-invalid @enderror"
                                         id="vallingkungan_klpg" name="vallingkungan_klpg">
-                                    
+
                                         <option value="" disabled selected>Pilih...</option>
                                         <option value="ya"
                                             {{ old('vallingkungan_klpg') == 'ya' || (isset($rt_lingkungan) && $rt_lingkungan->lingkungan_klpg == 'ya') ? 'selected' : '' }}>
@@ -704,7 +696,7 @@
                                         <option value="tidak"
                                             {{ old('vallingkungan_klpg') == 'tidak' || (isset($rt_lingkungan) && $rt_lingkungan->lingkungan_klpg == 'tidak') ? 'selected' : '' }}>
                                             Tidak</option>
-                                    </select>                                   
+                                    </select>
                                         @error('vallingkungan_klpg')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -714,7 +706,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -724,4 +716,30 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-rtlingkungan').submit();
+        });
+    </script>
+
 @endsection

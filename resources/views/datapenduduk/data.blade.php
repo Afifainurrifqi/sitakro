@@ -1,10 +1,6 @@
-@extends('layout.main')
-
+@extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 @section('content')
-    @if ($errors->any())
-        {{ implode('', $errors->all('<div>:message</div>')) }}
-    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -23,12 +19,19 @@
                                 onclick="window.location='{{ url('datapenduduk/add') }}'">Tambah penduduk<span
                                     class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                            <button type="button" class="btn mb-1 btn-primary" data-toggle="modal"
                                 data-target="#importModal">Impor Data</button> <br><br>
+
+                            <!-- Form pencarian -->
+                            <form id="search-form">
+                                <div class="form-group">
+                                    <label for="nik">Cari berdasarkan NIK:</label>
+                                    <input type="text" class="form-control" id="searchNIK" name="nik" placeholder="Masukkan NIK">
+                                </div>
+                            </form>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration" id="tabledatapenduduk">
-
                                 <thead>
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
@@ -86,40 +89,40 @@
                                                         <button type="submit" class="btn btn-primary">Import</button>
                                                     </div>
                                                 </form>
-
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </tbody>
                             </table>
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript">
         var $ = jQuery.noConflict();
         $(function() {
-            $('#tabledatapenduduk').DataTable({
+            var table = $('#tabledatapenduduk').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                dom: 'Bfrtip',
+                searching: false,
+                // dom: 'Bfrtip',
                 ajax: {
-                url: '{!! route('datapenduduk.json') !!}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{!! route('datapenduduk.json') !!}',
+                    type: 'POST',
+                    data: function(d) {
+                        d.nik = $('#nik').val();
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: function(d) {
+                        d.nik = $('#searchNIK').val();
+                    }
                 },
-            },
                 "buttons": [{
                     "extend": 'excel',
                     "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
@@ -222,7 +225,11 @@
                         name: 'datak'
                     },
                 ],
+            });
 
+
+            $('#searchNIK').on('keyup', function() {
+                table.draw();
             });
 
             function newexportaction(e, dt, button, config) {

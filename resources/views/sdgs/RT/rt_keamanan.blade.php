@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -16,6 +16,10 @@
                                 </div>
                             @endif
                             <h2 class="card-title">KEAMANAN</h2>
+                            <div class="form-group">
+                                <label for="search_nik">Cari berdasarkan NIK:</label>
+                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
+                            </div>
                         </div>
 
                         <div class="table-responsive">
@@ -129,12 +133,16 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
+ searching: false,
                 ajax: {
                     url: '{!! route('rt_keamanan.json') !!}',
                     type: 'POST', // Correct the method to POST
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
+                    data: function(d) {
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
                 columns: [{
                         data: 'action',
@@ -394,6 +402,10 @@
                     console.log(xhr.responseText);
                 }
 
+            });
+
+            $('#search_nik').on('keyup', function() {
+                $('#tablertkeamanan').DataTable().ajax.reload();
             });
         });
     </script>

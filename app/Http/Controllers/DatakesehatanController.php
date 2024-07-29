@@ -26,13 +26,18 @@ class DatakesehatanController extends Controller
         return view('sdgs.individu.datakesehatan');
     }
 
-    public function json(Request $request)
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.individu.admin_data_kesehatan');
+    }
+
+    public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
         $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
             ->whereIn('Datak', $allowedDatakValues);
-    
+
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
@@ -52,14 +57,186 @@ class DatakesehatanController extends Controller
             ->addColumn('penyakit', function ($row) {
                 $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
                 $penyakitsetahun = $datakesehatan ? explode(',', $datakesehatan->penyakitsetahun) : [];
-                
+
                 if (is_array($penyakitsetahun)) {
                     return implode(', ', $penyakitsetahun);
                 } else {
                     return $penyakitsetahun;
                 }
             })
-            
+
+            ->addColumn('rumahsakit', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $rumahsakit = $datakesehatan ? $datakesehatan->rumah_sakit : '';
+
+                return '' . $rumahsakit . ' kali';
+            })
+            ->addColumn('rumahsakitb', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $rumahsakitb = $datakesehatan ? $datakesehatan->rumah_sakitb : '';
+
+                return '' . $rumahsakitb . ' kali';
+            })
+            ->addColumn('pusekesmas_denganri', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $pusekesmas_denganri = $datakesehatan ? $datakesehatan->puskesmas_denganri : '';
+
+                return '' . $pusekesmas_denganri . ' kali';
+            })
+            ->addColumn('pusekesmas_tanpari', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $pusekesmas_tanpari = $datakesehatan ? $datakesehatan->puskesmas_tanpari : '';
+
+                return '' . $pusekesmas_tanpari . ' kali';
+            })
+            ->addColumn('puskesmas_pembantu', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $puskesmas_pembantu = $datakesehatan ? $datakesehatan->puskemas_pembantu : '';
+
+                return '' . $puskesmas_pembantu . ' kali';
+            })
+            ->addColumn('poliklinik', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $poliklinik = $datakesehatan ? $datakesehatan->poliklinik : '';
+
+                return '' . $poliklinik . ' kali';
+            })
+            ->addColumn('tempat_prakterkdr', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $tempat_prakterkdr = $datakesehatan ? $datakesehatan->tempat_praktekdr : '';
+
+                return '' . $tempat_prakterkdr . ' kali';
+            })
+            ->addColumn('rumah_bersalin', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $rumah_bersalin = $datakesehatan ? $datakesehatan->rumah_bersalin : '';
+
+                return '' . $rumah_bersalin . ' kali';
+            })
+            ->addColumn('tempat_praktek', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $tempat_praktek = $datakesehatan ? $datakesehatan->tempat_praktek : '';
+
+                return '' . $tempat_praktek . ' kali';
+            })
+            ->addColumn('poskedes', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $poskedes = $datakesehatan ? $datakesehatan->poskesdes : '';
+
+                return '' . $poskedes . ' kali';
+            })
+            ->addColumn('polindes', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $polindes = $datakesehatan ? $datakesehatan->polindes : '';
+
+                return '' . $polindes . ' kali';
+            })
+            ->addColumn('apotik', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $apotik = $datakesehatan ? $datakesehatan->apotik : '';
+
+                return '' . $apotik . ' kali';
+            })
+            ->addColumn('toko_obat', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $toko_obat = $datakesehatan ? $datakesehatan->toko_obat : '';
+
+                return '' . $toko_obat . ' kali';
+            })
+            ->addColumn('posyandu', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $posyandu = $datakesehatan ? $datakesehatan->posyandu : '';
+
+                return '' . $posyandu . ' kali';
+            })
+            ->addColumn('posbindu', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $posbindu = $datakesehatan ? $datakesehatan->posbindu : '';
+
+                return '' . $posbindu . ' kali';
+            })
+            ->addColumn('tempat_praktikdb', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $tempat_praktikdb = $datakesehatan ? $datakesehatan->tempat_praktikdb : '';
+
+                return '' . $tempat_praktikdb . ' kali';
+            })
+            ->addColumn('jamkes', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $jamkes = $datakesehatan ? $datakesehatan->jamkes : '';
+
+                return '' . $jamkes . '';
+            })
+            ->addColumn('bayi', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $bayi = $datakesehatan ? $datakesehatan->bayiu16 : '';
+
+                return '' . $bayi . '';
+            })
+
+            ->rawColumns(['action',                'penyakit',
+            'rumahsakit',
+            'rumahsakitb',
+            'pusekesmas_denganri',
+            'pusekesmas_tanpari',
+            'puskesmas_pembantu',
+            'poliklinik',
+            'tempat_prakterkdr',
+            'rumah_bersalin',
+            'tempat_praktek',
+            'poskedes',
+            'polindes',
+            'apotik',
+            'toko_obat',
+            'posyandu',
+            'posbindu',
+            'tempat_praktikdb',
+            'jamkes',
+            'bayi',])
+            ->toJson();
+    }
+
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+                ->where('nik', $nik)
+                ->whereIn('Datak', $allowedDatakValues);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('kesehatan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('kesehatan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+
+            ->addColumn('penyakit', function ($row) {
+                $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
+                $penyakitsetahun = $datakesehatan ? explode(',', $datakesehatan->penyakitsetahun) : [];
+
+                if (is_array($penyakitsetahun)) {
+                    return implode(', ', $penyakitsetahun);
+                } else {
+                    return $penyakitsetahun;
+                }
+            })
+
             ->addColumn('rumahsakit', function ($row) {
                 $datakesehatan = datakesehatan::where('nik', $row->nik)->first();
                 $rumahsakit = $datakesehatan ? $datakesehatan->rumah_sakit : '';

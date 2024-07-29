@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -14,7 +14,7 @@
                         <br><br><br>
                         <div class="form-validation">
 
-                            <form class="form-valide" action="{{ route('pendidikan.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('pendidikan.update') }}" method="POST" id="form-edit-pendidikan">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
@@ -237,7 +237,7 @@
                                             <option value="Iya" {{ old('valmendapatp1') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->mendapatp1 == 'Iya') ? 'selected' : '' }}>Iya</option>
                                             <option value="Tidak" {{ old('valmendapatp1') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->mendapatp1 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valmendapatp1')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -272,7 +272,7 @@
                                             <option value="Iya" {{ old('valpernahmasukan') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->pernahmasukan == 'Iya') ? 'selected' : '' }}>Iya</option>
                                             <option value="Tidak" {{ old('valpernahmasukan') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->pernahmasukan == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valpernahmasukan')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -308,7 +308,7 @@
                                             <option value="Iya" {{ old('valbencana1') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->bencana1 == 'Iya') ? 'selected' : '' }}>Iya</option>
                                             <option value="Tidak" {{ old('valbencana1') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->bencana1 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valbencana1')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -327,7 +327,7 @@
                                             <option value="Iya" {{ old('valapakahb') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahb == 'Iya') ? 'selected' : '' }}>Iya</option>
                                             <option value="Tidak" {{ old('valapakahb') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahb == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valapakahb')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -346,7 +346,7 @@
                                             <option value="Iya" {{ old('valapakahd') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahd == 'Iya') ? 'selected' : '' }}>Iya</option>
                                             <option value="Tidak" {{ old('valapakahd') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahd == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valapakahd')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -365,7 +365,7 @@
                                             <option value="Iya" {{ old('valapakahp') == 'Iya' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahp == 'Iya') ? 'selected' : '' }}>Iya</option>
                                             <option value="Tidak" {{ old('valapakahp') == 'Tidak' || (isset($datasdgspendidikan) && $datasdgspendidikan->apakahp == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
+
                                         @error('valapakahp')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -377,7 +377,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -387,4 +387,32 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-pendidikan').submit();
+        });
+    </script>
+
 @endsection

@@ -27,9 +27,23 @@ class LembagaMasyarakatController extends Controller
         return view('sdgs.RT.rtlembaga_masyarakat');
     }
 
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.RT.admin_rtlembaga_masyarakat');
+    }
+
     public function json(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
 
         return DataTables::of($query)
             ->addColumn('action', function ($row) {
@@ -40,7 +54,7 @@ class LembagaMasyarakatController extends Controller
                             <a href="' . route('rtlembaga_masyarakat.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
+
                         </td>';
             })
 
@@ -64,7 +78,55 @@ class LembagaMasyarakatController extends Controller
                 $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
                 return $rtlokasi ? $rtlokasi->fasilitas : '';
             })
-            
+
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
+    public function jsonadmin(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtlembaga_masyarakat.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtlembaga_masyarakat.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+                        </td>';
+            })
+
+            ->addColumn('namalembagamas', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->nama : '';
+            })
+            ->addColumn('jumlah_kel', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlah_kel : '';
+            })
+            ->addColumn('jumlah_peng', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlah_peng : '';
+            })
+            ->addColumn('jumlah_ang', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jumlah_ang : '';
+            })
+            ->addColumn('fasilitas', function ($row) {
+                $rtlokasi = lembaga_masyarakat::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->fasilitas : '';
+            })
+
 
 
             ->rawColumns([
@@ -127,7 +189,7 @@ class LembagaMasyarakatController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rtlembaga_masyarakat = lembaga_masyarakat::where('nik', $nik)->first();
-       
+
 
         return view('sdgs.RT.showrtlembaga_masyarakat', compact('rtlembaga_masyarakat','datart'));
     }

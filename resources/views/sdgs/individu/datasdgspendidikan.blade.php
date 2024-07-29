@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -16,7 +16,10 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS PENDIDIKAN</h2>
-
+                            <div class="form-group">
+                                <label for="search_nik">Cari berdasarkan NIK:</label>
+                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatapendidikansdgs">
@@ -79,12 +82,17 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
+ searching: false,
+                searching: false,
                 ajax: {
                 url: '{!! route('datasdgspendidikan.json') !!}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+                data: function(d) {
+                                d.nik = $('#search_nik').val(); // Pass the NIK input value
+                            }
             },
                 columns: [{
                         data: 'action',
@@ -198,6 +206,9 @@
 
                 ]
             });
+            $('#search_nik').on('keyup', function() {
+                        $('#tabledatapendidikansdgs').DataTable().ajax.reload();
+                    });
         });
 
         document.addEventListener('DOMContentLoaded', function() {

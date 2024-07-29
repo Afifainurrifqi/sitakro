@@ -1,16 +1,8 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -122,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri Barang dari Kulit (Tas, Sepatu, Sandal, dll)	
+                                    <label class="col-lg-4 col-form-label">Industri Barang dari Kulit (Tas, Sepatu, Sandal, dll)
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -193,7 +185,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri Barang dari Kayu (Meja, Kursi, Lemari, ll)				
+                                    <label class="col-lg-4 col-form-label">Industri Barang dari Kayu (Meja, Kursi, Lemari, ll)
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -265,7 +257,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri Barang dari Logam Mulia atau bahan Logam (Perabot, Perhiasan, dll)				
+                                    <label class="col-lg-4 col-form-label">Industri Barang dari Logam Mulia atau bahan Logam (Perabot, Perhiasan, dll)
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -337,7 +329,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri Logam Berat			
+                                    <label class="col-lg-4 col-form-label">Industri Logam Berat
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -409,8 +401,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri Barang dari Kain (Tenun, Konveksi, dll)		
-	
+                                    <label class="col-lg-4 col-form-label">Industri Barang dari Kain (Tenun, Konveksi, dll)
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -480,9 +472,9 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>                              
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri gerabah/keramik/batu (porselen, keramik, tegel, dll)			
+                                    <label class="col-lg-4 col-form-label">Industri gerabah/keramik/batu (porselen, keramik, tegel, dll)
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -554,7 +546,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri Genteng dan Batu Bata				
+                                    <label class="col-lg-4 col-form-label">Industri Genteng dan Batu Bata
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -626,7 +618,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri Anyaman dari Rotan / Bambu / Rumput / Pandan, dll				
+                                    <label class="col-lg-4 col-form-label">Industri Anyaman dari Rotan / Bambu / Rumput / Pandan, dll
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -698,7 +690,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri makanan dan minuman				
+                                    <label class="col-lg-4 col-form-label">Industri makanan dan minuman
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -770,7 +762,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Industri lainnya, tuliskan di bawah				
+                                    <label class="col-lg-4 col-form-label">Industri lainnya, tuliskan di bawah
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -841,7 +833,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+
                             </form>
                         </div>
                     </div>

@@ -1,16 +1,7 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -23,7 +14,7 @@
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('rtsare.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('rtsare.update') }}" method="POST" id="form-edit-rtsare">
                                 @csrf
                                 <div class="form-group row" >
                                     <label class="col-lg-4 col-form-label" for="valnik">NIK <span class="text-danger">*</span></label>
@@ -37,7 +28,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -67,7 +58,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                </div>                         
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valrt">RT<span
                                             class="text-danger">*</span>
@@ -124,7 +115,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">KELOMPOK PERTOKOAN (MINIMAL 10 TOKO DAN MENGELOMPOK DALAM SATU LOKASI)
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -158,7 +149,7 @@
                                             {{ old('valkondisi_toko') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_toko == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_toko')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -197,7 +188,7 @@
                                             {{ old('valkemudahan_toko') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_toko == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_toko')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -207,7 +198,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PASAR DENGAN BANGUNAN PERMANEN MEMILIKI ATAP, LANTAI, DAN DINDING			
+                                    <label class="col-lg-4 col-form-label">PASAR DENGAN BANGUNAN PERMANEN MEMILIKI ATAP, LANTAI, DAN DINDING
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -241,7 +232,7 @@
                                             {{ old('valkondisi_pasar_permanen') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_pasar_permanen == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_pasar_permanen')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -280,7 +271,7 @@
                                             {{ old('valkemudahan_pasar_permanen') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_pasar_permanen == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_pasar_permanen')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -290,7 +281,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PASAR DENGAN BANGUNAN SEMI PERMANEN MEMILIKI ATAP DAN LANTAI TANPA DINDING			
+                                    <label class="col-lg-4 col-form-label">PASAR DENGAN BANGUNAN SEMI PERMANEN MEMILIKI ATAP DAN LANTAI TANPA DINDING
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -323,7 +314,7 @@
                                         <option value="tidak ada"
                                             {{ old('valkondisi_semip') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_semip == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
-                                    </select>                                    
+                                    </select>
                                             @error('valkondisi_semip')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -362,7 +353,7 @@
                                             {{ old('valkemudahan_semip') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_semip == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_semip')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -372,7 +363,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PASAR TANPA BANGUNAN (MISALNYA : PASAR SUBUH, PASAR TERAPUNG)	
+                                    <label class="col-lg-4 col-form-label">PASAR TANPA BANGUNAN (MISALNYA : PASAR SUBUH, PASAR TERAPUNG)
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -406,7 +397,7 @@
                                             {{ old('valkondisi_tanpap') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_tanpap == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_tanpap')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -445,7 +436,7 @@
                                             {{ old('valkemudahan_tanpap') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_tanpap == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_tanpap')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -455,7 +446,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">JUMLAH MINIMARKET / SWALAYAN			
+                                    <label class="col-lg-4 col-form-label">JUMLAH MINIMARKET / SWALAYAN
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -490,7 +481,7 @@
                                             {{ old('valkondisi_minimarket') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_minimarket == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_minimarket')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -529,7 +520,7 @@
                                             {{ old('valkemudahan_minimarket') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_minimarket == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_minimarket')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -539,7 +530,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">TOKO / WARUNG KELONTONG			
+                                    <label class="col-lg-4 col-form-label">TOKO / WARUNG KELONTONG
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -574,7 +565,7 @@
                                             {{ old('valkondisi_warungk') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_warungk == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_warungk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -613,7 +604,7 @@
                                             {{ old('valkemudahan_warungk') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_warungk == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_warungk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -623,9 +614,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">TOKO / WARUNG KELONTONG YANG MENJUAL BAHAN PANGAN			
+                                    <label class="col-lg-4 col-form-label">TOKO / WARUNG KELONTONG YANG MENJUAL BAHAN PANGAN
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -659,7 +650,7 @@
                                             {{ old('valkondisi_warungp') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_warungp == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_warungp')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -698,7 +689,7 @@
                                             {{ old('valkemudahan_warungp') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_warungp == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_warungp')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -708,7 +699,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">RESTORAN / RUMAH MAKAN			
+                                    <label class="col-lg-4 col-form-label">RESTORAN / RUMAH MAKAN
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -743,7 +734,7 @@
                                             {{ old('valkondisi_restoran') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_restoran == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_restoran')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -782,7 +773,7 @@
                                             {{ old('valkemudahan_restoran') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_restoran == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_restoran')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -792,7 +783,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">WARUNG / KEDAI MAKANAN MINUMAN			
+                                    <label class="col-lg-4 col-form-label">WARUNG / KEDAI MAKANAN MINUMAN
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -827,7 +818,7 @@
                                             {{ old('valkondisi_kedaim') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_kedaim == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_kedaim')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -866,7 +857,7 @@
                                             {{ old('valkemudahan_kedaim') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_kedaim == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_kedaim')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -876,7 +867,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">HOTEL				
+                                    <label class="col-lg-4 col-form-label">HOTEL
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -910,7 +901,7 @@
                                             {{ old('valkondisi_hotel') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_hotel == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_hotel')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -949,7 +940,7 @@
                                             {{ old('valkemudahan_hotel') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_hotel == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_hotel')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -959,7 +950,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PENGINAPAN : HOSTEL/MOTEL/LOSMEN/WISMA			
+                                    <label class="col-lg-4 col-form-label">PENGINAPAN : HOSTEL/MOTEL/LOSMEN/WISMA
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -994,7 +985,7 @@
                                             {{ old('valkondisi_hostel') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_hostel == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_hostel')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1033,7 +1024,7 @@
                                             {{ old('valkemudahan_hostel') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_hostel == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_hostel')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1043,7 +1034,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BENGKEL MOBIL/MOTOR			
+                                    <label class="col-lg-4 col-form-label">BENGKEL MOBIL/MOTOR
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -1078,7 +1069,7 @@
                                             {{ old('valkondisi_bengkelm') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bengkelm == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bengkelm')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1117,7 +1108,7 @@
                                             {{ old('valkemudahan_bengkelm') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bengkelm == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bengkelm')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1127,7 +1118,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">SALON KECANTIKAN			
+                                    <label class="col-lg-4 col-form-label">SALON KECANTIKAN
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -1162,7 +1153,7 @@
                                             {{ old('valkondisi_salonk') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_salonk == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_salonk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1201,7 +1192,7 @@
                                             {{ old('valkemudahan_salonk') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_salonk == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_salonk')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1211,9 +1202,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">AGEN TIKET / TRAVEL / BIRO PERJALANAN			
+                                    <label class="col-lg-4 col-form-label">AGEN TIKET / TRAVEL / BIRO PERJALANAN
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -1247,7 +1238,7 @@
                                             {{ old('valkondisi_agent') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_agent == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_agent')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1286,7 +1277,7 @@
                                             {{ old('valkemudahan_agent') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_agent == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_agent')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1296,9 +1287,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK BRI			
+                                    <label class="col-lg-4 col-form-label">BANK BRI
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -1332,7 +1323,7 @@
                                             {{ old('valkondisi_bankbri') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankbri == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankbri')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1371,7 +1362,7 @@
                                             {{ old('valkemudahan_bankbri') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankbri == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankbri')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1381,9 +1372,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">AGEN BRI			
+                                    <label class="col-lg-4 col-form-label">AGEN BRI
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -1417,7 +1408,7 @@
                                             {{ old('valkondisi_briag') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_briag == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_briag')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1456,7 +1447,7 @@
                                             {{ old('valkemudahan_briag') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_briag == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_briag')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1466,7 +1457,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK BNI			
+                                    <label class="col-lg-4 col-form-label">BANK BNI
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -1500,7 +1491,7 @@
                                             {{ old('valkondisi_bankbni') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankbni == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankbni')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1539,7 +1530,7 @@
                                             {{ old('valkemudahan_bankbni') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankbni == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankbni')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1582,7 +1573,7 @@
                                             {{ old('valkondisi_bniag') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bniag == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bniag')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1621,7 +1612,7 @@
                                             {{ old('valkemudahan_bniag') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bniag == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bniag')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1631,7 +1622,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK MANDIRI			
+                                    <label class="col-lg-4 col-form-label">BANK MANDIRI
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -1666,7 +1657,7 @@
                                             {{ old('valkondisi_bankmandiri') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankmandiri == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankmandiri')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1705,7 +1696,7 @@
                                             {{ old('valkemudahan_bankmandiri') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankmandiri == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankmandiri')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1715,9 +1706,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">AGEN MANDIRI			
+                                    <label class="col-lg-4 col-form-label">AGEN MANDIRI
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -1751,7 +1742,7 @@
                                             {{ old('valkondisi_mandiriag') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_mandiriag == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_mandiriag')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1790,7 +1781,7 @@
                                             {{ old('valkemudahan_mandiriag') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_mandiriag == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_mandiriag')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1800,7 +1791,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK BPD			
+                                    <label class="col-lg-4 col-form-label">BANK BPD
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -1835,7 +1826,7 @@
                                             {{ old('valkondisi_bankbpd') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankbpd == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankbpd')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1874,7 +1865,7 @@
                                             {{ old('valkemudahan_bankbpd') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankbpd == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankbpd')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1884,9 +1875,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">AGEN BPD			
+                                    <label class="col-lg-4 col-form-label">AGEN BPD
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -1920,7 +1911,7 @@
                                             {{ old('valkondisi_bpdag') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bpdag == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bpdag')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1959,7 +1950,7 @@
                                             {{ old('valkemudahan_bpdag') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bpdag == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bpdag')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -1969,7 +1960,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK UMUM PEMERINTAH LAINNYA		
+                                    <label class="col-lg-4 col-form-label">BANK UMUM PEMERINTAH LAINNYA
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2003,7 +1994,7 @@
                                             {{ old('valkondisi_bankumum') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankumum == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankumum')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2042,7 +2033,7 @@
                                             {{ old('valkemudahan_bankumum') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankumum == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankumum')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2052,7 +2043,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK BCA			
+                                    <label class="col-lg-4 col-form-label">BANK BCA
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2086,7 +2077,7 @@
                                             {{ old('valkondisi_bankbca') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankbca == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankbca')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2125,7 +2116,7 @@
                                             {{ old('valkemudahan_bankbca') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankbca == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankbca')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2135,9 +2126,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK CIMB / NIAGA / MAYBANK			
+                                    <label class="col-lg-4 col-form-label">BANK CIMB / NIAGA / MAYBANK
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2171,7 +2162,7 @@
                                             {{ old('valkondisi_bankcimb') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankcimb == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankcimb')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2210,7 +2201,7 @@
                                             {{ old('valkemudahan_bankcimb') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankcimb == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankcimb')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2220,9 +2211,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK SINARMAS			
+                                    <label class="col-lg-4 col-form-label">BANK SINARMAS
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2256,7 +2247,7 @@
                                             {{ old('valkondisi_banksinarm') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_banksinarm == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_banksinarm')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2295,7 +2286,7 @@
                                             {{ old('valkemudahan_banksinarm') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_banksinarm == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_banksinarm')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2305,9 +2296,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK PERMATA			
+                                    <label class="col-lg-4 col-form-label">BANK PERMATA
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2341,7 +2332,7 @@
                                             {{ old('valkondisi_bankpermata') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankpermata == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankpermata')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2380,7 +2371,7 @@
                                             {{ old('valkemudahan_bankpermata') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankpermata == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankpermata')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2390,7 +2381,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANK SWASTA LAINNYA			
+                                    <label class="col-lg-4 col-form-label">BANK SWASTA LAINNYA
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2424,7 +2415,7 @@
                                             {{ old('valkondisi_bankswastalain') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankswastalain == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankswastalain')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2463,7 +2454,7 @@
                                             {{ old('valkemudahan_bankswastalain') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankswastalain == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankswastalain')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2473,9 +2464,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BPR (BANK PERKREDITAN RAKYAT)			
+                                    <label class="col-lg-4 col-form-label">BPR (BANK PERKREDITAN RAKYAT)
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2509,7 +2500,7 @@
                                             {{ old('valkondisi_bankbpr') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bankbpr == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bankbpr')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2548,7 +2539,7 @@
                                             {{ old('valkemudahan_bankbpr') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bankbpr == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bankbpr')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2558,7 +2549,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BAITUL MAAL WA TAMWIL (BMT)			
+                                    <label class="col-lg-4 col-form-label">BAITUL MAAL WA TAMWIL (BMT)
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -2593,7 +2584,7 @@
                                             {{ old('valkondisi_bmt') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_bmt == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_bmt')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2632,7 +2623,7 @@
                                             {{ old('valkemudahan_bmt') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_bmt == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_bmt')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2642,9 +2633,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">PEGADAIAN			
+                                    <label class="col-lg-4 col-form-label">PEGADAIAN
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2678,7 +2669,7 @@
                                             {{ old('valkondisi_pegadaian') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_pegadaian == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_pegadaian')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2717,7 +2708,7 @@
                                             {{ old('valkemudahan_pegadaian') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_pegadaian == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_pegadaian')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2727,10 +2718,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">ANJUNGAN TUNAI MANDIRI (ATM)			
+                                    <label class="col-lg-4 col-form-label">ANJUNGAN TUNAI MANDIRI (ATM)
 
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2764,7 +2755,7 @@
                                             {{ old('valkondisi_atm') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_atm == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_atm')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2803,7 +2794,7 @@
                                             {{ old('valkemudahan_atm') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_atm == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_atm')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2814,9 +2805,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">SARANA EKONOMI LAIN			
+                                    <label class="col-lg-4 col-form-label">SARANA EKONOMI LAIN
 
-	
+
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -2850,7 +2841,7 @@
                                             {{ old('valkondisi_saranalain') == 'tidak ada' || (isset($rt_sare) && $rt_sare->kondisi_saranalain == 'tidak ada') ? 'selected' : '' }}>
                                             Tidak Ada</option>
                                     </select>
-                                    
+
                                             @error('valkondisi_saranalain')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2889,7 +2880,7 @@
                                             {{ old('valkemudahan_saranalain') == 'sangat sulit' || (isset($rt_sare) && $rt_sare->kemudahan_saranalain == 'sangat sulit') ? 'selected' : '' }}>
                                             Sangat Sulit</option>
                                     </select>
-                                    
+
                                             @error('valkemudahan_saranalain')
                                                 <div id="" class="invalid-feedback">
                                                     {{ $message }}
@@ -2903,7 +2894,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -2913,4 +2904,30 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-rtsare').submit();
+        });
+    </script>
 @endsection

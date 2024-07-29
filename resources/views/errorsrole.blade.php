@@ -9,11 +9,11 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="/assets/css/style.css" rel="stylesheet">
-    
+
 </head>
 
 <body class="h-100">
-    
+
     <!--*******************
         Preloader start
     ********************-->
@@ -27,7 +27,7 @@
     <!--*******************
         Preloader end
     ********************-->
-    
+
 
     <div class="login-form-bg h-100">
         <div class="container h-100">
@@ -37,9 +37,9 @@
                         <div class="card mb-0">
                             <div class="card-body text-center">
                                 <h1 class="error-text text-primary">MAAF YA</h1>
-                                <h4 class="mt-4"><i class="fa fa-thumbs-down text-danger"></i> KAMU TIDAK BISA AKSES HALAMAN INI</h4>
+                                <h4 class="mt-4"><i class="fa fa-thumbs-down text-danger"></i> KAMU TIDAK BISA MENGGUNAKAN MENU INI</h4>
                                 <form class="mt-5 mb-5">
-                                    
+
                                     <div class="text-center mb-4 mt-4"><a href="{{ 'datapenduduk' }}" class="btn btn-primary">Kembali</a>
                                     </div>
                                 </form>
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    
+
 
 
 
@@ -66,7 +66,7 @@
                                 <h4 class="mt-4"><i class="fa fa-thumbs-down text-danger"></i> Bad Request</h4>
                                 <p>Your Request resulted in an error.</p>
                                 <form class="mt-5 mb-5">
-                                    
+
                                     <div class="text-center mb-4 mt-4"><a href="index.html" class="btn btn-primary">Go to Homepage</a>
                                     </div>
                                 </form>
@@ -91,7 +91,7 @@
         </div>
     </div> -->
 
-    
+
 
     <!--**********************************
         Scripts

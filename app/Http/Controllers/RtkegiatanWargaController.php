@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Models\rtkegiatan_warga;
 use App\Http\Requests\Storertkegiatan_wargaRequest;
 use App\Http\Requests\Updatertkegiatan_wargaRequest;
+use App\Models\Datart;
+use Yajra\DataTables\Facades\DataTables;
 
 class RtkegiatanWargaController extends Controller
 {
@@ -22,24 +24,172 @@ class RtkegiatanWargaController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $datapenduduk = datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
 
-        if ($search) {
-            $datapenduduk->where('nik', 'like', '%' . $search . '%');
+        return view('sdgs.RT.rt_kegiatanwarga');
+    }
+
+    public function admin_index(Request $request)
+    {
+
+        return view('sdgs.RT.admin_rt_kegiatanwarga');
+    }
+
+    public function jsonadmin(Request $request)
+    {
+        $query = Datart::query();
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('rt_kegiatanwarga.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="' . route('rt_kegiatanwarga.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="View Data">
+                            <i class="fas fa-book"></i>
+                        </a>';
+            })
+
+            ->addColumn('jumlah_kpp', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlah_kpp : '';
+            })
+            ->addColumn('jumlah_ppr', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlah_ppr : '';
+            })
+            ->addColumn('jumlah_hansip', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlah_hansip : '';
+            })
+            ->addColumn('pelaporan_tamu_lebih24', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->pelaporan_tamu_lebih24 : '';
+            })
+            ->addColumn('sistem_keamanan', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->sistem_keamanan : '';
+            })
+            ->addColumn('sistem_linmas', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->sistem_linmas : '';
+            })
+            ->addColumn('jumlahpos_digunakan', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlahpos_digunakan : '';
+            })
+            ->addColumn('jumlahpos_tidakdigunakan', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlahpos_tidakdigunakan : '';
+            })
+            ->addColumn('jarak_ppt', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_ppt : '';
+            })
+            ->addColumn('kemudahan_ppt', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->kemudahan_ppt : '';
+            })
+            ->addColumn('jarak_korban', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_korban : '';
+            })
+            ->addColumn('jarak_lokasikumpul', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_lokasikumpul : '';
+            })
+            ->addColumn('jarak_mangkal', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_mangkal : '';
+            })
+            ->addColumn('jarak_lokalisasi', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_lokalisasi : '';
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+
+    public function json(Request $request)
+    {
+        $query = Datart::query();
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
         }
 
-        $datapenduduk = $datapenduduk->paginate(100);
-        $rt_kegiatanwarga = rtkegiatan_warga::all();
-        $rt_kegiatanwargaSudahProses = $rt_kegiatanwarga->count(); // Jumlah data individu yang sudah diproses
-        $datapendudukTotal = $datapenduduk->count(); // Jumlah total data penduduk
-        $persentaseProses = ($rt_kegiatanwargaSudahProses / $datapendudukTotal) * 100; // Hitung persentase
-        $agama = Agama::all();
-        $pendidikan = Pendidikan::all();
-        $pekerjaan = Pekerjaan::all();
-        $goldar = Goldar::all();
-        $status = Status::all();
-        return view('sdgs.RT.rt_kegiatanwarga', compact('rt_kegiatanwarga', 'datapenduduk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'persentaseProses'));
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<a href="' . route('rt_kegiatanwarga.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="' . route('rt_kegiatanwarga.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="View Data">
+                            <i class="fas fa-book"></i>
+                        </a>';
+            })
+
+            ->addColumn('jumlah_kpp', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlah_kpp : '';
+            })
+            ->addColumn('jumlah_ppr', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlah_ppr : '';
+            })
+            ->addColumn('jumlah_hansip', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlah_hansip : '';
+            })
+            ->addColumn('pelaporan_tamu_lebih24', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->pelaporan_tamu_lebih24 : '';
+            })
+            ->addColumn('sistem_keamanan', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->sistem_keamanan : '';
+            })
+            ->addColumn('sistem_linmas', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->sistem_linmas : '';
+            })
+            ->addColumn('jumlahpos_digunakan', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlahpos_digunakan : '';
+            })
+            ->addColumn('jumlahpos_tidakdigunakan', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jumlahpos_tidakdigunakan : '';
+            })
+            ->addColumn('jarak_ppt', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_ppt : '';
+            })
+            ->addColumn('kemudahan_ppt', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->kemudahan_ppt : '';
+            })
+            ->addColumn('jarak_korban', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_korban : '';
+            })
+            ->addColumn('jarak_lokasikumpul', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_lokasikumpul : '';
+            })
+            ->addColumn('jarak_mangkal', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_mangkal : '';
+            })
+            ->addColumn('jarak_lokalisasi', function ($row) {
+                $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $row->nik)->first();
+                return $rt_kegiatanwarga ? $rt_kegiatanwarga->jarak_lokalisasi : '';
+            })
+            ->rawColumns(['action'])
+            ->toJson();
     }
 
     /**
@@ -49,7 +199,7 @@ class RtkegiatanWargaController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $nik)->first();
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
@@ -57,7 +207,7 @@ class RtkegiatanWargaController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.RT.editrt_kegiatanwarga', compact('rt_kegiatanwarga','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.editrt_kegiatanwarga', compact('rt_kegiatanwarga', 'datart', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
@@ -69,10 +219,10 @@ class RtkegiatanWargaController extends Controller
     public function store(Storertkegiatan_wargaRequest $request)
     {
         $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $request->valNIK)->first();
-        if ($rt_kegiatanwarga == NULL ) {
+        if ($rt_kegiatanwarga == NULL) {
             $rt_kegiatanwarga = new rtkegiatan_warga();
         }
-        $rt_kegiatanwarga->nik = $request->valNIK;  
+        $rt_kegiatanwarga->nik = $request->valNIK;
         $rt_kegiatanwarga->jumlah_kpp = $request->valjumlah_kpp;
         $rt_kegiatanwarga->jumlah_ppr = $request->valjumlah_ppr;
         $rt_kegiatanwarga->jumlah_hansip = $request->valjumlah_hansip;
@@ -89,7 +239,7 @@ class RtkegiatanWargaController extends Controller
         $rt_kegiatanwarga->jarak_lokalisasi = $request->valjarak_lokalisasi;
 
         $rt_kegiatanwarga->save();
-        return redirect()->route('rt_kegiatanwarga.show',['show'=> $request->valNIK ]);
+        return redirect()->route('rt_kegiatanwarga.show', ['show' => $request->valNIK]);
     }
 
     /**
@@ -100,7 +250,7 @@ class RtkegiatanWargaController extends Controller
      */
     public function show(rtkegiatan_warga $rtkegiatan_warga, $nik)
     {
-        $datap = datapenduduk::where('nik', $nik)->first();
+        $datart = Datart::where('nik', $nik)->first();
         $rt_kegiatanwarga = rtkegiatan_warga::where('nik', $nik)->first();
         $agama   = Agama::all();
         $pendidikan = Pendidikan::all();
@@ -108,7 +258,7 @@ class RtkegiatanWargaController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.RT.showrt_kegiatanwarga', compact('rt_kegiatanwarga','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.RT.showrt_kegiatanwarga', compact('rt_kegiatanwarga', 'datart', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
     /**
      * Show the form for editing the specified resource.

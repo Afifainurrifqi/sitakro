@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -7,14 +7,14 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">EDIT LAIN-LAIN	
+                        <h1 class="card-title">EDIT LAIN-LAIN
                             {{ $datap->nama }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('laink.index') }}'">Kembali
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('laink.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('laink.update') }}" method="POST" id="form-edit-laink">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
@@ -86,7 +86,7 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-                                        </div>                                      
+                                        </div>
                                         <div class="form-group">
                                             <label for="valpkh">PKH
                                             </label>
@@ -201,7 +201,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="vallainnya">LAINNYA 
+                                            <label for="vallainnya">LAINNYA
 
                                             </label>
                                             <select class="form-control @error('vallainnya') is-invalid @enderror"
@@ -219,12 +219,12 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                       
-                                        
+
+
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valrata_rata">BERAPA RATA-RATA PENGELUARAN SATU KELUARGA DALAM SEBULAN (Rp.)
@@ -233,20 +233,20 @@
                                     <div class="col-lg-6">
                                         <input type="text" value="{{ $laink->rata_rata ?? '' }}"
                                         class="form-control @error('valrata_rata') is-invalid @enderror"
-                                        id="valrata_rata" name="valrata_rata" placeholder="Rp..." oninput="formatNumber(this)">                                 
+                                        id="valrata_rata" name="valrata_rata" placeholder="Rp..." oninput="formatNumber(this)">
                                  <script>
                                      function formatNumber(input) {
                                          // Menghapus karakter selain digit (0-9)
                                          var sanitized = input.value.replace(/[^0-9]/g, '');
-                                 
+
                                          // Menambahkan tanda titik setiap tiga angka dari belakang
                                          var formatted = sanitized.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-                                 
+
                                          // Memasukkan hasil format kembali ke dalam input
                                          input.value = formatted;
                                      }
                                  </script>
-                                 
+
                                         @error('valrata_rata')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -258,7 +258,7 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -268,4 +268,31 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-laink').submit();
+        });
+    </script>
 @endsection

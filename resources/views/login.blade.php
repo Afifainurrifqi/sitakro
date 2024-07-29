@@ -11,11 +11,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/logodesa.png">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
     <link href="/assets/css/style.css" rel="stylesheet">
-    
+
 </head>
 
 <body class="h-100">
-    
+
     <!--*******************
         Preloader start
     ********************-->
@@ -30,7 +30,6 @@
         Preloader end
     ********************-->
 
-    
 
 
 
@@ -40,8 +39,11 @@
                 <div class="col-xl-6">
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
-                            <div class="card-body pt-5">
-                                <a class="text-center" href="index.html"> <h4>LOGIN</h4></a>
+                            <div class="card-body pt-5 text-center">
+                                <img src="assets2/img/logodesa.png" class="wow slideInLeft mb-3" style="width: 10%">
+                                <a class="text-center" href="index.html">
+                                    <h4>LOGIN</h4>
+                                </a>
                                 <form action="" class="mt-5 mb-5 login-input" method="POST">
                                     @csrf
                                     <div class="form-group">
@@ -59,9 +61,10 @@
             </div>
         </div>
     </div>
-    
 
-    
+
+
+
 
     <!--**********************************
         Scripts

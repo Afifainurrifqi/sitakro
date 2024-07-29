@@ -28,6 +28,12 @@ class RtlembagaEkonomiController extends Controller
         return view('sdgs.RT.rtlembaga_ekonomi');
     }
 
+    public function admin_index(Request $request)
+    {
+
+        return view('sdgs.RT.rtlembaga_ekonomi');
+    }
+
     public function json(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
@@ -41,8 +47,117 @@ class RtlembagaEkonomiController extends Controller
                             <a href="' . route('rtlembaga_ekonomi.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
-                           
+
+
+                        </td>';
+            })
+
+            ->addColumn('agentik_jp', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->agentik_jp : '';
+            })
+            ->addColumn('agentik_jtk', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->agentik_jtk : '';
+            })
+            ->addColumn('jtri_sentra', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->jtri_sentra : '';
+            })
+            ->addColumn('jtri_lingkungan', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->jtri_lingkungan : '';
+            })
+            ->addColumn('jtri_kampung', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->jtri_kampung : '';
+            })
+            ->addColumn('diskotik_kpd', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->diskotik_kpd : '';
+            })
+            ->addColumn('diskotik_jtl', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->diskotik_jtl : '';
+            })
+            ->addColumn('lpg_kpapm', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->lpg_kpapm : '';
+            })
+            ->addColumn('lpg_kpapg', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->lpg_kpapg : '';
+            })
+            ->addColumn('koperasi_jumlah', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->koperasi_jumlah : '';
+            })
+            ->addColumn('koperasi_kudproduksi', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->koperasi_kudproduksi : '';
+            })
+            ->addColumn('koperasi_kudkredit', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->koperasi_kudkredit : '';
+            })
+            ->addColumn('koperasi_kudkegiatan', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->koperasi_kudkegiatan : '';
+            })
+            ->addColumn('koperasi_kudindustrik', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->koperasi_kudindustrik : '';
+            })
+            ->addColumn('koperasi_kudksp', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->koperasi_kudksp : '';
+            })
+            ->addColumn('koperasi_kudksu', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->koperasi_kudksu : '';
+            })
+            ->addColumn('koperasi_kudlainnya', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->koperasi_kudlainnya : '';
+            })
+            ->addColumn('kos_kud', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->kos_kud : '';
+            })
+            ->addColumn('kos_bumdes', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->kos_bumdes : '';
+            })
+            ->addColumn('kos_selain', function ($row) {
+                $rtlembaga_ekonomi = rtlembaga_ekonomi::where('nik', $row->nik)->first();
+                return $rtlembaga_ekonomi ? $rtlembaga_ekonomi->kos_selain : '';
+            })
+
+
+
+
+            ->rawColumns([
+                'action',
+
+            ])
+            ->toJson();
+    }
+
+    public function jsonadmin(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtlembaga_ekonomi.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtlembaga_ekonomi.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+
                         </td>';
             })
 

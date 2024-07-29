@@ -1,29 +1,21 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">EDIT SARANA EKONOMI
+                        <h1 class="card-title">EDIT BENCANA
                             <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1>
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtbencana.index') }}'">Kembali
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('rtbencana.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('rtbencana.update') }}" method="POST" id="form-edit-rtbencana">
                                 @csrf
                                 <div class="form-group row" >
                                     <label class="col-lg-4 col-form-label" for="valnik">NIK <span class="text-danger">*</span></label>
@@ -37,7 +29,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnama_ketuart">Nama Ketua RT <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -67,7 +59,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                </div>                         
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valrt">RT<span
                                             class="text-danger">*</span>
@@ -198,7 +190,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANJIR			
+                                    <label class="col-lg-4 col-form-label">BANJIR
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -274,7 +266,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">BANJIR BANDANG				
+                                    <label class="col-lg-4 col-form-label">BANJIR BANDANG
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -425,7 +417,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">TSUNAMI				
+                                    <label class="col-lg-4 col-form-label">TSUNAMI
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -501,7 +493,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">ANGIN PUYUH / PUTING BELIUNG / TOPAN				
+                                    <label class="col-lg-4 col-form-label">ANGIN PUYUH / PUTING BELIUNG / TOPAN
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -577,7 +569,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">GUNUNG MELETUS				
+                                    <label class="col-lg-4 col-form-label">GUNUNG MELETUS
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -653,7 +645,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">KEBAKARAN HUTAN / LAHAN				
+                                    <label class="col-lg-4 col-form-label">KEBAKARAN HUTAN / LAHAN
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -728,7 +720,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">KEKERINGAN				
+                                    <label class="col-lg-4 col-form-label">KEKERINGAN
 
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -805,7 +797,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -815,4 +807,30 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-rtbencana').submit();
+        });
+    </script>
 @endsection

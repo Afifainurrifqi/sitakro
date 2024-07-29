@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -16,9 +16,9 @@
                         </button>
                         <br><br><br>
                         <div class="form-validation">
-                            <form class="form-valide" action="{{ route('kesehatan.update') }}" method="POST">
+                            <form class="form-valide" action="{{ route('kesehatan.update') }}" method="POST" id="form-edit-kesehatan">
                                 @csrf
-                               
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span class="text-danger">*</span>
                                         <input type="hidden" name="valNIK" value="{{ $datap->nik }}">
@@ -123,7 +123,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                              
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">BERAPA KALI FASILITAS KESEHATAN BERIKUT
                                         DIDATANGI SETAHUN TERAKHIR UNTUK PENGOBATAN / PERAWATAN<span
@@ -335,14 +335,14 @@
                                         ASI <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                       
+
 
                                         <select class="form-control @error('valbayiu16') is-invalid @enderror" id="valbayiu16" name="valbayiu16">
                                             <option value="Ya" {{ old('valbayiu16') == 'Ya' || (isset($datakesehatan) && $datakesehatan->bayiu16 == 'Ya') ? 'selected' : '' }}>Ya</option>
                                             <option value="Tidak" {{ old('valbayiu16') == 'Tidak' || (isset($datakesehatan) && $datakesehatan->bayiu16 == 'Tidak') ? 'selected' : '' }}>Tidak</option>
                                         </select>
-                                        
-                                        
+
+
                                         @error('valbayiu16')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
@@ -352,7 +352,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -362,4 +362,32 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah kamu sudah yakin?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            document.getElementById('form-edit-kesehatan').submit();
+        });
+    </script>
+
 @endsection

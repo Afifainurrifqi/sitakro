@@ -27,7 +27,12 @@ class RtindustriController extends Controller
       return view('sdgs.RT.rtindustri');
     }
 
-    public function json(Request $request)
+    public function admin_index(Request $request)
+    {
+      return view('sdgs.RT.admin_rtindustri');
+    }
+
+    public function jsonadmin(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
 
@@ -40,8 +45,8 @@ class RtindustriController extends Controller
                             <a href="' . route('rtindustri.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
-                           
+
+
                         </td>';
             })
 
@@ -62,7 +67,7 @@ class RtindustriController extends Controller
                 $kulit = $rt_industri ? $rt_industri->jumlahmanajemen_kulit : '';
                 return $kulit;
             })
-            
+
             ->addColumn('jumlahpekerja_kulit', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $kulit = $rt_industri ? $rt_industri->jumlahindustrik_kulit : '';
@@ -86,7 +91,7 @@ class RtindustriController extends Controller
                 $kayu = $rt_industri ? $rt_industri->jumlahmanajemen_kayu : '';
                 return $kayu;
             })
-            
+
             ->addColumn('jumlahpekerja_kayu', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $kayu = $rt_industri ? $rt_industri->jumlahindustrik_kayu : '';
@@ -110,7 +115,7 @@ class RtindustriController extends Controller
                 $logam = $rt_industri ? $rt_industri->jumlahmanajemen_logam : '';
                 return $logam;
             })
-            
+
             ->addColumn('jumlahpekerja_logam', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $logam = $rt_industri ? $rt_industri->jumlahindustrik_logam : '';
@@ -134,7 +139,7 @@ class RtindustriController extends Controller
                 $logamb = $rt_industri ? $rt_industri->jumlahmanajemen_logamb : '';
                 return $logamb;
             })
-            
+
             ->addColumn('jumlahpekerja_logamb', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $logamb = $rt_industri ? $rt_industri->jumlahindustrik_logamb : '';
@@ -158,7 +163,7 @@ class RtindustriController extends Controller
                 $kain = $rt_industri ? $rt_industri->jumlahmanajemen_kain : '';
                 return $kain;
             })
-            
+
             ->addColumn('jumlahpekerja_kain', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $kain = $rt_industri ? $rt_industri->jumlahindustrik_kain : '';
@@ -182,7 +187,7 @@ class RtindustriController extends Controller
                 $keramik = $rt_industri ? $rt_industri->jumlahmanajemen_keramik : '';
                 return $keramik;
             })
-            
+
             ->addColumn('jumlahpekerja_keramik', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $keramik = $rt_industri ? $rt_industri->jumlahindustrik_keramik : '';
@@ -206,7 +211,7 @@ class RtindustriController extends Controller
                 $genteng = $rt_industri ? $rt_industri->jumlahmanajemen_genteng : '';
                 return $genteng;
             })
-            
+
             ->addColumn('jumlahpekerja_genteng', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $genteng = $rt_industri ? $rt_industri->jumlahindustrik_genteng : '';
@@ -230,7 +235,7 @@ class RtindustriController extends Controller
                 $anyaman = $rt_industri ? $rt_industri->jumlahmanajemen_anyaman : '';
                 return $anyaman;
             })
-            
+
             ->addColumn('jumlahpekerja_anyaman', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $anyaman = $rt_industri ? $rt_industri->jumlahindustrik_anyaman : '';
@@ -254,7 +259,7 @@ class RtindustriController extends Controller
                 $anyaman = $rt_industri ? $rt_industri->jumlahmanajemen_anyaman : '';
                 return $anyaman;
             })
-            
+
             ->addColumn('jumlahpekerja_anyaman', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $anyaman = $rt_industri ? $rt_industri->jumlahindustrik_anyaman : '';
@@ -278,7 +283,7 @@ class RtindustriController extends Controller
                 $makanan = $rt_industri ? $rt_industri->jumlahmanajemen_makanan : '';
                 return $makanan;
             })
-            
+
             ->addColumn('jumlahpekerja_makanan', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $makanan = $rt_industri ? $rt_industri->jumlahindustrik_makanan : '';
@@ -302,19 +307,322 @@ class RtindustriController extends Controller
                 $lainnya = $rt_industri ? $rt_industri->jumlahmanajemen_lainnya : '';
                 return $lainnya;
             })
-            
+
             ->addColumn('jumlahpekerja_lainnya', function ($row) {
                 $rt_industri = rtindustri::where('nik', $row->nik)->first();
                 $lainnya = $rt_industri ? $rt_industri->jumlahindustrik_lainnya : '';
                 return $lainnya;
             })
 
-            
+
 
 
             ->rawColumns([
                 'action',
-                
+
+
+
+            ])
+            ->toJson();
+    }
+
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtindustri.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtindustri.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+
+                        </td>';
+            })
+
+            ->addColumn('jumlahindustrik_kulit', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kulit = $rt_industri ? $rt_industri->jumlahindustrik_kulit : '';
+                return $kulit;
+            })
+
+            ->addColumn('jumlahindustris_kulit', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kulit = $rt_industri ? $rt_industri->jumlahindustris_kulit : '';
+                return $kulit;
+            })
+
+            ->addColumn('jumlahmanajemen_kulit', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kulit = $rt_industri ? $rt_industri->jumlahmanajemen_kulit : '';
+                return $kulit;
+            })
+
+            ->addColumn('jumlahpekerja_kulit', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kulit = $rt_industri ? $rt_industri->jumlahindustrik_kulit : '';
+                return $kulit;
+            })
+
+            ->addColumn('jumlahindustrik_kayu', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kayu = $rt_industri ? $rt_industri->jumlahindustrik_kayu : '';
+                return $kayu;
+            })
+
+            ->addColumn('jumlahindustris_kayu', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kayu = $rt_industri ? $rt_industri->jumlahindustris_kayu : '';
+                return $kayu;
+            })
+
+            ->addColumn('jumlahmanajemen_kayu', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kayu = $rt_industri ? $rt_industri->jumlahmanajemen_kayu : '';
+                return $kayu;
+            })
+
+            ->addColumn('jumlahpekerja_kayu', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kayu = $rt_industri ? $rt_industri->jumlahindustrik_kayu : '';
+                return $kayu;
+            })
+
+            ->addColumn('jumlahindustrik_logam', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $logam = $rt_industri ? $rt_industri->jumlahindustrik_logam : '';
+                return $logam;
+            })
+
+            ->addColumn('jumlahindustris_logam', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $logam = $rt_industri ? $rt_industri->jumlahindustris_logam : '';
+                return $logam;
+            })
+
+            ->addColumn('jumlahmanajemen_logam', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $logam = $rt_industri ? $rt_industri->jumlahmanajemen_logam : '';
+                return $logam;
+            })
+
+            ->addColumn('jumlahpekerja_logam', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $logam = $rt_industri ? $rt_industri->jumlahindustrik_logam : '';
+                return $logam;
+            })
+
+            ->addColumn('jumlahindustrik_logamb', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $logamb = $rt_industri ? $rt_industri->jumlahindustrik_logamb : '';
+                return $logamb;
+            })
+
+            ->addColumn('jumlahindustris_logamb', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $logamb = $rt_industri ? $rt_industri->jumlahindustris_logamb : '';
+                return $logamb;
+            })
+
+            ->addColumn('jumlahmanajemen_logamb', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $logamb = $rt_industri ? $rt_industri->jumlahmanajemen_logamb : '';
+                return $logamb;
+            })
+
+            ->addColumn('jumlahpekerja_logamb', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $logamb = $rt_industri ? $rt_industri->jumlahindustrik_logamb : '';
+                return $logamb;
+            })
+
+            ->addColumn('jumlahindustrik_kain', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kain = $rt_industri ? $rt_industri->jumlahindustrik_kain : '';
+                return $kain;
+            })
+
+            ->addColumn('jumlahindustris_kain', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kain = $rt_industri ? $rt_industri->jumlahindustris_kain : '';
+                return $kain;
+            })
+
+            ->addColumn('jumlahmanajemen_kain', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kain = $rt_industri ? $rt_industri->jumlahmanajemen_kain : '';
+                return $kain;
+            })
+
+            ->addColumn('jumlahpekerja_kain', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $kain = $rt_industri ? $rt_industri->jumlahindustrik_kain : '';
+                return $kain;
+            })
+
+            ->addColumn('jumlahindustrik_keramik', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $keramik = $rt_industri ? $rt_industri->jumlahindustrik_keramik : '';
+                return $keramik;
+            })
+
+            ->addColumn('jumlahindustris_keramik', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $keramik = $rt_industri ? $rt_industri->jumlahindustris_keramik : '';
+                return $keramik;
+            })
+
+            ->addColumn('jumlahmanajemen_keramik', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $keramik = $rt_industri ? $rt_industri->jumlahmanajemen_keramik : '';
+                return $keramik;
+            })
+
+            ->addColumn('jumlahpekerja_keramik', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $keramik = $rt_industri ? $rt_industri->jumlahindustrik_keramik : '';
+                return $keramik;
+            })
+
+            ->addColumn('jumlahindustrik_genteng', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $genteng = $rt_industri ? $rt_industri->jumlahindustrik_genteng : '';
+                return $genteng;
+            })
+
+            ->addColumn('jumlahindustris_genteng', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $genteng = $rt_industri ? $rt_industri->jumlahindustris_genteng : '';
+                return $genteng;
+            })
+
+            ->addColumn('jumlahmanajemen_genteng', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $genteng = $rt_industri ? $rt_industri->jumlahmanajemen_genteng : '';
+                return $genteng;
+            })
+
+            ->addColumn('jumlahpekerja_genteng', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $genteng = $rt_industri ? $rt_industri->jumlahindustrik_genteng : '';
+                return $genteng;
+            })
+
+            ->addColumn('jumlahindustrik_anyaman', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $anyaman = $rt_industri ? $rt_industri->jumlahindustrik_anyaman : '';
+                return $anyaman;
+            })
+
+            ->addColumn('jumlahindustris_anyaman', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $anyaman = $rt_industri ? $rt_industri->jumlahindustris_anyaman : '';
+                return $anyaman;
+            })
+
+            ->addColumn('jumlahmanajemen_anyaman', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $anyaman = $rt_industri ? $rt_industri->jumlahmanajemen_anyaman : '';
+                return $anyaman;
+            })
+
+            ->addColumn('jumlahpekerja_anyaman', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $anyaman = $rt_industri ? $rt_industri->jumlahindustrik_anyaman : '';
+                return $anyaman;
+            })
+
+            ->addColumn('jumlahindustrik_anyaman', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $anyaman = $rt_industri ? $rt_industri->jumlahindustrik_anyaman : '';
+                return $anyaman;
+            })
+
+            ->addColumn('jumlahindustris_anyaman', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $anyaman = $rt_industri ? $rt_industri->jumlahindustris_anyaman : '';
+                return $anyaman;
+            })
+
+            ->addColumn('jumlahmanajemen_anyaman', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $anyaman = $rt_industri ? $rt_industri->jumlahmanajemen_anyaman : '';
+                return $anyaman;
+            })
+
+            ->addColumn('jumlahpekerja_anyaman', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $anyaman = $rt_industri ? $rt_industri->jumlahindustrik_anyaman : '';
+                return $anyaman;
+            })
+
+            ->addColumn('jumlahindustrik_makanan', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $makanan = $rt_industri ? $rt_industri->jumlahindustrik_makanan : '';
+                return $makanan;
+            })
+
+            ->addColumn('jumlahindustris_makanan', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $makanan = $rt_industri ? $rt_industri->jumlahindustris_makanan : '';
+                return $makanan;
+            })
+
+            ->addColumn('jumlahmanajemen_makanan', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $makanan = $rt_industri ? $rt_industri->jumlahmanajemen_makanan : '';
+                return $makanan;
+            })
+
+            ->addColumn('jumlahpekerja_makanan', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $makanan = $rt_industri ? $rt_industri->jumlahindustrik_makanan : '';
+                return $makanan;
+            })
+
+            ->addColumn('jumlahindustrik_lainnya', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $lainnya = $rt_industri ? $rt_industri->jumlahindustrik_lainnya : '';
+                return $lainnya;
+            })
+
+            ->addColumn('jumlahindustris_lainnya', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $lainnya = $rt_industri ? $rt_industri->jumlahindustris_lainnya : '';
+                return $lainnya;
+            })
+
+            ->addColumn('jumlahmanajemen_lainnya', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $lainnya = $rt_industri ? $rt_industri->jumlahmanajemen_lainnya : '';
+                return $lainnya;
+            })
+
+            ->addColumn('jumlahpekerja_lainnya', function ($row) {
+                $rt_industri = rtindustri::where('nik', $row->nik)->first();
+                $lainnya = $rt_industri ? $rt_industri->jumlahindustrik_lainnya : '';
+                return $lainnya;
+            })
+
+
+
+
+            ->rawColumns([
+                'action',
+
 
 
             ])
@@ -345,7 +653,7 @@ class RtindustriController extends Controller
         $rt_industri = rtindustri::where('nik', $request->valnik)->first();
         if ($rt_industri == NULL ) {
             $rt_industri = new rtindustri();
-        }     
+        }
         $rt_industri->nik = $request->valnik;
         $rt_industri->nama_ketuart = $request->valnama_ketuart;
         $rt_industri->alamat = $request->valalamat;
@@ -407,7 +715,7 @@ class RtindustriController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rt_industri = rtindustri::where('nik', $nik)->first();
-       
+
         return view('sdgs.RT.showrtindustri', compact('rt_industri','datart'));
     }
     /**

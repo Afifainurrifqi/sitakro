@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -9,11 +9,11 @@
                 <div class="card-body">
                     <h1 class="card-title">EDIT DATA PEKERJAAN {{ $datap->nama }}</h1>
                     <button type="button" class="btn mb-1 btn-warning" onclick="window.location='{{ route('pekerjaan.index') }}'">Kembali
-                     </button> 
+                     </button>
                      <br><br><br>
                     <div class="form-validation">
-                       
-                        <form class="form-valide" action="{{ route('pekerjaan.update') }}" method="POST">
+
+                        <form class="form-valide" action="{{ route('pekerjaan.update') }}" method="POST" id="form-edit-pekerjaan">
                              @csrf
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label" for="valNIK">NIK <span class="text-danger">*</span>
@@ -40,7 +40,7 @@
                                         <option value="Tidak Bekerja" {{ (old('valKondisipekerjaan') == 'Tidak Bekerja' || (isset($datapk) && $datapk->kondisi_pekerjaan == 'Tidak Bekerja')) ? 'selected' : '' }}>Tidak Bekerja</option>
                                         <option value="Sedang Mencari Pekerjaan" {{ (old('valKondisipekerjaan') == 'Sedang Mencari Pekerjaan' || (isset($datapk) && $datapk->kondisi_pekerjaan == 'Sedang Mencari Pekerjaan')) ? 'selected' : '' }}>Sedang Mencari Pekerjaan</option>
                                         <option value="Bekerja" {{ (old('valKondisipekerjaan') == 'Bekerja' || (isset($datapk) && $datapk->kondisi_pekerjaan == 'Bekerja')) ? 'selected' : '' }}>Bekerja</option>
-                                    </select>                                    
+                                    </select>
                                     @error('valKondisipekerjaan')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
@@ -98,11 +98,11 @@
                                         <option value="Pegawai Kantor Desa" {{ old('valPekerjaanutama') == 'Pegawai Kantor Desa' || (isset($datapk) && $datapk->pekerjaan_utama == 'Pegawai Kantor Desa') ? 'selected' : '' }}>Pegawai Kantor Desa</option>
                                         <option value="TKI" {{ old('valPekerjaanutama') == 'TKI' || (isset($datapk) && $datapk->pekerjaan_utama == 'TKI') ? 'selected' : '' }}>TKI</option>
                                         <option value="LAINNYA" {{ old('valPekerjaanutama') == 'LAINNYA' || (isset($datapk) && $datapk->pekerjaan_utama == 'LAINNYA') ? 'selected' : '' }}>LAINNYA</option>
-                                        
+
                                     </select>
-                                    
-                                    
-                                    
+
+
+
                                     @error('valPekerjaanutama')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
@@ -131,8 +131,8 @@
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $datapk->penghasilan_setahun_terakhir ?? '' }}"
                                     class="form-control @error('valPenghasilansetahun') is-invalid @enderror"
-                                    id="valPenghasilansetahun" name="valPenghasilansetahun" placeholder="Tulis Nominalnya"
-                                    >                               
+                                    id="valPenghasilansetahun" name="valPenghasilansetahun" placeholder="Tulis Nominalny"
+                                    >
                                     @error('valPenghasilansetahun')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}
@@ -142,7 +142,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-8 ml-auto">
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                 </div>
                             </div>
                         </form>
@@ -152,5 +152,32 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah kamu sudah yakin?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('confirmSave').addEventListener('click', function() {
+        document.getElementById('form-edit-pekerjaan').submit();
+    });
+</script>
 
 @endsection

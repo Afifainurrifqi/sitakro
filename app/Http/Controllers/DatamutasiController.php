@@ -35,15 +35,23 @@ class DatamutasiController extends Controller
 
         return view('datamutasi.datam');
     }
-    public function json(Request $request)
+
+    public function index_admin(Request $request)
+    {
+        $datamutasi = Datapenduduk::whereIn('datak', ['Tetap', 'Tidaktetap']);
+
+        return view('datamutasi.admindatam');
+    }
+
+    public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['pindah', 'meninggal'];
 
-    $datapenduduk = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-        ->whereIn('Datak', $allowedDatakValues)
-        ->limit(100)
-        ->get();
-    
+        $datapenduduk = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues)
+            ->limit(100)
+            ->get();
+
         return DataTables::of($datapenduduk)
             ->addColumn('nokk', function ($row) {
                 return $row->detailkk->kk->nokk;
@@ -52,14 +60,37 @@ class DatamutasiController extends Controller
     }
 
 
+    public function json(Request $request)
+{
+    $allowedDatakValues = ['pindah', 'meninggal'];
+    $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+        ->whereIn('Datak', $allowedDatakValues);
+
+    if ($request->has('nik') && $request->nik != '') {
+        $query->where('nik', $request->nik);
+    } else {
+        $query->limit(0); // No data returned if no NIK provided
+    }
+
+    $datapenduduk = $query->get();
+
+    return DataTables::of($datapenduduk)
+        ->addColumn('nokk', function ($row) {
+            return $row->detailkk->kk->nokk;
+        })
+        ->make(true);
+}
+
+
+
     function exportexcelm()
     {
-        return Excel::download(new Exportmutasi, "datamutasiMeninggal.xlsx" );
+        return Excel::download(new Exportmutasi, "datamutasiMeninggal.xlsx");
     }
 
     function exportexcelp()
     {
-        return Excel::download(new Exportmutasipindah, "datamutasiPindah.xlsx" );
+        return Excel::download(new Exportmutasipindah, "datamutasiPindah.xlsx");
     }
     /**
      * Show the form for creating a new resource.

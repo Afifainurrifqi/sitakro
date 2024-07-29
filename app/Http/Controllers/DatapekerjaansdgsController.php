@@ -27,24 +27,29 @@ class DatapekerjaansdgsController extends Controller
 
         $pekerjaanLabels = $dataPekerjaan->pluck('pekerjaan_utama')->toArray();
         $pekerjaanCounts = $dataPekerjaan->countBy('pekerjaan_utama')->values()->toArray();
-       
+
         return view('sdgs.individu.datasdgspekerjaan' , compact('dataPekerjaan', 'pekerjaanLabels', 'pekerjaanCounts' ));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function json(Request $request)
+    public function admin_index(Request $request)
+    {
+        $dataPekerjaan = datapekerjaansdgs::all();
+
+        $pekerjaanLabels = $dataPekerjaan->pluck('pekerjaan_utama')->toArray();
+        $pekerjaanCounts = $dataPekerjaan->countBy('pekerjaan_utama')->values()->toArray();
+
+        return view('sdgs.individu.admin_data_sdgs_pekerjaan' , compact('dataPekerjaan', 'pekerjaanLabels', 'pekerjaanCounts' ));
+    }
+
+    public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
         $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
         ->whereIn('Datak', $allowedDatakValues);
-    
+
         return DataTables::of($query)
-         
+
             ->addColumn('nokk', function ($row) {
                 return $row->detailkk->kk->nokk;
             })
@@ -61,19 +66,19 @@ class DatapekerjaansdgsController extends Controller
             ->addColumn('kondisi_pekerjaan', function ($row) {
                 $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
                 $kondisi = $datapekerjaan ? $datapekerjaan->kondisi_pekerjaan : '';
-            
+
                 return $kondisi;
             })
             ->addColumn('pekerjaan_utama', function ($row) {
                 $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
                 $utama = $datapekerjaan ? $datapekerjaan->pekerjaan_utama : '';
-            
+
                 return $utama;
             })
             ->addColumn('jaminan_sosial_ketenagakerjaan', function ($row) {
                 $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
                 $jamkes = $datapekerjaan ? $datapekerjaan->jaminan_sosial_ketenagakerjaan : '';
-            
+
                 return $jamkes;
             })
             ->addColumn('penghasilan_setahun_terakhir', function ($row) {
@@ -81,7 +86,73 @@ class DatapekerjaansdgsController extends Controller
                 $hasil = $datapekerjaan ? number_format($datapekerjaan->penghasilan_setahun_terakhir, 0, ',', '.') : '';
                 return 'Rp ' . $hasil;
             })
-            
+
+            ->rawColumns(['action','kondisi_pekerjaan'
+            ,'pekerjaan_utama'
+            ,'jaminan_sosial_ketenagakerjaan'
+            ,'penghasilan_setahun_terakhir'])
+            ->toJson();
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+                ->where('nik', $nik)
+                ->whereIn('Datak', $allowedDatakValues);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('pekerjaan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('pekerjaan.create', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            ->addColumn('kondisi_pekerjaan', function ($row) {
+                $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
+                $kondisi = $datapekerjaan ? $datapekerjaan->kondisi_pekerjaan : '';
+
+                return $kondisi;
+            })
+            ->addColumn('pekerjaan_utama', function ($row) {
+                $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
+                $utama = $datapekerjaan ? $datapekerjaan->pekerjaan_utama : '';
+
+                return $utama;
+            })
+            ->addColumn('jaminan_sosial_ketenagakerjaan', function ($row) {
+                $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
+                $jamkes = $datapekerjaan ? $datapekerjaan->jaminan_sosial_ketenagakerjaan : '';
+
+                return $jamkes;
+            })
+            ->addColumn('penghasilan_setahun_terakhir', function ($row) {
+                $datapekerjaan = Datapekerjaansdgs::where('nik', $row->nik)->first();
+                $hasil = $datapekerjaan ? number_format($datapekerjaan->penghasilan_setahun_terakhir, 0, ',', '.') : '';
+                return 'Rp ' . $hasil;
+            })
+
             ->rawColumns(['action','kondisi_pekerjaan'
             ,'pekerjaan_utama'
             ,'jaminan_sosial_ketenagakerjaan'

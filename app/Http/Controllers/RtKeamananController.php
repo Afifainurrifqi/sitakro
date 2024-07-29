@@ -27,9 +27,23 @@ class RtKeamananController extends Controller
         return view('sdgs.RT.rt_keamanan');
     }
 
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.RT.admin_rt_keamanan');
+    }
+
     public function json(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
 
         return DataTables::of($query)
             ->addColumn('action', function ($row) {
@@ -40,7 +54,7 @@ class RtKeamananController extends Controller
                             <a href="' . route('rt_keamanan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
+
                         </td>';
             })
 
@@ -260,9 +274,255 @@ class RtKeamananController extends Controller
                 $data = rt_keamanan::where('nik', $row->nik)->first();
                 return $data ? $data->pp_lainnya : '';
             })
-            
 
- 
+
+
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
+    public function jsonadmin(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rt_keamanan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rt_keamanan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+                        </td>';
+            })
+
+            ->addColumn('penyebabu_antarkelompokmas', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_antarkelompokmas : '';
+            })
+            ->addColumn('jk_antarkelompokmas', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_antarkelompokmas : '';
+            })
+            ->addColumn('jkl_antarkelompokmas', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_antarkelompokmas : '';
+            })
+            ->addColumn('jt_antarkelompokmas', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_antarkelompokmas : '';
+            })
+            ->addColumn('pen_antarkelompokmas', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_antarkelompokmas : '';
+            })
+            ->addColumn('pp_antarkelompokmas', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_antarkelompokmas : '';
+            })
+            ->addColumn('penyebabu_antardesa', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_antardesa : '';
+            })
+            ->addColumn('jk_antardesa', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_antardesa : '';
+            })
+            ->addColumn('jkl_antardesa', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_antardesa : '';
+            })
+            ->addColumn('jt_antardesa', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_antardesa : '';
+            })
+            ->addColumn('pen_antardesa', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_antardesa : '';
+            })
+            ->addColumn('pp_antardesa', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_antardesa : '';
+            })
+            ->addColumn('penyebabu_aparatmk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_aparatmk : '';
+            })
+            ->addColumn('jk_aparatmk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_aparatmk : '';
+            })
+            ->addColumn('jkl_aparatmk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_aparatmk : '';
+            })
+            ->addColumn('jt_aparatmk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_aparatmk : '';
+            })
+            ->addColumn('pen_aparatmk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_aparatmk : '';
+            })
+            ->addColumn('pp_aparatmk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_aparatmk : '';
+            })
+            ->addColumn('penyebabu_aparatmp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_aparatmp : '';
+            })
+            ->addColumn('jk_aparatmp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_aparatmp : '';
+            })
+            ->addColumn('jkl_aparatmp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_aparatmp : '';
+            })
+            ->addColumn('jt_aparatmp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_aparatmp : '';
+            })
+            ->addColumn('pen_aparatmp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_aparatmp : '';
+            })
+            ->addColumn('pp_aparatmp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_aparatmp : '';
+            })
+            ->addColumn('penyebabu_aparatk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_aparatk : '';
+            })
+            ->addColumn('jk_aparatk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_aparatk : '';
+            })
+            ->addColumn('jkl_aparatk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_aparatk : '';
+            })
+            ->addColumn('jt_aparatk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_aparatk : '';
+            })
+            ->addColumn('pen_aparatk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_aparatk : '';
+            })
+            ->addColumn('pp_aparatk', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_aparatk : '';
+            })
+            ->addColumn('penyebabu_aparatp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_aparatp : '';
+            })
+            ->addColumn('jk_aparatp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_aparatp : '';
+            })
+            ->addColumn('jkl_aparatp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_aparatp : '';
+            })
+            ->addColumn('jt_aparatp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_aparatp : '';
+            })
+            ->addColumn('pen_aparatp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_aparatp : '';
+            })
+            ->addColumn('pp_aparatp', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_aparatp : '';
+            })
+            ->addColumn('penyebabu_pelajar', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_pelajar : '';
+            })
+            ->addColumn('jk_pelajar', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_pelajar : '';
+            })
+            ->addColumn('jkl_pelajar', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_pelajar : '';
+            })
+            ->addColumn('jt_pelajar', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_pelajar : '';
+            })
+            ->addColumn('pen_pelajar', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_pelajar : '';
+            })
+            ->addColumn('pp_pelajar', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_pelajar : '';
+            })
+            ->addColumn('penyebabu_suku', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_suku : '';
+            })
+            ->addColumn('jk_suku', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_suku : '';
+            })
+            ->addColumn('jkl_suku', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_suku : '';
+            })
+            ->addColumn('jt_suku', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_suku : '';
+            })
+            ->addColumn('pen_suku', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_suku : '';
+            })
+            ->addColumn('pp_suku', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_suku : '';
+            })
+            ->addColumn('penyebabu_lainnya', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->penyebabu_lainnya : '';
+            })
+            ->addColumn('jk_lainnya', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_lainnya : '';
+            })
+            ->addColumn('jkl_lainnya', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jkl_lainnya : '';
+            })
+            ->addColumn('jt_lainnya', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->jt_lainnya : '';
+            })
+            ->addColumn('pen_lainnya', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pen_lainnya : '';
+            })
+            ->addColumn('pp_lainnya', function ($row) {
+                $data = rt_keamanan::where('nik', $row->nik)->first();
+                return $data ? $data->pp_lainnya : '';
+            })
+
+
+
 
 
             ->rawColumns([
@@ -282,7 +542,7 @@ class RtKeamananController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rt_keamanan = rt_keamanan::where('nik', $nik)->first();
-      
+
 
         return view('sdgs.RT.editrt_keamanan', compact('rt_keamanan','datart'));
     }

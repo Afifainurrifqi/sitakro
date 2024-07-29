@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 @section('content')
     <div class="container-fluid">
@@ -15,6 +15,10 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS DATA PENGHASILAN</h2>
+                            <div class="form-group">
+                                <label for="search_nik">Cari berdasarkan NIK:</label>
+                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
+                            </div>
                         </div>
                         <table class="table table-striped table-bordered zero-configuration" id="tabledatapenghasilan">
                             <thead>
@@ -61,7 +65,9 @@
             var dataTable = $('#tabledatapenghasilan').DataTable({
                 processing: true,
                 serverSide: true,
+                searching: false,
                 scrollX: true,
+ searching: false,
                 ajax: {
                     url: '{!! route('datapenghasilan.json') !!}',
                     type: 'POST',
@@ -77,6 +83,9 @@
                         // Return data for DataTables
                         return data.data;
                     },
+                    data: function(d) {
+                                d.nik = $('#search_nik').val(); // Pass the NIK input value
+                            }
                 },
                 columns: [{
                         data: 'action',
@@ -131,6 +140,9 @@
                     },
                 ]
             });
+            $('#search_nik').on('keyup', function() {
+                        $('#tabledatapenghasilan').DataTable().ajax.reload();
+                    });
 
             // Fetch data for Morris Bar Chart
 

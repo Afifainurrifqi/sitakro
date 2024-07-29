@@ -48,6 +48,8 @@ class SesiController extends Controller
                 return redirect('dashboard');
             }elseif(Auth::user()->role =='dasawisma'){
                 return redirect('dashboard');
+            }elseif(Auth::user()->role =='demo'){
+                return redirect('dashboard');
             }
         } else {
             return redirect()->back()->withErrors(['email' => 'Username dan password salah']);

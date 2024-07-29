@@ -87,6 +87,7 @@
                         <span class="brand-title">
                             <img src="/assets/images/logodesa.png" alt="">
                         </span>
+                        <span class="nav-link" style="font-weight: bold; font-size: 16px;">Haloo, {{ Auth::user()->role }}</span>
                     </div>
                 </div>
                 <div class="header-right">
@@ -119,7 +120,6 @@
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label">Dashboard</li>
                     <li>
                         <a class="nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="{{ route('dashboard') }}" aria-expanded="false">
@@ -235,7 +235,7 @@
                             <li><a href="{{ route('rtmitigasib.index') }}">Mitigasi Bencana</a></li>
                             <li><a href="{{ route('rt_saranapendidikan.index') }}">Sarana pendidikan</a></li>
                             <li><a href="{{ route('rt_kesehatan.index') }}">Kesehatan</a></li>
-                            <li><a href="{{ route('rt_kejadianluarbiasa.index') }}">Kajian Luar biasa</a></li>
+                            <li><a href="{{ route('rt_kejadianluarbiasa.index') }}">Kejadian Luar biasa</a></li>
                             <li><a href="{{ route('rt_agama.index') }}">Agama/Sosbud</a></li>
                             <li><a href="{{ route('rtlembaga_keagamaan.index') }}">Lembaga agama</a></li>
                             <li><a href="{{ route('rtlembaga_masyarakat.index') }}">Lembaga masyarakat</a></li>
@@ -324,14 +324,14 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 
-  
+
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-    
+
 
 
 
@@ -340,15 +340,15 @@
 
     {{-- <script>
         let timeout;
-    
+
         function resetTimer() {
             clearTimeout(timeout);
-    
+
             timeout = setTimeout(function() {
                 window.location.href = '/logout'; // URL logout Anda
-            }, 60000); 
+            }, 60000);
         }
-    
+
         document.addEventListener('mousemove', resetTimer);
         document.addEventListener('keypress', resetTimer);
     </script> --}}

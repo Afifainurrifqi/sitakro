@@ -24,8 +24,13 @@ class DatadasawismaController extends Controller
 
         return view('datadasawisma.datadw'); // Pass it to the view
     }
+    public function index_admin(Request $request)
+    {
 
-    public function json(Request $request)
+        return view('datadasawisma.admindatadw'); // Pass it to the view
+    }
+
+    public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
@@ -60,6 +65,55 @@ class DatadasawismaController extends Controller
             ->rawColumns(['action'])
             ->toJson();
     }
+
+
+
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        $query = Datapenduduk::with(['kk'])
+            ->whereIn('Datak', $allowedDatakValues)
+            ->where(function ($q) {
+                $q->whereNull('user_id'); // Assuming dasawisma is determined by user_id being NULL
+            });
+
+            if ($request->has('nik')) {
+                $nik = $request->input('nik');
+                $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+                    ->where('nik', $nik)
+                    ->whereIn('Datak', $allowedDatakValues);
+            } else {
+                // Jika tidak ada parameter NIK, kembalikan data kosong
+                $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+            }
+
+        return DataTables::of($query)
+            ->addColumn('nokk', function ($datapenduduk) {
+                return optional($datapenduduk->detailkk)->kk->nokk;
+            })
+            ->addColumn('action', function ($datadasawisma) {
+                $editUrl = route('dasawisma.show', ['nik' => $datadasawisma->nik]);
+                $deleteForm = '<form onsubmit="return deleteData(\'' . $datadasawisma->nama . '\')"
+                            action="' . url('dasa$datadasawisma') . '/' . $datadasawisma->nik . '" style="display: inline"
+                            method="POST">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                        </form>';
+                $actionsHtml = '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        ' . $deleteForm;
+
+                return $actionsHtml;
+            })
+            ->addColumn('statusdw', function (Datapenduduk $item) {
+                return $item && $item->user_id == NULL ? 'dasawisma' : 'penduduk';
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
 
     /**
      * Show the form for creating a new resource.

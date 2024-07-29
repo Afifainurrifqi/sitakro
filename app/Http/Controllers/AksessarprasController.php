@@ -25,14 +25,24 @@ class AksessarprasController extends Controller
     {
        return view('sdgs.KK.aksessarpras');
     }
+    public function admin_index(Request $request)
+    {
+       return view('sdgs.KK.aksessarpras');
+    }
 
-    public function json(Request $request)
+    public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-            ->whereIn('Datak', $allowedDatakValues);
-    
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+                ->where('nik', $nik)
+                ->whereIn('Datak', $allowedDatakValues);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+        }
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
@@ -202,12 +212,231 @@ class AksessarprasController extends Controller
                 $sarpras = $akses_sarpras ? $akses_sarpras->kemudahan_rekreasi : '';
                 return '' . $sarpras . '';
             })
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+            ->rawColumns([
+                'action',
+                'jenistrasport_lokasipu',
+                'pengtransportumum_lokasipu',
+                'waktutempuh_lokasipu',
+                'biaya_lokasipu',
+                'kemudahan_lokasipu',
+                'jenistrasport_lahanpertanian',
+                'pengtransportumum_lahanpertanian',
+                'waktutempuh_lahanpertanian',
+                'biaya_lahanpertanian',
+                'kemudahan_lahanpertanian',
+                'jenistrasport_sekolah',
+                'pengtransportumum_sekolah',
+                'waktutempuh_sekolah',
+                'biaya_sekolah',
+                'kemudahan_sekolah',
+                'jenistrasport_berobat',
+                'pengtransportumum_berobat',
+                'waktutempuh_berobat',
+                'biaya_berobat',
+                'kemudahan_berobat',
+                'jenistrasport_beribadah',
+                'pengtransportumum_beribadah',
+                'waktutempuh_beribadah',
+                'biaya_beribadah',
+                'kemudahan_beribadah',
+                'jenistrasport_rekreasi',
+                'pengtransportumum_rekreasi',
+                'waktutempuh_rekreasi',
+                'biaya_rekreasi',
+                'kemudahan_rekreasi',
+                // ... (Add other columns similarly)
+            ])
+            ->toJson();
+    }
+
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('Datak', $allowedDatakValues);
+
+        return DataTables::of($query)
+
+            ->addColumn('nokk', function ($row) {
+                return $row->detailkk->kk->nokk;
+            })
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('aksessarpras.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
+                                <i class="fas fa-book"></i>
+                            </a>
+                            <a href="' . route('aksessarpras.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>';
+            })
+            ->addColumn('jenistrasport_lokasipu', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->jenistrasport_lokasipu : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('pengtransportumum_lokasipu', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->pengtransportumum_lokasipu : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('waktutempuh_lokasipu', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->waktutempuh_lokasipu : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('biaya_lokasipu', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->biaya_lokasipu : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('kemudahan_lokasipu', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->kemudahan_lokasipu : '';
+                return '' . $sarpras . '';
+            })
+
+            ->addColumn('jenistrasport_lahanpertanian', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->jenistrasport_lahanpertanian : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('pengtransportumum_lahanpertanian', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->pengtransportumum_lahanpertanian : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('waktutempuh_lahanpertanian', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->waktutempuh_lahanpertanian : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('biaya_lahanpertanian', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->biaya_lahanpertanian : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('kemudahan_lahanpertanian', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->kemudahan_lahanpertanian : '';
+                return '' . $sarpras . '';
+            })
+
+            ->addColumn('jenistrasport_sekolah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->jenistrasport_sekolah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('pengtransportumum_sekolah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->pengtransportumum_sekolah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('waktutempuh_sekolah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->waktutempuh_sekolah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('biaya_sekolah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->biaya_sekolah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('kemudahan_sekolah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->kemudahan_sekolah : '';
+                return '' . $sarpras . '';
+            })
+
+            ->addColumn('jenistrasport_berobat', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->jenistrasport_berobat : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('pengtransportumum_berobat', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->pengtransportumum_berobat : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('waktutempuh_berobat', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->waktutempuh_berobat : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('biaya_berobat', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->biaya_berobat : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('kemudahan_berobat', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->kemudahan_berobat : '';
+                return '' . $sarpras . '';
+            })
+
+            ->addColumn('jenistrasport_beribadah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->jenistrasport_beribadah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('pengtransportumum_beribadah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->pengtransportumum_beribadah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('waktutempuh_beribadah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->waktutempuh_beribadah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('biaya_beribadah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->biaya_beribadah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('kemudahan_beribadah', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->kemudahan_beribadah : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('jenistrasport_rekreasi', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->jenistrasport_rekreasi : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('pengtransportumum_rekreasi', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->pengtransportumum_rekreasi : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('waktutempuh_rekreasi', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->waktutempuh_rekreasi : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('biaya_rekreasi', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->biaya_rekreasi : '';
+                return '' . $sarpras . '';
+            })
+            ->addColumn('kemudahan_rekreasi', function ($row) {
+                $akses_sarpras = aksessarpras::where('nik', $row->nik)->first();
+                $sarpras = $akses_sarpras ? $akses_sarpras->kemudahan_rekreasi : '';
+                return '' . $sarpras . '';
+            })
+
+
+
+
+
+
             ->rawColumns([
                 'action',
                 'jenistrasport_lokasipu',
@@ -276,7 +505,7 @@ class AksessarprasController extends Controller
         if ($akses_sarpras == NULL ) {
             $akses_sarpras = new aksessarpras();
         }
-        $akses_sarpras->nik = $request->valNIK;   
+        $akses_sarpras->nik = $request->valNIK;
         $akses_sarpras->jenistrasport_lokasipu = $request-> valjenistrasport_lokasipu;
         $akses_sarpras->pengtransportumum_lokasipu = $request-> valpengtransportumum_lokasipu;
         $akses_sarpras->waktutempuh_lokasipu = $request-> valwaktutempuh_lokasipu;
@@ -310,7 +539,7 @@ class AksessarprasController extends Controller
 
         $akses_sarpras->save();
         return redirect()->route('aksessarpras.show',['show'=> $request->valNIK ]);
-        
+
     }
 
     /**

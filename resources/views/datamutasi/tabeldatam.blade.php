@@ -30,7 +30,7 @@
 
             @foreach ($datapenduduk as $row)
                 <tr>
-                    <th>{{ $loop->iteration }}</th>        
+                    <th>{{ $loop->iteration }}</th>
                     <td>{{ $row->detailkk->kk->nokk }}</td>
                     <td>{{ $row->nik }}</td>
                     <td>{{ $row->gelarawal }}</td>
@@ -63,12 +63,12 @@
                     <td>{{ $row->rw }}</td>
                     <td>{{ $row->datak }}</td>
                 </tr>
-                
-    
+
+
             @endforeach
-    
-    
-            
+
+
+
         </tbody>
     </table>
     </div>

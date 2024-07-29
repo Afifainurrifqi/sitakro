@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -16,6 +16,10 @@
                                 </div>
                             @endif
                             <h2 class="card-title">BENCANA</h2>
+                            <div class="form-group">
+                                <label for="search_nik">Cari berdasarkan NIK:</label>
+                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
+                            </div>
                         </div>
 
                         <div class="table-responsive">
@@ -143,12 +147,16 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
+ searching: false,
                 ajax: {
                     url: '{!! route('rtbencana.json') !!}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
+                    data: function(d) {
+                                d.nik = $('#search_nik').val(); // Pass the NIK input value
+                            }
                 },
                 columns: [{
                         data: 'action',
@@ -370,6 +378,9 @@
                 ]
 
             });
+            $('#search_nik').on('keyup', function() {
+                        $('#tabledatartbencana').DataTable().ajax.reload();
+                    });
         });
     </script>
 @endsection

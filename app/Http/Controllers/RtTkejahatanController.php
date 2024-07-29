@@ -27,7 +27,289 @@ class RtTkejahatanController extends Controller
       return view('sdgs.RT.rt_tkejahatan');
     }
 
+    public function admin_index(Request $request)
+    {
+      return view('sdgs.RT.admin_rt_tkejahatan');
+    }
+
     public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rt_tkejahatan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rt_tkejahatan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+                        </td>';
+            })
+
+            ->addColumn('jk_pencurian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_pencurian : '';
+            })
+            ->addColumn('jumlahselesai_pencurian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_pencurian : '';
+            })
+            ->addColumn('jktbd_pencurian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_pencurian : '';
+            })
+            ->addColumn('kll_pencurian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_pencurian : '';
+            })
+            ->addColumn('kt_pencurian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_pencurian : '';
+            })
+            ->addColumn('jk_pencuriankeras', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_pencuriankeras : '';
+            })
+            ->addColumn('jumlahselesai_pencuriankeras', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_pencuriankeras : '';
+            })
+            ->addColumn('jktbd_pencuriankeras', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_pencuriankeras : '';
+            })
+            ->addColumn('kll_pencuriankeras', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_pencuriankeras : '';
+            })
+            ->addColumn('kt_pencuriankeras', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_pencuriankeras : '';
+            })
+            ->addColumn('jk_penipuan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_penipuan : '';
+            })
+            ->addColumn('jumlahselesai_penipuan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_penipuan : '';
+            })
+            ->addColumn('jktbd_penipuan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_penipuan : '';
+            })
+            ->addColumn('kll_penipuan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_penipuan : '';
+            })
+            ->addColumn('kt_penipuan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_penipuan : '';
+            })
+            ->addColumn('jk_penganiyayaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_penganiyayaan : '';
+            })
+            ->addColumn('jumlahselesai_penganiyayaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_penganiyayaan : '';
+            })
+            ->addColumn('jktbd_penganiyayaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_penganiyayaan : '';
+            })
+            ->addColumn('kll_penganiyayaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_penganiyayaan : '';
+            })
+            ->addColumn('kt_penganiyayaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_penganiyayaan : '';
+            })
+            ->addColumn('jk_pembakaran', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_pembakaran : '';
+            })
+            ->addColumn('jumlahselesai_pembakaran', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_pembakaran : '';
+            })
+            ->addColumn('jktbd_pembakaran', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_pembakaran : '';
+            })
+            ->addColumn('kll_pembakaran', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_pembakaran : '';
+            })
+            ->addColumn('kt_pembakaran', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_pembakaran : '';
+            })
+            ->addColumn('jk_pemerkosaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_pemerkosaan : '';
+            })
+            ->addColumn('jumlahselesai_pemerkosaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_pemerkosaan : '';
+            })
+            ->addColumn('jktbd_pemerkosaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_pemerkosaan : '';
+            })
+            ->addColumn('kll_pemerkosaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_pemerkosaan : '';
+            })
+            ->addColumn('kt_pemerkosaan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_pemerkosaan : '';
+            })
+            ->addColumn('jk_narkoba', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_narkoba : '';
+            })
+            ->addColumn('jumlahselesai_narkoba', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_narkoba : '';
+            })
+            ->addColumn('jktbd_narkoba', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_narkoba : '';
+            })
+            ->addColumn('kll_narkoba', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_narkoba : '';
+            })
+            ->addColumn('kt_narkoba', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_narkoba : '';
+            })
+            ->addColumn('jk_perjudian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_perjudian : '';
+            })
+            ->addColumn('jumlahselesai_perjudian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_perjudian : '';
+            })
+            ->addColumn('jktbd_perjudian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_perjudian : '';
+            })
+            ->addColumn('kll_perjudian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_perjudian : '';
+            })
+            ->addColumn('kt_perjudian', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_perjudian : '';
+            })
+            ->addColumn('jk_pembunuhan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_pembunuhan : '';
+            })
+            ->addColumn('jumlahselesai_pembunuhan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_pembunuhan : '';
+            })
+            ->addColumn('jktbd_pembunuhan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_pembunuhan : '';
+            })
+            ->addColumn('kll_pembunuhan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_pembunuhan : '';
+            })
+            ->addColumn('kt_pembunuhan', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_pembunuhan : '';
+            })
+            ->addColumn('jk_perdaganganorang', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_perdaganganorang : '';
+            })
+            ->addColumn('jumlahselesai_perdaganganorang', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_perdaganganorang : '';
+            })
+            ->addColumn('jktbd_perdaganganorang', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_perdaganganorang : '';
+            })
+            ->addColumn('kll_perdaganganorang', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_perdaganganorang : '';
+            })
+            ->addColumn('kt_perdaganganorang', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_perdaganganorang : '';
+            })
+
+            ->addColumn('jk_korupsi', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_korupsi : '';
+            })
+            ->addColumn('jumlahselesai_korupsi', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_korupsi : '';
+            })
+            ->addColumn('jktbd_korupsi', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_korupsi : '';
+            })
+            ->addColumn('kll_korupsi', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_korupsi : '';
+            })
+            ->addColumn('kt_korupsi', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_korupsi : '';
+            })
+
+            ->addColumn('jk_lainnya', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jk_lainnya : '';
+            })
+            ->addColumn('jumlahselesai_lainnya', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jumlahselesai_lainnya : '';
+            })
+            ->addColumn('jktbd_lainnya', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->jktbd_lainnya : '';
+            })
+            ->addColumn('kll_lainnya', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kll_lainnya : '';
+            })
+            ->addColumn('kt_lainnya', function ($row) {
+                $data = rt_tkejahatan::where('nik', $row->nik)->first();
+                return $data ? $data->kt_lainnya : '';
+            })
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
+    public function jsonadmin(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
 
@@ -40,7 +322,7 @@ class RtTkejahatanController extends Controller
                             <a href="' . route('rt_tkejahatan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
+
                         </td>';
             })
 
@@ -304,7 +586,7 @@ class RtTkejahatanController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rt_tkejahatan = rt_tkejahatan::where('nik', $nik)->first();
-        
+
         return view('sdgs.RT.editrt_tkejahatan', compact('rt_tkejahatan','datart'));
     }
 
@@ -385,8 +667,8 @@ class RtTkejahatanController extends Controller
         $rt_tkejahatan->jumlahselesai_lainnya = $request->valjumlahselesai_lainnya;
         $rt_tkejahatan->jktbd_lainnya = $request->valjktbd_lainnya;
         $rt_tkejahatan->kll_lainnya = $request->valkll_lainnya;
-        $rt_tkejahatan->kt_lainnya = $request->valkt_lainnya;  
-        
+        $rt_tkejahatan->kt_lainnya = $request->valkt_lainnya;
+
         $rt_tkejahatan->save();
         return redirect()->route('rt_tkejahatan.show',['show'=> $request->valnik ]);
     }

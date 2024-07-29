@@ -20,17 +20,17 @@ class CheckRole
         if (!Auth::check()) {
             return redirect('/');
         }
-    
+
         $user = Auth::user();
         // dd($user->role);
-       
-    
+
+
         foreach($roles as $role) {
             if($user->role == $role) {
                 return $next($request);
             }
         }
-    
+
         return redirect('/errorsrole');
     }
 }

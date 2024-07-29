@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -9,10 +9,10 @@
                 <div class="card-body">
                     <h1 class="card-title">DATA PENGHASILAN {{ $datap->nama }}</h1>
                     <button type="button" class="btn mb-1 btn-warning" onclick="window.location='{{ route('datapenghasilan.index') }}'">Kembali
-                     </button> 
+                     </button>
                      <br><br><br>
                     <div class="form-validation">
-                       
+
                         <form class="form-valide" action="{{ route('penghasilan.update') }}" method="POST">
                              @csrf
                             <div class="form-group row">

@@ -27,7 +27,12 @@ class RtBencanaController extends Controller
         return view('sdgs.RT.rtbencana');
     }
 
-    public function json(Request $request)
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.RT.admin_rtbencana');
+    }
+
+    public function jsonadmin(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
 
@@ -40,9 +45,227 @@ class RtBencanaController extends Controller
                             <a href="' . route('rtbencana.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
-                           
-                        </td>';          
+
+
+                        </td>';
+            })
+
+            ->addColumn('k_longsor', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_longsor : '';
+            })
+            ->addColumn('f_longsor', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_longsor : '';
+            })
+            ->addColumn('kj_longsor', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_longsor : '';
+            })
+            ->addColumn('jp_longsor', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_longsor : '';
+            })
+            ->addColumn('wt_longsor', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_longsor : '';
+            })
+            ->addColumn('k_banjir', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_banjir : '';
+            })
+            ->addColumn('f_banjir', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_banjir : '';
+            })
+            ->addColumn('kj_banjir', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_banjir : '';
+            })
+            ->addColumn('jp_banjir', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_banjir : '';
+            })
+            ->addColumn('wt_banjir', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_banjir : '';
+            })
+            ->addColumn('k_bandang', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_bandang : '';
+            })
+            ->addColumn('f_bandang', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_bandang : '';
+            })
+            ->addColumn('kj_bandang', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_bandang : '';
+            })
+            ->addColumn('jp_bandang', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_bandang : '';
+            })
+            ->addColumn('wt_bandang', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_bandang : '';
+            })
+            ->addColumn('k_gempa', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_gempa : '';
+            })
+            ->addColumn('f_gempa', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_gempa : '';
+            })
+            ->addColumn('kj_gempa', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_gempa : '';
+            })
+            ->addColumn('jp_gempa', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_gempa : '';
+            })
+            ->addColumn('wt_gempa', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_gempa : '';
+            })
+            ->addColumn('k_tsunami', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_tsunami : '';
+            })
+            ->addColumn('f_tsunami', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_tsunami : '';
+            })
+            ->addColumn('kj_tsunami', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_tsunami : '';
+            })
+            ->addColumn('jp_tsunami', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_tsunami : '';
+            })
+            ->addColumn('wt_tsunami', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_tsunami : '';
+            })
+            ->addColumn('k_puyuh', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_puyuh : '';
+            })
+            ->addColumn('f_puyuh', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_puyuh : '';
+            })
+            ->addColumn('kj_puyuh', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_puyuh : '';
+            })
+            ->addColumn('jp_puyuh', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_puyuh : '';
+            })
+            ->addColumn('wt_puyuh', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_puyuh : '';
+            })
+            ->addColumn('k_gunungm', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_gunungm : '';
+            })
+            ->addColumn('f_gunungm', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_gunungm : '';
+            })
+            ->addColumn('kj_gunungm', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_gunungm : '';
+            })
+            ->addColumn('jp_gunungm', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_gunungm : '';
+            })
+            ->addColumn('wt_gunungm', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_gunungm : '';
+            })
+            ->addColumn('k_hutank', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_hutank : '';
+            })
+            ->addColumn('f_hutank', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_hutank : '';
+            })
+            ->addColumn('kj_hutank', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_hutank : '';
+            })
+            ->addColumn('jp_hutank', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_hutank : '';
+            })
+            ->addColumn('wt_hutank', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_hutank : '';
+            })
+            ->addColumn('k_kekeringan', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->k_kekeringan : '';
+            })
+            ->addColumn('f_kekeringan', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->f_kekeringan : '';
+            })
+            ->addColumn('kj_kekeringan', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->kj_kekeringan : '';
+            })
+            ->addColumn('jp_kekeringan', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->jp_kekeringan : '';
+            })
+            ->addColumn('wt_kekeringan', function ($row) {
+                $rtlokasi = rt_bencana::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->wt_kekeringan : '';
+            })
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
+
+    public function json(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtbencana.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtbencana.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+
+                        </td>';
             })
 
             ->addColumn('k_longsor', function ($row) {
@@ -244,7 +467,7 @@ class RtBencanaController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rtbencana = rt_bencana::where('nik', $nik)->first();
-       
+
         return view('sdgs.RT.editrtbencana', compact('rtbencana','datart'));
     }
 

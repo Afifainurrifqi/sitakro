@@ -1,16 +1,8 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -19,7 +11,7 @@
                         <h1 class="card-title">LEMBAGA MASYARAKAT
                             <h1 class="card-title"> RT : {{ $datart->rt }}</h1>
                             <h1 class="card-title"> RW : {{ $datart->rw }}</h1>
-    
+
                         <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtlembaga_masyarakat.index') }}'">Kembali
                         </button>
@@ -136,13 +128,13 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valnama">Nama
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                        
+
                                             @if (isset($rtlembaga_masyarakat->nama))
                                             <br>
                                             {{ $rtlembaga_masyarakat->nama }}
@@ -165,7 +157,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                       
+
                                             @if (isset($rtlembaga_masyarakat->jumlah_peng))
                                             <br>
                                             {{ $rtlembaga_masyarakat->jumlah_peng }}
@@ -188,7 +180,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="col-lg-6">
-                                       
+
                                             @if (isset($rtlembaga_masyarakat->jumlah_kel))
                                             <br>
                                             {{ $rtlembaga_masyarakat->jumlah_kel }}
@@ -247,9 +239,9 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
 
-                                
+
+
                             </form>
                         </div>
                     </div>

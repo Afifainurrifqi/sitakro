@@ -27,7 +27,62 @@ class RtlembagaKeagamaanController extends Controller
         return view('sdgs.RT.rtlembaga_keagamaan');
     }
 
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.RT.adminrtlembaga_keagamaan');
+    }
+
     public function json(Request $request)
+    {
+        $query = Datart::query();
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '
+                <a href="' . route('rtlembaga_keagamaan.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="' . route('rtlembaga_keagamaan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                    <i class="fas fa-book"></i>
+                ';
+            })
+
+            ->addColumn('namalembaga', function ($row) {
+                $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $row->nik)->first();
+                return $rtlembaga_keagamaan ? $rtlembaga_keagamaan->nama : '';
+            })
+            ->addColumn('jumlah_peng', function ($row) {
+                $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $row->nik)->first();
+                return $rtlembaga_keagamaan ? $rtlembaga_keagamaan->jumlah_peng : '';
+            })
+            ->addColumn('jumlah_ang', function ($row) {
+                $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $row->nik)->first();
+                return $rtlembaga_keagamaan ? $rtlembaga_keagamaan->jumlah_ang : '';
+            })
+            ->addColumn('fasilitas', function ($row) {
+                $rtlembaga_keagamaan = rtlembaga_keagamaan::where('nik', $row->nik)->first();
+                return $rtlembaga_keagamaan ? $rtlembaga_keagamaan->fasilitas : '';
+            })
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
+    public function jsonadmin(Request $request)
     {
         $query = Datart::query();
 

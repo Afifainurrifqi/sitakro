@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 @section('content')
     <div class="container-fluid">
@@ -15,6 +15,10 @@
                                 </div>
                             @endif
                             <h2 class="card-title">DATA RT</h2>
+                            <div class="form-group">
+                                <label for="search_nik">Cari berdasarkan NIK:</label>
+                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
+                            </div>
                             <button type="button" class="btn mb-1 btn-primary"
                                 onclick="window.location='{{ route('datart.create') }}'">
                                 Tambah Data RT<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
@@ -1587,15 +1591,19 @@
         $(function() {
             $('#tabledatart').DataTable({
                 processing: true,
-                serverSide: true,
-                dom: 'Bfrtip',
+                // serverSide: true,
+                // dom: 'Bfrtip',
                 scrollX: true,
+ searching: false,
                 ajax: {
                     url: '{!! route('datart.json') !!}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
+                    data: function(d) {
+                                d.nik = $('#search_nik').val(); // Pass the NIK input value
+                            }
                 },
                 "buttons": [{
                     "extend": 'excel',
@@ -1608,11 +1616,8 @@
                         name: 'action'
                     },
                     {
-                        data: null,
-                        render: function(data, type, row, meta) {
-                            // Menambahkan nomor urut otomatis
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        }
+                        data: 'id',
+                        name: 'id'
                     },
                     {
                         data: 'nik',
@@ -5196,6 +5201,12 @@
                     },
                 ],
             });
+
+            $('#search_nik').on('keyup', function() {
+                        $('#tabledatart').DataTable().ajax.reload();
+                    });
+
+
             function newexportaction(e, dt, button, config) {
                 var self = this;
                 var oldStart = dt.settings()[0]._iDisplayStart;
@@ -5246,4 +5257,6 @@
             }
         });
     </script>
+
+
 @endsection

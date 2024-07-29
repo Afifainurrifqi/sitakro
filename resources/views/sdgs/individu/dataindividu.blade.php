@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -16,6 +16,10 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS DATA INDIVIDU</h2>
+                            <div class="form-group">
+                                <label for="search_nik">Search by NIK:</label>
+                                <input type="text" id="search_nik" class="form-control" placeholder="Enter NIK...">
+                            </div>
                         </div>
 
                         <div class="table-responsive">
@@ -139,14 +143,18 @@
             $('#tabledataindividu').DataTable({
                 processing: true,
                 serverSide: true,
-                dom: 'Bfrtip',
+                // dom: 'Bfrtip',
                 scrollX: true,
+ searching: false,
                 ajax: {
                     url: '{!! route('dataindividu.json') !!}',
                     type: 'POST', // Make sure to set the type to POST
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
+                    data: function(d) {
+                                d.nik = $('#search_nik').val(); // Pass the NIK input value
+                            }
                 },
                 "buttons": [{
                     "extend": 'excel',
@@ -444,6 +452,9 @@
                     },
                 ],
 
+            });
+            $('#search_nik').on('keyup', function() {
+                $('#tabledataindividu').DataTable().ajax.reload();
             });
 
             function newexportaction(e, dt, button, config) {

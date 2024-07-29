@@ -1,16 +1,8 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-12">
@@ -267,7 +259,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valjumlahpos_digunakan">YANG DIGUNAKAN
+                                            <label for="valjumlahpos_digunakan">
                                             </label>
                                             @if (isset($rt_kegiatanwarga->jumlahpos_digunakan))
                                             <br>
@@ -283,7 +275,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="valjumlahpos_tidakdigunakan">YANG TIDAK DIGUNAKAN
+                                            <label for="valjumlahpos_tidakdigunakan">
                                             </label>
                                             @if (isset($rt_kegiatanwarga->jumlahpos_tidakdigunakan))
                                             <br>

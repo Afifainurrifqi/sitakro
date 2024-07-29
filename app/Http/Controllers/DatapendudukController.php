@@ -35,15 +35,18 @@ class DatapendudukController extends Controller
     {
         return view('datapenduduk.data');
     }
+    public function index_admin(Request $request)
+    {
+        return view('datapenduduk.admindata');
+    }
+
 
     public function dasawisma(Request $request)
     {
         return view('datapenduduk.dasawismaindex');
     }
 
-
-
-    public function json(Request $request)
+    public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
@@ -72,6 +75,47 @@ class DatapendudukController extends Controller
             ->rawColumns(['action'])
             ->toJson();
     }
+
+
+
+    public function json(Request $request)
+    {
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
+
+        // Jika terdapat parameter NIK pada request, lakukan pencarian berdasarkan NIK
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+                ->where('nik', $nik)
+                ->whereIn('Datak', $allowedDatakValues);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+        }
+
+        return DataTables::of($query)
+            ->addColumn('nokk', function ($datapenduduk) {
+                return optional($datapenduduk->detailkk)->kk->nokk;
+            })
+            ->addColumn('action', function ($datapenduduk) {
+                $editUrl = route('datapenduduk.show', ['nik' => $datapenduduk->nik]);
+                $deleteForm = '<form onsubmit="return deleteData(\'' . $datapenduduk->nama . '\')"
+                            action="' . url('datapenduduk') . '/' . $datapenduduk->nik . '" style="display: inline"
+                            method="POST">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                        </form>';
+                $actionsHtml = '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        ' . $deleteForm;
+
+                return $actionsHtml;
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
 
 
 

@@ -1,4 +1,4 @@
-@extends('layout.main')
+ @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -84,7 +84,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valPenghasilansetahun">PENGHASILAN SETAHUN TERKAHIR <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
@@ -95,7 +95,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>

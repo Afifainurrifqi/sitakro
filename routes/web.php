@@ -55,6 +55,7 @@ Route::get('/login', [SesiController::class, 'index'])->name('login');
 Route::post('/login', [SesiController::class, 'login']);
 Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
 Route::get('/errorsrole', [SesiController::class, 'error']);
+Route::get('/akundemo', [SesiController::class, 'error2']);
 Route::get('/maintance', [SesiController::class, 'maintance'])->name('maintance');
 
 
@@ -66,101 +67,149 @@ Route::get('/get-birth-data/{year}', [DashboardController::class, 'getBirthData'
 Route::get('KK', [KkController::class, 'index']);
 Route::get('KK/{id}', [KkController::class, 'show']);
 
-Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
+Route::middleware(['checkrole:admin,operator,dasawisma,akundemo'])->group(
     function () {
-
         Route::get('sdgs/individu/dataindividu/{show}', [DataindividuController::class, 'show'])->name('individu.show');
         Route::get('sdgs/individu/datakesehatan', [DatakesehatanController::class, 'index'])->name('datakesehatan.index');
+        Route::get('sdgs/individu/admindatakesehatan', [DatakesehatanController::class, 'admin_index'])->name('datakesehatan.admin_index');
         Route::get('sdgs/individu/datapenghasilan', [PenghasilanController::class, 'index'])->name('datapenghasilan.index');
+        Route::get('sdgs/individu/admindatapenghasilan', [PenghasilanController::class, 'admin_index'])->name('datapenghasilan.admin_index');
         Route::get('sdgs/individu/datadisabilitas', [JenisdisabilitasController::class, 'index'])->name('disabilitas.index');
+        Route::get('sdgs/individu/admindatadisabilitas', [JenisdisabilitasController::class, 'admin_index'])->name('disabilitas.admin_index');
         Route::get('sdgs/individu/datasdgspendidikan', [SdgspendidikanController::class, 'index'])->name('pendidikan.index');
+        Route::get('sdgs/individu/admindatasdgspendidikan', [SdgspendidikanController::class, 'admin_index'])->name('pendidikan.admin_index');
         Route::get('sdgs/KK/lokasidanpemukiman', [LokasipemukimanController::class, 'index'])->name('lokasipemukiman.index');
+        Route::get('sdgs/KK/adminlokasidanpemukiman', [LokasipemukimanController::class, 'admin_index'])->name('lokasipemukiman.admin_index');
         Route::get('sdgs/KK/aksespendidikan', [AksesPendidikanController::class, 'index'])->name('aksespendidikan.index');
+        Route::get('sdgs/KK/adminaksespendidikan', [AksesPendidikanController::class, 'admin_index'])->name('aksespendidikan.admin_index');
         Route::get('sdgs/KK/akseskesehatan', [AkseskesehatanController::class, 'index'])->name('akseskesehatan.index');
+        Route::get('sdgs/KK/adminakseskesehatan', [AkseskesehatanController::class, 'admin_index'])->name('akseskesehatan.admin_index');
+        Route::get('sdgs/KK/adminakseskesehatan', [AkseskesehatanController::class, 'admin_index'])->name('akseskesehatan.admin_index');
         Route::get('sdgs/KK/aksestenagakerja', [AksestenagakerjaController::class, 'index'])->name('aksestenagakerja.index');
+        Route::get('sdgs/KK/adminaksestenagakerja', [AksestenagakerjaController::class, 'admin_index'])->name('aksestenagakerja.admin_index');
         Route::get('sdgs/KK/aksessarpras', [AksessarprasController::class, 'index'])->name('aksessarpras.index');
+        Route::get('sdgs/KK/adminaksessarpras', [AksessarprasController::class, 'admin_index'])->name('aksessarpras.admin_index');
         Route::get('sdgs/KK/laink', [LainkController::class, 'index'])->name('laink.index');
+        Route::get('sdgs/KK/adminlaink', [LainkController::class, 'admin_index'])->name('laink.admin_index');
         Route::get('sdgs/rt/rtlokasi', [RtlokasiController::class, 'index'])->name('rtlokasi.index');
+        Route::get('sdgs/rt/adminrtlokasi', [RtlokasiController::class, 'admin_index'])->name('rtlokasi.admin_index');
         Route::get('sdgs/rt/rtpengurus', [RtpuengurusController::class, 'index'])->name('rtpengurus.index');
+        Route::get('sdgs/rt/adminrtpengurus', [RtpuengurusController::class, 'admin_index'])->name('rtpengurus.admin_index');
         Route::get('sdgs/rt/rtindustri', [RtindustriController::class, 'index'])->name('rtindustri.index');
+        Route::get('sdgs/rt/adminrtindustri', [RtindustriController::class, 'admin_index'])->name('rtindustri.admin_index');
         Route::get('sdgs/rt/rtsare', [RtSaranaEkonomiController::class, 'index'])->name('rtsare.index');
+        Route::get('sdgs/rt/adminrtsare', [RtSaranaEkonomiController::class, 'admin_index'])->name('rtsare.admin_index');
         Route::get('sdgs/rt/rt_fasilitas_ekonomi', [RtFasilitasEkonomiController::class, 'index'])->name('rt_fasilitas_ekonomi.index');
+        Route::get('sdgs/rt/adminrt_fasilitas_ekonomi', [RtFasilitasEkonomiController::class, 'admin_index'])->name('rt_fasilitas_ekonomi.admin_index');
         Route::get('sdgs/rt/rtinfrastuktur', [RtInfrastukturController::class, 'index'])->name('rtinfrastuktur.index');
+        Route::get('sdgs/rt/adminrtinfrastuktur', [RtInfrastukturController::class, 'admin_index'])->name('rtinfrastuktur.admin_index');
         Route::get('sdgs/rt/rtlingkungan', [RtLingkunganController::class, 'index'])->name('rtlingkungan.index');
+        Route::get('sdgs/rt/adminrtlingkungan', [RtLingkunganController::class, 'admin_index'])->name('rtlingkungan.admin_index');
         Route::get('sdgs/rt/rtmitigasib', [RtMitigasibController::class, 'index'])->name('rtmitigasib.index');
+        Route::get('sdgs/rt/adminrtmitigasib', [RtMitigasibController::class, 'admin_index'])->name('rtmitigasib.admin_index');
         Route::get('sdgs/rt/rtbencana', [RtBencanaController::class, 'index'])->name('rtbencana.index');
+        Route::get('sdgs/rt/adminrtbencana', [RtBencanaController::class, 'admin_index'])->name('rtbencana.admin_index');
         Route::get('sdgs/rt/rt_saranapendidikan', [RtSaranapendidikanController::class, 'index'])->name('rt_saranapendidikan.index');
+        Route::get('sdgs/rt/adminrt_saranapendidikan', [RtSaranapendidikanController::class, 'admin_index'])->name('rt_saranapendidikan.admin_index');
         Route::get('sdgs/rt/rt_kesehatan', [RtKesehatanController::class, 'index'])->name('rt_kesehatan.index');
+        Route::get('sdgs/rt/adminrt_kesehatan', [RtKesehatanController::class, 'admin_index'])->name('rt_kesehatan.admin_index');
         Route::get('sdgs/rt/rt_kejadianluarbiasa', [RtKejadianluarbiasaController::class, 'index'])->name('rt_kejadianluarbiasa.index');
+        Route::get('sdgs/rt/adminrt_kejadianluarbiasa', [RtKejadianluarbiasaController::class, 'admin_index'])->name('rt_kejadianluarbiasa.admin_index');
         Route::get('sdgs/rt/rt_keamanan', [RtKeamananController::class, 'index'])->name('rt_keamanan.index');
+        Route::get('sdgs/rt/adminrt_keamanan', [RtKeamananController::class, 'admin_index'])->name('rt_keamanan.admin_index');
         Route::get('sdgs/rt/rt_tkejahatan', [RtTkejahatanController::class, 'index'])->name('rt_tkejahatan.index');
+        Route::get('sdgs/rt/adminrt_tkejahatan', [RtTkejahatanController::class, 'admin_index'])->name('rt_tkejahatan.admin_index');
         Route::get('sdgs/rt/rtlembaga_ekonomi', [RtlembagaEkonomiController::class, 'index'])->name('rtlembaga_ekonomi.index');
+        Route::get('sdgs/rt/adminrtlembaga_ekonomi', [RtlembagaEkonomiController::class, 'admin_index'])->name('rtlembaga_ekonomi.admin_index');
         Route::get('sdgs/rt/rtagama', [RtAgamaController::class, 'index'])->name('rt_agama.index');
+        Route::get('sdgs/rt/adminrtagama', [RtAgamaController::class, 'admin_index'])->name('rt_agama.admin_index');
+        Route::get('sdgs/rt/adminrtlembaga_keagamaan', [RtlembagaKeagamaanController::class, 'admin_index'])->name('rtlembaga_keagamaan.admin_index');
         Route::get('sdgs/rt/rtlembaga_keagamaan', [RtlembagaKeagamaanController::class, 'index'])->name('rtlembaga_keagamaan.index');
         Route::get('sdgs/rt/rtlembaga_masyarakat', [LembagaMasyarakatController::class, 'index'])->name('rtlembaga_masyarakat.index');
+        Route::get('sdgs/rt/adminrtlembaga_masyarakat', [LembagaMasyarakatController::class, 'admin_index'])->name('rtlembaga_masyarakat.admin_index');
         Route::get('sdgs/rt/rt_kegiatanwarga', [RtkegiatanWargaController::class, 'index'])->name('rt_kegiatanwarga.index');
+        Route::get('sdgs/rt/adminrt_kegiatanwarga', [RtkegiatanWargaController::class, 'admin_index'])->name('rt_kegiatanwarga.admin_index');
         Route::get('sdgs/rt/datart', [DataRtController::class, 'index'])->name('datart.index');
+        Route::get('sdgs/rt/admindatart', [DataRtController::class, 'admin_index'])->name('datart.admin_index');
         Route::get('datapenduduk', [DatapendudukController::class, 'index'])->name('datapenduduk.index');
-        Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
+        Route::get('datapenduduk/admin', [DatapendudukController::class, 'index_admin'])->name('datapenduduk.index_admin');
         Route::get('datamutasi/datam', [DatamutasiController::class, 'index'])->name('mutasi.index');
+        Route::get('datamutasi/admin', [DatamutasiController::class, 'index_admin'])->name('mutasi.index_admin');
         Route::get('sdgs/individu/dataindividu', [DataindividuController::class, 'index'])->name('individu.index');
+        Route::get('sdgs/individu/admin', [DataindividuController::class, 'index_admin'])->name('individu.admin');
         Route::get('datadasawisma/datadw', [DatadasawismaController::class, 'index'])->name('dasawisma.index');
+        Route::get('datadasawisma/admin', [DatadasawismaController::class, 'index_admin'])->name('dasawisma.index_admin');
 
         // JSON DATATABLES
         Route::post('datapenduduk/json', [DatapendudukController::class, 'json'])->name('datapenduduk.json');
+        Route::post('datapenduduk/jsonadmin', [DatapendudukController::class, 'jsonadmin'])->name('datapenduduk.jsonadmin');
         Route::post('datadasawisma/datadw/json', [DatadasawismaController::class, 'json'])->name('datadw.json');
+        Route::post('datadasawisma/datadw/jsonadmin', [DatadasawismaController::class, 'jsonadmin'])->name('datadw.jsonadmin');
         Route::post('datam/json', [DatamutasiController::class, 'json'])->name('datam.json');
+        Route::post('datam/jsonadmin', [DatamutasiController::class, 'jsonadmin'])->name('datam.jsonadmin');
         Route::post('/dataindividu/json', [DataindividuController::class, 'json'])->name('dataindividu.json');
+        Route::post('/dataindividu/jsonadmin', [DataindividuController::class, 'jsonadmin'])->name('dataindividu.jsonadmin');
         Route::post('/datasdgspekerjaan/json', [DatapekerjaansdgsController::class, 'json'])->name('datasdgspekerjaan.json');
+        Route::post('/datasdgspekerjaan/jsonadmin', [DatapekerjaansdgsController::class, 'jsonadmin'])->name('datasdgspekerjaan.jsonadmin');
         Route::post('/datapenghasilan/json', [PenghasilanController::class, 'json'])->name('datapenghasilan.json');
+        Route::post('/datapenghasilan/jsonadmin', [PenghasilanController::class, 'jsonadmin'])->name('datapenghasilan.jsonadmin');
         Route::post('/datakesehatan/json', [DatakesehatanController::class, 'json'])->name('datakesehatan.json');
+        Route::post('/datakesehatan/jsonadmin', [DatakesehatanController::class, 'jsonadmin'])->name('datakesehatan.jsonadmin');
         Route::post('/datadisabilitas/json', [JenisdisabilitasController::class, 'json'])->name('datadisabilitas.json');
+        Route::post('/datadisabilitas/jsonadmin', [JenisdisabilitasController::class, 'jsonadmin'])->name('datadisabilitas.jsonadmin');
         Route::post('/datasdgspendidikan/json', [SdgspendidikanController::class, 'json'])->name('datasdgspendidikan.json');
+        Route::post('/datasdgspendidikan/jsonadmin', [SdgspendidikanController::class, 'jsonadmin'])->name('datasdgspendidikan.jsonadmin');
         Route::post('/lokasidanpemukiman/json', [LokasipemukimanController::class, 'json'])->name('lokasidanpemukiman.json');
+        Route::post('/lokasidanpemukiman/jsonadmin', [LokasipemukimanController::class, 'jsonadmin'])->name('lokasidanpemukiman.jsonadmin');
         Route::post('/aksespendidikan/json', [AksesPendidikanController::class, 'json'])->name('aksespendidikan.json');
+        Route::post('/aksespendidikan/jsonadmin', [AksesPendidikanController::class, 'jsonadmin'])->name('aksespendidikan.jsonadmin');
         Route::post('/akseskesehatan/json', [AkseskesehatanController::class, 'json'])->name('akseskesehatan.json');
+        Route::post('/akseskesehatan/jsonadmin', [AkseskesehatanController::class, 'jsonadmin'])->name('akseskesehatan.jsonadmin');
         Route::post('/aksestenagakerja/json', [AksestenagakerjaController::class, 'json'])->name('aksestenagakerja.json');
+        Route::post('/aksestenagakerja/jsonadmin', [AksestenagakerjaController::class, 'jsonadmin'])->name('aksestenagakerja.jsonadmin');
         Route::post('/aksessarpras/json', [AksessarprasController::class, 'json'])->name('aksessarpras.json');
         Route::post('/laink/json', [LainkController::class, 'json'])->name('laink.json');
+        Route::post('/laink/jsonadmin', [LainkController::class, 'jsonadmin'])->name('laink.jsonadmin');
         Route::post('/rtlokasi/json', [RtlokasiController::class, 'json'])->name('rtlokasi.json');
+        Route::post('/rtlokasi/jsonadmin', [RtlokasiController::class, 'jsonadmin'])->name('rtlokasi.jsonadmin');
         Route::post('/rtpengurus/json', [RtpuengurusController::class, 'json'])->name('rtpengurus.json');
+        Route::post('/rtpengurus/jsonadmin', [RtpuengurusController::class, 'jsonadmin'])->name('rtpengurus.jsonadmin');
         Route::post('/rtlembaga_ekonomi/json', [RtlembagaEkonomiController::class, 'json'])->name('rtlembaga_ekonomi.json');
+        Route::post('/rtlembaga_ekonomi/jsonadmin', [RtlembagaEkonomiController::class, 'jsonadmin'])->name('rtlembaga_ekonomi.jsonadmin');
         Route::post('/datart/json', [DataRtController::class, 'json'])->name('datart.json');
+        Route::post('/datart/jsonadmin', [DataRtController::class, 'jsonadmin'])->name('datart.jsonadmin');
         Route::post('/rtindustri/json', [RtindustriController::class, 'json'])->name('rtindustri.json');
+        Route::post('/rtindustri/jsonadmin', [RtindustriController::class, 'jsonadmin'])->name('rtindustri.jsonadmin');
         Route::post('/rtsare/json', [RtSaranaEkonomiController::class, 'json'])->name('rtsare.json');
+        Route::post('/rtsare/jsonadmin', [RtSaranaEkonomiController::class, 'jsonadmin'])->name('rtsare.jsonadmin');
         Route::post('/rt_fasilitas_ekonomi/json', [RtFasilitasEkonomiController::class, 'json'])->name('rt_fasilitas_ekonomi.json');
+        Route::post('/rt_fasilitas_ekonomi/jsonadmin', [RtFasilitasEkonomiController::class, 'jsonadmin'])->name('rt_fasilitas_ekonomi.jsonadmin');
         Route::post('/rtinfrastuktur/json', [RtInfrastukturController::class, 'json'])->name('rtinfrastuktur.json');
+        Route::post('/rtinfrastuktur/jsonadmin', [RtInfrastukturController::class, 'jsonadmin'])->name('rtinfrastuktur.jsonadmin');
         Route::post('/rtlingkungan/json', [RtLingkunganController::class, 'json'])->name('rtlingkungan.json');
+        Route::post('/rtlingkungan/jsonadmin', [RtLingkunganController::class, 'jsonadmin'])->name('rtlingkungan.jsonadmin');
         Route::post('/rtbencana/json', [RtBencanaController::class, 'json'])->name('rtbencana.json');
+        Route::post('/rtbencana/jsonadmin', [RtBencanaController::class, 'jsonadmin'])->name('rtbencana.jsonadmin');
         Route::post('/rtmitigasib/json', [RtMitigasibController::class, 'json'])->name('rtmitigasib.json');
+        Route::post('/rtmitigasib/jsonadmin', [RtMitigasibController::class, 'jsonadmin'])->name('rtmitigasib.jsonadmin');
         Route::post('/rt_saranapendidikan/json', [RtSaranapendidikanController::class, 'json'])->name('rt_saranapendidikan.json');
+        Route::post('/rt_saranapendidikan/jsonadmin', [RtSaranapendidikanController::class, 'jsonadmin'])->name('rt_saranapendidikan.jsonadmin');
         Route::post('/rt_kesehatan/json', [RtKesehatanController::class, 'json'])->name('rt_kesehatan.json');
+        Route::post('/rt_kesehatan/jsonadmin', [RtKesehatanController::class, 'jsonadmin'])->name('rt_kesehatan.jsonadmin');
         Route::post('/rt_kejadianluarbiasa/json', [RtKejadianluarbiasaController::class, 'json'])->name('rt_kejadianluarbiasa.json');
+        Route::post('/rt_kejadianluarbiasa/jsonadmin', [RtKejadianluarbiasaController::class, 'jsonadmin'])->name('rt_kejadianluarbiasa.jsonadmin');
         Route::post('/rt_agama/json', [RtAgamaController::class, 'json'])->name('rt_agama.json');
+        Route::post('/rt_agama/jsonadmin', [RtAgamaController::class, 'jsonadmin'])->name('rt_agama.jsonadmin');
         Route::post('/rtlembaga_keagamaan/json', [RtlembagaKeagamaanController::class, 'json'])->name('rtlembaga_keagamaan.json');
+        Route::post('/rtlembaga_keagamaan/jsonadmin', [RtlembagaKeagamaanController::class, 'jsonadmin'])->name('rtlembaga_keagamaan.jsonadmin');
         Route::post('/rtlembaga_masyarakat/json', [LembagaMasyarakatController::class, 'json'])->name('rtlembaga_masyarakat.json');
+        Route::post('/rtlembaga_masyarakat/jsonadmin', [LembagaMasyarakatController::class, 'jsonadmin'])->name('rtlembaga_masyarakat.jsonadmin');
         Route::post('/rt_keamanan/json', [RtKeamananController::class, 'json'])->name('rt_keamanan.json');
+        Route::post('/rt_keamanan/jsonadmin', [RtKeamananController::class, 'jsonadmin'])->name('rt_keamanan.jsonadmin');
         Route::post('/rt_tkejahatan/json', [RtTkejahatanController::class, 'json'])->name('rt_tkejahatan.json');
+        Route::post('/rt_tkejahatan/jsonadmin', [RtTkejahatanController::class, 'jsonadmin'])->name('rt_tkejahatan.jsonadmin');
         Route::post('/rt_kegiatanwarga/json', [RtkegiatanWargaController::class, 'json'])->name('rt_kegiatanwarga.json');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Route::post('/rt_kegiatanwarga/jsonadmin', [RtkegiatanWargaController::class, 'jsonadmin'])->name('rt_kegiatanwarga.jsonadmin');
 
 
         Route::get('/home', function () {
@@ -172,141 +221,195 @@ Route::middleware(['checkrole:admin,operator,dasawisma'])->group(
 //Operator, Admin, dasawisma
 
 
-Route::middleware(['checkrole:admin,operator'])->group(
+Route::middleware(['checkrole:admin,operator,akundemo'])->group(
     function () {
         Route::get('datapenduduk/add', [DatapendudukController::class, 'add']);
+        Route::get('datamutasi/export/datamutasi', [DatamutasiController::class, 'exportexcelm'])->name('export.meninggal');
+        Route::get('datamutasi/export/datapindah', [DatamutasiController::class, 'exportexcelp'])->name('export.pindah');
+        Route::post('/datamutasi/update/{nik}', [datamutasi::class, 'update'])->name('mutasi.update');
+        // Route::get('datadasawisma/datadw', [UserController::class, 'index']);
+    }
+);
+
+Route::middleware(['checkrole:admin,operator'])->group(
+    function () {
         Route::post('datapenduduk/store', [DatapendudukController::class, 'store'])->name('datapenduduk.store');
         Route::get('datamutasi/export/datamutasi', [DatamutasiController::class, 'exportexcelm'])->name('export.meninggal');
         Route::get('datamutasi/export/datapindah', [DatamutasiController::class, 'exportexcelp'])->name('export.pindah');
         Route::post('datapendudukimport', [DatapendudukController::class, 'import_excel'])->name('import_excel');
         Route::post('/datamutasi/update/{nik}', [datamutasi::class, 'update'])->name('mutasi.update');
         // Route::get('datadasawisma/datadw', [UserController::class, 'index']);
-
-
-
-
-
     }
 );
 
 
-Route::middleware(['checkrole:admin,dasawisma'])->group(
+Route::middleware(['checkrole:admin,dasawisma,akundemo'])->group(
     function () {
         Route::get('datapenduduk/edit/{nik}', [DatapendudukController::class, 'edit'])->name('datapenduduk.edit');
         Route::get('datapenduduk/show/{nik}', [DatapendudukController::class, 'show'])->name('datapenduduk.show');
-        Route::post('datapenduduk/update/{nik}', [DatapendudukController::class, 'update'])->name('datapenduduk.update');
         Route::get('sdgs/individu/editdataindividu/{nik}', [DataindividuController::class, 'create'])->name('individu.edit');
-        Route::post('sdgs/individu/editdataindividu', [DataindividuController::class, 'store'])->name('individu.update');
         Route::get('sdgs/individu/datasdgspekerjaan', [DatapekerjaansdgsController::class, 'index'])->name('pekerjaan.index');
+        Route::get('sdgs/individu/admindatasdgspekerjaan', [DatapekerjaansdgsController::class, 'admin_index'])->name('pekerjaan.admin_index');
         Route::get('sdgs/individu/editdatasdgspekerjaan/{nik}', [DatapekerjaansdgsController::class, 'create'])->name('pekerjaan.create');
-        Route::post('sdgs/individu/editdatasdgspekerjaan', [DatapekerjaansdgsController::class, 'store'])->name('pekerjaan.update');
         Route::get('sdgs/individu/datasdgspekerjaan/{show}', [DatapekerjaansdgsController::class, 'show'])->name('pekerjaan.show');
         Route::get('sdgs/individu/editkesehatan/{nik}', [DatakesehatanController::class, 'create'])->name('kesehatan.edit');
-        Route::post('sdgs/individu/editkesehatan', [DatakesehatanController::class, 'store'])->name('kesehatan.update');
         Route::get('sdgs/individu/viewkesehatan/{show}', [DatakesehatanController::class, 'show'])->name('kesehatan.show');
         Route::get('sdgs/individu/editpenghasilan/{nik}', [PenghasilanController::class, 'create'])->name('penghasilan.edit');
-        Route::post('sdgs/individu/editpenghasilan', [PenghasilanController::class, 'store'])->name('penghasilan.update');
         Route::get('sdgs/individu/datapenghasilan/{show}', [PenghasilanController::class, 'show'])->name('penghasilan.show');
         Route::get('sdgs/individu/editdisabilitas/{nik}', [JenisdisabilitasController::class, 'create'])->name('disabilitas.edit');
-        Route::post('sdgs/individu/editdisabilitas', [JenisdisabilitasController::class, 'store'])->name('disabilitas.update');
         Route::get('sdgs/individu/datadisabilitas/{show}', [JenisdisabilitasController::class, 'show'])->name('disabilitas.show');
         Route::get('sdgs/individu/editsdgspendidikan/{nik}', [SdgspendidikanController::class, 'create'])->name('pendidikan.edit');
-        Route::post('sdgs/individu/editsdgspendidikan', [SdgspendidikanController::class, 'store'])->name('pendidikan.update');
         Route::get('sdgs/individu/datasdgsppendidikan/{show}', [SdgspendidikanController::class, 'show'])->name('pendidikan.show');
         Route::get('sdgs/KK/editlokasidanpemukiman/{nik}', [LokasipemukimanController::class, 'create'])->name('lokasipemukiman.edit');
-        Route::post('sdgs/KK/editlokasidanpemukiman', [LokasipemukimanController::class, 'store'])->name('lokasipemukiman.update');
         Route::get('sdgs/KK/lokasidanpemukiman/{show}', [LokasipemukimanController::class, 'show'])->name('lokasipemukiman.show');
         Route::get('sdgs/KK/editaksespendidikan/{nik}', [AksesPendidikanController::class, 'create'])->name('aksespendidikan.edit');
-        Route::post('sdgs/KK/editaksespendidikan', [AksesPendidikanController::class, 'store'])->name('aksespendidikan.update');
         Route::get('sdgs/KK/aksespendidikan/{show}', [AksesPendidikanController::class, 'show'])->name('aksespendidikan.show');
         Route::get('sdgs/KK/editakseskesehatan/{nik}', [AkseskesehatanController::class, 'create'])->name('akseskesehatan.edit');
-        Route::post('sdgs/KK/editakseskesehatan', [AkseskesehatanController::class, 'store'])->name('akseskesehatan.update');
         Route::get('sdgs/KK/akseskesehatan/{show}', [AkseskesehatanController::class, 'show'])->name('akseskesehatan.show');
         Route::get('sdgs/KK/editaksestenagakerja/{nik}', [AksestenagakerjaController::class, 'create'])->name('aksestenagakerja.edit');
-        Route::post('sdgs/KK/editaksestenagakerja', [AksestenagakerjaController::class, 'store'])->name('aksestenagakerja.update');
         Route::get('sdgs/KK/aksestenagakerja/{show}', [AksestenagakerjaController::class, 'show'])->name('aksestenagakerja.show');
         Route::get('sdgs/KK/editaksespras/{nik}', [AksessarprasController::class, 'create'])->name('aksessarpras.edit');
-        Route::post('sdgs/KK/editaksespras', [AksessarprasController::class, 'store'])->name('aksessarpras.update');
         Route::get('sdgs/KK/aksessarpras/{show}', [AksessarprasController::class, 'show'])->name('aksessarpras.show');
         Route::get('sdgs/KK/editlaink/{nik}', [LainkController::class, 'create'])->name('editlaink.edit');
-        Route::post('sdgs/KK/editlaink', [LainkController::class, 'store'])->name('laink.update');
         Route::get('sdgs/KK/laink/{show}', [LainkController::class, 'show'])->name('laink.show');
         Route::get('sdgs/RT/editrtlokasi/{nik}', [RtlokasiController::class, 'create'])->name('rtlokasi.edit');
-        Route::post('sdgs/RT/editrtlokasi', [RtlokasiController::class, 'store'])->name('rtlokasi.update');
         Route::get('sdgs/RT/rtlokasi/{show}', [RtlokasiController::class, 'show'])->name('rtlokasi.show');
         Route::get('sdgs/RT/editrtpengurus/{nik}', [RtpuengurusController::class, 'create'])->name('rtpengurus.edit');
-        Route::post('sdgs/RT/editrtpengurus', [RtpuengurusController::class, 'store'])->name('rtpengurus.update');
         Route::get('sdgs/RT/rtpengurus/{show}', [RtpuengurusController::class, 'show'])->name('rtpengurus.show');
         Route::get('sdgs/RT/editrtindustri/{nik}', [RtindustriController::class, 'create'])->name('rtindustri.edit');
-        Route::post('sdgs/RT/editrtindustri', [RtindustriController::class, 'store'])->name('rtindustri.update');
         Route::get('sdgs/RT/rtindustri/{show}', [RtindustriController::class, 'show'])->name('rtindustri.show');
         Route::get('sdgs/RT/editrtsare/{nik}', [RtSaranaEkonomiController::class, 'create'])->name('rtsare.edit');
-        Route::post('sdgs/RT/editrtsare', [RtSaranaEkonomiController::class, 'store'])->name('rtsare.update');
         Route::get('sdgs/RT/rtsare/{show}', [RtSaranaEkonomiController::class, 'show'])->name('rtsare.show');
         Route::get('sdgs/RT/editrt_fasilitas_ekonomi/{nik}', [RtFasilitasEkonomiController::class, 'create'])->name('rt_fasilitas_ekonomi.edit');
-        Route::post('sdgs/RT/editrt_fasilitas_ekonomi', [RtFasilitasEkonomiController::class, 'store'])->name('rt_fasilitas_ekonomi.update');
         Route::get('sdgs/RT/rt_fasilitas_ekonomi/{show}', [RtFasilitasEkonomiController::class, 'show'])->name('rt_fasilitas_ekonomi.show');
         Route::get('sdgs/RT/editrtinfrastuktur/{nik}', [RtInfrastukturController::class, 'create'])->name('rtinfrastuktur.edit');
-        Route::post('sdgs/RT/editrtinfrastuktur', [RtInfrastukturController::class, 'store'])->name('rtinfrastuktur.update');
         Route::get('sdgs/RT/rtinfrastuktur/{show}', [RtInfrastukturController::class, 'show'])->name('rtinfrastuktur.show');
         Route::get('sdgs/RT/editrtlingkungan/{nik}', [RtLingkunganController::class, 'create'])->name('rtlingkungan.edit');
-        Route::post('sdgs/RT/editrtlingkungan', [RtLingkunganController::class, 'store'])->name('rtlingkungan.update');
         Route::get('sdgs/RT/rtlingkungan/{show}', [RtLingkunganController::class, 'show'])->name('rtlingkungan.show');
         Route::get('sdgs/RT/editrtbencana/{nik}', [RtBencanaController::class, 'create'])->name('rtbencana.edit');
-        Route::post('sdgs/RT/editrtbencana', [RtBencanaController::class, 'store'])->name('rtbencana.update');
         Route::get('sdgs/RT/rtbencana/{show}', [RtBencanaController::class, 'show'])->name('rtbencana.show');
         Route::get('sdgs/RT/editrtmitigasib/{nik}', [RtMitigasibController::class, 'create'])->name('rtmitigasib.edit');
-        Route::post('sdgs/RT/editrtmitigasib', [RtMitigasibController::class, 'store'])->name('rtmitigasib.update');
         Route::get('sdgs/RT/rtmitigasib/{show}', [RtMitigasibController::class, 'show'])->name('rtmitigasib.show');
         Route::get('sdgs/RT/editrt_saranapendidikan/{nik}', [RtSaranapendidikanController::class, 'create'])->name('rt_saranapendidikan.edit');
-        Route::post('sdgs/RT/editrt_saranapendidikan', [RtSaranapendidikanController::class, 'store'])->name('rt_saranapendidikan.update');
         Route::get('sdgs/RT/rt_saranapendidikan/{show}', [RtSaranapendidikanController::class, 'show'])->name('rt_saranapendidikan.show');
         Route::get('sdgs/RT/editrt_kesehatan/{nik}', [RtKesehatanController::class, 'create'])->name('rt_kesehatan.edit');
-        Route::post('sdgs/RT/editrt_kesehatan', [RtKesehatanController::class, 'store'])->name('rt_kesehatan.update');
         Route::get('sdgs/RT/rt_kesehatan/{show}', [RtKesehatanController::class, 'show'])->name('rt_kesehatan.show');
         Route::get('sdgs/RT/editrt_kejadianluarbiasa/{nik}', [RtKejadianluarbiasaController::class, 'create'])->name('rt_kejadianluarbiasa.edit');
-        Route::post('sdgs/RT/editrt_kejadianluarbiasa', [RtKejadianluarbiasaController::class, 'store'])->name('rt_kejadianluarbiasa.update');
         Route::get('sdgs/RT/rt_kejadianluarbiasa/{show}', [RtKejadianluarbiasaController::class, 'show'])->name('rt_kejadianluarbiasa.show');
         Route::get('sdgs/RT/editrt_keamanan/{nik}', [RtKeamananController::class, 'create'])->name('rt_keamanan.edit');
-        Route::post('sdgs/RT/editrt_keamanan', [RtKeamananController::class, 'store'])->name('rt_keamanan.update');
         Route::get('sdgs/RT/rt_keamanan/{show}', [RtKeamananController::class, 'show'])->name('rt_keamanan.show');
         Route::get('sdgs/RT/editrt_tkejahatan/{nik}', [RtTkejahatanController::class, 'create'])->name('rt_tkejahatan.edit');
-        Route::post('sdgs/RT/editrt_tkejahatan', [RtTkejahatanController::class, 'store'])->name('rt_tkejahatan.update');
         Route::get('sdgs/RT/rt_tkejahatan/{show}', [RtTkejahatanController::class, 'show'])->name('rt_tkejahatan.show');
         Route::get('sdgs/RT/editrtlembaga_ekonomi/{nik}', [RtlembagaEkonomiController::class, 'create'])->name('rtlembaga_ekonomi.edit');
-        Route::post('sdgs/RT/editrtlembaga_ekonomi', [RtlembagaEkonomiController::class, 'store'])->name('rtlembaga_ekonomi.update');
         Route::get('sdgs/RT/rtlembaga_ekonomi/{show}', [RtlembagaEkonomiController::class, 'show'])->name('rtlembaga_ekonomi.show');
         Route::get('sdgs/RT/editrt_agama/{nik}', [RtAgamaController::class, 'create'])->name('rt_agama.edit');
-        Route::post('sdgs/RT/editrt_agama', [RtAgamaController::class, 'store'])->name('rt_agama.update');
         Route::get('sdgs/RT/rt_agama/{show}', [RtAgamaController::class, 'show'])->name('rt_agama.show');
         Route::get('sdgs/RT/editrtlembaga_keagamaan/{nik}', [RtlembagaKeagamaanController::class, 'create'])->name('rtlembaga_keagamaan.edit');
-        Route::post('sdgs/RT/editrtlembaga_keagamaan', [RtlembagaKeagamaanController::class, 'store'])->name('rtlembaga_keagamaan.update');
         Route::get('sdgs/RT/rtlembaga_keagamaan/{show}', [RtlembagaKeagamaanController::class, 'show'])->name('rtlembaga_keagamaan.show');
         Route::get('sdgs/RT/editrtlembaga_masyarakat/{nik}', [LembagaMasyarakatController::class, 'create'])->name('rtlembaga_masyarakat.edit');
-        Route::post('sdgs/RT/editrtlembaga_masyarakat', [LembagaMasyarakatController::class, 'store'])->name('rtlembaga_masyarakat.update');
         Route::get('sdgs/RT/rtlembaga_masyarakat/{show}', [LembagaMasyarakatController::class, 'show'])->name('rtlembaga_masyarakat.show');
         Route::get('sdgs/RT/editrt_kegiatanwarga/{nik}', [RtkegiatanWargaController::class, 'create'])->name('rt_kegiatanwarga.edit');
-        Route::post('sdgs/RT/editrt_kegiatanwarga', [RtkegiatanWargaController::class, 'store'])->name('rt_kegiatanwarga.update');
         Route::get('sdgs/RT/rt_kegiatanwarga/{show}', [RtkegiatanWargaController::class, 'show'])->name('rt_kegiatanwarga.show');
 
         Route::get('sdgs/RT/tambahdatart', [DataRtController::class, 'add'])->name('datart.create');
-        Route::post('sdgs/RT/tambahdatart', [DataRtController::class, 'store'])->name('datart.add');
         Route::get('sdgs/RT/editdatart/{nik}', [DataRtController::class, 'edit'])->name('datart.edit');
+    }
+);
+
+Route::middleware(['checkrole:admin,dasawisma'])->group(
+    function () {
+
+        Route::post('datapenduduk/update/{nik}', [DatapendudukController::class, 'update'])->name('datapenduduk.update');
+
+        Route::post('sdgs/individu/editdataindividu', [DataindividuController::class, 'store'])->name('individu.update');
+
+        Route::post('sdgs/individu/editdatasdgspekerjaan', [DatapekerjaansdgsController::class, 'store'])->name('pekerjaan.update');
+
+        Route::post('sdgs/individu/editkesehatan', [DatakesehatanController::class, 'store'])->name('kesehatan.update');
+
+        Route::post('sdgs/individu/editpenghasilan', [PenghasilanController::class, 'store'])->name('penghasilan.update');
+
+        Route::post('sdgs/individu/editdisabilitas', [JenisdisabilitasController::class, 'store'])->name('disabilitas.update');
+
+        Route::post('sdgs/individu/editsdgspendidikan', [SdgspendidikanController::class, 'store'])->name('pendidikan.update');
+
+        Route::post('sdgs/KK/editlokasidanpemukiman', [LokasipemukimanController::class, 'store'])->name('lokasipemukiman.update');
+
+        Route::post('sdgs/KK/editaksespendidikan', [AksesPendidikanController::class, 'store'])->name('aksespendidikan.update');
+
+        Route::post('sdgs/KK/editakseskesehatan', [AkseskesehatanController::class, 'store'])->name('akseskesehatan.update');
+
+        Route::post('sdgs/KK/editaksestenagakerja', [AksestenagakerjaController::class, 'store'])->name('aksestenagakerja.update');
+
+        Route::post('sdgs/KK/editaksespras', [AksessarprasController::class, 'store'])->name('aksessarpras.update');
+
+        Route::post('sdgs/KK/editlaink', [LainkController::class, 'store'])->name('laink.update');
+
+        Route::post('sdgs/RT/editrtlokasi', [RtlokasiController::class, 'store'])->name('rtlokasi.update');;
+        Route::post('sdgs/RT/editrtpengurus', [RtpuengurusController::class, 'store'])->name('rtpengurus.update');
+
+        Route::post('sdgs/RT/editrtindustri', [RtindustriController::class, 'store'])->name('rtindustri.update');
+
+        Route::post('sdgs/RT/editrtsare', [RtSaranaEkonomiController::class, 'store'])->name('rtsare.update');
+
+        Route::post('sdgs/RT/editrt_fasilitas_ekonomi', [RtFasilitasEkonomiController::class, 'store'])->name('rt_fasilitas_ekonomi.update');
+
+        Route::post('sdgs/RT/editrtinfrastuktur', [RtInfrastukturController::class, 'store'])->name('rtinfrastuktur.update');
+
+        Route::post('sdgs/RT/editrtlingkungan', [RtLingkunganController::class, 'store'])->name('rtlingkungan.update');
+
+        Route::post('sdgs/RT/editrtbencana', [RtBencanaController::class, 'store'])->name('rtbencana.update');
+
+        Route::post('sdgs/RT/editrtmitigasib', [RtMitigasibController::class, 'store'])->name('rtmitigasib.update');
+
+        Route::post('sdgs/RT/editrt_saranapendidikan', [RtSaranapendidikanController::class, 'store'])->name('rt_saranapendidikan.update');
+
+        Route::post('sdgs/RT/editrt_kesehatan', [RtKesehatanController::class, 'store'])->name('rt_kesehatan.update');
+
+        Route::post('sdgs/RT/editrt_kejadianluarbiasa', [RtKejadianluarbiasaController::class, 'store'])->name('rt_kejadianluarbiasa.update');
+
+        Route::post('sdgs/RT/editrt_keamanan', [RtKeamananController::class, 'store'])->name('rt_keamanan.update');
+
+        Route::post('sdgs/RT/editrt_tkejahatan', [RtTkejahatanController::class, 'store'])->name('rt_tkejahatan.update');
+
+        Route::post('sdgs/RT/editrtlembaga_ekonomi', [RtlembagaEkonomiController::class, 'store'])->name('rtlembaga_ekonomi.update');
+
+        Route::post('sdgs/RT/editrt_agama', [RtAgamaController::class, 'store'])->name('rt_agama.update');
+        Route::post('sdgs/RT/editrtlembaga_keagamaan', [RtlembagaKeagamaanController::class, 'store'])->name('rtlembaga_keagamaan.update');
+
+        Route::post('sdgs/RT/editrtlembaga_masyarakat', [LembagaMasyarakatController::class, 'store'])->name('rtlembaga_masyarakat.update');
+
+        Route::post('sdgs/RT/editrt_kegiatanwarga', [RtkegiatanWargaController::class, 'store'])->name('rt_kegiatanwarga.update');
+
+
+
+        Route::post('sdgs/RT/tambahdatart', [DataRtController::class, 'store'])->name('datart.add');
+
         Route::post('sdgs/RT/editdatart/{nik}', [DataRtController::class, 'update'])->name('datart.update');
     }
 );
 
-
-
-
-Route::middleware(['checkrole:operator'])->group(
+Route::middleware(['checkrole:admin'])->group(
     function () {
+        Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
         Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
         Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
     }
 );
 
 
+Route::middleware(['checkrole:operator'])->group(
+    function () {
 
+        Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
+    }
+);
+
+Route::middleware(['checkrole:operator,akundemo'])->group(
+    function () {
+        Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
+
+    }
+);
 
 //dasawisma

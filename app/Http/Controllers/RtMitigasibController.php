@@ -27,6 +27,11 @@ class RtMitigasibController extends Controller
         return view('sdgs.RT.rtmitigasib');
     }
 
+    public function admin_index(Request $request)
+    {
+        return view('sdgs.RT.admin_rtmitigasib');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,6 +49,15 @@ class RtMitigasibController extends Controller
     {
         $query = Datart::query(); // Query the data_rt model
 
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
+
         return DataTables::of($query)
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -53,8 +67,8 @@ class RtMitigasibController extends Controller
                             <a href="' . route('rtmitigasib.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
                             <i class="fas fa-book"></i>
                         </a>
-                           
-                           
+
+
                         </td>';
             })
 
@@ -78,9 +92,59 @@ class RtMitigasibController extends Controller
                 $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
                 return $rtlokasi ? $rtlokasi->mitigasi_ppn : '';
             })
-            
 
-          
+
+
+
+            ->rawColumns([
+                'action',
+
+
+            ])
+            ->toJson();
+    }
+
+    public function jsonadmin(Request $request)
+    {
+        $query = Datart::query(); // Query the data_rt model
+
+        return DataTables::of($query)
+            ->addColumn('action', function ($row) {
+                return '<td>
+                            <a href="' . route('rtmitigasib.edit', ['nik' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="' . route('rtmitigasib.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Edit Data">
+                            <i class="fas fa-book"></i>
+                        </a>
+
+
+                        </td>';
+            })
+
+            ->addColumn('mitigasi_sp', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_sp : '';
+            })
+            ->addColumn('mitigasi_spd', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_spd : '';
+            })
+            ->addColumn('mitigasi_pk', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_pk : '';
+            })
+            ->addColumn('mitigasi_rrj', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_rrj : '';
+            })
+            ->addColumn('mitigasi_ppn', function ($row) {
+                $rtlokasi = rt_mitigasib::where('nik', $row->nik)->first();
+                return $rtlokasi ? $rtlokasi->mitigasi_ppn : '';
+            })
+
+
+
 
             ->rawColumns([
                 'action',

@@ -112,6 +112,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
+ searching: false,
                 dom: 'Bfrtip',
                 ajax: {
                 url: '{!! route('datapenduduk.json') !!}',
