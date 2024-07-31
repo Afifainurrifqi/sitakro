@@ -212,7 +212,7 @@ class DatapendudukController extends Controller
         $detailk->save();
 
 
-        return redirect('datapenduduk')->with('msg', 'Penduduk Berhasl ditambhakan');
+        return redirect('datapenduduk/admin')->with('msg', 'Penduduk Berhasl ditambhakan');
     }
 
 

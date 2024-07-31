@@ -61,7 +61,7 @@
                     <b class="logo-abbr"><img src="/assets/images/logositakro.png" alt=""> </b>
                     <span class="logo-compact"><img src="/assets/images/logositakro.png" alt=""></span>
                     <span class="brand-title">
-                        <img src="/assets/images/logositakro.png" alt="">
+                        <img src="/assets/images/logositakro.png" width="120" alt="">
                     </span>
                 </a>
             </div>

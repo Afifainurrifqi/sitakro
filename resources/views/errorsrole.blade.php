@@ -40,7 +40,7 @@
                                 <h4 class="mt-4"><i class="fa fa-thumbs-down text-danger"></i> KAMU TIDAK BISA MENGGUNAKAN MENU INI</h4>
                                 <form class="mt-5 mb-5">
 
-                                    <div class="text-center mb-4 mt-4"><a href="{{ 'datapenduduk' }}" class="btn btn-primary">Kembali</a>
+                                    <div class="text-center mb-4 mt-4"><a href="{{ 'datapenduduk/admin' }}" class="btn btn-primary">Kembali</a>
                                     </div>
                                 </form>
                             </div>

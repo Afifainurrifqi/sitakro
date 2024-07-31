@@ -1,108 +1,91 @@
-
 <!DOCTYPE html>
-<html class="h-100" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DESA SAWENTAR</title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/logodesa.png">
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Betler Multipurpose Forms HTML Template">
+    <meta name="author" content="Ansonika">
+    <title>SITAKRO SAWENTAR | Sistem Informasi Data Mikro Desa Sawentar</title>
 
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/logodesa.png" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="/assets3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets3/css/vendors.css" rel="stylesheet">
+    <link href="/assets3/css/style.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="/assets3/css/custom.css" rel="stylesheet">
 </head>
 
-<body class="h-100">
+<body>
 
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="loader">
-            <svg class="circular" viewBox="25 25 50 50">
-                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
-            </svg>
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div><!-- /Preload -->
 
+	<div class="container-fluid">
+	    <div class="row row-height">
+	        <div class="col-lg-6 background-image p-0" data-background="url(/assets3/img/bg.png)">
+	            <div class="content-left-wrapper opacity-mask" data-opacity-mask="rgba(13, 110, 253, 0.8)">
+	                <a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></a>
+	                <div id="social">
+	                    <ul>
+	                        <li><a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></li>
+	                        <li><a href="#0"><i class=""></i></a></li>
+	                        <li><a href="#0"><i class=""></i></a></li>
+	                    </ul>
+	                </div>
+	                <!-- /social -->
+	                <div>
+	                    <h1>SELAMAT DATANG DI</h1>
+	                    <p>Sistem Informasi Data Mikro Desa Sawentar Kecamatan Kanigoro Kabupaten Blitar</p>
+	                    <a href="https://www.youtube.com/watch?v=l_nwLjT8Vzg&embeds_referring_euri=https%3A%2F%2Fsitakro.com%2F&source_ve_path=MjM4NTE" class="btn_1 black rounded pulse_bt plus_icon btn_play">Profil SITAKRO<i class="arrow_triangle-right"></i></a>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="col-lg-6 d-flex flex-column content-right">
+	            <div class="container my-auto py-5">
+	                <div class="row">
+	                    <div class="col-lg-9 col-xl-7 mx-auto position-relative">
+							<h1 class="mb-3" style="text-align: center;"><img src="/assets3/img/logosi.png" alt="" width="" height="55"></h1>
+	                        <h2 class="mb-3" style="text-align: center;">MASUK</h2>
+							<h3 class="mb-3" style="text-align: center;">SITAKRO SAWENTAR</h3> </br>
+	                        <form class="input_style_1" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <input value="{{ old('email') }}" type="email" name="email" class="form-control" placeholder="Email" >
+                                </div>
+	                            <div class="form-group">
+                                    <input value="{{ old('password') }}" name="password" type="password" class="form-control" placeholder="Password">
+                                </div>
+	                            <div class="clearfix mb-3">
+	                            </div>
+	                            <button type="submit" class="btn_1 full-width">Masuk</button>
+	                        </form>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="container pb-3 copy">© Desa Sawentar 2023 - Kabupaten Blitar</div>
+				<div class="container pb-3 copy">by Tim Smart Village Nasional</div>
+	        </div>
+	    </div>
+	    <!-- /row -->
+	</div>
+	<!-- /container -->
 
+	<!-- COMMON SCRIPTS -->
+    <script src="/assets3/js/common_scripts.js"></script>
+	<script src="/assets3/js/common_func.js"></script>
 
-
-    <div class="login-form-bg h-100">
-        <div class="container h-100">
-            <div class="row justify-content-center h-100">
-                <div class="col-xl-6">
-                    <div class="form-input-content">
-                        <div class="card login-form mb-0">
-                            <div class="card-body pt-5 text-center">
-                                <img src="assets2/img/logodesa.png" class="wow slideInLeft mb-3" style="width: 10%">
-                                <a class="text-center" href="index.html">
-                                    <h4>LOGIN</h4>
-                                </a>
-                                <form action="" class="mt-5 mb-5 login-input" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <input value="{{ old('email') }}" type="email" name="email" class="form-control" placeholder="Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <input value="{{ old('password') }}" name="password" type="password" class="form-control" placeholder="Password">
-                                    </div>
-                                    <button class="btn login-form__btn submit w-100">Sign In</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <script src="/assets/plugins/common/common.min.js"></script>
-    <script src="/assets/js/custom.min.js"></script>
-    <script src="/assets/js/settings.js"></script>
-    <script src="/assets/js/gleek.js"></script>
-    <script src="/assets/js/styleSwitcher.js"></script>
-
-    <!-- Chartjs -->
-    <script src="/assets/plugins/chart.js/Chart.bundle.min.js"></script>
-    <!-- Circle progress -->
-    <script src="/assets/plugins/circle-progress/circle-progress.min.js"></script>
-    <!-- Datamap -->
-    <script src="/assets/plugins/d3v3/index.js"></script>
-    <script src="/assets/plugins/topojson/topojson.min.js"></script>
-    <script src="/assets/plugins/datamaps/datamaps.world.min.js"></script>
-    <!-- Morrisjs -->
-    <script src="/assets/plugins/raphael/raphael.min.js"></script>
-    <script src="/assets/plugins/morris/morris.min.js"></script>
-    <!-- Pignose Calender -->
-    <script src="/assets/plugins/moment/moment.min.js"></script>
-    <script src="/assets/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
-    <!-- ChartistJS -->
-    <script src="/assets/plugins/chartist/js/chartist.min.js"></script>
-    <script src="/assets/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-    <script src="/assets/plugins/tables/js/jquery.dataTables.min.js"></script>
-    <script src="/assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
-    <script src="/assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
-
-
-
-    <script src="/assets/js/dashboard/dashboard-1.js"></script>
 </body>
 </html>
-
-
-
-
-
