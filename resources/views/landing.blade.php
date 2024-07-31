@@ -12,7 +12,7 @@
     <title>SITAKRO</title>
 
     <!-- ========== Favicon Icon ========== -->
-    <link rel="shortcut icon" href="assets2/img/logodesa2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets2/img/logodesa.png" type="image/x-icon">
 
     <!-- ========== Start Stylesheet ========== -->
     <link href="assets2/css/bootstrap.min.css" rel="stylesheet" />
