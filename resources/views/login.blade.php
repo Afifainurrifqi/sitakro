@@ -37,7 +37,7 @@
 	    <div class="row row-height">
 	        <div class="col-lg-6 background-image p-0" data-background="url(/assets3/img/bg.png)">
 	            <div class="content-left-wrapper opacity-mask" data-opacity-mask="rgba(13, 110, 253, 0.8)">
-	                <a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></a>
+	                <a href="#0" id="logo"><img src="sitakro.com/assets3/img/logodesa.png" alt="" width="46" height="55"></a>
 	                <div id="social">
 	                    <ul>
 	                        <li><a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></li>
