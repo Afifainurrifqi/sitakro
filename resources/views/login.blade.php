@@ -19,12 +19,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/vendors.css" rel="stylesheet">
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets3/css/vendors.css" rel="stylesheet">
+    <link href="/assets3/css/style.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="/assets/css/custom.css" rel="stylesheet">
+    <link href="/assets3/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
@@ -35,12 +35,12 @@
 
 	<div class="container-fluid">
 	    <div class="row row-height">
-	        <div class="col-lg-6 background-image p-0" data-background="url(/assets/img/bg.png)">
+	        <div class="col-lg-6 background-image p-0" data-background="url(/assets3/img/bg.png)">
 	            <div class="content-left-wrapper opacity-mask" data-opacity-mask="rgba(13, 110, 253, 0.8)">
-	                <a href="#0" id="logo"><img src="/assets/img/logodesa.png" alt="" width="46" height="55"></a>
+	                <a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></a>
 	                <div id="social">
 	                    <ul>
-	                        <li><a href="#0" id="logo"><img src="/assets/img/logodesa.png" alt="" width="46" height="55"></li>
+	                        <li><a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></li>
 	                        <li><a href="#0"><i class=""></i></a></li>
 	                        <li><a href="#0"><i class=""></i></a></li>
 	                    </ul>
@@ -57,7 +57,7 @@
 	            <div class="container my-auto py-5">
 	                <div class="row">
 	                    <div class="col-lg-9 col-xl-7 mx-auto position-relative">
-							<h1 class="mb-3" style="text-align: center;"><img src="/assets/img/logosi.png" alt="" width="" height="55"></h1>
+							<h1 class="mb-3" style="text-align: center;"><img src="/assets3/img/logosi.png" alt="" width="" height="55"></h1>
 	                        <h2 class="mb-3" style="text-align: center;">MASUK</h2>
 							<h3 class="mb-3" style="text-align: center;">SITAKRO SAWENTAR</h3> </br>
 	                        <form class="input_style_1" method="POST">
@@ -84,8 +84,8 @@
 	<!-- /container -->
 
 	<!-- COMMON SCRIPTS -->
-    <script src="/assets/js/common_scripts.js"></script>
-	<script src="/assets/js/common_func.js"></script>
+    <script src="/assets3/js/common_scripts.js"></script>
+	<script src="/assets3/js/common_func.js"></script>
 
 </body>
 </html>
