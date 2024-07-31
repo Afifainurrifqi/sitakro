@@ -9,7 +9,7 @@
     <title>SITAKRO SAWENTAR | Sistem Informasi Data Mikro Desa Sawentar</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="img/logodesa2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/logodesa.png" type="image/x-icon">
     <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
@@ -37,10 +37,10 @@
 	    <div class="row row-height">
 	        <div class="col-lg-6 background-image p-0" data-background="url(/assets3/img/bg.png)">
 	            <div class="content-left-wrapper opacity-mask" data-opacity-mask="rgba(13, 110, 253, 0.8)">
-	                <a href="#0" id="logo"><img src="/assets3/img/logodesa2.png" alt="" width="46" height="55"></a>
+	                <a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></a>
 	                <div id="social">
 	                    <ul>
-	                        <li><a href="#0" id="logo"><img src="/assets3/img/logodesa2.png" alt="" width="46" height="55"></li>
+	                        <li><a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></li>
 	                        <li><a href="#0"><i class=""></i></a></li>
 	                        <li><a href="#0"><i class=""></i></a></li>
 	                    </ul>
@@ -57,7 +57,7 @@
 	            <div class="container my-auto py-5">
 	                <div class="row">
 	                    <div class="col-lg-9 col-xl-7 mx-auto position-relative">
-							<h1 class="mb-3" style="text-align: center;"><img src="/assets3/img/logosi2.png" alt="" width="" height="55"></h1>
+							<h1 class="mb-3" style="text-align: center;"><img src="/assets3/img/logosi.png" alt="" width="" height="55"></h1>
 	                        <h2 class="mb-3" style="text-align: center;">MASUK</h2>
 							<h3 class="mb-3" style="text-align: center;">SITAKRO SAWENTAR</h3> </br>
 	                        <form class="input_style_1" method="POST">
