@@ -19,9 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
-    <link href="{{'/assets3/css/bootstrap.min.css'}}" rel="stylesheet">
-    <link href="{{ '/assets3/css/vendors.css' }}" rel="stylesheet">
-    <link href="{{ '/assets3/css/style.css' }}" rel="stylesheet">
+    <link href=("assets3/css/bootstrap.min.css") rel="stylesheet">
+    <link href=("/assets3/css/vendors.css") rel="stylesheet">
+    <link href=("/assets3/css/style.css") rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
     <link href="/assets3/css/custom.css" rel="stylesheet">
@@ -37,7 +37,7 @@
 	    <div class="row row-height">
 	        <div class="col-lg-6 background-image p-0" data-background="url(/assets3/img/bg.png)">
 	            <div class="content-left-wrapper opacity-mask" data-opacity-mask="rgba(13, 110, 253, 0.8)">
-	                <a href="#0" id="logo"><img src="http://sitakro.com/assets3/img/logodesa.png" alt="" width="46" height="55"></a>
+	                <a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></a>
 	                <div id="social">
 	                    <ul>
 	                        <li><a href="#0" id="logo"><img src="/assets3/img/logodesa.png" alt="" width="46" height="55"></li>
