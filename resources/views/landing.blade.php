@@ -12,7 +12,7 @@
     <title>SITAKRO</title>
 
     <!-- ========== Favicon Icon ========== -->
-    <link rel="shortcut icon" href="assets2/img/logodesa.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets2/img/logodesa2.png" type="image/x-icon">
 
     <!-- ========== Start Stylesheet ========== -->
     <link href="assets2/css/bootstrap.min.css" rel="stylesheet" />
@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="double-items text-light">
                     <div class="info col-md-7">
-                        <img src="{{ 'assets2/img/logosi.png' }}" class="wow slideInLeft"  style="width: 50%">
+                        <img src="{{ 'assets2/img/logosi2.png' }}" class="wow slideInLeft"  style="width: 50%">
                         <h2 class="wow slideInLeft">SITAKRO SAWENTAR </h2>
                         <p class="wow fadeInLeft">
                             Sistem Informasi Data Mikro yang dimiliki oleh Desa Sawentar Kecamatan Kanigoro Kabupaten
