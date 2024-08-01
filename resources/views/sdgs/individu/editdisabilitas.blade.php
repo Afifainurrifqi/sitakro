@@ -43,60 +43,50 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="TUNANETRA" id="chkTUNANETRA"
-                                                {{ in_array('TUNANETRA', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkTUNANETRA">TUNANETRA</label><br>
+                                                {{ in_array('TUNANETRA', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkTUNANETRA">TUNANETRA</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="TUNARUNGU" id="chkTUNARUNGU"
-                                                {{ in_array('TUNARUNGU', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkTUNARUNGU">TUNARUNGU (TULI)</label><br>
+                                                {{ in_array('TUNARUNGU', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkTUNARUNGU">TUNARUNGU (TULI)</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="TUNAWICARA" id="chkTUNAWICARA"
-                                                {{ in_array('TUNAWICARA', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkTUNAWICARA">TUNAWICARA
+                                                {{ in_array('TUNAWICARA', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkTUNAWICARA">TUNAWICARA
                                                 (BISU)</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="TUNARUNGI_WICARA" id="chkTUNARUNGI_WICARA"
-                                                {{ in_array('TUNARUNGI_WICARA', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkTUNARUNGI_WICARA">TUNARUNGI - WICARA
+                                                {{ in_array('TUNARUNGI_WICARA', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkTUNARUNGI_WICARA">TUNARUNGI - WICARA
                                                 (BISU - TULI)</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="TUNADAKSA" id="chkTUNADAKSA"
-                                                {{ in_array('TUNADAKSA', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkTUNADAKSA">TUNADAKSA (CACAT
+                                                {{ in_array('TUNADAKSA', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkTUNADAKSA">TUNADAKSA (CACAT
                                                 TUBUH)</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="TUNAGRAHITA" id="chkTUNAGRAHITA"
-                                                {{ in_array('TUNAGRAHITA', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkTUNAGRAHITA">TUNAGRAHITA (CACAT
+                                                {{ in_array('TUNAGRAHITA', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkTUNAGRAHITA">TUNAGRAHITA (CACAT
                                                 MENTAL)</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="TUNALARAS" id="chkTUNALARAS"
-                                                {{ in_array('TUNALARAS', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkTUNALARAS">TUNALARAS (EX. SAKIT
+                                                {{ in_array('TUNALARAS', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkTUNALARAS">TUNALARAS (EX. SAKIT
                                                 JIWA)</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="CACAT_EX_SAKIT_KUSTA" id="chkCACAT_EX_SAKIT_KUSTA"
-                                                {{ in_array('CACAT_EX_SAKIT_KUSTA', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkCACAT_EX_SAKIT_KUSTA">CACAT EX-SAKIT
+                                                {{ in_array('CACAT_EX_SAKIT_KUSTA', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkCACAT_EX_SAKIT_KUSTA">CACAT EX-SAKIT
                                                 KUSTA</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="CACAT_GANDA" id="chkCACAT_GANDA"
-                                                {{ in_array('CACAT_GANDA', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkCACAT_GANDA">CACAT GANDA
+                                                {{ in_array('CACAT_GANDA', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkCACAT_GANDA">CACAT GANDA
                                                 (FISIK+MENTAL)</label><br>
 
                                             <input class="form-check-input" type="checkbox" name="valjenisdisab[]"
                                                 value="DIPASUNG" id="chkDIPASUNG"
-                                                {{ in_array('DIPASUNG', old('valjenisdisab', [])) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="chkDIPASUNG">DIPASUNG</label><br>
+                                                {{ in_array('DIPASUNG', explode(',', $datadisabilitas->jenis_disabilitas ?? '')) ? 'checked' : '' }}>                                            <label class="form-check-label" for="chkDIPASUNG">DIPASUNG</label><br>
 
                                         </div>
                                         @error('valjenisdisab')

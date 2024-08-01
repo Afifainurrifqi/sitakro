@@ -16,10 +16,7 @@
                             @endif
                             <h2 class="card-title">KEGIATAN WARGA UNTUK MENJAGA KEAMANAN LINGKUNGAN SELAMA SATU TAHUN
                                 TERAKHIR</h2>
-                                <div class="form-group">
-                                   <label for="search_nik">Cari berdasarkan NIK:</label>
-                                   <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                               </div>
+
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatartkegiatanwarga">
@@ -76,7 +73,7 @@
                 processing: true,
                 serverSide: true,
                //  scrollX: true,
-                searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('rt_kegiatanwarga.jsonadmin') !!}',
                     type: 'POST',

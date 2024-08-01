@@ -116,7 +116,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('aksessarpras.jsonadmin') !!}',
                     type: 'POST',
@@ -129,7 +129,7 @@
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;

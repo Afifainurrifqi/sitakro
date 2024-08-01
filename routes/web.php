@@ -168,6 +168,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma,akundemo'])->group(
         Route::post('/aksestenagakerja/json', [AksestenagakerjaController::class, 'json'])->name('aksestenagakerja.json');
         Route::post('/aksestenagakerja/jsonadmin', [AksestenagakerjaController::class, 'jsonadmin'])->name('aksestenagakerja.jsonadmin');
         Route::post('/aksessarpras/json', [AksessarprasController::class, 'json'])->name('aksessarpras.json');
+        Route::post('/aksessarpras/jsonadmin', [AksessarprasController::class, 'jsonadmin'])->name('aksessarpras.jsonadmin');
         Route::post('/laink/json', [LainkController::class, 'json'])->name('laink.json');
         Route::post('/laink/jsonadmin', [LainkController::class, 'jsonadmin'])->name('laink.jsonadmin');
         Route::post('/rtlokasi/json', [RtlokasiController::class, 'json'])->name('rtlokasi.json');

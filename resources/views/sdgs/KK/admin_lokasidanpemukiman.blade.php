@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">LOKASI DAN PEMUKIMAN</h2>
-                            <div class="form-group">
-                                <label for="search_nokk">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nokk" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
 
                         <div class="table-responsive">
@@ -321,8 +318,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
-                searching: false,
+                searching: true,
                 dom: 'Bfrtip',
                 ajax: {
                     url: '{!! route('lokasidanpemukiman.jsonadmin') !!}',

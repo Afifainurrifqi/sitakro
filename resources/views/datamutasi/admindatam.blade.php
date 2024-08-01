@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -11,10 +11,6 @@
                             @if (session('msg'))
                             @endif
                             <h2 class="card-title">Data Mutasi Penduduk</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
                             <form action="/import" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <a href="{{ route('export.meninggal') }}" class="btn btn-primary">Export Meninggal</a>
@@ -110,7 +106,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('datam.jsonadmin') !!}',
                     type: 'POST',
@@ -121,9 +117,12 @@
                         d.nik = $('#search_nik').val(); // Pass the NIK input value
                     }
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
+                columns: [ {
+                         data: null,
+                        render: function(data, type, row, meta) {
+                            // Menambahkan nomor urut otomatis
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
                     },
                     {
                         data: 'nokk',

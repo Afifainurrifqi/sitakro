@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">LEMBAGA KEAGAMAAN</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
 
                         <div class="table-responsive">
@@ -62,6 +59,7 @@
             $('#tablertagama').DataTable({
                 processing: true,
                 serverSide: true,
+                searching: true,
                 ajax: {
                     url: '{!! route('rtlembaga_keagamaan.jsonadmin') !!}',
                     type: 'POST',

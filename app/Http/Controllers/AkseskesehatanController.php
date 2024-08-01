@@ -28,7 +28,7 @@ class AkseskesehatanController extends Controller
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.KK.admin_aksespendidikan');
+        return view('sdgs.KK.admin_akses_kesehatan');
     }
 
     public function json(Request $request)

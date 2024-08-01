@@ -7604,7 +7604,7 @@ class DataRtController extends Controller
 
 
         $datart->save();
-        return redirect()->route('datart.index');
+        return redirect()->route('datart.admin_index');
     }
 
     /**
@@ -7645,7 +7645,7 @@ class DataRtController extends Controller
             ]);
         }
 
-        return redirect()->route('datart.index');
+        return redirect()->route('datart.admin_index');
     }
 
     /**

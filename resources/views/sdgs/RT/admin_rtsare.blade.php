@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SARANA EKONOMI</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
 
                         <div class="table-responsive">
@@ -261,7 +258,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('rtsare.jsonadmin') !!}',
                     type: 'POST',
@@ -270,15 +267,15 @@
                     },
 
                     data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
                 columns: [{
                         data: 'action',
                         name: 'action',
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -842,8 +839,8 @@
             });
 
             $('#search_nik').on('keyup', function() {
-                        $('#tabledatartsare').DataTable().ajax.reload();
-                    });
+                $('#tabledatartsare').DataTable().ajax.reload();
+            });
         });
     </script>
 @endsection

@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">TINDAK KEJAHATAN</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
 
                         <div class="table-responsive">
@@ -172,7 +169,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('rt_tkejahatan.jsonadmin') !!}',
                     type: 'POST',
@@ -188,7 +185,7 @@
                         name: 'action',
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;

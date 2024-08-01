@@ -24,7 +24,7 @@ class StorejenisdisabilitasRequest extends FormRequest
     public function rules()
     {
         return [
-            'valjenisdisab'  => 'required',
+            'valjenisdisab'  => 'nullable',
         ];
     }
 

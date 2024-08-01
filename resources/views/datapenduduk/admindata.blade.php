@@ -23,12 +23,6 @@
                                 data-target="#importModal">Impor Data</button> <br><br>
 
                             <!-- Form pencarian -->
-                            <form id="search-form">
-                                <div class="form-group">
-                                    <label for="nik">Cari berdasarkan NIK:</label>
-                                    <input type="text" class="form-control" id="searchNIK" name="nik" placeholder="Masukkan NIK">
-                                </div>
-                            </form>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration" id="tabledatapenduduk">
@@ -108,8 +102,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
-                searching: false,
+                searching: true,
                 dom: 'Bfrtip',
                 ajax: {
                     url: '{!! route('datapenduduk.jsonadmin') !!}',

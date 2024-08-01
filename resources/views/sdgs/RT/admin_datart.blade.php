@@ -15,10 +15,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">DATA RT</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                             <button type="button" class="btn mb-1 btn-primary"
                                 onclick="window.location='{{ route('datart.create') }}'">
                                 Tambah Data RT<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
@@ -1594,7 +1591,7 @@
                 // serverSide: true,
                 // dom: 'Bfrtip',
                 scrollX: true,
- searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('datart.jsonadmin') !!}',
                     type: 'POST',
@@ -1602,8 +1599,8 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
                 "buttons": [{
                     "extend": 'excel',
@@ -5203,8 +5200,8 @@
             });
 
             $('#search_nik').on('keyup', function() {
-                        $('#tabledatart').DataTable().ajax.reload();
-                    });
+                $('#tabledatart').DataTable().ajax.reload();
+            });
 
 
             function newexportaction(e, dt, button, config) {
@@ -5257,6 +5254,4 @@
             }
         });
     </script>
-
-
 @endsection

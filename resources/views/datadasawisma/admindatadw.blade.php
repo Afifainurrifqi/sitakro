@@ -14,10 +14,7 @@
                             @endif
                             <h2 class="card-title">Data Dasa Wisma</h2><br>
                              <form id="search-form">
-                                <div class="form-group">
-                                    <label for="nik">Cari berdasarkan NIK:</label>
-                                    <input type="text" class="form-control" id="searchNIK" name="nik" placeholder="Masukkan NIK">
-                                </div>
+
                             </form>
                         </div>
                         <div class="table-responsive">
@@ -53,7 +50,7 @@
             var table = $('#tabledatadw').DataTable({
                 processing: true,
                 serverSide: true,
-                searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('datadw.jsonadmin') !!}',
                     type: 'POST',

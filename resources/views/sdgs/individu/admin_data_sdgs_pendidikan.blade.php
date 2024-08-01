@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS PENDIDIKAN</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatapendidikansdgs">
@@ -50,8 +47,10 @@
                                         <th>Bagaimana keterbukaan desa terhadap masukan?</th>
                                         <th>Terjadi Bencana 1 tahun terakhir</th>
                                         <th>Apakah anda terkena dampak bencana</th>
-                                        <th>Apakah menerima pemenuhan Kebutuhan Dasar saat Bencana (makanan, pakaian, tempat tinggal)?</th>
-                                        <th>Apakah ada penanganan psikososial keluarga terdampak bencana (penyuluhan/konseling/terapi)?</th>
+                                        <th>Apakah menerima pemenuhan Kebutuhan Dasar saat Bencana (makanan, pakaian, tempat
+                                            tinggal)?</th>
+                                        <th>Apakah ada penanganan psikososial keluarga terdampak bencana
+                                            (penyuluhan/konseling/terapi)?</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,24 +81,23 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
-                searching: false,
+                searching: true,
                 ajax: {
-                url: '{!! route('datasdgspendidikan.jsonadmin') !!}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{!! route('datasdgspendidikan.jsonadmin') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: function(d) {
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
-                data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
-            },
                 columns: [{
                         data: 'action',
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -207,56 +205,56 @@
                 ]
             });
             $('#search_nik').on('keyup', function() {
-                        $('#tabledatapendidikansdgs').DataTable().ajax.reload();
-                    });
+                $('#tabledatapendidikansdgs').DataTable().ajax.reload();
+            });
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-                    var ctxPekerjaan = document.getElementById('pendidikanChart').getContext('2d');
-                    var pendidikanLabels = @json($pendidikanLabels);
-                    var pendidikanCounts = @json($pendidikanCounts);
+            var ctxPekerjaan = document.getElementById('pendidikanChart').getContext('2d');
+            var pendidikanLabels = @json($pendidikanLabels);
+            var pendidikanCounts = @json($pendidikanCounts);
 
-                    var barChart = new Chart(ctxPekerjaan, {
-                        type: 'pie', // Change the chart type to 'bar'
-                        data: {
-                            labels: pendidikanLabels,
-                            datasets: [{
-                                data: pendidikanCounts,
-                                backgroundColor: [
-                                    'rgba(75, 192, 192, 0.7)',
-                                    'rgba(54, 162, 235, 0.7)',
-                                    // ... add other colors if needed
-                                ],
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                x: [{
-                                    gridLines: {
-                                        display: false,
-                                    }
-                                }],
-                                y: [{
-                                    ticks: {
-                                        beginAtZero: true,
-                                    },
-                                    gridLines: {
-                                        display: false,
-                                    }
-                                }]
+            var barChart = new Chart(ctxPekerjaan, {
+                type: 'pie', // Change the chart type to 'bar'
+                data: {
+                    labels: pendidikanLabels,
+                    datasets: [{
+                        data: pendidikanCounts,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            // ... add other colors if needed
+                        ],
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: [{
+                            gridLines: {
+                                display: false,
+                            }
+                        }],
+                        y: [{
+                            ticks: {
+                                beginAtZero: true,
                             },
-                            tooltips: {
-                                callbacks: {
-                                    label: function(tooltipItem, data) {
-                                        var label = data.labels[tooltipItem.index];
-                                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
-                                            .index];
-                                        return label + ': ' + value;
-                                    }
-                                }
+                            gridLines: {
+                                display: false,
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var label = data.labels[tooltipItem.index];
+                                var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
+                                    .index];
+                                return label + ': ' + value;
                             }
                         }
-                    });
-                });
+                    }
+                }
+            });
+        });
     </script>
 @endsection

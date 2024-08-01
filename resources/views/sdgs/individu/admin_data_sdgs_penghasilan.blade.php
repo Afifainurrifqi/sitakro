@@ -15,10 +15,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS DATA PENGHASILAN</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
                         <table class="table table-striped table-bordered zero-configuration" id="tabledatapenghasilan">
                             <thead>
@@ -65,9 +62,8 @@
             var dataTable = $('#tabledatapenghasilan').DataTable({
                 processing: true,
                 serverSide: true,
-                searching: false,
+                searching: true,
                 scrollX: true,
- searching: false,
                 ajax: {
                     url: '{!! route('datapenghasilan.jsonadmin') !!}',
                     type: 'POST',

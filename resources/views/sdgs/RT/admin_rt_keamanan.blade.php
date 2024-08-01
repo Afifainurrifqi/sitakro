@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">KEAMANAN</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
 
                         <div class="table-responsive">
@@ -35,15 +32,33 @@
                                         <th rowspan="2">RT</th>
                                         <th rowspan="2">RW</th>
                                         <th rowspan="2">NO. HP / TELEPON</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR KELOMPOK MASYARAKAT</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK MASYARAKAT ANTAR DESA</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK MASYARAKAT DENGAN APARAT KEAMANAN</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK MASYARAKAT DENGAN APARAT PEMERINTAH</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR APARAT KEAMANAN</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR APARAT PEMERINTAH</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">PELAJAR/MAHASISWA</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR SUKU</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">LAINNYA</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR
+                                            KELOMPOK MASYARAKAT</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK
+                                            MASYARAKAT ANTAR DESA</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK
+                                            MASYARAKAT DENGAN APARAT KEAMANAN</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KELOMPOK
+                                            MASYARAKAT DENGAN APARAT PEMERINTAH</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR
+                                            APARAT KEAMANAN</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR
+                                            APARAT PEMERINTAH</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            PELAJAR/MAHASISWA</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">ANTAR SUKU
+                                        </th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">LAINNYA
+                                        </th>
                                     </tr>
 
                                     <tr>
@@ -133,7 +148,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('rt_keamanan.jsonadmin') !!}',
                     type: 'POST', // Correct the method to POST
@@ -149,7 +164,7 @@
                         name: 'action',
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;

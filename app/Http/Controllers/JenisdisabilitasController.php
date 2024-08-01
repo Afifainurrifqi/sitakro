@@ -131,18 +131,25 @@ class JenisdisabilitasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StorejenisdisabilitasRequest $request)
-    {
-        $datadisabilitas = jenisdisabilitas::where('nik', $request->valNIK)->first();
-        if ($datadisabilitas == NULL) {
-            $datadisabilitas = new jenisdisabilitas();
-        }
-        $datadisabilitas->nik = $request->valNIK;
-        $datadisabilitas->jenis_disabilitas = implode(",", $request->valjenisdisab);
-
-        $datadisabilitas->save();
-
-        return redirect()->route('disabilitas.show', ['show' => $request->valNIK]);
+{
+    $datadisabilitas = jenisdisabilitas::where('nik', $request->valNIK)->first();
+    if ($datadisabilitas == NULL) {
+        $datadisabilitas = new jenisdisabilitas();
     }
+    $datadisabilitas->nik = $request->valNIK;
+
+    // Periksa apakah valjenisdisab ada dan merupakan array
+    if (is_array($request->valjenisdisab)) {
+        $datadisabilitas->jenis_disabilitas = implode(",", $request->valjenisdisab);
+    } else {
+        $datadisabilitas->jenis_disabilitas = ''; // Atau null, tergantung kebutuhan
+    }
+
+    $datadisabilitas->save();
+
+    return redirect()->route('disabilitas.show', ['show' => $request->valNIK]);
+}
+
 
     /**
      * Display the specified resource.

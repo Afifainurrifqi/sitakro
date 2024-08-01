@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">LOKASI</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatartlokasi">
@@ -89,7 +86,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
-                searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('rtlokasi.jsonadmin') !!}',
                     type: 'POST',

@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS JENIS DISABILITAS</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatadisabilitas">
@@ -60,8 +57,7 @@
             $('#tabledatadisabilitas').DataTable({
                 processing: true,
                 serverSide: true,
-                searching: false,
-
+                searching: true,
                 ajax: {
                 url: '{!! route('datadisabilitas.jsonadmin') !!}',
                 type: 'POST',

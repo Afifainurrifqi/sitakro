@@ -16,10 +16,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">AKSES PENDIDIKAN</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
 
                         </div>
                         <div class="table-responsive">
@@ -30,7 +27,7 @@
                                         <th rowspan="2">Action</th>
                                         <th rowspan="2">No</th>
                                         <th rowspan="2">NO KK</th>
-                                        <th rowspan="2">NNIK</th>
+                                        <th rowspan="2">NIK</th>
                                         <th rowspan="2">NAMA</th>
                                         <th colspan="3"
                                             style="border-bottom: 1px solid #000; border-right: 1px solid #000;">PAUD</th>
@@ -124,23 +121,23 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
+                searching: true,
                 ajax: {
-                url: '{!! route('aksespendidikan.jsonadmin') !!}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{!! route('aksespendidikan.jsonadmin') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: function(d) {
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
-                data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
-            },
                 columns: [{
                         data: 'action',
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -270,8 +267,8 @@
             });
 
             $('#search_nik').on('keyup', function() {
-                        $('#tabledataaksespendidikan').DataTable().ajax.reload();
-                    });
+                $('#tabledataaksespendidikan').DataTable().ajax.reload();
+            });
         });
     </script>
 @endsection

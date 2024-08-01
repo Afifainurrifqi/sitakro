@@ -27,10 +27,10 @@ class AksessarprasController extends Controller
     }
     public function admin_index(Request $request)
     {
-       return view('sdgs.KK.aksessarpras');
+       return view('sdgs.KK.admin_aksessarpras');
     }
 
-    public function jsonadmin(Request $request)
+    public function json(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
@@ -255,7 +255,7 @@ class AksessarprasController extends Controller
             ->toJson();
     }
 
-    public function json(Request $request)
+    public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
