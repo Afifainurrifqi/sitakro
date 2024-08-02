@@ -30,7 +30,7 @@ class Importdatapenduduk implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
 
     public function model(array $row)
     {
-        $datapenduduk = new DataPenduduk;
+        $datapenduduk = new dataPenduduk;
             $datapenduduk->nik = strval($row[1]);
             $datapenduduk->gelarawal = $row[2];
             $datapenduduk->nama = $row[3];
@@ -62,7 +62,7 @@ class Importdatapenduduk implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter
         // ...
 
         $datapenduduk->save();
-        
+
         $kartuk = new kk;
         $kartuk->nokk = strval($row[0]);
         $kartuk->save();
