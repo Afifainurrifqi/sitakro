@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use Carbon\Carbon;
 use App\Models\agama;
-use App\Models\Datapenduduk;
+use App\Models\datapenduduk;
 use App\Models\detailkk;
 use App\Models\goldar;
 use App\Models\kk;
