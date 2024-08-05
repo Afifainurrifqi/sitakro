@@ -83,14 +83,16 @@ class DatapendudukController extends Controller
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
         // Jika terdapat parameter NIK pada request, lakukan pencarian berdasarkan NIK
-        if ($request->has('nik')) {
-            $nik = $request->input('nik');
+        if ($request->has('nokk')) {
+            $nokk = $request->input('nokk');
             $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->where('nik', $nik)
+                ->whereHas('detailkk.kk', function ($query) use ($nokk) {
+                    $query->where('nokk', $nokk);
+                })
                 ->whereIn('Datak', $allowedDatakValues);
         } else {
-            // Jika tidak ada parameter NIK, kembalikan data kosong
-            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+            // Jika tidak ada parameter noKK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('id'); // Tidak mengembalikan data
         }
 
         return DataTables::of($query)

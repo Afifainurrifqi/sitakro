@@ -16,10 +16,10 @@
                                 </div>
                             @endif
                             <h2 class="card-title">LAIN-LAIN</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+                          <div class="form-group">
+                                 <label for="search_nokk">Cari berdasarkan noKK:</label>
+                                 <input type="text" id="search_nokk" class="form-control" placeholder="Masukkan noKK">
+                             </div>
                         </div>
 
                         <div class="table-responsive">
@@ -65,6 +65,24 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Presentase Penyelesaian Data</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ number_format($presentase, 2) }}%;"
+                        aria-valuenow="{{ number_format($presentase, 2) }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ number_format($presentase, 2) }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .progress-bar {
+                background-color: #28a745;
+                color: green;
+                /* Warna hijau, bisa disesuaikan */
+            }
+        </style>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -83,8 +101,8 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
+                         d.nokk = $('#search_nokk').val(); // Pass the noKK input value
+                     }
                 },
                 columns: [{
                         data: 'action',
@@ -163,7 +181,7 @@
                     },
                 ]
             });
-            $('#search_nik').on('keyup', function() {
+            $('#search_nokk').on('keyup', function() {
                         $('#tabledatalaink').DataTable().ajax.reload();
                     });
         });

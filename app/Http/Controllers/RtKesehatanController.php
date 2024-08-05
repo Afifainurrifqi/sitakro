@@ -25,17 +25,42 @@ class RtKesehatanController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.RT.rt_kesehatan');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_kesehatan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.rt_kesehatan', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.RT.admin_rt_kesehatan');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_kesehatan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.admin_rt_kesehatan', compact('presentase'));
     }
 
     public function json(Request $request)
     {
         $query = Datart::query(); // Query the data_rt model
+
+        if ($request->has('nik')) {
+            $nik = $request->input('nik');
+            $query = Datart::with([])
+                ->where('nik', $nik);
+        } else {
+            // Jika tidak ada parameter NIK, kembalikan data kosong
+            $query = Datart::whereNull('nik'); // Tidak mengembalikan data
+        }
 
         return DataTables::of($query)
             ->addColumn('action', function ($row) {

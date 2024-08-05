@@ -132,7 +132,7 @@
                                     <input type="text" value="{{ $datapk->penghasilan_setahun_terakhir ?? '' }}"
                                     class="form-control @error('valPenghasilansetahun') is-invalid @enderror"
                                     id="valPenghasilansetahun" name="valPenghasilansetahun" placeholder="Tulis Nominalny"
-                                    >
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                     @error('valPenghasilansetahun')
                                     <div id="" class="invalid-feedback">
                                         {{ $message }}

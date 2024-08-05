@@ -31,12 +31,38 @@ class DataindividuController extends Controller
 
     public function index(Request $request)
     {
-        return view('sdgs.individu.dataindividu');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = dataindividu::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        // Ambil data lainnya untuk ditampilkan di view
+        $dataindividu = dataindividu::all();
+        $individuLabels = $dataindividu->pluck('dataindividu_utama')->toArray();
+        $individuCounts = $dataindividu->countBy('dataindividu_utama')->values()->toArray();
+
+
+        return view('sdgs.individu.dataindividu', compact('dataindividu', 'individuLabels', 'individuCounts', 'presentase'));
     }
 
     public function index_admin(Request $request)
     {
-        return view('sdgs.individu.admin_data_individu');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = dataindividu::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        // Ambil data lainnya untuk ditampilkan di view
+        $dataindividu = dataindividu::all();
+        $individuLabels = $dataindividu->pluck('dataindividu_utama')->toArray();
+        $individuCounts = $dataindividu->countBy('dataindividu_utama')->values()->toArray();
+        return view('sdgs.individu.admin_data_individu', compact('dataindividu', 'individuLabels', 'individuCounts', 'presentase'));
     }
 
     public function jsonadmin(Request $request)
@@ -425,15 +451,18 @@ class DataindividuController extends Controller
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($request->has('nik')) {
-            $nik = $request->input('nik');
+        if ($request->has('nokk')) {
+            $nokk = $request->input('nokk');
             $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->where('nik', $nik)
+                ->whereHas('detailkk.kk', function ($query) use ($nokk) {
+                    $query->where('nokk', $nokk);
+                })
                 ->whereIn('Datak', $allowedDatakValues);
         } else {
-            // Jika tidak ada parameter NIK, kembalikan data kosong
-            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+            // Jika tidak ada parameter noKK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('id'); // Tidak mengembalikan data
         }
+
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {

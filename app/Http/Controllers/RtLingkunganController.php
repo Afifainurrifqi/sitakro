@@ -24,12 +24,26 @@ class RtLingkunganController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.RT.rtlingkungan');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_lingkungan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+        return view('sdgs.RT.rtlingkungan', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.RT.admin_rtlingkungan');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_lingkungan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+        return view('sdgs.RT.admin_rtlingkungan', compact('presentase'));
     }
 
     public function json(Request $request)

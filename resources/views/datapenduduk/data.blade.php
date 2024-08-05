@@ -25,8 +25,8 @@
                             <!-- Form pencarian -->
                             <form id="search-form">
                                 <div class="form-group">
-                                    <label for="nik">Cari berdasarkan NIK:</label>
-                                    <input type="text" class="form-control" id="searchNIK" name="nik" placeholder="Masukkan NIK">
+                                    <label for="search_nokk">Cari berdasarkan noKK:</label>
+                                    <input type="text" id="search_nokk" class="form-control" placeholder="Masukkan noKK">
                                 </div>
                             </form>
                         </div>
@@ -99,6 +99,9 @@
                 </div>
             </div>
         </div>
+
+
+
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="text/javascript">
@@ -113,14 +116,11 @@
                 ajax: {
                     url: '{!! route('datapenduduk.json') !!}',
                     type: 'POST',
-                    data: function(d) {
-                        d.nik = $('#nik').val();
-                    },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: function(d) {
-                        d.nik = $('#searchNIK').val();
+                        d.nokk = $('#search_nokk').val(); // Pass the noKK input value
                     }
                 },
                 "buttons": [{
@@ -134,7 +134,7 @@
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -228,8 +228,8 @@
             });
 
 
-            $('#searchNIK').on('keyup', function() {
-                table.draw();
+            $('#search_nokk').on('keyup', function() {
+                $('#tabledatapenduduk').DataTable().ajax.reload();
             });
 
             function newexportaction(e, dt, button, config) {
@@ -282,4 +282,12 @@
             }
         });
     </script>
+
+<style>
+    .progress-bar {
+        background-color: #28a745;
+        color: green;
+        /* Warna hijau, bisa disesuaikan */
+    }
+</style>
 @endsection

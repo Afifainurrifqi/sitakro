@@ -24,12 +24,28 @@ class RtlembagaKeagamaanController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.RT.rtlembaga_keagamaan');
+
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rtlembaga_keagamaan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.rtlembaga_keagamaan', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.RT.adminrtlembaga_keagamaan');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rtlembaga_keagamaan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+        return view('sdgs.RT.adminrtlembaga_keagamaan', compact('presentase'));
     }
 
     public function json(Request $request)

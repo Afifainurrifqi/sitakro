@@ -23,23 +23,39 @@ class SdgspendidikanController extends Controller
      */
     public function index(Request $request)
     {
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = sdgspendidikan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
         $dataPendidikan = sdgspendidikan::all();
 
         $pendidikanLabels = $dataPendidikan->pluck('pendidikan_tertinggi')->toArray();
         $pendidikanCounts = $dataPendidikan->countBy('pendidikan_tertinggi')->values()->toArray();
 
-        return view('sdgs.individu.datasdgspendidikan', compact('dataPendidikan', 'pendidikanLabels', 'pendidikanCounts'));
+        return view('sdgs.individu.datasdgspendidikan', compact('dataPendidikan', 'pendidikanLabels', 'pendidikanCounts', 'presentase'));
     }
 
 
     public function admin_index(Request $request)
     {
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = sdgspendidikan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
         $dataPendidikan = sdgspendidikan::all();
 
         $pendidikanLabels = $dataPendidikan->pluck('pendidikan_tertinggi')->toArray();
         $pendidikanCounts = $dataPendidikan->countBy('pendidikan_tertinggi')->values()->toArray();
 
-        return view('sdgs.individu.admin_data_sdgs_pendidikan', compact('dataPendidikan', 'pendidikanLabels', 'pendidikanCounts'));
+        return view('sdgs.individu.admin_data_sdgs_pendidikan', compact('dataPendidikan', 'pendidikanLabels', 'pendidikanCounts', 'presentase'));
     }
 
     public function jsonadmin(Request $request)

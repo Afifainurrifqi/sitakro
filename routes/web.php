@@ -140,6 +140,7 @@ Route::middleware(['checkrole:admin,operator,dasawisma,akundemo'])->group(
         Route::get('datadasawisma/datadw', [DatadasawismaController::class, 'index'])->name('dasawisma.index');
         Route::get('datadasawisma/admin', [DatadasawismaController::class, 'index_admin'])->name('dasawisma.index_admin');
         Route::get('datapenduduk/add', [DatapendudukController::class, 'add']);
+        Route::post('datapenduduk/store', [DatapendudukController::class, 'store'])->name('datapenduduk.store');
 
         // JSON DATATABLES
         Route::post('datapenduduk/json', [DatapendudukController::class, 'json'])->name('datapenduduk.json');
@@ -234,7 +235,7 @@ Route::middleware(['checkrole:admin,operator,akundemo'])->group(
 
 Route::middleware(['checkrole:admin,operator'])->group(
     function () {
-        Route::post('datapenduduk/store', [DatapendudukController::class, 'store'])->name('datapenduduk.store');
+
         Route::get('datamutasi/export/datamutasi', [DatamutasiController::class, 'exportexcelm'])->name('export.meninggal');
         Route::get('datamutasi/export/datapindah', [DatamutasiController::class, 'exportexcelp'])->name('export.pindah');
         Route::post('datapendudukimport', [DatapendudukController::class, 'import_excel'])->name('import_excel');
@@ -393,24 +394,18 @@ Route::middleware(['checkrole:admin,dasawisma'])->group(
 Route::middleware(['checkrole:admin'])->group(
     function () {
         Route::get('datapenduduk/export/datapenduduk', [DatapendudukController::class, 'export_excel']);
+    }
+);
+
+
+Route::middleware(['checkrole:operator,admin,akundemo'])->group(
+    function () {
         Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
+        Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
         Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
     }
 );
 
 
-Route::middleware(['checkrole:operator'])->group(
-    function () {
-
-        Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
-    }
-);
-
-Route::middleware(['checkrole:operator,akundemo'])->group(
-    function () {
-        Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
-
-    }
-);
 
 //dasawisma

@@ -23,12 +23,28 @@ class LainkController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.KK.lain');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = laink::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        return view('sdgs.KK.lain', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.KK.admin_lain');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = laink::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        return view('sdgs.KK.admin_lain', compact('presentase'));
     }
 
     public function jsonadmin(Request $request)
@@ -153,14 +169,16 @@ class LainkController extends Controller
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($request->has('nik')) {
-            $nik = $request->input('nik');
+        if ($request->has('nokk')) {
+            $nokk = $request->input('nokk');
             $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->where('nik', $nik)
+                ->whereHas('detailkk.kk', function ($query) use ($nokk) {
+                    $query->where('nokk', $nokk);
+                })
                 ->whereIn('Datak', $allowedDatakValues);
         } else {
-            // Jika tidak ada parameter NIK, kembalikan data kosong
-            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+            // Jika tidak ada parameter noKK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('id'); // Tidak mengembalikan data
         }
 
         return DataTables::of($query)

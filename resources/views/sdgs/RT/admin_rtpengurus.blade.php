@@ -95,6 +95,24 @@
 
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Presentase Penyelesaian Data</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ number_format($presentase, 2) }}%;"
+                        aria-valuenow="{{ number_format($presentase, 2) }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ number_format($presentase, 2) }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .progress-bar {
+                background-color: #28a745;
+                color: green;
+                /* Warna hijau, bisa disesuaikan */
+            }
+        </style>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -261,7 +279,7 @@
                 ]
             });
 
-            $('#search_nik').on('keyup', function() {
+            $('#search_nokk').on('keyup', function() {
                 $('#tabledatartpengurus').DataTable().ajax.reload();
             });
         });

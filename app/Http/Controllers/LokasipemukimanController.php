@@ -29,12 +29,28 @@ class LokasipemukimanController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.KK.lokasidanpemukiman');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = lokasipemukiman::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        return view('sdgs.KK.lokasidanpemukiman', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.KK.admin_lokasidanpemukiman');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = lokasipemukiman::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        return view('sdgs.KK.admin_lokasidanpemukiman', compact('presentase'));
     }
 
     public function jsonadmin(Request $request)

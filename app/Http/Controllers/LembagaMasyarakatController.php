@@ -24,12 +24,28 @@ class LembagaMasyarakatController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.RT.rtlembaga_masyarakat');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = lembaga_masyarakat::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.rtlembaga_masyarakat', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.RT.admin_rtlembaga_masyarakat');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = lembaga_masyarakat::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.admin_rtlembaga_masyarakat', compact('presentase'));
     }
 
     public function json(Request $request)
@@ -148,7 +164,7 @@ class LembagaMasyarakatController extends Controller
         $rtlembaga_masyarakat = lembaga_masyarakat::where('nik', $nik)->first();
 
 
-        return view('sdgs.RT.editrtlembaga_masyarakat', compact('rtlembaga_masyarakat','datart'));
+        return view('sdgs.RT.editrtlembaga_masyarakat', compact('rtlembaga_masyarakat', 'datart'));
     }
 
     /**
@@ -160,7 +176,7 @@ class LembagaMasyarakatController extends Controller
     public function store(Storelembaga_masyarakatRequest $request)
     {
         $rtlembaga_masyarakat = lembaga_masyarakat::where('nik', $request->valnik)->first();
-        if ($rtlembaga_masyarakat == NULL ) {
+        if ($rtlembaga_masyarakat == NULL) {
             $rtlembaga_masyarakat = new lembaga_masyarakat();
         }
         $rtlembaga_masyarakat->nik = $request->valnik;
@@ -175,8 +191,7 @@ class LembagaMasyarakatController extends Controller
         $rtlembaga_masyarakat->jumlah_ang = $request->valjumlah_ang;
         $rtlembaga_masyarakat->fasilitas = $request->valfasilitas;
         $rtlembaga_masyarakat->save();
-        return redirect()->route('rtlembaga_masyarakat.show',['show'=> $request->valnik ]);
-
+        return redirect()->route('rtlembaga_masyarakat.show', ['show' => $request->valnik]);
     }
 
     /**
@@ -191,7 +206,7 @@ class LembagaMasyarakatController extends Controller
         $rtlembaga_masyarakat = lembaga_masyarakat::where('nik', $nik)->first();
 
 
-        return view('sdgs.RT.showrtlembaga_masyarakat', compact('rtlembaga_masyarakat','datart'));
+        return view('sdgs.RT.showrtlembaga_masyarakat', compact('rtlembaga_masyarakat', 'datart'));
     }
     /**
      * Show the form for editing the specified resource.

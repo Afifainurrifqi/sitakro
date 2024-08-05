@@ -1,4 +1,4 @@
- @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
+@extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -90,6 +90,24 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Presentase Penyelesaian Data</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ number_format($presentase, 2) }}%;"
+                        aria-valuenow="{{ number_format($presentase, 2) }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ number_format($presentase, 2) }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .progress-bar {
+                background-color: #28a745;
+                color: green;
+                /* Warna hijau, bisa disesuaikan */
+            }
+        </style>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -100,7 +118,7 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
+                searching: false,
                 ajax: {
                     url: '{!! route('rtlembaga_ekonomi.json') !!}',
                     type: 'POST',
@@ -108,15 +126,15 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
                 columns: [{
                         data: 'action',
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -268,8 +286,8 @@
             });
 
             $('#search_nik').on('keyup', function() {
-                        $('#tabledatartlembaga_ekonomi').DataTable().ajax.reload();
-                    });
+                $('#tabledatartlembaga_ekonomi').DataTable().ajax.reload();
+            });
         });
     </script>
 @endsection

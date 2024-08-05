@@ -23,12 +23,37 @@ class DatakesehatanController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.individu.datakesehatan');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = datakesehatan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        // Ambil data lainnya untuk ditampilkan di view
+        $datakesehatan = datakesehatan::all();
+        $kesehatanLabels = $datakesehatan->pluck('kesehatan_utama')->toArray();
+        $kesehatanCounts = $datakesehatan->countBy('kesehatan_utama')->values()->toArray();
+
+        return view('sdgs.individu.datakesehatan', compact('datakesehatan', 'kesehatanLabels', 'kesehatanCounts', 'presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.individu.admin_data_kesehatan');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = datakesehatan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        // Ambil data lainnya untuk ditampilkan di view
+        $datakesehatan = datakesehatan::all();
+        $kesehatanLabels = $datakesehatan->pluck('kesehatan_utama')->toArray();
+        $kesehatanCounts = $datakesehatan->countBy('kesehatan_utama')->values()->toArray();
+        return view('sdgs.individu.admin_data_kesehatan', compact('datakesehatan', 'kesehatanLabels', 'kesehatanCounts', 'presentase'));
     }
 
     public function jsonadmin(Request $request)
@@ -174,25 +199,27 @@ class DatakesehatanController extends Controller
                 return '' . $bayi . '';
             })
 
-            ->rawColumns(['action',                'penyakit',
-            'rumahsakit',
-            'rumahsakitb',
-            'pusekesmas_denganri',
-            'pusekesmas_tanpari',
-            'puskesmas_pembantu',
-            'poliklinik',
-            'tempat_prakterkdr',
-            'rumah_bersalin',
-            'tempat_praktek',
-            'poskedes',
-            'polindes',
-            'apotik',
-            'toko_obat',
-            'posyandu',
-            'posbindu',
-            'tempat_praktikdb',
-            'jamkes',
-            'bayi',])
+            ->rawColumns([
+                'action',                'penyakit',
+                'rumahsakit',
+                'rumahsakitb',
+                'pusekesmas_denganri',
+                'pusekesmas_tanpari',
+                'puskesmas_pembantu',
+                'poliklinik',
+                'tempat_prakterkdr',
+                'rumah_bersalin',
+                'tempat_praktek',
+                'poskedes',
+                'polindes',
+                'apotik',
+                'toko_obat',
+                'posyandu',
+                'posbindu',
+                'tempat_praktikdb',
+                'jamkes',
+                'bayi',
+            ])
             ->toJson();
     }
 
@@ -200,14 +227,16 @@ class DatakesehatanController extends Controller
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($request->has('nik')) {
-            $nik = $request->input('nik');
+        if ($request->has('nokk')) {
+            $nokk = $request->input('nokk');
             $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->where('nik', $nik)
+                ->whereHas('detailkk.kk', function ($query) use ($nokk) {
+                    $query->where('nokk', $nokk);
+                })
                 ->whereIn('Datak', $allowedDatakValues);
         } else {
-            // Jika tidak ada parameter NIK, kembalikan data kosong
-            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+            // Jika tidak ada parameter noKK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('id'); // Tidak mengembalikan data
         }
 
         return DataTables::of($query)
@@ -346,25 +375,27 @@ class DatakesehatanController extends Controller
                 return '' . $bayi . '';
             })
 
-            ->rawColumns(['action',                'penyakit',
-            'rumahsakit',
-            'rumahsakitb',
-            'pusekesmas_denganri',
-            'pusekesmas_tanpari',
-            'puskesmas_pembantu',
-            'poliklinik',
-            'tempat_prakterkdr',
-            'rumah_bersalin',
-            'tempat_praktek',
-            'poskedes',
-            'polindes',
-            'apotik',
-            'toko_obat',
-            'posyandu',
-            'posbindu',
-            'tempat_praktikdb',
-            'jamkes',
-            'bayi',])
+            ->rawColumns([
+                'action',                'penyakit',
+                'rumahsakit',
+                'rumahsakitb',
+                'pusekesmas_denganri',
+                'pusekesmas_tanpari',
+                'puskesmas_pembantu',
+                'poliklinik',
+                'tempat_prakterkdr',
+                'rumah_bersalin',
+                'tempat_praktek',
+                'poskedes',
+                'polindes',
+                'apotik',
+                'toko_obat',
+                'posyandu',
+                'posbindu',
+                'tempat_praktikdb',
+                'jamkes',
+                'bayi',
+            ])
             ->toJson();
     }
 

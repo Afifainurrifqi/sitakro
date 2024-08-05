@@ -24,12 +24,28 @@ class RtindustriController extends Controller
      */
     public function index(Request $request)
     {
-      return view('sdgs.RT.rtindustri');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rtindustri::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.rtindustri', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-      return view('sdgs.RT.admin_rtindustri');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rtindustri::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.admin_rtindustri', compact('presentase'));
     }
 
     public function jsonadmin(Request $request)
@@ -639,7 +655,7 @@ class RtindustriController extends Controller
         $datart = Datart::where('nik', $nik)->first();
         $rt_industri = rtindustri::where('nik', $nik)->first();
 
-        return view('sdgs.RT.editrtindustri', compact('rt_industri','datart'));
+        return view('sdgs.RT.editrtindustri', compact('rt_industri', 'datart'));
     }
 
     /**
@@ -651,7 +667,7 @@ class RtindustriController extends Controller
     public function store(StorertindustriRequest $request)
     {
         $rt_industri = rtindustri::where('nik', $request->valnik)->first();
-        if ($rt_industri == NULL ) {
+        if ($rt_industri == NULL) {
             $rt_industri = new rtindustri();
         }
         $rt_industri->nik = $request->valnik;
@@ -702,7 +718,7 @@ class RtindustriController extends Controller
         $rt_industri->jumlahpekerja_lainnya = $request->valjumlahpekerja_lainnya;
 
         $rt_industri->save();
-        return redirect()->route('rtindustri.show',['show'=> $request->valnik ]);
+        return redirect()->route('rtindustri.show', ['show' => $request->valnik]);
     }
 
     /**
@@ -716,7 +732,7 @@ class RtindustriController extends Controller
         $datart = Datart::where('nik', $nik)->first();
         $rt_industri = rtindustri::where('nik', $nik)->first();
 
-        return view('sdgs.RT.showrtindustri', compact('rt_industri','datart'));
+        return view('sdgs.RT.showrtindustri', compact('rt_industri', 'datart'));
     }
     /**
      * Show the form for editing the specified resource.

@@ -24,39 +24,39 @@ class StoredataindividuRequest extends FormRequest
     public function rules()
     {
         return [
-           
-            'valSukubangsa' => 'required',
-            'valWarganegara' => 'required',
-            
+
+            'valSukubangsa' => 'nullable',
+            'valWarganegara' => 'nullable',
+
         ];
     }
-    
+
 
     public function messages(): array
     {
     return [
-        
-        
-        
-        
-        'valSukubangsa.required' => ':attribute Kolom tidak boleh kosong',
-        
-        'valWarganegara.required' => ':attribute Kolom tidak boleh kosong',
-        
-        
-        
-        
-        
+
+
+
+
+        'valSukubangsa.nullable' => ':attribute Kolom tidak boleh kosong',
+
+        'valWarganegara.nullable' => ':attribute Kolom tidak boleh kosong',
+
+
+
+
+
     ];
     }
 
     public function attributes(): array
 {
     return [
-        
+
         'valSukubangsa' => 'Sukubangsa',
         'valWarganegara' => 'Warganegara',
-       
+
     ];
 }
 

@@ -13,6 +13,7 @@ use App\Models\rt_bencana;
 use App\Http\Requests\Storert_bencanaRequest;
 use App\Http\Requests\Updatert_bencanaRequest;
 use App\Models\Datart;
+use App\Models\rt_lingkungan;
 use Yajra\DataTables\DataTables;
 
 class RtBencanaController extends Controller
@@ -24,12 +25,27 @@ class RtBencanaController extends Controller
      */
     public function index(Request $request)
     {
-        return view('sdgs.RT.rtbencana');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_bencana::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+        return view('sdgs.RT.rtbencana', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.RT.admin_rtbencana');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_bencana::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.admin_rtbencana', compact('presentase'));
     }
 
     public function jsonadmin(Request $request)

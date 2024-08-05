@@ -23,13 +23,30 @@ class JenisdisabilitasController extends Controller
      */
     public function index(Request $request)
     {
+         // Dapatkan total data penduduk
+         $totalPenduduk = datapenduduk::count();
 
-        return view('sdgs.individu.datadisabilitas');
+         // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+         $dataTerisi = jenisdisabilitas::count();
+
+         // Hitung presentase penyelesaian data
+         $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+
+        return view('sdgs.individu.datadisabilitas', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-        return view('sdgs.individu.admin_sdgs_disabilitas');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = jenisdisabilitas::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        return view('sdgs.individu.admin_sdgs_disabilitas', compact('presentase'));
     }
 
     public function jsonadmin(Request $request)
@@ -69,14 +86,16 @@ class JenisdisabilitasController extends Controller
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($request->has('nik')) {
-            $nik = $request->input('nik');
+        if ($request->has('nokk')) {
+            $nokk = $request->input('nokk');
             $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->where('nik', $nik)
+                ->whereHas('detailkk.kk', function ($query) use ($nokk) {
+                    $query->where('nokk', $nokk);
+                })
                 ->whereIn('Datak', $allowedDatakValues);
         } else {
-            // Jika tidak ada parameter NIK, kembalikan data kosong
-            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+            // Jika tidak ada parameter noKK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('id'); // Tidak mengembalikan data
         }
 
         return DataTables::of($query)

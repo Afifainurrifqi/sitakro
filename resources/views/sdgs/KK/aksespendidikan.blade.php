@@ -17,8 +17,8 @@
                             @endif
                             <h2 class="card-title">AKSES PENDIDIKAN</h2>
                             <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
+                                <label for="search_nokk">Cari berdasarkan noKK:</label>
+                                <input type="text" id="search_nokk" class="form-control" placeholder="Masukkan noKK">
                             </div>
 
                         </div>
@@ -113,6 +113,18 @@
                 </div>
 
             </div>
+
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Presentase Penyelesaian Data</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ number_format($presentase, 2) }}%;"
+                        aria-valuenow="{{ number_format($presentase, 2) }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ number_format($presentase, 2) }}%
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -123,23 +135,23 @@
                 processing: true,
                 serverSide: true,
                 scrollX: true,
- searching: false,
+                searching: false,
                 ajax: {
-                url: '{!! route('aksespendidikan.json') !!}',
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    url: '{!! route('aksespendidikan.json') !!}',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: function(d) {
+                        d.nokk = $('#search_nokk').val(); // Pass the noKK input value
+                    }
                 },
-                data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
-            },
                 columns: [{
                         data: 'action',
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -264,9 +276,17 @@
                 ]
             });
 
-            $('#search_nik').on('keyup', function() {
-                        $('#tabledataaksespendidikan').DataTable().ajax.reload();
-                    });
+            $('#search_nokk').on('keyup', function() {
+                $('#tabledataaksespendidikan').DataTable().ajax.reload();
+            });
         });
     </script>
+
+    <style>
+        .progress-bar {
+            background-color: #28a745;
+            color: green;
+            /* Warna hijau, bisa disesuaikan */
+        }
+    </style>
 @endsection

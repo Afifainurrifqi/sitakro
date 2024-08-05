@@ -5199,7 +5199,7 @@
                 ],
             });
 
-            $('#search_nik').on('keyup', function() {
+            $('#search_nokk').on('keyup', function() {
                 $('#tabledatart').DataTable().ajax.reload();
             });
 

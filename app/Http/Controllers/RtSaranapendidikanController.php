@@ -24,14 +24,28 @@ class RtSaranapendidikanController extends Controller
      */
     public function index(Request $request)
     {
+        $totalrt = Datart::count();
 
-        return view('sdgs.RT.rt_saranapendidikan');
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_saranapendidikan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.rt_saranapendidikan', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
+        $totalrt = Datart::count();
 
-        return view('sdgs.RT.admin_rt_saranapendidikan');
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_saranapendidikan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.admin_rt_saranapendidikan', compact('presentase'));
     }
 
     public function json(Request $request)

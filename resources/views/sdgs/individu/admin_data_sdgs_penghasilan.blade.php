@@ -40,6 +40,18 @@
                         </table>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Presentase Penyelesaian Data</h4>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ number_format($presentase, 2) }}%;"
+                                aria-valuenow="{{ number_format($presentase, 2) }}" aria-valuemin="0" aria-valuemax="100">
+                                {{ number_format($presentase, 2) }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-12 col-md-12">
                 <div class="card">
@@ -68,8 +80,8 @@
                     url: '{!! route('datapenghasilan.jsonadmin') !!}',
                     type: 'POST',
                     headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     dataType: 'json',
                     dataSrc: function(data) {
                         // Process data for Morris Bar Chart
@@ -80,15 +92,15 @@
                         return data.data;
                     },
                     data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
+                        d.nokk = $('#search_nokk').val(); // Pass the noKK input value
+                    }
                 },
                 columns: [{
                         data: 'action',
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -136,9 +148,9 @@
                     },
                 ]
             });
-            $('#search_nik').on('keyup', function() {
-                        $('#tabledatapenghasilan').DataTable().ajax.reload();
-                    });
+            $('#search_nokk').on('keyup', function() {
+                $('#tabledatapenghasilan').DataTable().ajax.reload();
+            });
 
             // Fetch data for Morris Bar Chart
 
@@ -214,4 +226,12 @@
             }
         });
     </script>
+
+    <style>
+        .progress-bar {
+            background-color: #28a745;
+            color: green;
+            /* Warna hijau, bisa disesuaikan */
+        }
+    </style>
 @endsection

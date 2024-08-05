@@ -24,14 +24,28 @@ class RtlokasiController extends Controller
      */
     public function index(Request $request)
     {
+        $totalrt = Datart::count();
 
-        return view('sdgs.RT.rtlokasi');
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rtlokasi::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.rtlokasi', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
+        $totalrt = Datart::count();
 
-        return view('sdgs.RT.admin_rtlokasi');
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rtlokasi::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.admin_rtlokasi', compact('presentase'));
     }
 
 

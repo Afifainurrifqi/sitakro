@@ -23,25 +23,43 @@ class AksessarprasController extends Controller
      */
     public function index(Request $request)
     {
-       return view('sdgs.KK.aksessarpras');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = aksessarpras::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        return view('sdgs.KK.aksessarpras', compact('presentase'));
     }
     public function admin_index(Request $request)
     {
-       return view('sdgs.KK.admin_aksessarpras');
+        $totalPenduduk = datapenduduk::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = aksessarpras::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+
+        return view('sdgs.KK.admin_aksessarpras', compact('presentase'));
     }
 
     public function json(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($request->has('nik')) {
-            $nik = $request->input('nik');
+        if ($request->has('nokk')) {
+            $nokk = $request->input('nokk');
             $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->where('nik', $nik)
+                ->whereHas('detailkk.kk', function ($query) use ($nokk) {
+                    $query->where('nokk', $nokk);
+                })
                 ->whereIn('Datak', $allowedDatakValues);
         } else {
-            // Jika tidak ada parameter NIK, kembalikan data kosong
-            $query = Datapenduduk::whereNull('nik'); // Tidak mengembalikan data
+            // Jika tidak ada parameter noKK, kembalikan data kosong
+            $query = Datapenduduk::whereNull('id'); // Tidak mengembalikan data
         }
         return DataTables::of($query)
 
@@ -490,7 +508,7 @@ class AksessarprasController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.KK.editaksespras', compact('akses_sarpras','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.KK.editaksespras', compact('akses_sarpras', 'datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
@@ -502,44 +520,43 @@ class AksessarprasController extends Controller
     public function store(StoreaksessarprasRequest $request)
     {
         $akses_sarpras = aksessarpras::where('nik', $request->valNIK)->first();
-        if ($akses_sarpras == NULL ) {
+        if ($akses_sarpras == NULL) {
             $akses_sarpras = new aksessarpras();
         }
         $akses_sarpras->nik = $request->valNIK;
-        $akses_sarpras->jenistrasport_lokasipu = $request-> valjenistrasport_lokasipu;
-        $akses_sarpras->pengtransportumum_lokasipu = $request-> valpengtransportumum_lokasipu;
-        $akses_sarpras->waktutempuh_lokasipu = $request-> valwaktutempuh_lokasipu;
-        $akses_sarpras->biaya_lokasipu = $request-> valbiaya_lokasipu;
-        $akses_sarpras->kemudahan_lokasipu = $request-> valkemudahan_lokasipu;
-        $akses_sarpras->jenistrasport_lahanpertanian = $request-> valjenistrasport_lahanpertanian;
-        $akses_sarpras->pengtransportumum_lahanpertanian = $request-> valpengtransportumum_lahanpertanian;
-        $akses_sarpras->waktutempuh_lahanpertanian = $request-> valwaktutempuh_lahanpertanian;
-        $akses_sarpras->biaya_lahanpertanian = $request-> valbiaya_lahanpertanian;
-        $akses_sarpras->kemudahan_lahanpertanian = $request-> valkemudahan_lahanpertanian;
-        $akses_sarpras->jenistrasport_sekolah = $request-> valjenistrasport_sekolah;
-        $akses_sarpras->pengtransportumum_sekolah = $request-> valpengtransportumum_sekolah;
-        $akses_sarpras->waktutempuh_sekolah = $request-> valwaktutempuh_sekolah;
-        $akses_sarpras->biaya_sekolah = $request-> valbiaya_sekolah;
-        $akses_sarpras->kemudahan_sekolah = $request-> valkemudahan_sekolah;
-        $akses_sarpras->jenistrasport_berobat = $request-> valjenistrasport_berobat;
-        $akses_sarpras->pengtransportumum_berobat = $request-> valpengtransportumum_berobat;
-        $akses_sarpras->waktutempuh_berobat = $request-> valwaktutempuh_berobat;
-        $akses_sarpras->biaya_berobat = $request-> valbiaya_berobat;
-        $akses_sarpras->kemudahan_berobat = $request-> valkemudahan_berobat;
-        $akses_sarpras->jenistrasport_beribadah = $request-> valjenistrasport_beribadah;
-        $akses_sarpras->pengtransportumum_beribadah = $request-> valpengtransportumum_beribadah;
-        $akses_sarpras->waktutempuh_beribadah = $request-> valwaktutempuh_beribadah;
-        $akses_sarpras->biaya_beribadah = $request-> valbiaya_beribadah;
-        $akses_sarpras->kemudahan_beribadah = $request-> valkemudahan_beribadah;
-        $akses_sarpras->jenistrasport_rekreasi = $request-> valjenistrasport_rekreasi;
-        $akses_sarpras->pengtransportumum_rekreasi = $request-> valpengtransportumum_rekreasi;
-        $akses_sarpras->waktutempuh_rekreasi = $request-> valwaktutempuh_rekreasi;
-        $akses_sarpras->biaya_rekreasi = $request-> valbiaya_rekreasi;
-        $akses_sarpras->kemudahan_rekreasi = $request-> valkemudahan_rekreasi;
+        $akses_sarpras->jenistrasport_lokasipu = $request->valjenistrasport_lokasipu;
+        $akses_sarpras->pengtransportumum_lokasipu = $request->valpengtransportumum_lokasipu;
+        $akses_sarpras->waktutempuh_lokasipu = $request->valwaktutempuh_lokasipu;
+        $akses_sarpras->biaya_lokasipu = $request->valbiaya_lokasipu;
+        $akses_sarpras->kemudahan_lokasipu = $request->valkemudahan_lokasipu;
+        $akses_sarpras->jenistrasport_lahanpertanian = $request->valjenistrasport_lahanpertanian;
+        $akses_sarpras->pengtransportumum_lahanpertanian = $request->valpengtransportumum_lahanpertanian;
+        $akses_sarpras->waktutempuh_lahanpertanian = $request->valwaktutempuh_lahanpertanian;
+        $akses_sarpras->biaya_lahanpertanian = $request->valbiaya_lahanpertanian;
+        $akses_sarpras->kemudahan_lahanpertanian = $request->valkemudahan_lahanpertanian;
+        $akses_sarpras->jenistrasport_sekolah = $request->valjenistrasport_sekolah;
+        $akses_sarpras->pengtransportumum_sekolah = $request->valpengtransportumum_sekolah;
+        $akses_sarpras->waktutempuh_sekolah = $request->valwaktutempuh_sekolah;
+        $akses_sarpras->biaya_sekolah = $request->valbiaya_sekolah;
+        $akses_sarpras->kemudahan_sekolah = $request->valkemudahan_sekolah;
+        $akses_sarpras->jenistrasport_berobat = $request->valjenistrasport_berobat;
+        $akses_sarpras->pengtransportumum_berobat = $request->valpengtransportumum_berobat;
+        $akses_sarpras->waktutempuh_berobat = $request->valwaktutempuh_berobat;
+        $akses_sarpras->biaya_berobat = $request->valbiaya_berobat;
+        $akses_sarpras->kemudahan_berobat = $request->valkemudahan_berobat;
+        $akses_sarpras->jenistrasport_beribadah = $request->valjenistrasport_beribadah;
+        $akses_sarpras->pengtransportumum_beribadah = $request->valpengtransportumum_beribadah;
+        $akses_sarpras->waktutempuh_beribadah = $request->valwaktutempuh_beribadah;
+        $akses_sarpras->biaya_beribadah = $request->valbiaya_beribadah;
+        $akses_sarpras->kemudahan_beribadah = $request->valkemudahan_beribadah;
+        $akses_sarpras->jenistrasport_rekreasi = $request->valjenistrasport_rekreasi;
+        $akses_sarpras->pengtransportumum_rekreasi = $request->valpengtransportumum_rekreasi;
+        $akses_sarpras->waktutempuh_rekreasi = $request->valwaktutempuh_rekreasi;
+        $akses_sarpras->biaya_rekreasi = $request->valbiaya_rekreasi;
+        $akses_sarpras->kemudahan_rekreasi = $request->valkemudahan_rekreasi;
 
         $akses_sarpras->save();
-        return redirect()->route('aksessarpras.show',['show'=> $request->valNIK ]);
-
+        return redirect()->route('aksessarpras.show', ['show' => $request->valNIK]);
     }
 
     /**
@@ -558,7 +575,7 @@ class AksessarprasController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.KK.showaksessarpras', compact('akses_sarpras','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.KK.showaksessarpras', compact('akses_sarpras', 'datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**

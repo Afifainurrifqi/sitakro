@@ -60,6 +60,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Presentase Penyelesaian Data</h4>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ number_format($presentase, 2) }}%;"
+                                aria-valuenow="{{ number_format($presentase, 2) }}" aria-valuemin="0" aria-valuemax="100">
+                                {{ number_format($presentase, 2) }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -204,7 +217,7 @@
 
                 ]
             });
-            $('#search_nik').on('keyup', function() {
+            $('#search_nokk').on('keyup', function() {
                 $('#tabledatapendidikansdgs').DataTable().ajax.reload();
             });
         });
@@ -257,4 +270,12 @@
             });
         });
     </script>
+
+    <style>
+        .progress-bar {
+            background-color: #28a745;
+            color: green;
+            /* Warna hijau, bisa disesuaikan */
+        }
+    </style>
 @endsection

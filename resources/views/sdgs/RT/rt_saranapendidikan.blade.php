@@ -1,4 +1,4 @@
- @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
+@extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 
 @section('content')
@@ -20,6 +20,7 @@
                                 <label for="search_nik">Cari berdasarkan NIK:</label>
                                 <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
                             </div>
+
                         </div>
 
                         <div class="table-responsive">
@@ -35,37 +36,99 @@
                                         <th rowspan="2">RT</th>
                                         <th rowspan="2">RW</th>
                                         <th rowspan="2">NO. HP / TELEPON</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">POS PAUD</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">TK/RA/BA</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">SD/MI</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">SMP/MTs</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">SMPLB</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">SMA/MA</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">SMK</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">SMA/LB</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">AKADEMI/PERGURUAN TINGGI</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">PESANTREN</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">MADRASAH DINIYAH</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> SEMINARI/SEJENISNYA</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> SEKOLAH AGAMA LAINYA</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KEGIATAN PEMBERANTASAN BUTA AKSARA</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KEGIATAN KEJAR PAKET A</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KEGIATAN KEJAR PAKET B</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KEGIATAN KEJAR PAKET C</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KELOMPOK BERMAIN/PLAYGRUP</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> TEMPAT PENITIPAN ANAK</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> TAMAN PENDIDIKAN AL QURAN</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS BAHASA ASING</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS KOMPUTER</th>
-                                        <th colspan="6" style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KURSUS MENJAHIT / TATA BUSANA</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KURSUS KECANTIKAN</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS MONTIR MOBIL/MOTOR</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS MENYETIR</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS ELEKTRONIKA</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS MEMASAK/TATABOGA</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS MENGETIK</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS AKUNTANSI</th>
-                                        <th colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;"> KURSUS LAINNYA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            POS PAUD</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            TK/RA/BA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            SD/MI</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            SMP/MTs</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            SMPLB</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            SMA/MA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            SMK</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            SMA/LB</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            AKADEMI/PERGURUAN TINGGI</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            PESANTREN</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            MADRASAH DINIYAH</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            SEMINARI/SEJENISNYA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            SEKOLAH AGAMA LAINYA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KEGIATAN PEMBERANTASAN BUTA AKSARA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KEGIATAN KEJAR PAKET A</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KEGIATAN KEJAR PAKET B</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KEGIATAN KEJAR PAKET C</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KELOMPOK BERMAIN/PLAYGRUP</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            TEMPAT PENITIPAN ANAK</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            TAMAN PENDIDIKAN AL QURAN</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS BAHASA ASING</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS KOMPUTER</th>
+                                        <th colspan="6"
+                                            style="border-bottom: 1px solid #000; border-right: 1px solid #000;">KURSUS
+                                            MENJAHIT / TATA BUSANA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS KECANTIKAN</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS MONTIR MOBIL/MOTOR</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS MENYETIR</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS ELEKTRONIKA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS MEMASAK/TATABOGA</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS MENGETIK</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS AKUNTANSI</th>
+                                        <th
+                                            colspan="6"style="border-bottom: 1px solid #000; border-right: 1px solid #000;">
+                                            KURSUS LAINNYA</th>
                                     </tr>
 
                                     <tr>
@@ -304,6 +367,24 @@
 
             </div>
         </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Presentase Penyelesaian Data</h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ number_format($presentase, 2) }}%;"
+                        aria-valuenow="{{ number_format($presentase, 2) }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ number_format($presentase, 2) }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .progress-bar {
+                background-color: #28a745;
+                color: green;
+                /* Warna hijau, bisa disesuaikan */
+            }
+        </style>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -313,7 +394,7 @@
                 processing: true,
                 // serverSide: true,
                 scrollX: true,
- searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('rt_saranapendidikan.json') !!}',
                     type: 'POST',
@@ -321,15 +402,15 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
                 columns: [{
                         data: 'action',
                         name: 'action',
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -359,7 +440,7 @@
                         data: 'nohp',
                         name: 'nohp',
                     },
-                     //1
+                    //1
                     {
                         data: 'nama_paud',
                         name: 'nama_paud'
@@ -684,7 +765,7 @@
                         data: 'jumlahpegawai_sekolahag',
                         name: 'jumlahpegawai_sekolahag'
                     },
-                     //13
+                    //13
                     {
                         data: 'nama_butaaksara',
                         name: 'nama_butaaksara'
@@ -1145,9 +1226,8 @@
             });
 
             $('#search_nik').on('keyup', function() {
-                        $('#tablert_saranapendidikan').DataTable().ajax.reload();
-                    });
+                $('#tablert_saranapendidikan').DataTable().ajax.reload();
+            });
         });
     </script>
 @endsection
-

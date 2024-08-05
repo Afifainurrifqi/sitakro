@@ -24,12 +24,27 @@ class RtTkejahatanController extends Controller
      */
     public function index(Request $request)
     {
-      return view('sdgs.RT.rt_tkejahatan');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_tkejahatan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+      return view('sdgs.RT.rt_tkejahatan', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-      return view('sdgs.RT.admin_rt_tkejahatan');
+        $totalrt = Datart::count();
+
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rt_tkejahatan::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+      return view('sdgs.RT.admin_rt_tkejahatan', compact('presentase'));
     }
 
     public function json(Request $request)

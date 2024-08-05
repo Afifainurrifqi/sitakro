@@ -24,14 +24,29 @@ class RtkegiatanWargaController extends Controller
      */
     public function index(Request $request)
     {
+        $totalrt = Datart::count();
 
-        return view('sdgs.RT.rt_kegiatanwarga');
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rtkegiatan_warga::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+
+        return view('sdgs.RT.rt_kegiatanwarga', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
+        $totalrt = Datart::count();
 
-        return view('sdgs.RT.admin_rt_kegiatanwarga');
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = rtkegiatan_warga::count();
+
+        // Hitung presentase penyelesaian data
+        $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
+
+        return view('sdgs.RT.admin_rt_kegiatanwarga', compact('presentase'));
     }
 
     public function jsonadmin(Request $request)
