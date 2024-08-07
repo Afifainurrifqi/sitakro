@@ -1589,7 +1589,7 @@
             $('#tabledatart').DataTable({
                 processing: true,
                 // serverSide: true,
-                // dom: 'Bfrtip',
+                dom: 'Bfrtip',
                 scrollX: true,
                 searching: true,
                 ajax: {
