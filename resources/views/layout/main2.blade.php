@@ -58,10 +58,10 @@
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="{{ route('dashboard') }}">
-                    <b class="logo-abbr"><img src="/assets/images/logositakro.png" alt=""> </b>
-                    <span class="logo-compact"><img src="/assets/images/logositakro.png" alt=""></span>
+                    <b class="logo-abbr"><img src="/assets/images/logositakro2.png" alt=""> </b>
+                    <span class="logo-compact"><img src="/assets/images/logositakro2.png" alt=""></span>
                     <span class="brand-title">
-                        <img src="/assets/images/logositakro.png" width="120" alt="">
+                        <img src="/assets/images/logositakro2.png" width="120" alt="">
                     </span>
                 </a>
             </div>
