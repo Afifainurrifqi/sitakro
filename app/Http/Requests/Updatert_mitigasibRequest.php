@@ -24,15 +24,15 @@ class Updatert_mitigasibRequest extends FormRequest
     public function rules()
     {
         return [
-            
 
-            'valmitigasi_sp' => 'required',
-            'valmitigasi_spd' => 'required',
-            'valmitigasi_pk' => 'required',
-            'valmitigasi_rrj' => 'required',
-            'valmitigasi_ppn' => 'required',
-           
-           
+
+            'valmitigasi_sp' => 'nullable',
+            'valmitigasi_spd' => 'nullable',
+            'valmitigasi_pk' => 'nullable',
+            'valmitigasi_rrj' => 'nullable',
+            'valmitigasi_ppn' => 'nullable',
+
+
         ];
     }
 
@@ -44,7 +44,7 @@ class Updatert_mitigasibRequest extends FormRequest
             'valmitigasi_spd.required' => ':Attribute tidak boleh kosong',
             'valmitigasi_pk.required' => ':Attribute tidak boleh kosong',
             'valmitigasi_rrj.required' => ':Attribute tidak boleh kosong',
-            'valmitigasi_ppn.required' => ':Attribute tidak boleh kosong',        
+            'valmitigasi_ppn.required' => ':Attribute tidak boleh kosong',
 
 
 
@@ -55,14 +55,14 @@ class Updatert_mitigasibRequest extends FormRequest
     {
         return [
 
-           
+
             'valmitigasi_sp' => 'mitigasi_sp',
             'valmitigasi_spd' => 'mitigasi_spd',
             'valmitigasi_pk' => 'mitigasi_pk',
             'valmitigasi_rrj' => 'mitigasi_rrj',
             'valmitigasi_ppn' => 'mitigasi_ppn',
-             
-           
+
+
 
         ];
     }

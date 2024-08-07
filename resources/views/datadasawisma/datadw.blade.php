@@ -1,4 +1,4 @@
- @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
+@extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 @section('content')
     <div class="container-fluid">
@@ -26,8 +26,9 @@
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th>Action</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>No</th>
+                                        <th>NIK</th>
                                         <th>Gelar Awal</th>
                                         <th>Nama</th>
                                         <th>Gelar Akhir</th>
@@ -68,16 +69,20 @@
                         data: 'action',
                         name: 'action'
                     },
-                    {
-                        data: 'statusdw',
-                        name: 'statusdw'
-                    },
+                    // {
+                    //     data: 'statusdw',
+                    //     name: 'statusdw'
+                    // },
                     {
                         data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik'
                     },
                     {
                         data: 'gelarawal',

@@ -24,30 +24,30 @@ class Updatertlembaga_ekonomiRequest extends FormRequest
     public function rules()
     {
         return [
-            
 
-            'valagentik_jp' => 'required',
-            'valagentik_jtk' => 'required',
-            'valjtri_sentra' => 'required',
-            'valjtri_lingkungan' => 'required',
-            'valjtri_kampung' => 'required',
-            'valdiskotik_kpd' => 'required',
-            'valdiskotik_jtl' => 'required',
-            'vallpg_kpapm' => 'required',
-            'vallpg_kpapg' => 'required',
-            'valkoperasi_jumlah' => 'required',
-            'valkoperasi_kudproduksi' => 'required',
-            'valkoperasi_kudkredit' => 'required',
-            'valkoperasi_kudkegiatan' => 'required',
-            'valkoperasi_kudindustrik' => 'required',
-            'valkoperasi_kudksp' => 'required',
-            'valkoperasi_kudksu' => 'required',
-            'valkoperasi_kudlainnya' => 'required',
-            'valkos_kud' => 'required',
-            'valkos_bumdes' => 'required',
-            'valkos_selain' => 'required',
-           
-           
+
+            'valagentik_jp' => 'nullable',
+            'valagentik_jtk' => 'nullable',
+            'valjtri_sentra' => 'nullable',
+            'valjtri_lingkungan' => 'nullable',
+            'valjtri_kampung' => 'nullable',
+            'valdiskotik_kpd' => 'nullable',
+            'valdiskotik_jtl' => 'nullable',
+            'vallpg_kpapm' => 'nullable',
+            'vallpg_kpapg' => 'nullable',
+            'valkoperasi_jumlah' => 'nullable',
+            'valkoperasi_kudproduksi' => 'nullable',
+            'valkoperasi_kudkredit' => 'nullable',
+            'valkoperasi_kudkegiatan' => 'nullable',
+            'valkoperasi_kudindustrik' => 'nullable',
+            'valkoperasi_kudksp' => 'nullable',
+            'valkoperasi_kudksu' => 'nullable',
+            'valkoperasi_kudlainnya' => 'nullable',
+            'valkos_kud' => 'nullable',
+            'valkos_bumdes' => 'nullable',
+            'valkos_selain' => 'nullable',
+
+
         ];
     }
 
@@ -103,8 +103,8 @@ class Updatertlembaga_ekonomiRequest extends FormRequest
             'valkos_kud' => 'valkos_kud',
             'valkos_bumdes' => 'valkos_bumdes',
             'valkos_selain' => 'valkos_selain',
-             
-           
+
+
 
         ];
     }

@@ -25,22 +25,22 @@ class Updatertkegiatan_wargaRequest extends FormRequest
     {
         return [
 
-            'valjumlah_kpp' => 'required',
-            'valjumlah_ppr' => 'required',
-            'valjumlah_hansip' => 'required',
-            'valpelaporan_tamu_lebih24' => 'required',
-            'valsistem_keamanan' => 'required',
-            'valsistem_linmas' => 'required',
-            'valjumlahpos_digunakan' => 'required',
-            'valjumlahpos_tidakdigunakan' => 'required',
-            'valjarak_ppt' => 'required',
-            'valkemudahan_ppt' => 'required',
-            'valjarak_korban' => 'required',
-            'valjarak_lokasikumpul' => 'required',
-            'valjarak_mangkal' => 'required',
-            'valjarak_lokalisasi' => 'required',
-           
-           
+            'valjumlah_kpp' => 'nullable',
+            'valjumlah_ppr' => 'nullable',
+            'valjumlah_hansip' => 'nullable',
+            'valpelaporan_tamu_lebih24' => 'nullable',
+            'valsistem_keamanan' => 'nullable',
+            'valsistem_linmas' => 'nullable',
+            'valjumlahpos_digunakan' => 'nullable',
+            'valjumlahpos_tidakdigunakan' => 'nullable',
+            'valjarak_ppt' => 'nullable',
+            'valkemudahan_ppt' => 'nullable',
+            'valjarak_korban' => 'nullable',
+            'valjarak_lokasikumpul' => 'nullable',
+            'valjarak_mangkal' => 'nullable',
+            'valjarak_lokalisasi' => 'nullable',
+
+
         ];
     }
 
@@ -66,7 +66,7 @@ class Updatertkegiatan_wargaRequest extends FormRequest
 
     public function attributes(): array
     {
-        return [             
+        return [
             'valjumlah_kpp' => 'jumlah_kpp',
             'valjumlah_ppr' => 'jumlah_ppr',
             'valjumlah_hansip' => 'jumlah_hansip',
@@ -81,7 +81,7 @@ class Updatertkegiatan_wargaRequest extends FormRequest
             'valjarak_lokasikumpul' => 'jarak_lokasikumpul',
             'valjarak_mangkal' => 'jarak_mangkal',
             'valjarak_lokalisasi' => 'jarak_lokalisasi',
-           
+
 
         ];
     }

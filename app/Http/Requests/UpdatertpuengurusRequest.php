@@ -25,32 +25,32 @@ class UpdatertpuengurusRequest extends FormRequest
     {
         return [
 
-            'valnama_ketuarw' => 'required',
-            'valnik_ketuarw' => 'required',
-            'valnohp_ketuarw' => 'required',
-            'valmenjabat_ketuarw' => 'required',
-            'valnama_sekrw' => 'required',
-            'valnik_sekrw' => 'required',
-            'valnohp_sekrw' => 'required',
-            'valmenjabat_sekrw' => 'required',
-            'valnama_benrw' => 'required',
-            'valnik_benrw' => 'required',
-            'valnohp_benrw' => 'required',
-            'valmenjabat_benrw' => 'required',
-            'valnama_ketuart' => 'required',
-            'valnik_ketuart' => 'required',
-            'valnohp_ketuart' => 'required',
-            'valmenjabat_ketuart' => 'required',
-            'valnama_sekrt' => 'required',
-            'valnik_sekrt' => 'required',
-            'valnohp_sekrt' => 'required',
-            'valmenjabat_sekrt' => 'required',
-            'valnama_benrt' => 'required',
-            'valnik_benrt' => 'required',
-            'valnohp_benrt' => 'required',
-            'valmenjabat_benrt' => 'required',
-           
-           
+            'valnama_ketuarw' => 'nullable',
+            'valnik_ketuarw' => 'nullable',
+            'valnohp_ketuarw' => 'nullable',
+            'valmenjabat_ketuarw' => 'nullable',
+            'valnama_sekrw' => 'nullable',
+            'valnik_sekrw' => 'nullable',
+            'valnohp_sekrw' => 'nullable',
+            'valmenjabat_sekrw' => 'nullable',
+            'valnama_benrw' => 'nullable',
+            'valnik_benrw' => 'nullable',
+            'valnohp_benrw' => 'nullable',
+            'valmenjabat_benrw' => 'nullable',
+            'valnama_ketuart' => 'nullable',
+            'valnik_ketuart' => 'nullable',
+            'valnohp_ketuart' => 'nullable',
+            'valmenjabat_ketuart' => 'nullable',
+            'valnama_sekrt' => 'nullable',
+            'valnik_sekrt' => 'nullable',
+            'valnohp_sekrt' => 'nullable',
+            'valmenjabat_sekrt' => 'nullable',
+            'valnama_benrt' => 'nullable',
+            'valnik_benrt' => 'nullable',
+            'valnohp_benrt' => 'nullable',
+            'valmenjabat_benrt' => 'nullable',
+
+
         ];
     }
 
@@ -81,13 +81,13 @@ class UpdatertpuengurusRequest extends FormRequest
             'valnik_benrt.required' => ':Attribute tidak boleh kosong',
             'valnohp_benrt.required' => ':Attribute tidak boleh kosong',
             'valmenjabat_benrt.required' => ':Attribute tidak boleh kosong',
-           
+
         ];
     }
 
     public function attributes(): array
     {
-        return [          
+        return [
             'valnama_ketuarw' => 'nama_ketuarw',
             'valnik_ketuarw' => 'nik_ketuarw',
             'valnohp_ketuarw' => 'nohp_ketuarw',

@@ -24,13 +24,13 @@ class Storert_fasilitas_ekonomiRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            'valkredit_usaha' => 'required',
-            'valkredit_ketahanan' => 'required',
-            'valkredit_kecil' => 'required',
-            'valkelompok_usaha' => 'required',
-           
-           
+
+            'valkredit_usaha' => 'nullable',
+            'valkredit_ketahanan' => 'nullable',
+            'valkredit_kecil' => 'nullable',
+            'valkelompok_usaha' => 'nullable',
+
+
         ];
     }
 
@@ -42,7 +42,7 @@ class Storert_fasilitas_ekonomiRequest extends FormRequest
             'valkredit_ketahanan.required' => ':Attribute tidak boleh kosong',
             'valkredit_kecil.required' => ':Attribute tidak boleh kosong',
             'valkelompok_usaha.required' => ':Attribute tidak boleh kosong',
- 
+
         ];
     }
 

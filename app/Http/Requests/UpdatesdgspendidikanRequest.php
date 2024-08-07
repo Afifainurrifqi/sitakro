@@ -24,25 +24,25 @@ class UpdatesdgspendidikanRequest extends FormRequest
     public function rules()
     {
         return [
-            'valpendidikan_tertinggi' => 'required',
-            'valberapa_tahunp' => 'required',
-           
-            'valbahasa_Rumah' => 'required',
-            'valbahasa_Formal' => 'required',
-            'valjumlah_kerja1' => 'required',
-            'valskamling' => 'required',
-            'valpesta_rakyat1' => 'required',
-            'valfrekuensiml' => 'required',
-            'valfrekuensib' => 'required',
-            'valfrekuensmn' => 'required',
-            'valmendapatp1' => 'required',
-            'valbagaiamanap' => 'required',
-            'valpernahmasukan' => 'required',
-            'valketerbukaands' => 'required',
-            'valbencana1' => 'required',
-            'valbencana1' => 'required',
-            'valapakahd' => 'required',
-            'valapakahp' => 'required',
+            'valpendidikan_tertinggi' => 'nullable',
+            'valberapa_tahunp' => 'nullable',
+
+            'valbahasa_Rumah' => 'nullable',
+            'valbahasa_Formal' => 'nullable',
+            'valjumlah_kerja1' => 'nullable',
+            'valskamling' => 'nullable',
+            'valpesta_rakyat1' => 'nullable',
+            'valfrekuensiml' => 'nullable',
+            'valfrekuensib' => 'nullable',
+            'valfrekuensmn' => 'nullable',
+            'valmendapatp1' => 'nullable',
+            'valbagaiamanap' => 'nullable',
+            'valpernahmasukan' => 'nullable',
+            'valketerbukaands' => 'nullable',
+            'valbencana1' => 'nullable',
+            'valbencana1' => 'nullable',
+            'valapakahd' => 'nullable',
+            'valapakahp' => 'nullable',
 
 
 
@@ -56,7 +56,7 @@ class UpdatesdgspendidikanRequest extends FormRequest
 
             'valpendidikan_tertinggi.required' => ':attribute kolom tidak bileh kosong',
             'valberapa_tahunp.required' => ':attribute kolom tidak bileh kosong',
-          
+
             'valbahasa_Rumah.required' => ':attribute kolom tidak bileh kosong',
             'valbahasa_Formal.required' => ':attribute kolom tidak bileh kosong',
             'valjumlah_kerja1.required' => ':attribute kolom tidak bileh kosong',
@@ -85,7 +85,7 @@ class UpdatesdgspendidikanRequest extends FormRequest
 
             'valpendidikan_tertinggi' => 'pendidikan_tertinggi',
             'valberapa_tahunp' => 'berapa_tahunp',
-           
+
             'valbahasa_Rumah' => 'bahasa_Rumah',
             'valbahasa_Formal' => 'bahasa_Formal',
             'valjumlah_kerja1' => 'jumlah_kerja1',

@@ -25,39 +25,39 @@ class StorertlokasiRequest extends FormRequest
     {
         return [
 
-            'valnama_ketuart' => 'required',
-            'valalamat' => 'required',
-            'valrt' => 'required',
-            'valrw' => 'required',
-            'valnohp' => 'required',
-            'vallokasi_rt_pulau' => 'required',
-            'valtopo_terluas_rt' => 'required',
-            'valjumlah_warga_lereng' => 'required',
-            'valpenanaman_pohon_lahan_kritis' => 'required',
-            'valpantai_garis_panjang' => 'required',
-            'valpemanfaatan_laut_perangkap' => 'required',
-            'valpemanfaatan_laut_budidaya' => 'required',
-            'valpemanfaatan_laut_tambakg' => 'required',
-            'valpemanfaatan_laut_bahari' => 'required',
-            'valpemanfaatan_laut_transport' => 'required',
-            'valkondisi_mangrove' => 'required',
-            'valpenanaman_mangrove' => 'required',
-            'valjumlah_warga_pesisir' => 'required',
-            'valjumlah_warga_atasair' => 'required',
-            'valwilayah_desa_dalamhutan' => 'required',
-            'valwilayah_desa_tepihutan' => 'required',
-            'valfungsihutan_kons' => 'required',
-            'valfungsihutan_lindung' => 'required',
-            'valfungsihutan_produk' => 'required',
-            'valfungsihutan_hutandes' => 'required',
-            'valjumlahwarga_tinggal_dalamhutan' => 'required',
-            'valjumlahwarga_tinggal_sekitarhutan' => 'required',
-            'valketergantungan_hutan' => 'required',
-            'valreboisasi' => 'required',
-            'valjumlah_produk_luardesa_masuk' => 'required',
-            'valjumlah_produk_luardesa_keluar' => 'required',
-           
-           
+            'valnama_ketuart' => 'nullable',
+            'valalamat' => 'nullable',
+            'valrt' => 'nullable',
+            'valrw' => 'nullable',
+            'valnohp' => 'nullable',
+            'vallokasi_rt_pulau' => 'nullable',
+            'valtopo_terluas_rt' => 'nullable',
+            'valjumlah_warga_lereng' => 'nullable',
+            'valpenanaman_pohon_lahan_kritis' => 'nullable',
+            'valpantai_garis_panjang' => 'nullable',
+            'valpemanfaatan_laut_perangkap' => 'nullable',
+            'valpemanfaatan_laut_budidaya' => 'nullable',
+            'valpemanfaatan_laut_tambakg' => 'nullable',
+            'valpemanfaatan_laut_bahari' => 'nullable',
+            'valpemanfaatan_laut_transport' => 'nullable',
+            'valkondisi_mangrove' => 'nullable',
+            'valpenanaman_mangrove' => 'nullable',
+            'valjumlah_warga_pesisir' => 'nullable',
+            'valjumlah_warga_atasair' => 'nullable',
+            'valwilayah_desa_dalamhutan' => 'nullable',
+            'valwilayah_desa_tepihutan' => 'nullable',
+            'valfungsihutan_kons' => 'nullable',
+            'valfungsihutan_lindung' => 'nullable',
+            'valfungsihutan_produk' => 'nullable',
+            'valfungsihutan_hutandes' => 'nullable',
+            'valjumlahwarga_tinggal_dalamhutan' => 'nullable',
+            'valjumlahwarga_tinggal_sekitarhutan' => 'nullable',
+            'valketergantungan_hutan' => 'nullable',
+            'valreboisasi' => 'nullable',
+            'valjumlah_produk_luardesa_masuk' => 'nullable',
+            'valjumlah_produk_luardesa_keluar' => 'nullable',
+
+
         ];
     }
 
@@ -65,7 +65,7 @@ class StorertlokasiRequest extends FormRequest
     {
         return [
 
-           
+
 
             'valnama_ketuart.required' => ':Attribute tidak boleh kosong',
             'valalamat.required' => ':Attribute tidak boleh kosong',
@@ -98,7 +98,7 @@ class StorertlokasiRequest extends FormRequest
             'valreboisasi.required' => ':Attribute tidak boleh kosong',
             'valjumlah_produk_luardesa_masuk.required' => ':Attribute tidak boleh kosong',
             'valjumlah_produk_luardesa_keluar.required' => ':Attribute tidak boleh kosong',
-           
+
 
 
 
@@ -109,7 +109,7 @@ class StorertlokasiRequest extends FormRequest
     {
         return [
 
-            
+
             'valnama_ketuart' => 'nama_ketuart',
             'valalamat' => 'alamat',
             'valrt' => 'rt',
@@ -141,8 +141,8 @@ class StorertlokasiRequest extends FormRequest
             'valreboisasi' => 'reboisasi',
             'valjumlah_produk_luardesa_masuk' => 'jumlah_produk_luardesa_masuk',
             'valjumlah_produk_luardesa_keluar' => 'jumlah_produk_luardesa_keluar',
-             
-           
+
+
 
         ];
     }

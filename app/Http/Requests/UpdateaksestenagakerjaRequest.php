@@ -24,23 +24,23 @@ class UpdateaksestenagakerjaRequest extends FormRequest
     public function rules()
     {
         return [
-            'valjaraktempuh_dr_spesialis' => 'required',
-            'valwaktutempuh_dr_spesialis' => 'required',
-            'valkemudahan_dr_spesialis' => 'required',
-            'valjaraktempuh_dr_umum' => 'required',
-            'valwaktutempuh_dr_umum' => 'required',
-            'valkemudahan_dr_umum' => 'required',
-            'valjaraktempuh_bidan' => 'required',
-            'valwaktutempuh_bidan' => 'required',
-            'valkemudahan_bidan' => 'required',
-            'valjaraktempuh_tenagakes' => 'required',
-            'valwaktutempuh_tenagakes' => 'required',
-            'valkemudahan_tenagakes' => 'required',
-            'valjaraktempuh_dukun' => 'required',
-            'valwaktutempuh_dukun' => 'required',
-            'valkemudahan_dukun' => 'required',
-            
-           
+            'valjaraktempuh_dr_spesialis' => 'nullable',
+            'valwaktutempuh_dr_spesialis' => 'nullable',
+            'valkemudahan_dr_spesialis' => 'nullable',
+            'valjaraktempuh_dr_umum' => 'nullable',
+            'valwaktutempuh_dr_umum' => 'nullable',
+            'valkemudahan_dr_umum' => 'nullable',
+            'valjaraktempuh_bidan' => 'nullable',
+            'valwaktutempuh_bidan' => 'nullable',
+            'valkemudahan_bidan' => 'nullable',
+            'valjaraktempuh_tenagakes' => 'nullable',
+            'valwaktutempuh_tenagakes' => 'nullable',
+            'valkemudahan_tenagakes' => 'nullable',
+            'valjaraktempuh_dukun' => 'nullable',
+            'valwaktutempuh_dukun' => 'nullable',
+            'valkemudahan_dukun' => 'nullable',
+
+
         ];
     }
 
@@ -63,8 +63,8 @@ class UpdateaksestenagakerjaRequest extends FormRequest
             'valjaraktempuh_dukun.required' => ':attribute tidak boleh kosong',
             'valwaktutempuh_dukun.required' => ':attribute tidak boleh kosong',
             'valkemudahan_dukun.required' => ':attribute tidak boleh kosong',
-           
-           
+
+
 
 
 
@@ -89,7 +89,7 @@ class UpdateaksestenagakerjaRequest extends FormRequest
             'valjaraktempuh_dukun' =>  'jaraktempuh_dukun',
             'valwaktutempuh_dukun' =>  'waktutempuh_dukun',
             'valkemudahan_dukun' =>  'kemudahan_dukun',
-           
+
 
         ];
     }

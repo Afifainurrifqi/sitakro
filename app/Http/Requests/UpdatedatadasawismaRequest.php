@@ -50,7 +50,7 @@ class UpdatedatadasawismaRequest extends FormRequest
             'valNohp.required' => ':attribute Kolom tidak boleh kosong',
 
             'valRT.required' => ':attribute Kolom tidak boleh kosong',
-            
+
             'valRW.required' => ':attribute Kolom tidak boleh kosong',
 
             'valEmails.required' => ':attribute Kolom tidak boleh kosong',

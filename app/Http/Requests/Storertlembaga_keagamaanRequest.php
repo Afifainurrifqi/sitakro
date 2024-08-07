@@ -24,14 +24,14 @@ class Storertlembaga_keagamaanRequest extends FormRequest
     public function rules()
     {
         return [
-            
 
-            'valnama'  => 'required',
-            'valjumlah_peng'  => 'required',
-            'valjumlah_ang'  => 'required',
-            'valfasilitas'  => 'required',
-           
-           
+
+            'valnama'  => 'nullable',
+            'valjumlah_peng'  => 'nullable',
+            'valjumlah_ang'  => 'nullable',
+            'valfasilitas'  => 'nullable',
+
+
         ];
     }
 
@@ -56,7 +56,7 @@ class Storertlembaga_keagamaanRequest extends FormRequest
             'valjumlah_peng' => 'valjumlah_peng',
             'valjumlah_ang' => 'valjumlah_ang',
             'valfasilitas' => 'valfasilitas',
-           
+
 
         ];
     }

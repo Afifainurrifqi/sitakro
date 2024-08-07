@@ -35,7 +35,7 @@ class StoredatadasawismaRequest extends FormRequest
     return [
 
         'valEmails.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valPassword.required' => ':attribute Kolom tidak boleh kosong',
 
         'valRole.required' => ':attribute Kolom tidak boleh kosong',

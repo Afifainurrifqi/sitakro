@@ -24,15 +24,15 @@ class Updatelembaga_masyarakatRequest extends FormRequest
     public function rules()
     {
         return [
-            
 
-            'valnama'  => 'required',
-            'valjumlah_kel'  => 'required',
-            'valjumlah_peng'  => 'required',
-            'valjumlah_ang'  => 'required',
-            'valfasilitas'  => 'required',
-           
-           
+
+            'valnama'  => 'nullable',
+            'valjumlah_kel'  => 'nullable',
+            'valjumlah_peng'  => 'nullable',
+            'valjumlah_ang'  => 'nullable',
+            'valfasilitas'  => 'nullable',
+
+
         ];
     }
 
@@ -59,7 +59,7 @@ class Updatelembaga_masyarakatRequest extends FormRequest
             'valjumlah_peng' => 'valjumlah_peng',
             'valjumlah_ang' => 'valjumlah_ang',
             'valfasilitas' => 'valfasilitas',
-           
+
 
         ];
     }

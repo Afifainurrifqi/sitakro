@@ -23,8 +23,10 @@
                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                     <tr>
                                         <th>Action</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>No</th>
+                                        {{-- <th>NOKK</th> --}}
+                                        <th>NIK</th>
                                         <th>Gelar Awal</th>
                                         <th>Nama</th>
                                         <th>Gelar Akhir</th>
@@ -50,31 +52,37 @@
             var table = $('#tabledatadw').DataTable({
                 processing: true,
                 serverSide: true,
-                searching: true,
+
                 ajax: {
                     url: '{!! route('datadw.jsonadmin') !!}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    data: function(d) {
-                        d.nik = $('#searchNIK').val();
-                    }
+
                 },
                 columns: [{
                         data: 'action',
                         name: 'action'
                     },
-                    {
-                        data: 'statusdw',
-                        name: 'statusdw'
-                    },
+                    // {
+                    //     data: 'statusdw',
+                    //     name: 'statusdw'
+                    // },
                     {
                         data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
+                    },
+                    // {
+                    //     data: 'nokk',
+                    //     name: 'nokk'
+                    // },
+                    {
+                        data: 'nik',
+                        name: 'nik'
                     },
                     {
                         data: 'gelarawal',
@@ -107,9 +115,7 @@
                 ],
             });
 
-            $('#searchNIK').on('keyup', function() {
-                table.draw();
-            });
+
         });
     </script>
 @endsection

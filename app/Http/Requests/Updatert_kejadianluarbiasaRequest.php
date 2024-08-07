@@ -24,52 +24,52 @@ class Updatert_kejadianluarbiasaRequest extends FormRequest
     public function rules()
     {
         return [
-            
 
-            'valnama_muntaber' => 'required',
-            'valjp_muntaber' => 'required',
-            'valjm_muntaber' => 'required',
-            'valnama_dbd' => 'required',
-            'valjp_dbd' => 'required',
-            'valjm_dbd' => 'required',
-            'valnama_campak' => 'required',
-            'valjp_campak' => 'required',
-            'valjm_campak' => 'required',
-            'valnama_malaria' => 'required',
-            'valjp_malaria' => 'required',
-            'valjm_malaria' => 'required',
-            'valnama_fluburung' => 'required',
-            'valjp_fluburung' => 'required',
-            'valjm_fluburung' => 'required',
-            'valnama_covid19' => 'required',
-            'valjp_covid19' => 'required',
-            'valjm_covid19' => 'required',
-            'valnama_hepatitisb' => 'required',
-            'valjp_hepatitisb' => 'required',
-            'valjm_hepatitisb' => 'required',
-            'valnama_hepatitise' => 'required',
-            'valjp_hepatitise' => 'required',
-            'valjm_hepatitise' => 'required',
-            'valnama_dipteri' => 'required',
-            'valjp_dipteri' => 'required',
-            'valjm_dipteri' => 'required',
-            'valnama_chikung' => 'required',
-            'valjp_chikung' => 'required',
-            'valjm_chikung' => 'required',
-            'valnama_leptos' => 'required',
-            'valjp_leptos' => 'required',
-            'valjm_leptos' => 'required',
-            'valnama_kolera' => 'required',
-            'valjp_kolera' => 'required',
-            'valjm_kolera' => 'required',
-            'valnama_giziburuk' => 'required',
-            'valjp_giziburuk' => 'required',
-            'valjm_giziburuk' => 'required',
-            'valnama_lainnya' => 'required',
-            'valjp_lainnya' => 'required',
-            'valjm_lainnya' => 'required',
-           
-           
+
+            'valnama_muntaber' => 'nullable',
+            'valjp_muntaber' => 'nullable',
+            'valjm_muntaber' => 'nullable',
+            'valnama_dbd' => 'nullable',
+            'valjp_dbd' => 'nullable',
+            'valjm_dbd' => 'nullable',
+            'valnama_campak' => 'nullable',
+            'valjp_campak' => 'nullable',
+            'valjm_campak' => 'nullable',
+            'valnama_malaria' => 'nullable',
+            'valjp_malaria' => 'nullable',
+            'valjm_malaria' => 'nullable',
+            'valnama_fluburung' => 'nullable',
+            'valjp_fluburung' => 'nullable',
+            'valjm_fluburung' => 'nullable',
+            'valnama_covid19' => 'nullable',
+            'valjp_covid19' => 'nullable',
+            'valjm_covid19' => 'nullable',
+            'valnama_hepatitisb' => 'nullable',
+            'valjp_hepatitisb' => 'nullable',
+            'valjm_hepatitisb' => 'nullable',
+            'valnama_hepatitise' => 'nullable',
+            'valjp_hepatitise' => 'nullable',
+            'valjm_hepatitise' => 'nullable',
+            'valnama_dipteri' => 'nullable',
+            'valjp_dipteri' => 'nullable',
+            'valjm_dipteri' => 'nullable',
+            'valnama_chikung' => 'nullable',
+            'valjp_chikung' => 'nullable',
+            'valjm_chikung' => 'nullable',
+            'valnama_leptos' => 'nullable',
+            'valjp_leptos' => 'nullable',
+            'valjm_leptos' => 'nullable',
+            'valnama_kolera' => 'nullable',
+            'valjp_kolera' => 'nullable',
+            'valjm_kolera' => 'nullable',
+            'valnama_giziburuk' => 'nullable',
+            'valjp_giziburuk' => 'nullable',
+            'valjm_giziburuk' => 'nullable',
+            'valnama_lainnya' => 'nullable',
+            'valjp_lainnya' => 'nullable',
+            'valjm_lainnya' => 'nullable',
+
+
         ];
     }
 
@@ -120,7 +120,7 @@ class Updatert_kejadianluarbiasaRequest extends FormRequest
             'valnama_lainnya.required' => ':Attribute tidak boleh kosong',
             'valjp_lainnya.required' => ':Attribute tidak boleh kosong',
             'valjm_lainnya.required' => ':Attribute tidak boleh kosong',
-           
+
 
 
 
@@ -173,7 +173,7 @@ class Updatert_kejadianluarbiasaRequest extends FormRequest
             'valnama_lainnya' => 'valnama_lainnya',
             'valjp_lainnya' => 'valjp_lainnya',
             'valjm_lainnya' => 'valjm_lainnya',
-             
+
         ];
     }
 }

@@ -25,13 +25,13 @@ class Updatedata_rtRequest extends FormRequest
     {
         return [
 
-            'valnama_ketuart' => 'required',
-            'valalamat' => 'required',
-            'valrt' => 'required',
-            'valrw' => 'required',
-            'valnohp' => 'required',
-           
-           
+            'valnama_ketuart' => 'nullable',
+            'valalamat' => 'nullable',
+            'valrt' => 'nullable',
+            'valrw' => 'nullable',
+            'valnohp' => 'nullable',
+
+
         ];
     }
 
@@ -57,8 +57,8 @@ class Updatedata_rtRequest extends FormRequest
             'valrt' => 'rt',
             'valrw' => 'rw',
             'valnohp' => 'nohp',
-             
-           
+
+
 
         ];
     }

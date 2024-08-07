@@ -15,4 +15,5 @@ class datadasawisma extends Model
     {
         return $this->belongsTo('App\Models\datapenduduk', 'penduduk_id');
     }
+
 }

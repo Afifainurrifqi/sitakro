@@ -398,11 +398,11 @@ Route::middleware(['checkrole:admin'])->group(
 );
 
 
-Route::middleware(['checkrole:operator,admin,akundemo'])->group(
+Route::middleware(['checkrole:operator,admin'])->group(
     function () {
         Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
         Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
-        Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
+
     }
 );
 

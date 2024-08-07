@@ -24,62 +24,62 @@ class Updatert_keamananRequest extends FormRequest
     public function rules()
     {
         return [
-            'valpenyebabu_antarkelompokmas' => 'required',
-            'valjk_antarkelompokmas' => 'required',
-            'valjkl_antarkelompokmas' => 'required',
-            'valjt_antarkelompokmas' => 'required',
-            'valpen_antarkelompokmas' => 'required',
-            'valpp_antarkelompokmas' => 'required',
-            'valpenyebabu_antardesa' => 'required',
-            'valjk_antardesa' => 'required',
-            'valjkl_antardesa' => 'required',
-            'valjt_antardesa' => 'required',
-            'valpen_antardesa' => 'required',
-            'valpp_antardesa' => 'required',
-            'valpenyebabu_aparatmk' => 'required',
-            'valjk_aparatmk' => 'required',
-            'valjkl_aparatmk' => 'required',
-            'valjt_aparatmk' => 'required',
-            'valpen_aparatmk' => 'required',
-            'valpp_aparatmk' => 'required',
-            'valpenyebabu_aparatmp' => 'required',
-            'valjk_aparatmp' => 'required',
-            'valjkl_aparatmp' => 'required',
-            'valjt_aparatmp' => 'required',
-            'valpen_aparatmp' => 'required',
-            'valpp_aparatmp' => 'required',
-            'valpenyebabu_aparatk' => 'required',
-            'valjk_aparatk' => 'required',
-            'valjkl_aparatk' => 'required',
-            'valjt_aparatk' => 'required',
-            'valpen_aparatk' => 'required',
-            'valpp_aparatk' => 'required',
-            'valpenyebabu_aparatp' => 'required',
-            'valjk_aparatp' => 'required',
-            'valjkl_aparatp' => 'required',
-            'valjt_aparatp' => 'required',
-            'valpen_aparatp' => 'required',
-            'valpp_aparatp' => 'required',
-            'valpenyebabu_pelajar' => 'required',
-            'valjk_pelajar' => 'required',
-            'valjkl_pelajar' => 'required',
-            'valjt_pelajar' => 'required',
-            'valpen_pelajar' => 'required',
-            'valpp_pelajar' => 'required',
-            'valpenyebabu_suku' => 'required',
-            'valjk_suku' => 'required',
-            'valjkl_suku' => 'required',
-            'valjt_suku' => 'required',
-            'valpen_suku' => 'required',
-            'valpp_suku' => 'required',
-            'valpenyebabu_lainnya' => 'required',
-            'valjk_lainnya' => 'required',
-            'valjkl_lainnya' => 'required',
-            'valjt_lainnya' => 'required',
-            'valpen_lainnya' => 'required',
-            'valpp_lainnya' => 'required',
-           
-           
+            'valpenyebabu_antarkelompokmas' => 'nullable',
+            'valjk_antarkelompokmas' => 'nullable',
+            'valjkl_antarkelompokmas' => 'nullable',
+            'valjt_antarkelompokmas' => 'nullable',
+            'valpen_antarkelompokmas' => 'nullable',
+            'valpp_antarkelompokmas' => 'nullable',
+            'valpenyebabu_antardesa' => 'nullable',
+            'valjk_antardesa' => 'nullable',
+            'valjkl_antardesa' => 'nullable',
+            'valjt_antardesa' => 'nullable',
+            'valpen_antardesa' => 'nullable',
+            'valpp_antardesa' => 'nullable',
+            'valpenyebabu_aparatmk' => 'nullable',
+            'valjk_aparatmk' => 'nullable',
+            'valjkl_aparatmk' => 'nullable',
+            'valjt_aparatmk' => 'nullable',
+            'valpen_aparatmk' => 'nullable',
+            'valpp_aparatmk' => 'nullable',
+            'valpenyebabu_aparatmp' => 'nullable',
+            'valjk_aparatmp' => 'nullable',
+            'valjkl_aparatmp' => 'nullable',
+            'valjt_aparatmp' => 'nullable',
+            'valpen_aparatmp' => 'nullable',
+            'valpp_aparatmp' => 'nullable',
+            'valpenyebabu_aparatk' => 'nullable',
+            'valjk_aparatk' => 'nullable',
+            'valjkl_aparatk' => 'nullable',
+            'valjt_aparatk' => 'nullable',
+            'valpen_aparatk' => 'nullable',
+            'valpp_aparatk' => 'nullable',
+            'valpenyebabu_aparatp' => 'nullable',
+            'valjk_aparatp' => 'nullable',
+            'valjkl_aparatp' => 'nullable',
+            'valjt_aparatp' => 'nullable',
+            'valpen_aparatp' => 'nullable',
+            'valpp_aparatp' => 'nullable',
+            'valpenyebabu_pelajar' => 'nullable',
+            'valjk_pelajar' => 'nullable',
+            'valjkl_pelajar' => 'nullable',
+            'valjt_pelajar' => 'nullable',
+            'valpen_pelajar' => 'nullable',
+            'valpp_pelajar' => 'nullable',
+            'valpenyebabu_suku' => 'nullable',
+            'valjk_suku' => 'nullable',
+            'valjkl_suku' => 'nullable',
+            'valjt_suku' => 'nullable',
+            'valpen_suku' => 'nullable',
+            'valpp_suku' => 'nullable',
+            'valpenyebabu_lainnya' => 'nullable',
+            'valjk_lainnya' => 'nullable',
+            'valjkl_lainnya' => 'nullable',
+            'valjt_lainnya' => 'nullable',
+            'valpen_lainnya' => 'nullable',
+            'valpp_lainnya' => 'nullable',
+
+
         ];
     }
 
@@ -142,7 +142,7 @@ class Updatert_keamananRequest extends FormRequest
             'valjt_lainnya.required' => ':Attribute tidak boleh kosong',
             'valpen_lainnya.required' => ':Attribute tidak boleh kosong',
             'valpp_lainnya.required' => ':Attribute tidak boleh kosong',
-           
+
 
 
 
@@ -153,7 +153,7 @@ class Updatert_keamananRequest extends FormRequest
     {
         return [
 
-      
+
 
 
             'valpenyebabu_antarkelompokmas' => 'penyebabu_antarkelompokmas',
@@ -210,7 +210,7 @@ class Updatert_keamananRequest extends FormRequest
             'valjt_lainnya' => 'jt_lainnya',
             'valpen_lainnya' => 'pen_lainnya',
             'valpp_lainnya' => 'pp_lainnya',
-             
+
         ];
     }
 }

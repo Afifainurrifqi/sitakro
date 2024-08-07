@@ -26,9 +26,9 @@ class StoredatapendudukRequest extends FormRequest
         return [
             'valNokk' => 'required|min:16|max:16',
             'valNIK' => 'required|unique:datapenduduks,nik|min:16|max:16',
-           
+
             'valNama' => 'required',
-           
+
             'valJeniskelamin' => 'required',
             'valTempatlahir' => 'required',
             'valTanggallahir' => 'required',
@@ -37,7 +37,7 @@ class StoredatapendudukRequest extends FormRequest
             'valPekerjaan' => 'required',
             'valGoldar' => 'required',
             'valStatus' => 'required',
-          
+
             'valHubungan' => 'required',
             'valAyah' => 'required',
             'valIbu' => 'required',
@@ -53,9 +53,9 @@ class StoredatapendudukRequest extends FormRequest
     return [
         'valNokk' => 'nokk',
         'valNIK' => 'NIK',
-     
+
         'valNama' => 'Nama',
-     
+
         'valJeniskelamin' => 'Jenis Kelamin',
         'valTempatlahir' => 'Tempat Lahir',
         'valTanggallahir' => 'Tanggal lahir',
@@ -64,7 +64,7 @@ class StoredatapendudukRequest extends FormRequest
         'valPekerjaan' => 'Pekerjaan',
         'valGoldar' => 'Goldar',
         'valStatus' => 'Status',
-       
+
         'valHubungan' => 'Hubungan',
         'valAyah' => 'Ayah',
         'valIbu' => 'Ibu',
@@ -78,50 +78,50 @@ class StoredatapendudukRequest extends FormRequest
 public function messages(): array
     {
     return [
-        
+
         'valNIK.required' => ':attribute Kolom tidak boleh kosong',
 
         'valNokk.required' => ':attribute Kolom tidak boleh kosong',
 
-       
-        
+
+
         'valNama.required' => ':attribute Kolom tidak boleh kosong',
-        
-      
-        
+
+
+
         'valJeniskelamin.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valTempatlahir.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valTanggallahir.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valAgama.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valPendidikan.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valPekerjaan.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valGoldar.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valStatus.required' => ':attribute Kolom tidak boleh kosong',
-        
-      
-        
+
+
+
         'valHubungan.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valAyah.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valIbu.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valRT.required' => ':attribute Kolom tidak boleh kosong',
-        
+
         'valRW.required' => ':attribute Kolom tidak boleh kosong',
 
         'valDatak.required' => ':attribute Kolom tidak boleh kosong',
-        
+
     ];
     }
 
-    
+
 
 }

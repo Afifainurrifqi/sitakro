@@ -24,32 +24,32 @@ class Updatert_agamaRequest extends FormRequest
     public function rules()
     {
         return [
-            'valjumlahwarga_jamkes' => 'required',
-            'valjumlahwarga_jamketerangan' => 'required',
-            'valjumlahtempat_masjid' => 'required',
-            'valjumlahtempat_musholla' => 'required',
-            'valjumlahtempat_kristen' => 'required',
-            'valjumlahtempat_katolik' => 'required',
-            'valjumlahtempat_kapel' => 'required',
-            'valjumlahtempat_pura' => 'required',
-            'valjumlahtempat_wihara' => 'required',
-            'valjumlahtempat_kelenteng' => 'required',
-            'valjumlahtempat_lainnya' => 'required',
-            'valcagar_bud1' => 'required',
-            'valcagar_bud2' => 'required',
-            'valcagar_bud3' => 'required',
-            'valsukuasing_keluarga' => 'required',
-            'valsukuasing_jiwa' => 'required',
-            'valruangpublik_terbuka' => 'required',
-            'valadat_kehamilan' => 'required',
-            'valadat_kelahiran' => 'required',
-            'valadat_pekerjaan' => 'required',
-            'valadat_alam' => 'required',
-            'valadat_perkawinan' => 'required',
-            'valadat_kehidupanwarga' => 'required',
-            'valadat_kematian' => 'required',
-           
-           
+            'valjumlahwarga_jamkes' => 'nullable',
+            'valjumlahwarga_jamketerangan' => 'nullable',
+            'valjumlahtempat_masjid' => 'nullable',
+            'valjumlahtempat_musholla' => 'nullable',
+            'valjumlahtempat_kristen' => 'nullable',
+            'valjumlahtempat_katolik' => 'nullable',
+            'valjumlahtempat_kapel' => 'nullable',
+            'valjumlahtempat_pura' => 'nullable',
+            'valjumlahtempat_wihara' => 'nullable',
+            'valjumlahtempat_kelenteng' => 'nullable',
+            'valjumlahtempat_lainnya' => 'nullable',
+            'valcagar_bud1' => 'nullable',
+            'valcagar_bud2' => 'nullable',
+            'valcagar_bud3' => 'nullable',
+            'valsukuasing_keluarga' => 'nullable',
+            'valsukuasing_jiwa' => 'nullable',
+            'valruangpublik_terbuka' => 'nullable',
+            'valadat_kehamilan' => 'nullable',
+            'valadat_kelahiran' => 'nullable',
+            'valadat_pekerjaan' => 'nullable',
+            'valadat_alam' => 'nullable',
+            'valadat_perkawinan' => 'nullable',
+            'valadat_kehidupanwarga' => 'nullable',
+            'valadat_kematian' => 'nullable',
+
+
         ];
     }
 
@@ -81,7 +81,7 @@ class Updatert_agamaRequest extends FormRequest
             'valadat_perkawinan.required' => ':Attribute tidak boleh kosong',
             'valadat_kehidupanwarga.required' => ':Attribute tidak boleh kosong',
             'valadat_kematian.required' => ':Attribute tidak boleh kosong',
-           
+
 
 
 
@@ -116,8 +116,8 @@ class Updatert_agamaRequest extends FormRequest
             'valadat_perkawinan' => 'adat_perkawinan',
             'valadat_kehidupanwarga' => 'adat_kehidupanwarga',
             'valadat_kematian' => 'adat_kematian',
-             
-           
+
+
 
         ];
     }

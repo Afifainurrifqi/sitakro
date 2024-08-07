@@ -24,20 +24,20 @@ class StorelainkRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            'valpengtransportsebelum' => 'required',
-            'valpengtransportsesudah' => 'required',
-            'valblt' => 'required',
-            'valpkh' => 'required',
-            'valbst' => 'required',
-            'valbantuan_presiden' => 'required',
-            'valbantuan_umkm' => 'required',
-            'valbantuan_pekerja' => 'required',
-            'valbantuan_anak' => 'required',
-            'vallainnya' => 'required',
-            'valrata_rata' => 'required',
-           
-           
+
+            'valpengtransportsebelum' => 'nullable',
+            'valpengtransportsesudah' => 'nullable',
+            'valblt' => 'nullable',
+            'valpkh' => 'nullable',
+            'valbst' => 'nullable',
+            'valbantuan_presiden' => 'nullable',
+            'valbantuan_umkm' => 'nullable',
+            'valbantuan_pekerja' => 'nullable',
+            'valbantuan_anak' => 'nullable',
+            'vallainnya' => 'nullable',
+            'valrata_rata' => 'nullable',
+
+
         ];
     }
 
@@ -56,7 +56,7 @@ class StorelainkRequest extends FormRequest
             'valbantuan_anak.required' => ': attribute tidak boleh kosong',
             'vallainnya.required' => ': attribute tidak boleh kosong',
             'valrata_rata.required' => ': attribute tidak boleh kosong',
-           
+
 
 
 
@@ -78,8 +78,8 @@ class StorelainkRequest extends FormRequest
             'valbantuan_anak' =>  'bantuan_anak',
             'vallainnya' =>  'lainnya',
             'valrata_rata' =>  'rata_rata',
-             
-           
+
+
 
         ];
     }

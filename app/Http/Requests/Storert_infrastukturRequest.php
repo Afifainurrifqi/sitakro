@@ -24,65 +24,65 @@ class Storert_infrastukturRequest extends FormRequest
     public function rules()
     {
         return [
-          
-            'valpenerangan_jalan' => 'required',
-            'valpra_transportrt' => 'required',
-            'valjalan_aspal' => 'required',
-            'valjalan_makadam' => 'required',
-            'valjalan_tanah' => 'required',
-            'valjalan_papan_atasaair' => 'required',
-            'valjalan_setapak' => 'required',
-            'valjalan_lainnya' => 'required',
-            'valjalan_darat_roda4' => 'required',
-            'valangkutanumum_trayek' => 'required',
-            'valangkutanumum_opra' => 'required',
-            'valangkutanumum_jamopra' => 'required',
-            'valdermaga_laut' => 'required',
-            'valsinyalhp_bts' => 'required',
-            'valsinyalhp_telkom' => 'required',
-            'valsinyalhp_indo' => 'required',
-            'valsinyalhp_xl' => 'required',
-            'valsinyalhp_hut' => 'required',
-            'valsinyalhp_psn' => 'required',
-            'valsinyalhp_smart' => 'required',
-            'valsinyalhp_bakrie' => 'required',
-            'valpos_pembantu' => 'required',
-            'valpos_keliling' => 'required',
-            'valagen_jasa' => 'required',
-            'valchanel_tvri' => 'required',
-            'valparabola_tvri' => 'required',
-            'valchanel_tvrid' => 'required',
-            'valparabola_tvrid' => 'required',
-            'valchanel_s' => 'required',
-            'valparabola_s' => 'required',
-            'valchanel_ln' => 'required',
-            'valparabola_ln' => 'required',
-            'valchanel_rri' => 'required',
-            'valparabola_rri' => 'required',
-            'valchanel_rrid' => 'required',
-            'valparabola_rrid' => 'required',
-            'valchanel_radios' => 'required',
-            'valparabola_radios' => 'required',
-            'valchanel_radiok' => 'required',
-            'valparabola_radiok' => 'required',
-            'valjumlah_lokasi_air' => 'required',
-            'valfasilitas_umump_pasar' => 'required',
-            'valfasilitas_umump_stasiun' => 'required',
-            'valfasilitas_umump_terminal' => 'required',
-            'valfasilitas_umump_kolong' => 'required',
-            'valfasilitas_umump_pelabuhan' => 'required',
-            'valpemukiman_khusus_mewah' => 'required',
-            'valpemukiman_khusus_apart' => 'required',
-            'valpemukiman_khusus_susun' => 'required',
-            'valpemukiman_khusus_school' => 'required',
-            'valpemukiman_khusus_kos' => 'required',
-            'valpemukiman_khusus_asrama' => 'required',
-            'valpemukiman_khusus_lp' => 'required',
+
+            'valpenerangan_jalan' => 'nullable',
+            'valpra_transportrt' => 'nullable',
+            'valjalan_aspal' => 'nullable',
+            'valjalan_makadam' => 'nullable',
+            'valjalan_tanah' => 'nullable',
+            'valjalan_papan_atasaair' => 'nullable',
+            'valjalan_setapak' => 'nullable',
+            'valjalan_lainnya' => 'nullable',
+            'valjalan_darat_roda4' => 'nullable',
+            'valangkutanumum_trayek' => 'nullable',
+            'valangkutanumum_opra' => 'nullable',
+            'valangkutanumum_jamopra' => 'nullable',
+            'valdermaga_laut' => 'nullable',
+            'valsinyalhp_bts' => 'nullable',
+            'valsinyalhp_telkom' => 'nullable',
+            'valsinyalhp_indo' => 'nullable',
+            'valsinyalhp_xl' => 'nullable',
+            'valsinyalhp_hut' => 'nullable',
+            'valsinyalhp_psn' => 'nullable',
+            'valsinyalhp_smart' => 'nullable',
+            'valsinyalhp_bakrie' => 'nullable',
+            'valpos_pembantu' => 'nullable',
+            'valpos_keliling' => 'nullable',
+            'valagen_jasa' => 'nullable',
+            'valchanel_tvri' => 'nullable',
+            'valparabola_tvri' => 'nullable',
+            'valchanel_tvrid' => 'nullable',
+            'valparabola_tvrid' => 'nullable',
+            'valchanel_s' => 'nullable',
+            'valparabola_s' => 'nullable',
+            'valchanel_ln' => 'nullable',
+            'valparabola_ln' => 'nullable',
+            'valchanel_rri' => 'nullable',
+            'valparabola_rri' => 'nullable',
+            'valchanel_rrid' => 'nullable',
+            'valparabola_rrid' => 'nullable',
+            'valchanel_radios' => 'nullable',
+            'valparabola_radios' => 'nullable',
+            'valchanel_radiok' => 'nullable',
+            'valparabola_radiok' => 'nullable',
+            'valjumlah_lokasi_air' => 'nullable',
+            'valfasilitas_umump_pasar' => 'nullable',
+            'valfasilitas_umump_stasiun' => 'nullable',
+            'valfasilitas_umump_terminal' => 'nullable',
+            'valfasilitas_umump_kolong' => 'nullable',
+            'valfasilitas_umump_pelabuhan' => 'nullable',
+            'valpemukiman_khusus_mewah' => 'nullable',
+            'valpemukiman_khusus_apart' => 'nullable',
+            'valpemukiman_khusus_susun' => 'nullable',
+            'valpemukiman_khusus_school' => 'nullable',
+            'valpemukiman_khusus_kos' => 'nullable',
+            'valpemukiman_khusus_asrama' => 'nullable',
+            'valpemukiman_khusus_lp' => 'nullable',
 
 
 
-           
-           
+
+
         ];
     }
 
@@ -143,7 +143,7 @@ class Storert_infrastukturRequest extends FormRequest
             'valpemukiman_khusus_kos.required' => ':Attribute tidak boleh kosong',
             'valpemukiman_khusus_asrama.required' => ':Attribute tidak boleh kosong',
             'valpemukiman_khusus_lp.required' => ':Attribute tidak boleh kosong',
-           
+
 
 
 
@@ -207,8 +207,8 @@ class Storert_infrastukturRequest extends FormRequest
             'valpemukiman_khusus_kos' => 'pemukiman_khusus_kos',
             'valpemukiman_khusus_asrama' => 'pemukiman_khusus_asrama',
             'valpemukiman_khusus_lp' => 'pemukiman_khusus_lp',
-             
-           
+
+
 
         ];
     }

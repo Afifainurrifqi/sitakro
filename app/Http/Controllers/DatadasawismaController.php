@@ -30,44 +30,6 @@ class DatadasawismaController extends Controller
         return view('datadasawisma.admindatadw'); // Pass it to the view
     }
 
-    public function jsonadmin(Request $request)
-    {
-        $allowedDatakValues = ['tetap', 'tidaktetap'];
-
-        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-            ->whereIn('Datak', $allowedDatakValues);
-
-        return DataTables::of($query)
-            ->addColumn('nokk', function ($datapenduduk) {
-                return optional($datapenduduk->detailkk)->kk->nokk;
-            })
-            ->addColumn('action', function ($datadasawisma) {
-                $editUrl = route('dasawisma.show', ['nik' => $datadasawisma->nik]);
-                $deleteForm = '<form onsubmit="return deleteData(\'' . $datadasawisma->nama . '\')"
-                                action="' . url('dasa$datadasawisma') . '/' . $datadasawisma->nik . '" style="display: inline"
-                                method="POST">
-                                ' . csrf_field() . '
-                                ' . method_field('DELETE') . '
-                            </form>';
-                $actionsHtml = '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            ' . $deleteForm;
-
-                return $actionsHtml;
-            })
-
-            ->addColumn('statusdw',function(datapenduduk $item) {
-                return $item && $item->user_id == NULL ? 'penduduk' : 'dasawisma';
-            })
-
-
-            ->rawColumns(['action'])
-            ->toJson();
-    }
-
-
-
     public function json(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
@@ -114,26 +76,37 @@ class DatadasawismaController extends Controller
             ->toJson();
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function jsonadmin(Request $request)
     {
-        //
-    }
+        $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoredatadasawismaRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoredatadasawismaRequest $request)
-    {
-        //
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('datak', $allowedDatakValues);
+
+        return DataTables::of($query)
+            ->addColumn('nokk', function ($datapenduduk) {
+                return optional($datapenduduk->detailkk)->kk->nokk;
+            })
+            ->addColumn('action', function ($datadasawisma) {
+                $editUrl = route('dasawisma.show', ['nik' => $datadasawisma->nik]);
+                $deleteForm = '<form onsubmit="return deleteData(\'' . $datadasawisma->nama . '\')"
+                                action="' . url('dasawisma') . '/' . $datadasawisma->nik . '" style="display: inline"
+                                method="POST">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                            </form>';
+                $actionsHtml = '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            ' . $deleteForm;
+
+                return $actionsHtml;
+            })
+            ->addColumn('statusdw',function($datapenduduk) {
+                return $datapenduduk && $datapenduduk->user_id == NULL ? 'penduduk' : 'dasawisma';
+            })
+            ->rawColumns(['action'])
+            ->toJson();
     }
 
 
@@ -183,31 +156,61 @@ class DatadasawismaController extends Controller
     public function update(Request $request, $nik)
     {
         // Validasi data dari request
-        // dd($request);
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'role' => 'required'
+        ]);
+
         // Temukan data penduduk
-        $datapenduduk = datapenduduk::where('nik', $request->nik)->first();
-        $user = new User();
-        $user->nik = $datapenduduk->nik;
+        $datapenduduk = datapenduduk::where('nik', $nik)->firstOrFail();
+
+        // Temukan data pengguna terkait, jika ada
+        $user = User::where('nik', $nik)->first();
+
+        // Jika pengguna tidak ada, buat pengguna baru
+        if (!$user) {
+            $user = new User();
+            $user->nik = $datapenduduk->nik;
+        }
+
         $user->name = $datapenduduk->nama;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->password = bcrypt($request->password); // Menggunakan bcrypt untuk enkripsi password
         $user->role = $request->role;
         $user->save();
 
+        // Update user_id di data penduduk jika diperlukan
         $datapenduduk->user_id = $user->id;
         $datapenduduk->save();
-        return redirect()->route('dasawisma.index')->with('success', 'Data berhasil diperbarui');
+
+        return redirect()->route('dasawisma.index_admin')->with('success', 'Data berhasil diperbarui');
     }
 
+    public function destroy($nik)
+{
+    // Temukan data penduduk
+    $datapenduduk = Datapenduduk::where('nik', $nik)->firstOrFail();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\datadasawisma  $datadasawisma
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(datadasawisma $datadasawisma)
-    {
-        //
+    // Temukan data pengguna terkait, jika ada
+    $user = User::where('nik', $nik)->first();
+
+    // Hapus data pengguna jika ada
+    if ($user) {
+        $user->delete();
     }
+
+    // Update user_id di data penduduk dan ubah role menjadi 'penduduk'
+    $datapenduduk->user_id = null;
+    $datapenduduk->role = 'penduduk';
+    $datapenduduk->save();
+
+    return redirect()->route('dasawisma.index')->with('success', 'Data berhasil dihapus');
+}
+
+
+
+
+
+
 }

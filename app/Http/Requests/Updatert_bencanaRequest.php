@@ -24,53 +24,53 @@ class Updatert_bencanaRequest extends FormRequest
     public function rules()
     {
         return [
-            'valk_longsor' => 'required',
-            'valf_longsor' => 'required',
-            'valkj_longsor' => 'required',
-            'valjp_longsor' => 'required',
-            'valwt_longsor' => 'required',
-            'valk_banjir' => 'required',
-            'valf_banjir' => 'required',
-            'valkj_banjir' => 'required',
-            'valjp_banjir' => 'required',
-            'valwt_banjir' => 'required',
-            'valk_bandang' => 'required',
-            'valf_bandang' => 'required',
-            'valkj_bandang' => 'required',
-            'valjp_bandang' => 'required',
-            'valwt_bandang' => 'required',
-            'valk_gempa' => 'required',
-            'valf_gempa' => 'required',
-            'valkj_gempa' => 'required',
-            'valjp_gempa' => 'required',
-            'valwt_gempa' => 'required',
-            'valk_tsunami' => 'required',
-            'valf_tsunami' => 'required',
-            'valkj_tsunami' => 'required',
-            'valjp_tsunami' => 'required',
-            'valwt_tsunami' => 'required',
-            'valk_puyuh' => 'required',
-            'valf_puyuh' => 'required',
-            'valkj_puyuh' => 'required',
-            'valjp_puyuh' => 'required',
-            'valwt_puyuh' => 'required',
-            'valk_gunungm' => 'required',
-            'valf_gunungm' => 'required',
-            'valkj_gunungm' => 'required',
-            'valjp_gunungm' => 'required',
-            'valwt_gunungm' => 'required',
-            'valk_hutank' => 'required',
-            'valf_hutank' => 'required',
-            'valkj_hutank' => 'required',
-            'valjp_hutank' => 'required',
-            'valwt_hutank' => 'required',
-            'valk_kekeringan' => 'required',
-            'valf_kekeringan' => 'required',
-            'valkj_kekeringan' => 'required',
-            'valjp_kekeringan' => 'required',
-            'valwt_kekeringan' => 'required',
-           
-           
+            'valk_longsor' => 'nullable',
+            'valf_longsor' => 'nullable',
+            'valkj_longsor' => 'nullable',
+            'valjp_longsor' => 'nullable',
+            'valwt_longsor' => 'nullable',
+            'valk_banjir' => 'nullable',
+            'valf_banjir' => 'nullable',
+            'valkj_banjir' => 'nullable',
+            'valjp_banjir' => 'nullable',
+            'valwt_banjir' => 'nullable',
+            'valk_bandang' => 'nullable',
+            'valf_bandang' => 'nullable',
+            'valkj_bandang' => 'nullable',
+            'valjp_bandang' => 'nullable',
+            'valwt_bandang' => 'nullable',
+            'valk_gempa' => 'nullable',
+            'valf_gempa' => 'nullable',
+            'valkj_gempa' => 'nullable',
+            'valjp_gempa' => 'nullable',
+            'valwt_gempa' => 'nullable',
+            'valk_tsunami' => 'nullable',
+            'valf_tsunami' => 'nullable',
+            'valkj_tsunami' => 'nullable',
+            'valjp_tsunami' => 'nullable',
+            'valwt_tsunami' => 'nullable',
+            'valk_puyuh' => 'nullable',
+            'valf_puyuh' => 'nullable',
+            'valkj_puyuh' => 'nullable',
+            'valjp_puyuh' => 'nullable',
+            'valwt_puyuh' => 'nullable',
+            'valk_gunungm' => 'nullable',
+            'valf_gunungm' => 'nullable',
+            'valkj_gunungm' => 'nullable',
+            'valjp_gunungm' => 'nullable',
+            'valwt_gunungm' => 'nullable',
+            'valk_hutank' => 'nullable',
+            'valf_hutank' => 'nullable',
+            'valkj_hutank' => 'nullable',
+            'valjp_hutank' => 'nullable',
+            'valwt_hutank' => 'nullable',
+            'valk_kekeringan' => 'nullable',
+            'valf_kekeringan' => 'nullable',
+            'valkj_kekeringan' => 'nullable',
+            'valjp_kekeringan' => 'nullable',
+            'valwt_kekeringan' => 'nullable',
+
+
         ];
     }
 
@@ -123,7 +123,7 @@ class Updatert_bencanaRequest extends FormRequest
             'valkj_kekeringan.required' => ':Attribute tidak boleh kosong',
             'valjp_kekeringan.required' => ':Attribute tidak boleh kosong',
             'valwt_kekeringan.required' => ':Attribute tidak boleh kosong',
-           
+
 
 
 
@@ -134,7 +134,7 @@ class Updatert_bencanaRequest extends FormRequest
     {
         return [
 
-       
+
             'valk_longsor' => 'k_longsor',
             'valf_longsor' => 'f_longsor',
             'valkj_longsor' => 'kj_longsor',
@@ -180,12 +180,11 @@ class Updatert_bencanaRequest extends FormRequest
             'valkj_kekeringan' => 'kj_kekeringan',
             'valjp_kekeringan' => 'jp_kekeringan',
             'valwt_kekeringan' => 'wt_kekeringan',
-             
-           
+
+
 
         ];
     }
 }
 
 
- 

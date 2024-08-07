@@ -12,7 +12,7 @@
                             onclick="window.location='{{ url('/datadasawisma/datadw') }}'">Kembali
                         </button> <br><br><br>
                         <div class="form-validation">
-                            <form class="form-validate" action="{{ route('dasawisma.update', ['nik' => $datapenduduk->nik]) }}" method="POST">
+                            <form class="form-validate" action="{{ route('dasawisma.update', ['nik' => $datapenduduk->nik]) }}" method="POST" id="form-tambah-dasawisma">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
@@ -54,12 +54,16 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="role">Role <span
-                                            class="text-danger">*</span>
-                                    </label>
+                                <style>
+                                    .hidden-form {
+                                        display: none;
+                                    }
+                                </style>
+
+                                <div class="form-group row hidden-form">
+                                    <label class="col-lg-4 col-form-label" for="role">Role <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" readonly>
+                                        <select class="form-control @error('role') is-invalid @enderror" id="role" name="role">
                                             <option value="dasawisma">dasawisma</option>
                                         </select>
                                         @error('role')
@@ -69,6 +73,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 {{-- <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="valRW">Nama kelompok <span
                                             class="text-danger">*</span>
@@ -86,7 +91,7 @@
                                 </div>   --}}
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
-                                        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
                                     </div>
                                 </div>
                             </form>
@@ -121,7 +126,7 @@
 
     <script>
         document.getElementById('confirmSave').addEventListener('click', function() {
-            document.getElementById('form-tambah-penduduk').submit();
+            document.getElementById('form-tambah-dasawisma').submit();
         });
     </script>
 

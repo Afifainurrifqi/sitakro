@@ -24,31 +24,31 @@ class StoreakseskesehatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'valjaraktempuh_rumahs' => 'required',
-            'valwaktutempuh_rumahs' => 'required',
-            'valkemudahan_rumahs' => 'required',
-            'valjaraktempuh_rumahb' => 'required',
-            'valwaktutempuh_rumahb' => 'required',
-            'valkemudahan_rumahb' => 'required',
-            'valjaraktempuh_poliklinik' => 'required',
-            'valwaktutempuh_poliklinik' => 'required',
-            'valkemudahan_poliklinik' => 'required',
-            'valjaraktempuh_puskesmas' => 'required',
-            'valwaktutempuh_puskesmas' => 'required',
-            'valkemudahan_puskesmas' => 'required',
-            'valjaraktempuh_poskedes' => 'required',
-            'valwaktutempuh_poskedes' => 'required',
-            'valkemudahan_poskedes' => 'required',
-            'valjaraktempuh_posyandu' => 'required',
-            'valwaktutempuh_posyandu' => 'required',
-            'valkemudahan_posyandu' => 'required',
-            'valjaraktempuh_apotik' => 'required',
-            'valwaktutempuh_apotik' => 'required',
-            'valkemudahan_apotik' => 'required',
-            'valjaraktempuh_toko_obat' => 'required',
-            'valwaktutempuh_toko_obat' => 'required',
-            'valkemudahan_toko_obat' => 'required',
-           
+            'valjaraktempuh_rumahs' => 'nullable',
+            'valwaktutempuh_rumahs' => 'nullable',
+            'valkemudahan_rumahs' => 'nullable',
+            'valjaraktempuh_rumahb' => 'nullable',
+            'valwaktutempuh_rumahb' => 'nullable',
+            'valkemudahan_rumahb' => 'nullable',
+            'valjaraktempuh_poliklinik' => 'nullable',
+            'valwaktutempuh_poliklinik' => 'nullable',
+            'valkemudahan_poliklinik' => 'nullable',
+            'valjaraktempuh_puskesmas' => 'nullable',
+            'valwaktutempuh_puskesmas' => 'nullable',
+            'valkemudahan_puskesmas' => 'nullable',
+            'valjaraktempuh_poskedes' => 'nullable',
+            'valwaktutempuh_poskedes' => 'nullable',
+            'valkemudahan_poskedes' => 'nullable',
+            'valjaraktempuh_posyandu' => 'nullable',
+            'valwaktutempuh_posyandu' => 'nullable',
+            'valkemudahan_posyandu' => 'nullable',
+            'valjaraktempuh_apotik' => 'nullable',
+            'valwaktutempuh_apotik' => 'nullable',
+            'valkemudahan_apotik' => 'nullable',
+            'valjaraktempuh_toko_obat' => 'nullable',
+            'valwaktutempuh_toko_obat' => 'nullable',
+            'valkemudahan_toko_obat' => 'nullable',
+
         ];
     }
 
@@ -80,7 +80,7 @@ class StoreakseskesehatanRequest extends FormRequest
             'valjaraktempuh_toko_obat.required' => ':attribute tidak boleh kosong',
             'valwaktutempuh_toko_obat.required' => ':attribute tidak boleh kosong',
             'valkemudahan_toko_obat.required' => ':attribute tidak boleh kosong',
-           
+
 
 
 
@@ -114,7 +114,7 @@ class StoreakseskesehatanRequest extends FormRequest
             'valjaraktempuh_toko_obat' =>  'jaraktempuh_toko_obat',
             'valwaktutempuh_toko_obat' =>  'waktutempuh_toko_obat',
             'valkemudahan_toko_obat' =>  'kemudahan_toko_obat',
-           
+
 
         ];
     }

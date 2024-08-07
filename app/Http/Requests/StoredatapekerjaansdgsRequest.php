@@ -24,28 +24,28 @@ class StoredatapekerjaansdgsRequest extends FormRequest
     public function rules()
     {
         return [
-            'valKondisipekerjaan' => 'required',
-            'valPekerjaanutama' => 'required',
-            'valJaminanketenagakerjaan' => 'required',
-          
+            'valKondisipekerjaan' => 'nullable',
+            'valPekerjaanutama' => 'nullable',
+            'valJaminanketenagakerjaan' => 'nullable',
+
         ];
     }
 
     public function messages(): array
     {
     return [
-        
-        
-        'valKondisipekerjaan.required' => ':attribute Kolom tidak boleh kosong',
-        
-        'valPekerjaanutama.required' => ':attribute Kolom tidak boleh kosong',
-        
-        'valJaminanketenagakerjaan.required' => ':attribute Kolom tidak boleh kosong',
-        
-        
 
-        
-        
+
+        'valKondisipekerjaan.required' => ':attribute Kolom tidak boleh kosong',
+
+        'valPekerjaanutama.required' => ':attribute Kolom tidak boleh kosong',
+
+        'valJaminanketenagakerjaan.required' => ':attribute Kolom tidak boleh kosong',
+
+
+
+
+
     ];
     }
 
@@ -55,7 +55,7 @@ class StoredatapekerjaansdgsRequest extends FormRequest
         'valKondisipekerjaan' => 'Pekerjaanutama',
         'valPekerjaanutama' => 'Pekerjaanutama',
         'valJaminanketenagakerjaan' => 'Jaminanketenagakerjaan',
-       
+
 
     ];
 }

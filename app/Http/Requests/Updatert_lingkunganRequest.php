@@ -24,39 +24,39 @@ class Updatert_lingkunganRequest extends FormRequest
     public function rules()
     {
         return [
-            'vallingkungan_lsi' => 'required',
-            'vallingkungan_slno' => 'required',
-            'vallingkungan_k' => 'required',
-            'vallingkungan_hl' => 'required',
-            'vallingkungan_t' => 'required',
-            'vallingkungan_kte' => 'required',
-            'vallingkungan_lgt' => 'required',
-            'vallingkungan_lpp' => 'required',
-            'vallingkungan_ah' => 'required',
-            'vallingkungan_lpns' => 'required',
-            'vallingkungan_lpertambangan' => 'required',
-            'vallingkungan_lperumahan' => 'required',
-            'vallingkungan_lperkantoran' => 'required',
-            'vallingkungan_lindustri' => 'required',
-            'vallingkungan_fu' => 'required',
-            'vallingkungan_ll' => 'required',
-            'vallingkungan_nsym' => 'required',
-            'vallingkungan_ndws' => 'required',
-            'vallingkungan_jma' => 'required',
-            'vallingkungan_je' => 'required',
-            'vallingkungan_ksb' => 'required',
-            'vallingkungan_ks' => 'required',
-            'vallingkungan_ki' => 'required',
-            'vallingkungan_kd' => 'required',
-            'vallingkungan_ke' => 'required',
-            'vallingkungan_pair' => 'required',
-            'vallingkungan_ptanah' => 'required',
-            'vallingkungan_pudara' => 'required',
-            'vallingkungan_pdusl' => 'required',
-            'vallingkungan_kmml' => 'required',
-            'vallingkungan_klpg' => 'required',
-           
-           
+            'vallingkungan_lsi' => 'nullable',
+            'vallingkungan_slno' => 'nullable',
+            'vallingkungan_k' => 'nullable',
+            'vallingkungan_hl' => 'nullable',
+            'vallingkungan_t' => 'nullable',
+            'vallingkungan_kte' => 'nullable',
+            'vallingkungan_lgt' => 'nullable',
+            'vallingkungan_lpp' => 'nullable',
+            'vallingkungan_ah' => 'nullable',
+            'vallingkungan_lpns' => 'nullable',
+            'vallingkungan_lpertambangan' => 'nullable',
+            'vallingkungan_lperumahan' => 'nullable',
+            'vallingkungan_lperkantoran' => 'nullable',
+            'vallingkungan_lindustri' => 'nullable',
+            'vallingkungan_fu' => 'nullable',
+            'vallingkungan_ll' => 'nullable',
+            'vallingkungan_nsym' => 'nullable',
+            'vallingkungan_ndws' => 'nullable',
+            'vallingkungan_jma' => 'nullable',
+            'vallingkungan_je' => 'nullable',
+            'vallingkungan_ksb' => 'nullable',
+            'vallingkungan_ks' => 'nullable',
+            'vallingkungan_ki' => 'nullable',
+            'vallingkungan_kd' => 'nullable',
+            'vallingkungan_ke' => 'nullable',
+            'vallingkungan_pair' => 'nullable',
+            'vallingkungan_ptanah' => 'nullable',
+            'vallingkungan_pudara' => 'nullable',
+            'vallingkungan_pdusl' => 'nullable',
+            'vallingkungan_kmml' => 'nullable',
+            'vallingkungan_klpg' => 'nullable',
+
+
         ];
     }
 
@@ -95,7 +95,7 @@ class Updatert_lingkunganRequest extends FormRequest
             'vallingkungan_pdusl.required' => ':Attribute tidak boleh kosong',
             'vallingkungan_kmml.required' => ':Attribute tidak boleh kosong',
             'vallingkungan_klpg.required' => ':Attribute tidak boleh kosong',
-           
+
 
 
 
@@ -106,7 +106,7 @@ class Updatert_lingkunganRequest extends FormRequest
     {
         return [
 
-            
+
             'vallingkungan_lsi' => 'lingkungan_lsi',
             'vallingkungan_slno' => 'lingkungan_slno',
             'vallingkungan_k' => 'lingkungan_k',
@@ -138,10 +138,10 @@ class Updatert_lingkunganRequest extends FormRequest
             'vallingkungan_pdusl' => 'lingkungan_pdusl',
             'vallingkungan_kmml' => 'lingkungan_kmml',
             'vallingkungan_klpg' => 'lingkungan_klpg',
-             
-             
-             
-           
+
+
+
+
 
         ];
     }

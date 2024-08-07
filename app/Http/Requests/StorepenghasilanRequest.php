@@ -24,31 +24,31 @@ class StorepenghasilanRequest extends FormRequest
     public function rules()
     {
         return [
-            'valSumberpenghasilan' => 'required',
-            'valJumlahasset' => 'required',
-            'valSatuan' => 'required',
-            'valPenghasilanset' => 'required',
-            'valExport' => 'required',
+            'valSumberpenghasilan' => 'nullable',
+            'valJumlahasset' => 'nullable',
+            'valSatuan' => 'nullable',
+            'valPenghasilanset' => 'nullable',
+            'valExport' => 'nullable',
         ];
     }
 
     public function messages(): array
     {
     return [
-        
-        
+
+
         'valSumberpenghasilan.required' => ':attribute tidak boleh kosong',
-        
+
         'valJumlahasset.required' => ':attribute tidak boleh kosong',
 
         'valSatuan.required' => ':attribute tidak boleh kosong',
-        
+
         'valPenghasilanset.required' => ':attribute tidak boleh kosong',
-        
+
         'valExport.required' => ':attribute tidak boleh kosong',
 
-        
-        
+
+
     ];
     }
 

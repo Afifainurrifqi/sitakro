@@ -47,7 +47,7 @@ return new class extends Migration
             $table->foreign('goldar_id')->references('id')->on('goldars');
             $table->foreign('status_id')->references('id')->on('statuses');
 
-           
+
 
         });
     }
