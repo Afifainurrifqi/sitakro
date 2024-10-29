@@ -31,6 +31,7 @@
                                     <tr>
                                         <th>Action</th>
                                         <th>No</th>
+                                        <th>Updated</th> <!-- Tambahkan kolom ini -->
                                         <th>No KK</th>
                                         <th>NIK</th>
                                         <th>Gelar awal</th>
@@ -128,11 +129,15 @@
                         name: 'action'
                     },
                     {
-                         data: null,
+                        data: null,
                         render: function(data, type, row, meta) {
                             // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
+                    },
+                    {
+                        data: 'updated_by', // Sesuaikan dengan nama field yang akan ditambahkan
+                        name: 'updated_by'
                     },
                     {
                         data: 'nokk',

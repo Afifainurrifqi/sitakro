@@ -71,4 +71,8 @@ class Datapenduduk extends Model
     {
         return $this->hasOne(detailkk::class, 'idpenduduk');
     }
+    public function updatedByUser()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

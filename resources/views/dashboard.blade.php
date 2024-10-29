@@ -88,17 +88,17 @@
                 var pekerjaanLabels = @json($pekerjaanLabels);
                 var pekerjaanCounts = @json($pekerjaanCounts);
 
-                var pieChart = new Chart(ctxPekerjaan, {
+                // Generate random colors
+                var pekerjaanColors = pekerjaanCounts.map(() =>
+                    'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.7)');
+
+                var pekerjaanChart = new Chart(ctxPekerjaan, {
                     type: 'pie',
                     data: {
                         labels: pekerjaanLabels,
                         datasets: [{
                             data: pekerjaanCounts,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.7)',
-                                'rgba(54, 162, 235, 0.7)',
-                                // ... tambahkan warna lain jika diperlukan
-                            ],
+                            backgroundColor: pekerjaanColors,
                         }]
                     },
                     options: {
@@ -106,33 +106,29 @@
                             callbacks: {
                                 label: function(tooltipItem, data) {
                                     var label = data.labels[tooltipItem.index];
-                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
-                                        .index];
+                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
                                     return label + ': ' + value;
                                 }
                             }
                         }
                     }
                 });
-            });
 
-            // {{-- DISABILITAS --}}
-            document.addEventListener('DOMContentLoaded', function() {
                 var ctxDisabilitas = document.getElementById('disabilitasChart').getContext('2d');
                 var disabilitasLabels = @json($disabilitasLabels);
                 var disabilitasCounts = @json($disabilitasCounts);
 
-                var pieChart = new Chart(ctxDisabilitas, {
+                // Generate random colors
+                var disabilitasColors = disabilitasCounts.map(() =>
+                    'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.7)');
+
+                var disabilitasChart = new Chart(ctxDisabilitas, {
                     type: 'pie',
                     data: {
                         labels: disabilitasLabels,
                         datasets: [{
                             data: disabilitasCounts,
-                            backgroundColor: [
-                                'rgba(75, 192, 192, 0.7)',
-                                'rgba(153, 102, 255, 0.7)',
-                                // ... tambahkan warna lain jika diperlukan
-                            ],
+                            backgroundColor: disabilitasColors,
                         }]
                     },
                     options: {
@@ -140,8 +136,7 @@
                             callbacks: {
                                 label: function(tooltipItem, data) {
                                     var label = data.labels[tooltipItem.index];
-                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
-                                        .index];
+                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
                                     return label + ': ' + value;
                                 }
                             }

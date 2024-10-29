@@ -50,12 +50,15 @@ class DatapendudukController extends Controller
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk','updatedByUser'])
             ->whereIn('Datak', $allowedDatakValues);
 
-        return DataTables::of($query)
+            return DataTables::of($query)
             ->addColumn('nokk', function ($datapenduduk) {
                 return optional($datapenduduk->detailkk)->kk->nokk;
+            })
+            ->addColumn('updated_by', function ($datapenduduk) {
+                return optional($datapenduduk->updatedByUser)->name; // Menampilkan nama user
             })
             ->addColumn('action', function ($datapenduduk) {
                 $editUrl = route('datapenduduk.show', ['nik' => $datapenduduk->nik]);
@@ -74,6 +77,7 @@ class DatapendudukController extends Controller
             })
             ->rawColumns(['action'])
             ->toJson();
+
     }
 
 
@@ -281,8 +285,14 @@ class DatapendudukController extends Controller
      */
     public function update(UpdatedatapendudukRequest $request, $nik)
     {
+        // Retrieve the existing data for the specified NIK
         $datapenduduk = datapenduduk::where('nik', $nik)->first();
-        //    dd($datapenduduk);
+
+        if (!$datapenduduk) {
+            return redirect()->back()->with('error', 'Data not found!');
+        }
+
+        // Update the penduduk fields
         $datapenduduk->gelarawal = $request->valGelara ?? '';
         $datapenduduk->nama = $request->valNama;
         $datapenduduk->gelarakhir = $request->valGelart ?? '';
@@ -304,10 +314,19 @@ class DatapendudukController extends Controller
         $datapenduduk->datak = $request->valDatak;
         $datapenduduk->save();
 
+        // Now update the related kk record
+        $detailkk = $datapenduduk->detailkk; // Get the related detailkk
+        if ($detailkk) {
+            $kk = $detailkk->kk; // Get the related kk
+            if ($kk) {
+                $kk->nokk = $request->valNokk; // Update the nokk
+                $kk->save();
+            }
+        }
 
-
-        return redirect('datapenduduk')->with('msg', 'Data dengan nama data penduduk ' . $datapenduduk->nama . ' Berhasil diupdate');
+        return redirect('datapenduduk/admin')->with('msg', 'Penduduk Berhasil diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.

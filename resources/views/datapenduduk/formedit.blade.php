@@ -19,10 +19,12 @@
                             @csrf
                             @method('POST')
                             <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="valNIK">KK <span class="text-danger">*</span>
-                                </label>
+                                <label class="col-lg-4 col-form-label" for="valKK">KK <span class="text-danger">*</span></label>
                                 <div class="col-lg-6">
-                                    {{ $valKK }}
+                                    <input type="text" class="form-control" id="valNokk" name="valNokk" value="{{ old('valNokk', $valKK) }}" required>
+                                    @error('valKK')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">

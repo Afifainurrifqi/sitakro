@@ -21,7 +21,7 @@
                                         <input type="text" class="form-control @error('valNokk') is-invalid @enderror"
                                             id="valNokk" name="valNokk" value="{{ old('valNokk') }}" placeholder="No KK... "
                                             oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                                        @error('valNokk')
+                                        @error('valNokkxam')
                                             <div id="" class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

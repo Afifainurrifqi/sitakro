@@ -37,7 +37,6 @@ class DummySeeder extends Seeder
                 'role'=> 'dasawisma',
                 'password'=>bcrypt('123456')
             ],
-
             [
                 'nik'=>"",
                 'name'=>"Demo User",
@@ -45,11 +44,22 @@ class DummySeeder extends Seeder
                 'role'=> 'akundemo',
                 'password'=>bcrypt('123456')
             ],
-
+            [
+                'nik'=>"",
+                'name'=>"Wahyus",
+                'email'=> 'wahyu123@gmail.com',
+                'role'=> 'dasawisma',
+                'password'=>bcrypt('123456')
+            ],
         ];
 
         foreach($userData as $key => $val){
-            User::create($val);
+            // Pastikan user tidak duplikat berdasarkan email
+            if (!User::where('email', $val['email'])->exists()) {
+                User::create($val);
+            } else {
+                echo "User with email " . $val['email'] . " already exists! Skipping...\n";
+            }
         }
     }
 }
