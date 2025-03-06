@@ -16,7 +16,14 @@
     <title>Sitakro Pertanian</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
-        #map { height: 400px; margin-top: 10px; }
+        #map {
+            height: 400px;
+            margin-top: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
     </style>
 
     <!-- Favicon -->
@@ -202,33 +209,43 @@
                         <form action="#" method="POST">
                             <div class="form-group">
                                 <label class="form-label" for="inputLuasLahan">Luas lahan (m<sup>2</sup>)</label>
-                                <input class="form-control" id="inputLuasLahan" type="number" placeholder="Masukkan luas lahan">
+                                <input class="form-control" id="inputLuasLahan" type="number"
+                                    placeholder="Masukkan luas lahan">
                             </div>
+
 
                             <div class="form-group">
                                 <label class="form-label" for="inputAlamatLahan">Alamat lahan (Nama Desa)</label>
-                                <input class="form-control" id="inputAlamatLahan" type="text" placeholder="Masukkan nama desa">
+                                <input class="form-control" id="inputAlamatLahan" type="text"
+                                    placeholder="Masukkan nama desa">
                                 <button type="button" onclick="cariKoordinat()">Cari Koordinat</button>
                             </div>
                             <div id="map"></div>
                             <div class="form-group">
                                 <label class="form-label" for="inputLatitude">Latitude</label>
-                                <input class="form-control" id="inputLatitude" type="text" placeholder="Latitude" readonly>
+                                <input class="form-control" id="inputLatitude" type="text" placeholder="Latitude"
+                                    readonly>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="inputLongitude">Longitude</label>
-                                <input class="form-control" id="inputLongitude" type="text" placeholder="Longitude" readonly>
+                                <input class="form-control" id="inputLongitude" type="text"
+                                    placeholder="Longitude" readonly>
                             </div>
+
+                            <!-- MAP CONTAINER -->
+
 
 
                             <div class="form-group">
                                 <label class="form-label" for="inputJenisTanaman">Jenis tanaman</label>
-                                <input class="form-control" id="inputJenisTanaman" type="text" placeholder="Masukkan jenis tanaman">
+                                <input class="form-control" id="inputJenisTanaman" type="text"
+                                    placeholder="Masukkan jenis tanaman">
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label" for="inputJumlahTanaman">Jumlah tanaman</label>
-                                <input class="form-control" id="inputJumlahTanaman" type="number" placeholder="Masukkan jumlah tanaman">
+                                <input class="form-control" id="inputJumlahTanaman" type="number"
+                                    placeholder="Masukkan jumlah tanaman">
                             </div>
 
                             <div class="form-group">
@@ -238,7 +255,8 @@
 
                             <div class="form-group">
                                 <label class="form-label" for="inputMasaTanam">Masa tanam (hari)</label>
-                                <input class="form-control" id="inputMasaTanam" type="number" placeholder="Masukkan masa tanam">
+                                <input class="form-control" id="inputMasaTanam" type="number"
+                                    placeholder="Masukkan masa tanam">
                             </div>
 
                             <div class="form-group">
@@ -248,10 +266,12 @@
 
                             <div class="form-group">
                                 <label class="form-label" for="inputPerkiraanPanen">Perkiraan hasil panen</label>
-                                <input class="form-control" id="inputPerkiraanPanen" type="number" placeholder="Masukkan perkiraan hasil panen">
+                                <input class="form-control" id="inputPerkiraanPanen" type="number"
+                                    placeholder="Masukkan perkiraan hasil panen">
                             </div>
 
-                            <button class="btn btn-primary w-100 d-flex align-items-center justify-content-center" type="submit">
+                            <button class="btn btn-primary w-100 d-flex align-items-center justify-content-center"
+                                type="submit">
                                 Tambah lahan
                                 <i class="bi bi-arrow-right fz-16 ms-1"></i>
                             </button>
@@ -318,52 +338,58 @@
         <script src="assets4/dist/js/active.js"></script>
         <script src="assets4/dist/js/pwa.js"></script>
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script>
-    // Inisialisasi Peta
-    var map = L.map('map').setView([-2.5489, 118.0149], 5); // Pusat peta di Indonesia
+        <script>
+            // Inisialisasi Peta
+            var map = L.map('map').setView([-2.5489, 118.0149], 5); // Pusat di Indonesia
 
-    // Tambahkan Tile Layer (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+            // Tambahkan Tile Layer (OpenStreetMap)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
 
-    var marker;
+            var marker = L.marker([-2.5489, 118.0149], { draggable: true }).addTo(map) // Default marker
+                .bindPopup("Geser marker untuk menyesuaikan lokasi").openPopup();
 
-    function cariKoordinat() {
-        var desa = document.getElementById('inputAlamatLahan').value;
-        if (!desa) {
-            alert("Silakan masukkan nama desa terlebih dahulu.");
-            return;
-        }
+            // Fungsi memperbarui form saat marker dipindahkan
+            marker.on('dragend', function (e) {
+                var posisi = marker.getLatLng();
+                document.getElementById('inputLatitude').value = posisi.lat.toFixed(6);
+                document.getElementById('inputLongitude').value = posisi.lng.toFixed(6);
+            });
 
-        var url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(desa)}, Indonesia`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    var latitude = data[0].lat;
-                    var longitude = data[0].lon;
-
-                    // Isi form koordinat
-                    document.getElementById('inputLatitude').value = latitude;
-                    document.getElementById('inputLongitude').value = longitude;
-
-                    // Update peta
-                    if (marker) {
-                        map.removeLayer(marker);
-                    }
-                    marker = L.marker([latitude, longitude]).addTo(map)
-                        .bindPopup(`<b>${desa}</b><br>Lat: ${latitude}, Lng: ${longitude}`).openPopup();
-
-                    map.setView([latitude, longitude], 13); // Zoom ke lokasi desa
-                } else {
-                    alert("Lokasi tidak ditemukan. Coba masukkan nama desa yang lebih spesifik.");
+            function cariKoordinat() {
+                var desa = document.getElementById('inputAlamatLahan').value;
+                if (!desa) {
+                    alert("Silakan masukkan nama desa terlebih dahulu.");
+                    return;
                 }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-</script>
+
+                var url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(desa)}, Indonesia`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            var latitude = parseFloat(data[0].lat);
+                            var longitude = parseFloat(data[0].lon);
+
+                            // Isi form koordinat
+                            document.getElementById('inputLatitude').value = latitude.toFixed(6);
+                            document.getElementById('inputLongitude').value = longitude.toFixed(6);
+
+                            // Update posisi marker
+                            marker.setLatLng([latitude, longitude]);
+                            marker.bindPopup(`<b>${desa}</b><br>Lat: ${latitude}, Lng: ${longitude}`).openPopup();
+
+                            map.setView([latitude, longitude], 13); // Zoom ke lokasi
+                        } else {
+                            alert("Lokasi tidak ditemukan. Coba masukkan nama desa yang lebih spesifik.");
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
+
 </body>
 
 </html>
