@@ -4,8 +4,8 @@
 // Author URL: https://themeforest.net/user/designing-world
 // --------------------------------------------------------
 
-const staticCacheName = 'cache-v1.7.1';
-const dynamicCacheName = 'runtimeCache-v1.7.1';
+const staticCacheName = 'cache-v1.7.0';
+const dynamicCacheName = 'runtimeCache-v1.7.0';
 
 // Assets to pre-cache
 const precacheAssets = [
