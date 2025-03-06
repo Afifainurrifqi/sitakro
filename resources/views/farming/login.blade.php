@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
   <!-- Title -->
-  <title>Affan - PWA Mobile HTML Template</title>
+   <title>Sitakro Pertanian</title>
 
   <!-- Favicon -->
   <link rel="icon" href="assets4/dist/img/core-img/favicon.ico">
