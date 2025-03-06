@@ -1,7 +1,7 @@
 {
   "name": "Sitakro Pertanian",
   "short_name": "Sitakro Pertanian",
-  "start_url": "https://designing-world.com/affan-v1.7/home.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0d5afd",
   "theme_color": "#0d5afd",
