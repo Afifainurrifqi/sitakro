@@ -21,7 +21,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
 });
 
-const installButton = document.getElementById('installSitakro');
+const installButton = document.getElementById('installAffan');
 const installWrap = document.getElementById('installWrap');
 
 if (installButton) {

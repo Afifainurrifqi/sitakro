@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Affan - PWA Mobile HTML Template">
+  <meta name="description" content="Sitakro - Aplikasi Pertanian">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
