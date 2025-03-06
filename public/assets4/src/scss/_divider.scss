@@ -1,0 +1,102 @@
+/* Dividers */
+
+.divider {
+    width: 100%;
+    height: 2px;
+    border-top: 2px solid var(--primary-950);
+    position: relative;
+    z-index: 1;
+    margin: 1rem 0;
+    clear: both;
+
+    &.divider-dotted {
+        border-top-style: dotted;
+    }
+
+    &.divider-dotted {
+        border-top-style: dotted;
+    }
+
+    &.divider-dashed {
+        border-top-style: dashed;
+    }
+
+    &.divider-center-icon {
+        margin: 2rem 0;
+
+        >i {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: #212729;
+            color: var(--white);
+            text-align: center;
+            line-height: 2rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 10;
+            transform: translate(-50%, -50%);
+        }
+
+        &.border-primary {
+            i {
+                background-color: var(--primary-950);
+            }
+        }
+
+        &.border-secondary {
+            i {
+                background-color: var(--secondary-500);
+            }
+        }
+
+        &.border-success {
+            i {
+                background-color: var(--success-500);
+            }
+        }
+
+        &.border-danger {
+            i {
+                background-color: var(--danger-500);
+            }
+        }
+
+        &.border-warning {
+            i {
+                background-color: var(--warning-500);
+            }
+        }
+
+        &.border-info {
+            i {
+                background-color: var(--info-500);
+            }
+        }
+
+        &.border-light {
+            i {
+                background-color: var(--primary-100);
+                color: var(--primary-950);
+                border: 1px solid var(--primary-200);
+                line-height: 30px;
+            }
+        }
+
+        &.border-dark {
+            i {
+                background-color: var(--dark);
+            }
+        }
+
+        &.border-white {
+            i {
+                background-color: var(--white);
+                color: var(--primary-950);
+                border: 1px solid var(--primary-200);
+                line-height: 30px;
+            }
+        }
+    }
+}

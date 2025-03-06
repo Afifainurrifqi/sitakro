@@ -28,7 +28,7 @@ class DashboardController extends Controller
         $datapenduduk_ada = Datapenduduk::where('datak', ['Tetap', 'Tidaktetap'])->get();
         $datapenduduk_pindah = Datapenduduk::where('datak', 'Pindah')->get();
         $datapenduduk_meninggal = Datapenduduk::where('datak', 'Meninggal')->get();
-    
+
         $datapekerjaan = datapekerjaansdgs::all();
         $datapekerjaanSudahProses = $datapekerjaan->count(); // Jumlah data individu yang sudah diproses
         $datapendudukTotal = $datapenduduk_ada->count(); // Jumlah total data penduduk
@@ -41,7 +41,7 @@ class DashboardController extends Controller
         $dataDisabilitas = jenisdisabilitas::all();
         $disabilitasLabels = $dataDisabilitas->pluck('jenis_disabilitas')->toArray();
         $disabilitasCounts = $dataDisabilitas->countBy('jenis_disabilitas')->values()->toArray();
-    
+
 
 
         return view('dashboard', compact('disabilitasCounts','disabilitasLabels','datapenduduk_ada', 'datapenduduk_tetap','datapenduduk_tidaktetap', 'datapenduduk_pindah', 'datapenduduk_meninggal', 'datapekerjaan', 'pekerjaanLabels', 'pekerjaanCounts' ));
@@ -54,8 +54,13 @@ class DashboardController extends Controller
         $datapenduduk_perempuan = Datapenduduk::where('jenis_kelamin', 'perempuan')->get();
         return view('landing', compact('datapenduduk_ada','datapenduduk_laki', 'datapenduduk_perempuan'));
     }
+
+    public function farm()
+    {
+        return view('farming.login');
+    }
     public function getBirthData($year) {
-       
+
         $months = [
             '01' => 'Januari',
             '02' => 'Februari',
@@ -71,21 +76,21 @@ class DashboardController extends Controller
             '12' => 'Desember'
         ];
         $birthData = [];
-        
+
         foreach ($months as $monthNumber => $monthName) {
             $count = Datapenduduk::where('tanggal_lahir', 'LIKE', "$year-$monthNumber-%")->count();
             $birthData[$monthName] = $count;
         }
-        
+
         return response()->json($birthData);
     }
 
-    
-    
 
 
-    
-    
+
+
+
+
 
 
 

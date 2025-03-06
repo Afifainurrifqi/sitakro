@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Affan - PWA Mobile HTML Template">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta name="theme-color" content="#0134d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Title -->
+  <title>Affan - PWA Mobile HTML Template</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body class="pe-0">
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Internet Connection Status -->
+  <div class="internet-connection-status" id="internetStatus"></div>
+
+  <!-- Header Area -->
+  <div class="header-area" id="headerArea">
+    <div class="container">
+      <!-- Header Content -->
+      <div class="header-content header-style-five position-relative d-flex align-items-center justify-content-between">
+        <!-- Back Button -->
+        <div class="back-button">
+          <a href="home.html">
+            <i class="bi bi-arrow-left-short"></i>
+          </a>
+        </div>
+
+        <!-- Page Title -->
+        <div class="page-heading">
+          <h6 class="mb-0">Chats</h6>
+        </div>
+
+        <!-- Navbar Toggler -->
+        <div class="navbar--toggler" id="affanNavbarToggler" data-bs-toggle="offcanvas" data-bs-target="#affanOffcanvas"
+          aria-controls="affanOffcanvas">
+          <span class="d-block"></span>
+          <span class="d-block"></span>
+          <span class="d-block"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- # Sidenav Left -->
+  <div class="offcanvas offcanvas-start" id="affanOffcanvas" data-bs-scroll="true" tabindex="-1"
+    aria-labelledby="affanOffcanvsLabel">
+
+    <button class="btn-close btn-close-white text-reset" type="button" data-bs-dismiss="offcanvas"
+      aria-label="Close"></button>
+
+    <div class="offcanvas-body p-0">
+      <div class="sidenav-wrapper">
+        <!-- Sidenav Profile -->
+        <div class="sidenav-profile bg-gradient">
+          <div class="sidenav-style1"></div>
+
+          <!-- User Thumbnail -->
+          <div class="user-profile">
+            <img src="img/bg-img/2.jpg" alt="">
+          </div>
+
+          <!-- User Info -->
+          <div class="user-info">
+            <h6 class="user-name mb-0">Affan Islam</h6>
+            <span>CEO, Designing World</span>
+          </div>
+        </div>
+
+        <!-- Sidenav Nav -->
+        <ul class="sidenav-nav ps-0">
+          <li>
+            <a href="home.html"><i class="bi bi-house-door"></i> Home</a>
+          </li>
+          <li>
+            <a href="elements.html"><i class="bi bi-heart"></i> Elements
+              <span class="badge bg-danger rounded-pill ms-2">220+</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages.html"><i class="bi bi-folder2-open"></i> Pages
+              <span class="badge bg-success rounded-pill ms-2">100+</span>
+            </a>
+          </li>
+          <li>
+            <a href="#"><i class="bi bi-cart-check"></i> Shop</a>
+            <ul>
+              <li>
+                <a href="shop-grid.html"> Shop Grid</a>
+              </li>
+              <li>
+                <a href="shop-list.html"> Shop List</a>
+              </li>
+              <li>
+                <a href="shop-details.html"> Shop Details</a>
+              </li>
+              <li>
+                <a href="cart.html"> Cart</a>
+              </li>
+              <li>
+                <a href="checkout.html"> Checkout</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="settings.html"><i class="bi bi-gear"></i> Settings</a>
+          </li>
+          <li>
+            <div class="night-mode-nav">
+              <i class="bi bi-moon"></i> Night Mode
+              <div class="form-check form-switch">
+                <input class="form-check-input form-check-success" id="darkSwitch" type="checkbox">
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="login.html"><i class="bi bi-box-arrow-right"></i> Logout</a>
+          </li>
+        </ul>
+
+        <!-- Social Info -->
+        <div class="social-info-wrap">
+          <a href="#">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a href="#">
+            <i class="bi bi-twitter"></i>
+          </a>
+          <a href="#">
+            <i class="bi bi-linkedin"></i>
+          </a>
+        </div>
+
+        <!-- Copyright Info -->
+        <div class="copyright-info">
+          <p>
+            <span id="copyrightYear"></span>
+            &copy; Made by <a href="#"> Designing World</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add new contact modal -->
+  <div class="add-new-contact-modal modal fade px-0" id="addnewcontact" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="addnewcontactlabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body p-4">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="modal-title" id="addnewcontactlabel">New message</h6>
+            <button class="btn btn-close p-1 ms-auto me-0" type="button" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+
+          <form action="#">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="to">To</span>
+              <input class="form-control" type="text" placeholder="" aria-label="Username" aria-describedby="to">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea class="form-control" id="message" name="textarea" cols="3" rows="5" placeholder=""></textarea>
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content-wrapper py-3">
+    <!-- Add New Contact -->
+    <div class="add-new-contact-wrap">
+      <a class="shadow" href="#" data-bs-toggle="modal" data-bs-target="#addnewcontact">
+        <i class="bi bi-plus-lg"></i>
+      </a>
+    </div>
+
+    <div class="container">
+      <div class="card mb-2">
+        <div class="card-body p-2">
+          <div class="chat-search-box">
+            <!-- Search Form -->
+            <form action="#">
+              <div class="input-group">
+                <span class="input-group-text" id="searchbox">
+                  <i class="bi bi-search"></i>
+                </span>
+                <input class="form-control" type="search" placeholder="Search users or messages"
+                  aria-describedby="searchbox">
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- User Status Slide -->
+      <div class="chat-user-status-slides-wrapper">
+        <div class="chat-user-status-slides mb-2">
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide">
+              <a href="#">
+                <img src="img/bg-img/user1.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">Aynal</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide">
+              <a href="#">
+                <img src="img/bg-img/user2.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">Afrin</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide">
+              <a href="#">
+                <img src="img/bg-img/user3.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">Fairoze</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide offline">
+              <a href="#">
+                <img src="img/bg-img/user4.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">ReFresh</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide">
+              <a href="#">
+                <img src="img/bg-img/user1.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">রবিন</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide offline">
+              <a href="#">
+                <img src="img/bg-img/user2.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">Hasnain</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide">
+              <a href="#">
+                <img src="img/bg-img/user1.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">Aynal</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide">
+              <a href="#">
+                <img src="img/bg-img/user2.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">Afrin</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide">
+              <a href="#">
+                <img src="img/bg-img/user3.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">Fairoze</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide offline">
+              <a href="#">
+                <img src="img/bg-img/user4.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">ReFresh</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide">
+              <a href="#">
+                <img src="img/bg-img/user1.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">রবিন</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Single Slide -->
+          <div>
+            <div class="user-status-slide offline">
+              <a href="#">
+                <img src="img/bg-img/user2.png" alt="">
+                <div class="active-status"></div>
+                <p class="mb-0 mt-1 text-truncate">Hasnain</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Element Heading -->
+      <div class="element-heading">
+        <h6 class="ps-1">Recent contacts</h6>
+      </div>
+
+      <!-- Chat User List -->
+      <ul class="ps-0 chat-user-list">
+
+        <!-- Single Chat User -->
+        <li class="p-3 chat-unread">
+          <a class="d-flex" href="chat.html">
+            <!-- Thumbnail -->
+            <div class="chat-user-thumbnail me-3 shadow">
+              <img class="img-circle" src="img/bg-img/user1.png" alt="">
+              <span class="active-status"></span>
+            </div>
+            <!-- Info -->
+            <div class="chat-user-info">
+              <h6 class="text-truncate mb-0">Designing World</h6>
+              <div class="last-chat">
+                <p class="mb-0 text-truncate">Hello, Are you there?
+                  <span class="badge rounded-pill bg-primary">2</span>
+                </p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Options -->
+          <div class="dropstart chat-options-btn">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-mic-mute"></i>Mute</a></li>
+              <li><a href="#"><i class="bi bi-slash-circle"></i>Ban</a></li>
+              <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Single Chat User -->
+        <li class="p-3">
+          <a class="d-flex" href="chat.html">
+            <!-- Thumbnail -->
+            <div class="chat-user-thumbnail me-3 shadow">
+              <img class="img-circle" src="img/bg-img/user2.png" alt="">
+              <span class="active-status"></span>
+            </div>
+            <!-- Info -->
+            <div class="chat-user-info">
+              <h6 class="text-truncate mb-0">Mustafa Rabbi</h6>
+              <div class="last-chat">
+                <p class="text-truncate mb-0">How can I help you?</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Options -->
+          <div class="dropstart chat-options-btn">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-mic-mute"></i>Mute</a></li>
+              <li><a href="#"><i class="bi bi-slash-circle"></i>Ban</a></li>
+              <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Single Chat User -->
+        <li class="p-3 offline">
+          <a class="d-flex" href="chat.html">
+            <!-- Thumbnail -->
+            <div class="chat-user-thumbnail me-3 shadow">
+              <img class="img-circle" src="img/bg-img/user3.png" alt="">
+              <span class="active-status"></span>
+            </div>
+            <!-- Info -->
+            <div class="chat-user-info">
+              <h6 class="text-truncate mb-0">Affan Islam</h6>
+              <div class="last-chat">
+                <p class="text-truncate mb-0">I want to buy your Affan template.</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Options -->
+          <div class="dropstart chat-options-btn">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-mic-mute"></i>Mute</a></li>
+              <li><a href="#"><i class="bi bi-slash-circle"></i>Ban</a></li>
+              <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Single Chat User -->
+        <li class="p-3">
+          <a class="d-flex" href="chat.html">
+            <!-- Thumbnail -->
+            <div class="chat-user-thumbnail me-3 shadow">
+              <img class="img-circle" src="img/bg-img/user4.png" alt="">
+              <span class="active-status"></span>
+            </div>
+            <!-- Info -->
+            <div class="chat-user-info">
+              <h6 class="text-truncate mb-0">Jannatun Lima</h6>
+              <div class="last-chat">
+                <p class="text-truncate mb-0">Affan - PWA Mobile HTML Template</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Options -->
+          <div class="dropstart chat-options-btn">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-mic-mute"></i>Mute</a></li>
+              <li><a href="#"><i class="bi bi-slash-circle"></i>Ban</a></li>
+              <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Single Chat User -->
+        <li class="p-3">
+          <a class="d-flex" href="chat.html">
+            <!-- Thumbnail -->
+            <div class="chat-user-thumbnail me-3 shadow">
+              <img class="img-circle" src="#" alt="">
+              <span class="active-status"></span>
+            </div>
+            <!-- Info -->
+            <div class="chat-user-info">
+              <h6 class="text-truncate mb-0">Waves Motion</h6>
+              <div class="last-chat">
+                <p class="text-truncate mb-0"><i class="bi bi-file-earmark-zip"></i>affan-pwa-mobile.zip</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Options -->
+          <div class="dropstart chat-options-btn">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-mic-mute"></i>Mute</a></li>
+              <li><a href="#"><i class="bi bi-slash-circle"></i>Ban</a></li>
+              <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Single Chat User -->
+        <li class="p-3 offline">
+          <a class="d-flex" href="chat.html">
+            <!-- Thumbnail -->
+            <div class="chat-user-thumbnail me-3 shadow">
+              <img class="img-circle" src="img/bg-img/user1.png" alt="">
+              <span class="active-status"></span>
+            </div>
+            <!-- Info -->
+            <div class="chat-user-info">
+              <h6 class="text-truncate mb-0">Samantha Sarah</h6>
+              <div class="last-chat">
+                <p class="text-truncate mb-0">Would you please provide a purchase link?</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Options -->
+          <div class="dropstart chat-options-btn">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-mic-mute"></i>Mute</a></li>
+              <li><a href="#"><i class="bi bi-slash-circle"></i>Ban</a></li>
+              <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Single Chat User -->
+        <li class="p-3">
+          <a class="d-flex" href="chat.html">
+            <!-- Thumbnail -->
+            <div class="chat-user-thumbnail me-3 shadow">
+              <img class="img-circle" src="img/bg-img/user2.png" alt="">
+              <span class="active-status"></span>
+            </div>
+            <!-- Info -->
+            <div class="chat-user-info">
+              <h6 class="text-truncate mb-0">Hasnain Ahmed</h6>
+              <div class="last-chat">
+                <p class="text-truncate mb-0">Sure, Here are the purchase link. Please click the purchase now button,
+                  then fill up your all payment info.</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Options -->
+          <div class="dropstart chat-options-btn">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-mic-mute"></i>Mute</a></li>
+              <li><a href="#"><i class="bi bi-slash-circle"></i>Ban</a></li>
+              <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- Single Chat User -->
+        <li class="p-3 offline">
+          <a class="d-flex" href="chat.html">
+            <!-- Thumbnail -->
+            <div class="chat-user-thumbnail me-3 shadow">
+              <img class="img-circle" src="img/bg-img/user3.png" alt="">
+              <span class="active-status"></span>
+            </div>
+            <!-- Info -->
+            <div class="chat-user-info">
+              <h6 class="text-truncate mb-0">Shaila Afrin</h6>
+              <div class="last-chat">
+                <p class="text-truncate mb-0">You are welcome &#128525; &#128525;</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Options -->
+          <div class="dropstart chat-options-btn">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-mic-mute"></i>Mute</a></li>
+              <li><a href="#"><i class="bi bi-slash-circle"></i>Ban</a></li>
+              <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer Nav -->
+  <div class="footer-nav-area" id="footerNav">
+    <div class="container px-0">
+      <!-- Footer Content -->
+      <div class="footer-nav position-relative">
+        <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
+          <li>
+            <a href="home.html">
+              <i class="bi bi-house"></i>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="pages.html">
+              <i class="bi bi-folder2-open"></i>
+              <span>Pages</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="elements.html">
+              <i class="bi bi-heart"></i>
+              <span>Elements</span>
+            </a>
+          </li>
+
+          <li class="active">
+            <a href="chat-users.html">
+              <i class="bi bi-chat-dots"></i>
+              <span>Chat</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="settings.html">
+              <i class="bi bi-gear"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- All JavaScript Files -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/slideToggle.min.js"></script>
+  <script src="js/internet-status.js"></script>
+  <script src="js/tiny-slider.js"></script>
+  <script src="js/venobox.min.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/rangeslider.min.js"></script>
+  <script src="js/vanilla-dataTables.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/imagesloaded.pkgd.min.js"></script>
+  <script src="js/isotope.pkgd.min.js"></script>
+  <script src="js/dark-rtl.js"></script>
+  <script src="js/active.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+
+</html>

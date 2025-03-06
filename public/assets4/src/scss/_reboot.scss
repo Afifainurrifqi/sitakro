@@ -1,0 +1,158 @@
+/* :: Reboot */
+
+:root {
+    --primary-50: #f0f5ff;
+    --primary-100: #e1eaff;
+    --primary-200: #c2d5ff;
+    --primary-300: #9abafe;
+    --primary-400: #6797fe;
+    --primary-500: #0d5afd;
+    --primary-600: #024ef3;
+    --primary-700: #0244d4;
+    --primary-800: #0139b1;
+    --primary-900: #01297e;
+    --primary-950: #011542;
+    --secondary-500: #8696a7;
+    --secondary-700: #546474;
+    --success-500: #2ecc4a;
+    --success-700: #25a23c;
+    --danger-500: #ea4c62;
+    --danger-700: #cd1830;
+    --warning-500: #f1b10f;
+    --warning-700: #c18d0b;
+    --info-500: #1787b8;
+    --info-700: #126b91;
+    --white: #ffffff;
+    --text: #7773a6;
+    --border: #d8eaff;
+    --dark: #061238;
+    --dark-primary: #0C153B;
+    --dark-secondary: #242644;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    font-family: $fonts;
+    overflow-x: hidden;
+    background-color: var(--primary-50);
+    color: var(--text);
+    scrollbar-width: thin;
+    letter-spacing: -0.25px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary-950);
+    font-weight: 600;
+}
+
+p {
+    font-size: 14px;
+    color: var(--text);
+}
+
+a,
+a:hover,
+a:focus {
+    transition-duration: 400ms;
+    text-decoration: none;
+    outline: 0 solid transparent;
+}
+
+ul {
+    margin: 0;
+
+    li {
+        list-style: none;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            list-style: none;
+            text-decoration: none;
+        }
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    @media #{$breakpoint-xxl} {
+        max-width: 760px;
+    }
+
+    @media #{$breakpoint-xl} {
+        max-width: 740px;
+    }
+
+    @media #{$breakpoint-lg} {
+        max-width: 720px;
+    }
+
+    @media #{$breakpoint-md} {
+        max-width: 580px;
+    }
+}
+
+.custom-container {
+    margin-left: auto;
+    margin-right: auto;
+
+    @media #{$breakpoint-xxl} {
+        max-width: 500px;
+    }
+
+    @media #{$breakpoint-xl} {
+        max-width: 480px;
+    }
+
+    @media #{$breakpoint-lg} {
+        max-width: 480px;
+    }
+
+    @media #{$breakpoint-md} {
+        max-width: 450px;
+    }
+
+    @media #{$breakpoint-xs} {
+        max-width: 300px;
+    }
+
+    @media #{$breakpoint-xs-landscape} {
+        max-width: 320px;
+    }
+
+    @media #{$breakpoint-sm} {
+        max-width: 370px;
+    }
+}
+
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6 {
+    letter-spacing: -1px;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-color: var(--primary-100);
+}

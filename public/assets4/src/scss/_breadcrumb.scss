@@ -1,0 +1,141 @@
+/* :: Breadcrumb */
+
+.breadcrumb-wrapper {
+    background-color: var(--white);
+}
+
+.breadcrumb {
+    background-color: var(--white);
+}
+
+.breadcrumb-item {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.breadcrumb-one {
+    position: relative;
+    z-index: 1;
+
+    .breadcrumb-item+.breadcrumb-item::before {
+        color: var(--text);
+        content: "/";
+    }
+
+    .breadcrumb-item {
+        font-size: 14px;
+        color: var(--primary-950);
+    }
+
+    .breadcrumb-item a {
+        color: var(--text);
+
+        &:hover,
+        &:focus {
+            color: var(--primary-950);
+        }
+    }
+}
+
+.breadcrumb-two {
+    position: relative;
+    z-index: 1;
+
+    .breadcrumb-item+.breadcrumb-item::before {
+        color: var(--text);
+        content: "/";
+    }
+
+    .breadcrumb-item {
+        font-size: 14px;
+        color: var(--primary-950);
+    }
+
+    .breadcrumb-item a {
+        color: var(--text);
+
+        &:hover,
+        &:focus {
+            color: var(--primary-950);
+        }
+    }
+}
+
+.breadcrumb-three {
+    position: relative;
+    z-index: 1;
+
+    .breadcrumb-item+.breadcrumb-item::before {
+        color: var(--text);
+        content: "/";
+    }
+
+    .breadcrumb-item {
+        color: var(--primary-950);
+    }
+
+    .breadcrumb-item a {
+        color: var(--text);
+
+        i {
+            margin-right: .25rem;
+            color: var(--primary-950);
+        }
+
+        &:hover,
+        &:focus {
+            color: var(--primary-950);
+        }
+    }
+}
+
+.breadcrumb-four {
+    position: relative;
+    z-index: 1;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .breadcrumb-item+.breadcrumb-item::before {
+        color: var(--white);
+        content: "/";
+    }
+
+    .breadcrumb-item {
+        color: var(--white);
+    }
+
+    .breadcrumb-item a {
+        color: var(--white);
+
+        &:hover,
+        &:focus {
+            color: var(--primary-950);
+        }
+    }
+}
+
+.breadcrumb-colorful {
+    position: relative;
+    z-index: 1;
+
+    .breadcrumb-item+.breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.6);
+        content: "/";
+    }
+
+    .breadcrumb-item {
+        font-size: 14px;
+        color: var(--white);
+    }
+
+    .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.6);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+
+        &:hover,
+        &:focus {
+            color: var(--white);
+        }
+    }
+}

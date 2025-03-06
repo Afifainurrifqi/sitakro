@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html id="previewPage" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Affan - PWA Mobile HTML Template">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta name="theme-color" content="#0134d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Title -->
+  <title>Affan - PWA Mobile HTML Template</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <!-- Dark mode switching -->
+  <div class="dark-mode-switching">
+    <div class="d-flex w-100 h-100 align-items-center justify-content-center">
+      <div class="dark-mode-text text-center">
+        <i class="bi bi-moon"></i>
+        <p class="mb-0">Switching to dark mode</p>
+      </div>
+      <div class="light-mode-text text-center">
+        <i class="bi bi-brightness-high"></i>
+        <p class="mb-0">Switching to light mode</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RTL mode switching -->
+  <div class="rtl-mode-switching">
+    <div class="d-flex w-100 h-100 align-items-center justify-content-center">
+      <div class="rtl-mode-text text-center">
+        <i class="bi bi-text-right"></i>
+        <p class="mb-0">Switching to RTL mode</p>
+      </div>
+      <div class="ltr-mode-text text-center">
+        <i class="bi bi-text-left"></i>
+        <p class="mb-0">Switching to default mode</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Setting Popup Overlay -->
+  <div id="setting-popup-overlay"></div>
+
+  <!-- Setting Popup Card -->
+  <div class="card setting-popup-card shadow-lg" id="settingCard">
+    <div class="card-body">
+      <div class="container">
+        <div class="setting-heading d-flex align-items-center justify-content-between mb-3">
+          <p class="mb-0">Settings</p>
+          <div class="btn-close" id="settingCardClose"></div>
+        </div>
+
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="availabilityStatus" checked>
+            <label class="form-check-label" for="availabilityStatus">Availability status</label>
+          </div>
+        </div>
+
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="sendMeNotifications" checked>
+            <label class="form-check-label" for="sendMeNotifications">Send me notifications</label>
+          </div>
+        </div>
+
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="darkSwitch">
+            <label class="form-check-label" for="darkSwitch">Dark mode</label>
+          </div>
+        </div>
+
+        <div class="single-setting-panel">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="rtlSwitch">
+            <label class="form-check-label" for="rtlSwitch">RTL mode</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Button -->
+  <button class="btn btn-warning btn-others-items-preview shadow" type="button" data-bs-toggle="offcanvas"
+    data-bs-target="#othersTemplate" aria-controls="othersTemplate">
+    View Others Templates
+  </button>
+
+  <!-- Offcanvas -->
+  <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="othersTemplate"
+    aria-labelledby="othersTemplateLabel">
+    <div class="offcanvas-header">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+      <!-- Single Item -->
+      <div class="others-items-preview shadow-sm mb-3">
+        <div class="alert alert-info mb-0" role="alert">
+          <img class="mb-2" src="img/demo-img/suha.png" alt="">
+          <h6>Suha - PWA Ecommerce Mobile</h6>
+          <a class="btn btn-success btn-sm w-100 rounded-pill" target="_blank"
+            href="https://themeforest.net/item/suha-multipurpose-ecommerce-mobile-template/25294162">View Demo <i
+              class="ms-1 bi bi-box-arrow-up-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Single Item -->
+      <div class="others-items-preview shadow-sm mb-3">
+        <div class="alert alert-info mb-0" role="alert">
+          <img class="mb-2" src="img/demo-img/newsten.png" alt="">
+          <h6>Newsten - Blog & Magazine Mobile</h6>
+          <a class="btn btn-success btn-sm w-100 rounded-pill" target="_blank"
+            href="https://themeforest.net/item/newsten-blog-magazine-mobile-html-template/26265024">View Demo <i
+              class="ms-1 bi bi-box-arrow-up-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Single Item -->
+      <div class="others-items-preview shadow-sm mb-3">
+        <div class="alert alert-info mb-0" role="alert">
+          <img class="mb-2" src="img/demo-img/saasbox.png" alt="">
+          <h6>Saasbox - Multipurpose HTML Template</h6>
+          <a class="btn btn-success btn-sm w-100 rounded-pill" target="_blank"
+            href="https://themeforest.net/item/saasbox-multipurpose-html-template-for-saas/25607146">View Demo <i
+              class="ms-1 bi bi-box-arrow-up-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Single Item -->
+      <div class="others-items-preview shadow-sm">
+        <div class="alert alert-info mb-0" role="alert">
+          <img class="mb-2" src="img/demo-img/funto.png" alt="">
+          <h6>Funto - HTML NFT Marketplace</h6>
+          <a class="btn btn-success btn-sm w-100 rounded-pill" target="_blank"
+            href="https://themeforest.net/item/funto-html-nft-marketplace/35740238">View Demo <i
+              class="ms-1 bi bi-box-arrow-up-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-iframe-wrapper">
+    <!-- Header Area -->
+    <div class="demo-header-wrapper">
+      <div class="container demo-container">
+        <!-- Header Content -->
+        <div
+          class="header-content header-style-five position-relative d-flex align-items-center justify-content-between">
+          <!-- Logo Wrapper -->
+          <div class="logo-wrapper">
+            <a href="home.html">
+              <img src="img/core-img/logo.png" alt="">
+            </a>
+          </div>
+
+          <!-- Settings -->
+          <div class="setting-wrapper">
+            <div class="setting-trigger-btn" id="settingTriggerBtn">
+              <i class="bi bi-gear"></i>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview Hero Area -->
+    <div class="preview-hero-area">
+      <span class="big-shadow-text">Affan</span>
+      <div class="container demo-container direction-rtl">
+        <div class="row g-2 align-items-center justify-content-between">
+          <div class="col-12 col-lg-3">
+            <h6 class="version-number bg-white shadow-sm border d-inline-block px-3 py-2 rounded-pill mb-3 lh-1">Current
+              version - v1.7.0</h6>
+            <h2 class="demo-title mb-3"><span>Affan </span> - PWA Mobile HTML Template</h2>
+
+            <ul class="demo-desc ps-0 mb-5">
+              <li><i class="bi bi-check-lg"></i> PWA Ready</li>
+              <li><i class="bi bi-check-lg"></i> Vanilla JavaScript</li>
+              <li><i class="bi bi-check-lg"></i> Bootstrap 5.3.3</li>
+              <li><i class="bi bi-check-lg"></i> Creative Design</li>
+              <li><i class="bi bi-check-lg"></i> Dark Mode</li>
+              <li><i class="bi bi-check-lg"></i> Right to Left (RTL)</li>
+              <li><i class="bi bi-check-lg"></i> Easy & Professional Code</li>
+            </ul>
+
+            <div class="promotionVideo" id="promotionVideo">
+              <a data-autoplay="true" data-vbtype="video" class="btn btn-danger btn-lg promo-video rounded-pill"
+                href="https://www.youtube.com/watch?v=-D6QFpH7zCA" data-maxwidth="680px">Watch promo video</a>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-5">
+            <div class="text-center">
+              <iframe class="shadow-lg" src="hero-blocks.html"></iframe>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-3">
+            <div class="text-lg-end">
+              <!-- Mobile Live Preview -->
+              <div class="live-preview-btn mb-3">
+                <a class="btn btn-primary btn-lg d-lg-none mb-5 rounded-pill" href="hero-blocks.html" target="_blank">
+                  Click the button to live preview
+                </a>
+              </div>
+
+              <!-- QR Code -->
+              <div class="qr-code-wrapper shadow border">
+                <img src="img/demo-img/qr-code.png" alt="">
+                <h6 class="mb-0">Scan this QR code to view <br> on your mobile device.</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Area -->
+    <div class="features-area">
+      <div class="container demo-container direction-rtl">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-7 col-xl-6">
+            <div class="section-heading text-center">
+              <h2 class="display-6 mb-3">Key Features</h2>
+              <p class="mb-0">Affan is a modern and latest technology-based mobile template. It's come with
+                <span class="special-text">
+                  Creative Design, Vanilla JavaScript, Bootstrap 5, PWA Ready, Dark Mode &amp;
+                  Right to Left (RTL)
+                </span> features.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 justify-content-center">
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/pwa.png" alt="">
+                <h6 class="mb-0">PWA Ready</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/bootstrap.png" alt="">
+                <h6 class="mb-0">Bootstrap 5</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/js.png" alt="">
+                <h6 class="mb-0">Vanilla JS</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/npm.png" alt="">
+                <h6 class="mb-0">npm</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/gulp.png" alt="">
+                <h6 class="mb-0">Gulp 4</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/sass.png" alt="">
+                <h6 class="mb-0">SCSS</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/dark.png" alt="">
+                <h6 class="mb-0">Dark Mode</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/rtl.png" alt="">
+                <h6 class="mb-0">RTL Mode</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/star.png" alt="">
+                <h6 class="mb-0">Best Rated</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/code.png" alt="">
+                <h6 class="mb-0">Easy Code</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/html5.png" alt="">
+                <h6 class="mb-0">HTML5</h6>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+            <div class="card active">
+              <div class="card-body text-center">
+                <img class="mb-4" src="img/demo-img/css.png" alt="">
+                <h6 class="mb-0">CSS3</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-100 d-block mb-5"></div>
+
+        <div class="row g-2 justify-content-center">
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="mb-0">220+ Elements</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Varieties Header Menu</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Varieties Footer Menu</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Left &amp; Right Sidebar Menu</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Alerts &amp; Toasts</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Automated Online/Offline Detection</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">220+ Reusable Elements</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">100+ Ready Pages</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Varieties Form Elements</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Auto Complete Form</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Range Input Slider</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Accordion/FAQ</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Timeline</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Image Gallery</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">User Ratings</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Lots of Helper Elements</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Carousel</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Data Table</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Countdown &amp; Counterup</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Apex Charts</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Versatile Mobile Template</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Nicely Designed</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Coded with the Latest Technology</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Bug Free Code</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Cross Browser Support</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Notifications Pages</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Language Page</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Password Strength Meter</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">OTP Pages</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Shop Pages</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">User Profile</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Coming Soon</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Authentication Pages</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Unique Design</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Blog Pages</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Google Fonts</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Easy to Customize</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Clean &amp; 100% Validate Code</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Settings Page</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">404</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Fancy Button</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Vanilla JavaScript</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Comparison Table</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Offcanvas</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Tab</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card active">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Tiny Slider</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Fallback Page</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="d-flex align-items-center">
+                  <i class="h4 lh-1 mb-0 bi bi-check text-primary"></i>
+                  <h6 class="ms-1 mb-0">Fancy UI Card</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Area -->
+    <div class="preview-footer-area py-4">
+      <div class="container demo-container direction-rtl h-100 d-flex align-items-center justify-content-between">
+        <p class="mb-0"><span id="copyrightYear"></span> &copy; Made by Designing World</p>
+        <a class="btn btn-info" href="https://themeforest.net/item/affan-pwa-mobile-html-template/29715548"
+          target="_blank">Purchase Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- All JavaScript Files -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/slideToggle.min.js"></script>
+  <script src="js/internet-status.js"></script>
+  <script src="js/dark-rtl.js"></script>
+  <script src="js/active.js"></script>
+  <script src="js/pwa.js"></script>
+  <script src="js/venobox.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (document.getElementById('promotionVideo')) {
+        window.addEventListener('load', function () {
+          try {
+            const venobox = new VenoBox({
+              selector: '.promo-video',
+              popup: true,
+              overlayColor: 'rgba(15,7,15,0.75)',
+              spinner: 'pulse',
+              navSpeed: 400
+            });
+          } catch (e) {
+            console.error('Error initializing VenoBox', e);
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+
+</html>

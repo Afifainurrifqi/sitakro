@@ -1,0 +1,73 @@
+/* :: List Group */
+
+.list-group {
+    border-radius: 0.4rem;
+}
+
+.list-group-item {
+    position: relative;
+    z-index: 1;
+    border-color: var(--primary-200);
+    font-size: 14px;
+    color: var(--primary-950);
+    padding: 0.625rem 1rem;
+
+    &.active {
+        background-color: var(--white);
+        border-color: var(--primary-200) !important;
+        color: var(--primary-950);
+        font-weight: 500;
+
+        &::after {
+            position: absolute;
+            width: 3px;
+            height: 74%;
+            content: "";
+            background-color: var(--primary-950);
+            top: 13%;
+            left: 0;
+            z-index: -10;
+        }
+    }
+
+    &.disabled {
+        background-color: var(--white);
+        border-color: var(--primary-200) !important;
+        color: var(--primary-200);
+        font-weight: 500;
+
+        &::after {
+            position: absolute;
+            width: 3px;
+            height: 74%;
+            content: "";
+            background-color: var(--primary-200);
+            top: 13%;
+            left: 0;
+            z-index: -10;
+        }
+    }
+}
+
+.list-group-flush {
+    .list-group-item {
+        background-color: transparent !important;
+
+        &.disabled {
+            border-color: var(--primary-200) !important;
+            color: var(--primary-200);
+            font-weight: 500;
+
+            &::after {
+                position: absolute;
+                width: 3px;
+                height: 74%;
+                content: "";
+                background-color: var(--primary-200);
+                top: 13%;
+                left: 0;
+                z-index: -10;
+            }
+        }
+    }
+}

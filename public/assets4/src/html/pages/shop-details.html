@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Affan - PWA Mobile HTML Template">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta name="theme-color" content="#0134d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Title -->
+  <title>Affan - PWA Mobile HTML Template</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Internet Connection Status -->
+  <div class="internet-connection-status" id="internetStatus"></div>
+
+  <!-- Header Area -->
+  <div class="header-area" id="headerArea">
+    <div class="container">
+      <!-- Header Content -->
+      <div class="header-content header-style-five position-relative d-flex align-items-center justify-content-between">
+        <!-- Back Button -->
+        <div class="back-button">
+          <a href="pages.html">
+            <i class="bi bi-arrow-left-short"></i>
+          </a>
+        </div>
+
+        <!-- Page Title -->
+        <div class="page-heading">
+          <h6 class="mb-0">Product Details</h6>
+        </div>
+
+        <!-- Navbar Toggler -->
+        <div class="navbar--toggler" id="affanNavbarToggler" data-bs-toggle="offcanvas" data-bs-target="#affanOffcanvas"
+          aria-controls="affanOffcanvas">
+          <span class="d-block"></span>
+          <span class="d-block"></span>
+          <span class="d-block"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- # Sidenav Left -->
+  <div class="offcanvas offcanvas-start" id="affanOffcanvas" data-bs-scroll="true" tabindex="-1"
+    aria-labelledby="affanOffcanvsLabel">
+
+    <button class="btn-close btn-close-white text-reset" type="button" data-bs-dismiss="offcanvas"
+      aria-label="Close"></button>
+
+    <div class="offcanvas-body p-0">
+      <div class="sidenav-wrapper">
+        <!-- Sidenav Profile -->
+        <div class="sidenav-profile bg-gradient">
+          <div class="sidenav-style1"></div>
+
+          <!-- User Thumbnail -->
+          <div class="user-profile">
+            <img src="img/bg-img/2.jpg" alt="">
+          </div>
+
+          <!-- User Info -->
+          <div class="user-info">
+            <h6 class="user-name mb-0">Affan Islam</h6>
+            <span>CEO, Designing World</span>
+          </div>
+        </div>
+
+        <!-- Sidenav Nav -->
+        <ul class="sidenav-nav ps-0">
+          <li>
+            <a href="home.html"><i class="bi bi-house-door"></i> Home</a>
+          </li>
+          <li>
+            <a href="elements.html"><i class="bi bi-heart"></i> Elements
+              <span class="badge bg-danger rounded-pill ms-2">220+</span>
+            </a>
+          </li>
+          <li>
+            <a href="pages.html"><i class="bi bi-folder2-open"></i> Pages
+              <span class="badge bg-success rounded-pill ms-2">100+</span>
+            </a>
+          </li>
+          <li>
+            <a href="#"><i class="bi bi-cart-check"></i> Shop</a>
+            <ul>
+              <li>
+                <a href="shop-grid.html"> Shop Grid</a>
+              </li>
+              <li>
+                <a href="shop-list.html"> Shop List</a>
+              </li>
+              <li>
+                <a href="shop-details.html"> Shop Details</a>
+              </li>
+              <li>
+                <a href="cart.html"> Cart</a>
+              </li>
+              <li>
+                <a href="checkout.html"> Checkout</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="settings.html"><i class="bi bi-gear"></i> Settings</a>
+          </li>
+          <li>
+            <div class="night-mode-nav">
+              <i class="bi bi-moon"></i> Night Mode
+              <div class="form-check form-switch">
+                <input class="form-check-input form-check-success" id="darkSwitch" type="checkbox">
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="login.html"><i class="bi bi-box-arrow-right"></i> Logout</a>
+          </li>
+        </ul>
+
+        <!-- Social Info -->
+        <div class="social-info-wrap">
+          <a href="#">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a href="#">
+            <i class="bi bi-twitter"></i>
+          </a>
+          <a href="#">
+            <i class="bi bi-linkedin"></i>
+          </a>
+        </div>
+
+        <!-- Copyright Info -->
+        <div class="copyright-info">
+          <p>
+            <span id="copyrightYear"></span>
+            &copy; Made by <a href="#"> Designing World</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content-wrapper py-3">
+    <div class="container">
+      <div class="card product-details-card mb-3">
+        <span class="badge bg-warning text-dark position-absolute product-badge">Sale -10%</span>
+        <div class="card-body">
+          <div class="product-gallery-wrapper">
+            <div class="product-gallery gallery-img">
+              <a href="img/bg-img/p1.jpg" class="image-zooming-in-out" title="Product One" data-gall="gallery2">
+                <img class="rounded" src="img/bg-img/p1.jpg" alt="">
+              </a>
+              <a href="img/bg-img/p2.jpg" class="image-zooming-in-out" title="Product Two" data-gall="gallery2">
+                <img class="rounded" src="img/bg-img/p2.jpg" alt="">
+              </a>
+              <a href="img/bg-img/p3.jpg" class="image-zooming-in-out" title="Product Three" data-gall="gallery2">
+                <img class="rounded" src="img/bg-img/p3.jpg" alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card product-details-card mb-3 direction-rtl">
+        <div class="card-body">
+          <h3>Wooden Table</h3>
+          <h1>$9.89</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum dolores natus laboriosam accusantium.</p>
+          <form action="#">
+            <select class="form-select mb-3" id="chooseSize" name="chooseSize" aria-label="Default select example">
+              <option value="1" selected>Choose Size</option>
+              <option value="2">Small</option>
+              <option value="3">Medium</option>
+              <option value="3">Large</option>
+            </select>
+            <div class="input-group">
+              <input class="input-group-text form-control" type="number" value="1">
+              <button class="btn btn-primary w-50" type="submit">Add to Cart</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card product-details-card mb-3 direction-rtl">
+        <div class="card-body">
+          <h5>Description</h5>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum soluta tempore tenetur provident eligendi
+            porro, eius nulla? Aliquam, blanditiis id. Corporis.</p>
+          <p class="mb-0">Lorem ipsum dolor sit, amet consectetur adipisicing elit. At ut fugit accusantium quo quidem
+            magni laboriosam!</p>
+
+          <div class="rating-card-two mt-4">
+            <!-- Rating result -->
+            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+              <div class="rating">
+                <a href="#"><i class="bi bi-star-fill"></i></a>
+                <a href="#"><i class="bi bi-star-fill"></i></a>
+                <a href="#"><i class="bi bi-star-fill"></i></a>
+                <a href="#"><i class="bi bi-star-fill"></i></a>
+                <a href="#"><i class="bi bi-star-half"></i></a>
+              </div>
+              <span>4.44 out of 5 ratings</span>
+            </div>
+
+            <!-- Rating Details -->
+            <div class="rating-detail">
+              <!-- Single Rating Details -->
+              <div class="d-flex align-items-center mt-2">
+                <span>5 star</span>
+                <div class="progress-bar-wrapper">
+                  <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 78%;" role="progressbar" aria-valuenow="78"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <span>78%</span>
+              </div>
+
+              <!-- Single Rating Details -->
+              <div class="d-flex align-items-center mt-2">
+                <span>4 star</span>
+                <div class="progress-bar-wrapper">
+                  <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 14%;" role="progressbar" aria-valuenow="14"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <span>14%</span>
+              </div>
+
+              <!-- Single Rating Details -->
+              <div class="d-flex align-items-center mt-2">
+                <span>3 star</span>
+                <div class="progress-bar-wrapper">
+                  <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 8%;" role="progressbar" aria-valuenow="8"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <span>8%</span>
+              </div>
+
+              <!-- Single Rating Details -->
+              <div class="d-flex align-items-center mt-2">
+                <span>2 star</span>
+                <div class="progress-bar-wrapper">
+                  <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 0%;" role="progressbar" aria-valuenow="0"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <span>0%</span>
+              </div>
+
+              <!-- Single Rating Details -->
+              <div class="d-flex align-items-center mt-2">
+                <span>1 star</span>
+                <div class="progress-bar-wrapper">
+                  <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 0%;" role="progressbar" aria-valuenow="0"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <span>0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card related-product-card direction-rtl">
+        <div class="card-body">
+          <h5 class="mb-3">Related Products</h5>
+
+          <div class="row g-3">
+
+            <!-- Single Top Product Card -->
+            <div class="col-6 col-sm-4 col-lg-3">
+              <div class="card single-product-card border">
+                <div class="card-body p-3">
+                  <!-- Product Thumbnail -->
+                  <a class="product-thumbnail d-block" href="shop-details.html">
+                    <img src="img/bg-img/p1.jpg" alt="">
+                    <!-- Badge -->
+                    <span class="badge bg-primary">Sale</span>
+                  </a>
+                  <!-- Product Title -->
+                  <a class="product-title d-block text-truncate" href="shop-details.html">Wooden Tool</a>
+                  <!-- Product Price -->
+                  <p class="sale-price">$9.89<span>$13.42</span></p>
+                  <a class="btn btn-danger btn-sm" href="#">Add to Cart</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Single Top Product Card -->
+            <div class="col-6 col-sm-4 col-lg-3">
+              <div class="card single-product-card border">
+                <div class="card-body p-3">
+                  <!-- Product Thumbnail -->
+                  <a class="product-thumbnail d-block" href="shop-details.html">
+                    <img src="img/bg-img/p2.jpg" alt="">
+                    <!-- Badge -->
+                    <span class="badge bg-primary">Sale</span>
+                  </a>
+                  <!-- Product Title -->
+                  <a class="product-title d-block text-truncate" href="shop-details.html">Atoms Musk</a>
+                  <!-- Product Price -->
+                  <p class="sale-price">$3.36<span>$5.99</span></p>
+                  <a class="btn btn-danger btn-sm" href="#">Add to Cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Nav -->
+  <div class="footer-nav-area" id="footerNav">
+    <div class="container px-0">
+      <!-- Footer Content -->
+      <div class="footer-nav position-relative">
+        <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
+          <li class="active">
+            <a href="home.html">
+              <i class="bi bi-house"></i>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="pages.html">
+              <i class="bi bi-folder2-open"></i>
+              <span>Pages</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="elements.html">
+              <i class="bi bi-heart"></i>
+              <span>Elements</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="chat-users.html">
+              <i class="bi bi-chat-dots"></i>
+              <span>Chat</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="settings.html">
+              <i class="bi bi-gear"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- All JavaScript Files -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/slideToggle.min.js"></script>
+  <script src="js/internet-status.js"></script>
+  <script src="js/tiny-slider.js"></script>
+  <script src="js/venobox.min.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/rangeslider.min.js"></script>
+  <script src="js/vanilla-dataTables.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/imagesloaded.pkgd.min.js"></script>
+  <script src="js/isotope.pkgd.min.js"></script>
+  <script src="js/dark-rtl.js"></script>
+  <script src="js/active.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+
+</html>

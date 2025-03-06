@@ -1,0 +1,149 @@
+/* :: Loader */
+
+.circle-loader {
+    position: relative;
+    z-index: 1;
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: .25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+
+    .circle-big {
+        position: relative;
+        z-index: 1;
+        width: 2rem;
+        height: 2rem;
+        border: 2px solid rgba(255, 255, 255, 0.85);
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: circlebig 1s linear 0s infinite;
+    }
+}
+
+.dot-loader {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    >div {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--white);
+        margin: 0 .375rem;
+    }
+
+    .dot1 {
+        animation: dotloader 1s linear 0s infinite;
+    }
+
+    .dot2 {
+        animation: dotloader 0.75s linear 0s infinite;
+    }
+
+    .dot3 {
+        animation: dotloader 1s linear 0s infinite;
+    }
+}
+
+.circle-spinner {
+    position: relative;
+    z-index: 1;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .circle {
+        position: relative;
+        z-index: 1;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background-color: var(--primary-950);
+
+        &::after {
+            position: absolute;
+            width: 0%;
+            height: 0%;
+            background-color: var(--primary-950);
+            content: "";
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -5;
+            opacity: 0.7;
+            animation: circleloader2 1.5s linear 0s infinite;
+        }
+    }
+
+    &.circle-spinner-success {
+        .circle {
+            background-color: var(--success-500);
+
+            &::after {
+                background-color: var(--success-500);
+            }
+        }
+    }
+
+    &.circle-spinner-danger {
+        .circle {
+            background-color: var(--danger-500);
+
+            &::after {
+                background-color: var(--danger-500);
+            }
+        }
+    }
+
+    &.circle-spinner-warning {
+        .circle {
+            background-color: var(--warning-500);
+
+            &::after {
+                background-color: var(--warning-500);
+            }
+        }
+    }
+
+    &.circle-spinner-info {
+        .circle {
+            background-color: var(--info-500);
+
+            &::after {
+                background-color: var(--info-500);
+            }
+        }
+    }
+
+    &.circle-spinner-light {
+        .circle {
+            background-color: var(--primary-100);
+
+            &::after {
+                background-color: var(--primary-100);
+            }
+        }
+    }
+
+    &.circle-spinner-dark {
+        .circle {
+            background-color: var(--dark);
+
+            &::after {
+                background-color: var(--dark);
+            }
+        }
+    }
+}

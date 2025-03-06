@@ -68,6 +68,7 @@
                             SITAKRO</a>
                         <a class="wow fadeInDown btn btn-light border btn-md popup-youtube"
                             href="https://www.youtube.com/watch?v=l_nwLjT8Vzg">PROFILE SITAKRO</a>
+                            <a class="wow fadeInDown btn btn-light border btn-md" href="{{ route('farm.start') }}">FARMING</a>
                         {{-- <a href="https://www.youtube.com/watch?v=l_nwLjT8Vzg" class="popup-youtube light video-play-button video-inline">
                             <i class="fa fa-play"></i>
                         </a> --}}

@@ -14,6 +14,7 @@ use App\Http\Controllers\DatakesehatanController;
 use App\Http\Controllers\DatamutasiController;
 use App\Http\Controllers\DatapekerjaansdgsController;
 use App\Http\Controllers\DataRtController;
+use App\Http\Controllers\FarmingController;
 use App\Http\Controllers\JenisdisabilitasController;
 use App\Http\Controllers\KkController;
 use App\Http\Controllers\LembagaMasyarakatController;
@@ -57,8 +58,18 @@ Route::get('/logout', [SesiController::class, 'logout'])->name('logout');
 Route::get('/errorsrole', [SesiController::class, 'error']);
 Route::get('/akundemo', [SesiController::class, 'error2']);
 Route::get('/maintance', [SesiController::class, 'maintance'])->name('maintance');
+Route::get('/loginfarm', [SesiController::class, 'maintance'])->name('maintance');
 
-
+Route::get('farming', [DashboardController::class, 'farm'])->name('farm.login');
+Route::get('farminghome', [FarmingController::class,'index'])->name('farm.home');
+Route::get('farminglahan', [FarmingController::class,'lahan'])->name('farm.lahan');
+Route::get('farmingstart', [FarmingController::class,'start'])->name('farm.start');
+Route::get('farmingtambahlahan', [FarmingController::class,'tambahlahan'])->name('farm.tambahlahan');
+Route::get('farmingupdatelahan', [FarmingController::class,'updatelahan'])->name('farm.updatelahan');
+Route::get('farmingperawatan', [FarmingController::class,'perawatan'])->name('farm.perawatan');
+Route::get('farmingprofile', [FarmingController::class,'profile'])->name('farm.profile');
+Route::get('farmingsemualahan', [FarmingController::class,'semualahan'])->name('farm.semualahan');
+Route::get('farmingformupdatelahan', [FarmingController::class,'formupdatelahan'])->name('farm.formupdatelahan');
 
 Route::get('datapenduduk', [DatapendudukController::class, 'index']);
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

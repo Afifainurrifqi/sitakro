@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Affan - PWA Mobile HTML Template">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta name="theme-color" content="#0134d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Title -->
+  <title>Affan - PWA Mobile HTML Template</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Internet Connection Status -->
+  <div class="internet-connection-status" id="internetStatus"></div>
+
+  <!-- Dark mode switching -->
+  <div class="dark-mode-switching">
+    <div class="d-flex w-100 h-100 align-items-center justify-content-center">
+      <div class="dark-mode-text text-center">
+        <i class="bi bi-moon"></i>
+        <p class="mb-0">Switching to dark mode</p>
+      </div>
+      <div class="light-mode-text text-center">
+        <i class="bi bi-brightness-high"></i>
+        <p class="mb-0">Switching to light mode</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RTL mode switching -->
+  <div class="rtl-mode-switching">
+    <div class="d-flex w-100 h-100 align-items-center justify-content-center">
+      <div class="rtl-mode-text text-center">
+        <i class="bi bi-text-right"></i>
+        <p class="mb-0">Switching to RTL mode</p>
+      </div>
+      <div class="ltr-mode-text text-center">
+        <i class="bi bi-text-left"></i>
+        <p class="mb-0">Switching to default mode</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Setting Popup Overlay -->
+  <div id="setting-popup-overlay"></div>
+
+  <!-- Setting Popup Card -->
+  <div class="card setting-popup-card shadow-lg" id="settingCard">
+    <div class="card-body">
+      <div class="container">
+        <div class="setting-heading d-flex align-items-center justify-content-between mb-3">
+          <p class="mb-0">Settings</p>
+          <div class="btn-close" id="settingCardClose"></div>
+        </div>
+
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="availabilityStatus" checked>
+            <label class="form-check-label" for="availabilityStatus">Availability status</label>
+          </div>
+        </div>
+
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="sendMeNotifications" checked>
+            <label class="form-check-label" for="sendMeNotifications">Send me notifications</label>
+          </div>
+        </div>
+
+        <div class="single-setting-panel">
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="darkSwitch">
+            <label class="form-check-label" for="darkSwitch">Dark mode</label>
+          </div>
+        </div>
+
+        <div class="single-setting-panel">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="rtlSwitch">
+            <label class="form-check-label" for="rtlSwitch">RTL mode</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Area -->
+  <div class="header-area" id="headerArea">
+    <div class="container">
+      <!-- Header Content -->
+      <div class="header-content position-relative d-flex align-items-center justify-content-between">
+        <!-- Back Button -->
+        <div class="back-button">
+          <a href="pages.html">
+            <i class="bi bi-arrow-left-short"></i>
+          </a>
+        </div>
+
+        <!-- Page Title -->
+        <div class="page-heading">
+          <h6 class="mb-0">Invoice</h6>
+        </div>
+
+        <!-- Settings -->
+        <div class="setting-wrapper">
+          <div class="setting-trigger-btn" id="settingTriggerBtn">
+            <i class="bi bi-gear"></i>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content-wrapper py-3">
+    <div class="container">
+      <div class="card invoice-card shadow">
+        <div class="card-body">
+          <!-- Download Invoice -->
+          <div class="download-invoice text-end mb-3">
+            <a class="btn btn-sm btn-primary me-2" href="#">
+              <i class="bi bi-file-earmark-pdf"></i> PDF
+            </a>
+            <a class="btn btn-sm btn-light" href="#">
+              <i class="bi bi-printer"></i> Print
+            </a>
+          </div>
+
+          <!-- Invoice Info -->
+          <div class="invoice-info text-end mb-4">
+            <h5 class="mb-1 fz-14">Designing World Inc.</h5>
+            <h6 class="fz-12">Invoice No. #36A89G</h6>
+            <p class="mb-0 fz-12">Due Date: Nov 16, 2022</p>
+          </div>
+
+          <!-- Invoice Table -->
+          <div class="invoice-table">
+            <div class="table-responsive">
+              <table class="table table-bordered caption-top">
+                <caption>List of works</caption>
+                <thead class="table-light">
+                  <tr>
+                    <th>Sl.</th>
+                    <th>Description</th>
+                    <th>Unit</th>
+                    <th>Q.</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Website design and development</td>
+                    <td>$120</td>
+                    <td>4</td>
+                    <td>$480</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Digital Marketing</td>
+                    <td>$80</td>
+                    <td>2</td>
+                    <td>$160</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Support</td>
+                    <td>$100</td>
+                    <td>1</td>
+                    <td>$100</td>
+                  </tr>
+                </tbody>
+                <tfoot class="table-light">
+                  <tr>
+                    <td class="text-end" colspan="4">Total:</td>
+                    <td class="text-end">$740</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end" colspan="4">VAT (10%):</td>
+                    <td class="text-end">$74</td>
+                  </tr>
+                  <tr>
+                    <td class="text-end" colspan="4">Grand Total:</td>
+                    <td class="text-end">$814</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <p class="mb-0">Notice: This is auto generated invoice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Nav -->
+  <div class="footer-nav-area" id="footerNav">
+    <div class="container px-0">
+      <!-- Footer Content -->
+      <div class="footer-nav position-relative">
+        <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
+          <li class="active">
+            <a href="home.html">
+              <i class="bi bi-house"></i>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="pages.html">
+              <i class="bi bi-folder2-open"></i>
+              <span>Pages</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="elements.html">
+              <i class="bi bi-heart"></i>
+              <span>Elements</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="chat-users.html">
+              <i class="bi bi-chat-dots"></i>
+              <span>Chat</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="settings.html">
+              <i class="bi bi-gear"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- All JavaScript Files -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/slideToggle.min.js"></script>
+  <script src="js/internet-status.js"></script>
+  <script src="js/tiny-slider.js"></script>
+  <script src="js/venobox.min.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/rangeslider.min.js"></script>
+  <script src="js/vanilla-dataTables.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/imagesloaded.pkgd.min.js"></script>
+  <script src="js/isotope.pkgd.min.js"></script>
+  <script src="js/dark-rtl.js"></script>
+  <script src="js/active.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+
+</html>

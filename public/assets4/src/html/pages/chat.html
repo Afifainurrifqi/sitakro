@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Affan - PWA Mobile HTML Template">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <meta name="theme-color" content="#0134d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Title -->
+  <title>Affan - PWA Mobile HTML Template</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Internet Connection Status -->
+  <div class="internet-connection-status" id="internetStatus"></div>
+
+  <!-- Header Area -->
+  <div class="header-area" id="headerArea">
+    <div class="container">
+      <!-- Header Content -->
+      <div class="header-content position-relative d-flex align-items-center justify-content-between">
+        <!-- Chat User Info -->
+        <div class="chat-user--info d-flex align-items-center">
+
+          <!-- Back Button -->
+          <div class="back-button">
+            <a href="chat-users.html">
+              <i class="bi bi-arrow-left-short"></i>
+            </a>
+          </div>
+
+          <!-- User Thumbnail & Name -->
+          <div class="user-thumbnail-name">
+            <img src="img/bg-img/2.jpg" alt="">
+            <div class="info ms-1">
+              <p>Affan</p>
+              <span class="active-status">Active Now</span>
+              <!-- span.offline-status.text-muted Last actived 27m ago -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Call & Video Wrapper -->
+        <div class="call-video-wrapper d-flex align-items-center">
+          <!-- Video Icon -->
+          <div class="video-icon me-3">
+            <a class="text-secondary" id="videoCallingButton" href="#">
+              <i class="bi bi-camera-video"></i>
+            </a>
+          </div>
+
+          <!-- Call Icon -->
+          <div class="call-icon me-3">
+            <a class="text-secondary" id="callingButton" href="#">
+              <i class="bi bi-telephone"></i>
+            </a>
+          </div>
+
+          <!-- Info Icon -->
+          <div class="info-icon">
+            <a class="text-secondary" href="#">
+              <i class="bi bi-info-circle"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Calling Popup -->
+  <div class="video-calling-popup-wrap" id="videoCallingPopup">
+    <div class="video-calling-popup-body bg-overlay" style="background-image: url('img/bg-img/2.jpg')">
+      <!-- User Thumbnail -->
+      <div class="user-thumbnail mb-3">
+        <img src="img/bg-img/2.jpg" alt="">
+      </div>
+
+      <!-- Video Icon -->
+      <div class="video-icon d-block mb-1">
+        <i class="bi bi-camera-video text-white"></i>
+      </div>
+
+      <h6 class="mb-5 text-white">Affan is video calling...</h6>
+
+      <!-- Button Group -->
+      <div class="button-group">
+        <a class="btn btn-lg btn-danger rounded-pill me-3" id="videoCallDecline" href="#">Decline</a>
+        <a class="btn btn-lg btn-success rounded-pill ms-3" href="video-call.html">Accept</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calling Popup -->
+  <div class="calling-popup-wrap" id="callingPopup">
+    <div class="calling-popup-body bg-primary">
+      <!-- User Thumbnail -->
+      <div class="user-thumbnail mb-3">
+        <img src="img/bg-img/2.jpg" alt="">
+      </div>
+
+      <!-- Call Icon -->
+      <div class="call-icon d-block mb-2">
+        <i class="bi bi-telephone text-white"></i>
+      </div>
+
+      <h6 class="mb-5 text-white">Affan is calling...</h6>
+
+      <!-- Button Group -->
+      <div class="button-group">
+        <a class="btn btn-lg btn-danger rounded-pill me-2" id="callDecline" href="#">Decline</a>
+        <a class="btn btn-lg btn-success rounded-pill ms-2" href="#">Accept</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content-wrapper py-3" id="chat-wrapper">
+    <div class="container">
+      <div class="chat-content-wrap">
+        <!-- Single Chat Item -->
+        <div class="single-chat-item">
+
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username.-->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/2.jpg" alt="">
+          </div>
+
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <p>Hello, Are you there?</p>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:39 AM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item outgoing">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/user3.png" alt="">
+          </div>
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <p>Yes, How can I help you?</p>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:46 AM</div>
+              <div class="sent-status seen">
+                <i class="bi bi-check"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/2.jpg" alt="">
+          </div>
+
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <p>I want to buy your Affan template.</p>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="message-content">
+              <div class="single-message">
+                <p>Affan - PWA Mobile HTML Template</p>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:46 AM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item outgoing">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/user3.png" alt="">
+          </div>
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <div class="gallery-img">
+                  <a href="img/bg-img/30.jpg">
+                    <img src="img/bg-img/30.jpg" alt="">
+                  </a>
+                </div>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:39 AM</div>
+              <div class="sent-status seen">
+                <i class="bi bi-check"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/2.jpg" alt="">
+          </div>
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <p>Would you please provide a purchase link?</p>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:39 AM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item outgoing">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/user3.png" alt="">
+          </div>
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <p>Sure, Here are the purchase link. Please click the purchase now button, then fill up your all payment
+                  info.</p>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="message-content">
+              <div class="single-message">
+                <a class="btn btn-success rounded-pill"
+                  href="https://themeforest.net/item/affan-pwa-mobile-html-template/29715548" target="_blank">Buy Now -
+                  $24</a>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:46 AM</div>
+              <div class="sent-status seen">
+                <i class="bi bi-check"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/2.jpg" alt="">
+          </div>
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <p>Thanks!</p>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:39 AM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/2.jpg" alt="">
+          </div>
+
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <div class="download-file-wrap d-flex align-items-center">
+                  <div class="download-avatar bg-light">
+                    <div class="dl-icon">
+                      <i class="bi bi-file-earmark-zip-fill"></i>
+                    </div>
+                    <a class="download-btn" href="#">
+                      <i class="bi bi-download"></i>
+                    </a>
+                  </div>
+                  <div class="download-file-info">
+                    <div class="file-name text-truncate">affan-pwa-mobile-html-template.zip</div>
+                    <div class="file-size">11.69 MB</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:39 AM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item outgoing">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/user3.png" alt="">
+          </div>
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <p>You are welcome &#128525;</p>
+              </div>
+
+              <!-- Options -->
+              <div class="dropstart">
+                <button class="btn btn-options dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="bi bi-reply"></i>Reply</a></li>
+                  <li><a href="#"><i class="bi bi-forward"></i>Forward</a></li>
+                  <li><a href="#"><i class="bi bi-trash"></i>Remove</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Time and Status -->
+            <div class="message-time-status">
+              <div class="sent-time">11:46 AM</div>
+              <div class="sent-status delivered">
+                <i class="bi bi-check"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Chat Item -->
+        <div class="single-chat-item">
+          <!-- User Avatar -->
+          <div class="user-avatar mt-1">
+            <!-- If the user avatar isn't available, will visible the first letter of the username. -->
+            <span class="name-first-letter">A</span>
+            <img src="img/bg-img/2.jpg" alt="">
+          </div>
+
+          <!-- User Message -->
+          <div class="user-message">
+            <div class="message-content">
+              <div class="single-message">
+                <div class="typing">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-footer">
+    <div class="container h-100">
+      <div class="chat-footer-content h-100 d-flex align-items-center">
+        <form action="#">
+          <!-- Message -->
+          <input class="form-control" type="text" placeholder="Type here...">
+
+          <!-- Emoji -->
+          <button class="btn btn-emoji mx-2" type="button">
+            <i class="bi bi-emoji-smile"></i>
+          </button>
+
+          <!-- Add File -->
+          <div class="dropup me-2">
+            <button class="btn btn-add-file dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-plus-circle"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#"><i class="bi bi-files"></i>Files</a></li>
+              <li><a href="#"><i class="bi bi-mic"></i>Audio</a></li>
+              <li><a href="#"><i class="bi bi-file-earmark"></i>Document</a></li>
+              <li><a href="#"><i class="bi bi-file-bar-graph"></i>Pull</a></li>
+              <li><a href="#"><i class="bi bi-geo-alt"></i>Location</a></li>
+            </ul>
+          </div>
+
+          <!-- Send -->
+          <button class="btn btn-submit" type="submit">
+            <i class="bi bi-cursor"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- All JavaScript Files -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/slideToggle.min.js"></script>
+  <script src="js/internet-status.js"></script>
+  <script src="js/tiny-slider.js"></script>
+  <script src="js/venobox.min.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/rangeslider.min.js"></script>
+  <script src="js/vanilla-dataTables.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/imagesloaded.pkgd.min.js"></script>
+  <script src="js/isotope.pkgd.min.js"></script>
+  <script src="js/dark-rtl.js"></script>
+  <script src="js/active.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+
+</html>

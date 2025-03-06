@@ -1,0 +1,22 @@
+/* :: Notification */
+
+.notification-area {
+    position: relative;
+    z-index: 1;
+
+    .alert {
+        margin-bottom: 0.5rem;
+    }
+
+    a {
+        &:last-child {
+            .alert {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .unread {
+        background-color: var(--white) !important;
+    }
+}
