@@ -13,7 +13,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <!-- Title -->
-    <title>Affan - PWA Mobile HTML Template</title>
+    <title>Sitakro Pertanian</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map { height: 400px; margin-top: 10px; }
+    </style>
 
     <!-- Favicon -->
     <link rel="icon" href="assets4/dist/img/core-img/favicon.ico">
@@ -202,9 +206,20 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" for="inputAlamatLahan">Alamat lahan (Koordinat)</label>
-                                <input class="form-control" id="inputAlamatLahan" type="text" placeholder="Masukkan koordinat geotagging">
+                                <label class="form-label" for="inputAlamatLahan">Alamat lahan (Nama Desa)</label>
+                                <input class="form-control" id="inputAlamatLahan" type="text" placeholder="Masukkan nama desa">
+                                <button type="button" onclick="cariKoordinat()">Cari Koordinat</button>
                             </div>
+                            <div id="map"></div>
+                            <div class="form-group">
+                                <label class="form-label" for="inputLatitude">Latitude</label>
+                                <input class="form-control" id="inputLatitude" type="text" placeholder="Latitude" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="inputLongitude">Longitude</label>
+                                <input class="form-control" id="inputLongitude" type="text" placeholder="Longitude" readonly>
+                            </div>
+
 
                             <div class="form-group">
                                 <label class="form-label" for="inputJenisTanaman">Jenis tanaman</label>
@@ -285,6 +300,8 @@
             </div>
         </div>
 
+
+
         <!-- All JavaScript Files -->
         <script src="assets4/dist/js/bootstrap.bundle.min.js"></script>
         <script src="assets4/dist/js/slideToggle.min.js"></script>
@@ -300,6 +317,53 @@
         <script src="assets4/dist/js/dark-rtl.js"></script>
         <script src="assets4/dist/js/active.js"></script>
         <script src="assets4/dist/js/pwa.js"></script>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Inisialisasi Peta
+    var map = L.map('map').setView([-2.5489, 118.0149], 5); // Pusat peta di Indonesia
+
+    // Tambahkan Tile Layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    var marker;
+
+    function cariKoordinat() {
+        var desa = document.getElementById('inputAlamatLahan').value;
+        if (!desa) {
+            alert("Silakan masukkan nama desa terlebih dahulu.");
+            return;
+        }
+
+        var url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(desa)}, Indonesia`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var latitude = data[0].lat;
+                    var longitude = data[0].lon;
+
+                    // Isi form koordinat
+                    document.getElementById('inputLatitude').value = latitude;
+                    document.getElementById('inputLongitude').value = longitude;
+
+                    // Update peta
+                    if (marker) {
+                        map.removeLayer(marker);
+                    }
+                    marker = L.marker([latitude, longitude]).addTo(map)
+                        .bindPopup(`<b>${desa}</b><br>Lat: ${latitude}, Lng: ${longitude}`).openPopup();
+
+                    map.setView([latitude, longitude], 13); // Zoom ke lokasi desa
+                } else {
+                    alert("Lokasi tidak ditemukan. Coba masukkan nama desa yang lebih spesifik.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
 </body>
 
 </html>
