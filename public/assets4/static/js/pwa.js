@@ -1,4 +1,4 @@
-// Service Worker Register 
+// Service Worker Register
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
@@ -21,7 +21,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
 });
 
-const installButton = document.getElementById('installAffan');
+const installButton = document.getElementById('installSitakro');
 const installWrap = document.getElementById('installWrap');
 
 if (installButton) {
