@@ -1,7 +1,7 @@
 {
   "name": "affan-pwa-mobile",
   "version": "1.7",
-  "description": "Affan - PWA Mobile",
+  "description": "Sitakro - Aplikasi Pertanian",
   "main": "active.js",
   "scripts": {
     "dev": "gulp"
