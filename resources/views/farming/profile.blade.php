@@ -190,7 +190,7 @@
                     <div class="single-hero-slide bg-overlay" style="background-image: url('img/bg-img/31.jpg')">
                         <div class="h-100 d-flex align-items-center text-center">
                             <div class="container">
-                                <h3 class="text-white mb-1">Selamat datang di SITAKRO FARM</h3>
+                                <h3 class="text-white mb-1">Selamat datang di SITAKRO Pertanian</h3>
                                 <p class="text-white mb-4">Nikmati</p>
                             </div>
                         </div>

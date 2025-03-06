@@ -190,7 +190,7 @@
                     <div class="single-hero-slide" style="background-image: url('assets4/dist/img/bg-img/31.jpg')">
                         <div class="h-100 d-flex align-items-center text-center">
                             <div class="container">
-                                <h3 class="text-white mb-1">Cek lahanmu dulu yuk di SITAKRO FARM</h3>
+                                <h3 class="text-white mb-1">Cek lahanmu dulu yuk di SITAKRO Pertaian</h3>
                                 {{-- <p class="text-white mb-4">Nikmati</p>
                 <a class="btn btn-creative btn-warning" href="#">CEK LAHAN</a> --}}
                             </div>
