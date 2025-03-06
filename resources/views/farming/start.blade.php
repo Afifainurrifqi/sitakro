@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="assets4/dist/style.css">
 
   <!-- Web App Manifest -->
-  <link rel="manifest" href="assets4/dist/manifest.json">
+  <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
