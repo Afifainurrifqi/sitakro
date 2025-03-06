@@ -323,7 +323,7 @@
             <div class="row g-1">
                 <div class="col-4">
                     <div class="card">
-                        <div class="card-body bg-primary text-center">
+                        <div class="card-body bg-primary text-center bg-img" style="background-image: url('assets4/dist/img/core-img/2.png')">
                             <i class="bi bi-tree-fill mb-2 text-white"></i>
                             <h4 class="mb-1 text-success">
                                 <span class="counter text-white">1399</span>
@@ -335,7 +335,7 @@
 
                 <div class="col-8">
                     <div class="card">
-                        <div class="card-body bg-warning text-center">
+                        <div class="card-body bg-warning text-center bg-img" style="background-image: url('assets4/dist/img/core-img/2.png')">
                             <div class="row">
                                 <div class="col-6">
                                     <i class="bi bi-droplet-fill mb-2 text-white"></i>

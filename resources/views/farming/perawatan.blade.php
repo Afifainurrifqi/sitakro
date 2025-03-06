@@ -287,7 +287,37 @@
       </div>
     </div> --}}
 
+    <div class="pt-3"></div>
 
+    <div class="container">
+        <div class="row g-1">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body bg-success bg-img" style="background-image: url('assets4/dist/img/core-img/2.png')">
+                        <i class="bi bi-map-fill mb-2 text-white"></i>
+                        <h4 class="mb-1 text-success">
+                            <span class="counter text-white">200</span>+
+                        </h4>
+                        <p class="mb-0 fz-12 text-white">Subsidi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body  bg-danger bg-img" style="background-image: url('assets4/dist/img/core-img/2.png')">
+                        <i class="bi bi-bounding-box mb-2 text-white"></i>
+                        <h4 class="mb-1 text-danger">
+                            <span class="counter text-white">11</span><span class="text-white">k</span>
+                        </h4>
+                        <p class="mb-0 fz-12 text-white">Non-Subsidi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-3"></div>
 
     <div class="container">
         <div class="card">

@@ -56,7 +56,7 @@
 
       <!-- Register Form -->
       <div class="register-form mt-4">
-        <h6 class="mb-3 text-center">Masuk untuk melanjutkan FarmingApp</h6>
+        <h6 class="mb-3 text-center">Masuk untuk melanjutkan Pertanian</h6>
 
         <form action="home.html">
           <div class="form-group">

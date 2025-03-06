@@ -303,12 +303,11 @@
                     </div>
                     <div class="user-info">
                         <div class="d-flex align-items-center">
-                            <h5 class="mb-1">Erlina Dwi N</h5>
+                            <h5 class="mb-1">Muhajir sulton</h5>
                             <span class="badge bg-warning ms-2 rounded-pill">Pro</span>
                         </div>
                         <p class="mb-0">352804220943291</p>
                         <p class="mb-0">Nama kelompok tani</p>
-                        <p class="mb-0">PETERNAK ANAK</p>
                     </div>
                 </div>
             </div>
