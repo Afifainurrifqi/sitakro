@@ -21,7 +21,7 @@
 
 
 <body class="h-100">
-    
+
     <!--*******************
         Preloader start
     ********************-->
@@ -35,7 +35,7 @@
     <!--*******************
         Preloader end
     ********************-->
-    
+
 
     <div class="login-form-bg h-100">
         <div class="container h-100">
@@ -47,8 +47,8 @@
                                 <h1 class="error-text text-primary">MAAF YA</h1>
                                 <h4 class="mt-4"><i class="fa fa-thumbs-down text-danger"></i> HALAMAN INI SEDANG MAINTANCE</h4>
                                 <form class="mt-5 mb-5">
-                                    
-                                    <div class="text-center mb-4 mt-4"><a href="{{ 'datapenduduk' }}" class="btn btn-primary">Kembali</a>
+
+                                    <div class="text-center mb-4 mt-4"><a href="{{ 'login' }}" class="btn btn-primary">Kembali</a>
                                     </div>
                                 </form>
                             </div>
@@ -58,12 +58,12 @@
             </div>
         </div>
     </div>
-    
 
 
 
 
-    
+
+
 
     <!--**********************************
         Scripts

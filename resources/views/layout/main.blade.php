@@ -246,6 +246,19 @@
                         </ul>
                     </li>
 
+                    <li>
+                        <a class="has-arrow nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
+                            href="javascript:void()" aria-expanded="false">
+                            <i class="icon-graph menu-icon"></i> <span class="nav-text">Pelayanan Surat</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('maintance') }}">Surat Masuk</a></li>
+                            <li><a href="{{ route('maintance') }}">Surat Keluar</a></li>
+                            <li><a href="{{ route('maintance') }}">Arsip Surat Masuk</a></li>
+                            <li><a href="{{ route('maintance') }}">Arsip Surat Keluar</a></li>
+                        </ul>
+                    </li>
+
                 </ul>
                 </li>
                 </ul>
