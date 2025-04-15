@@ -85,67 +85,30 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var ctxPekerjaan = document.getElementById('pekerjaanChart').getContext('2d');
-                var ctxPekerjaan = document.getElementById('pekerjaanChart').getContext('2d');
                 var pekerjaanLabels = @json($pekerjaanLabels);
                 var pekerjaanCounts = @json($pekerjaanCounts);
 
-                // Gabungkan label dan count menjadi array of objects untuk sorting
-                var pekerjaanData = pekerjaanLabels.map((label, index) => {
-                    return {
-                        label: label,
-                        count: pekerjaanCounts[index]
-                    };
-                });
-
-                // Urutkan berdasarkan count descending
-                pekerjaanData.sort((a, b) => b.count - a.count);
-
-                // Ambil 5 data teratas
-                var top5Pekerjaan = pekerjaanData.slice(0, 5);
-                var otherPekerjaan = pekerjaanData.slice(5);
-
-                // Hitung total untuk "Lainnya"
-                var otherCount = otherPekerjaan.reduce((sum, item) => sum + item.count, 0);
-
-                // Siapkan data untuk chart
-                var chartLabels = top5Pekerjaan.map(item => item.label);
-                var chartCounts = top5Pekerjaan.map(item => item.count);
-
-                // Tambahkan "Lainnya" jika ada
-                if (otherCount > 0) {
-                    chartLabels.push('Lainnya');
-                    chartCounts.push(otherCount);
-                }
-
                 // Generate random colors
-                var pekerjaanColors = chartCounts.map(() =>
+                var pekerjaanColors = pekerjaanCounts.map(() =>
                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.7)');
 
                 var pekerjaanChart = new Chart(ctxPekerjaan, {
                     type: 'pie',
                     data: {
-                        labels: chartLabels,
+                        labels: pekerjaanLabels,
                         datasets: [{
-                            data: chartCounts,
+                            data: pekerjaanCounts,
                             backgroundColor: pekerjaanColors,
                         }]
                     },
                     options: {
-                        responsive: true,
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        var label = context.label || '';
-                                        var value = context.raw || 0;
-                                        var total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                        var percentage = Math.round((value / total) * 100);
-                                        return `${label}: ${value} (${percentage}%)`;
-                                    }
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    var label = data.labels[tooltipItem.index];
+                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                                    return label + ': ' + value;
                                 }
-                            },
-                            legend: {
-                                position: 'right',
                             }
                         }
                     }
