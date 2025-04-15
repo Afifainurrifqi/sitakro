@@ -93,7 +93,7 @@
                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.7)');
 
                 var pekerjaanChart = new Chart(ctxPekerjaan, {
-                    type: 'bar',
+                    type: 'pie',
                     data: {
                         labels: pekerjaanLabels,
                         datasets: [{
@@ -123,7 +123,7 @@
                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.7)');
 
                 var disabilitasChart = new Chart(ctxDisabilitas, {
-                    type: 'bar',
+                    type: 'pie',
                     data: {
                         labels: disabilitasLabels,
                         datasets: [{
