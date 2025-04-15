@@ -88,53 +88,26 @@
                 var pekerjaanLabels = @json($pekerjaanLabels);
                 var pekerjaanCounts = @json($pekerjaanCounts);
 
-                // Gabungkan labels dan counts menjadi array of objects
-                var pekerjaanData = pekerjaanLabels.map((label, index) => {
-                    return {
-                        label: label,
-                        count: pekerjaanCounts[index]
-                    };
-                });
-
-                // Urutkan berdasarkan count descending
-                pekerjaanData.sort((a, b) => b.count - a.count);
-
-                // Ambil hanya 5 data terbanyak
-                var top5Pekerjaan = pekerjaanData.slice(0, 5);
-
-                // Pisahkan kembali labels dan counts
-                var top5Labels = top5Pekerjaan.map(item => item.label);
-                var top5Counts = top5Pekerjaan.map(item => item.count);
-
-                // Generate random colors hanya untuk 5 data
-                var pekerjaanColors = top5Counts.map(() =>
+                // Generate random colors
+                var pekerjaanColors = pekerjaanCounts.map(() =>
                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.7)');
 
                 var pekerjaanChart = new Chart(ctxPekerjaan, {
                     type: 'pie',
                     data: {
-                        labels: top5Labels,
+                        labels: pekerjaanLabels,
                         datasets: [{
-                            data: top5Counts,
+                            data: pekerjaanCounts,
                             backgroundColor: pekerjaanColors,
                         }]
                     },
                     options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'right',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        var label = context.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        label += context.raw;
-                                        return label;
-                                    }
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    var label = data.labels[tooltipItem.index];
+                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                                    return label + ': ' + value;
                                 }
                             }
                         }
