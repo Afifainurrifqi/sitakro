@@ -85,41 +85,34 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var ctxPekerjaan = document.getElementById('pekerjaanChart').getContext('2d');
-var pekerjaanLabels = @json($pekerjaanLabels);
-var pekerjaanCounts = @json($pekerjaanCounts);
+                var pekerjaanLabels = @json($pekerjaanLabels);
+                var pekerjaanCounts = @json($pekerjaanCounts);
 
-// Generate random colors
-var pekerjaanColors = pekerjaanCounts.map(() =>
-    'rgba(' + Math.floor(Math.random() * 200) + ',' + Math.floor(Math.random() * 200) + ',' + Math.floor(Math.random() * 200) + ', 0.8)'
-);
+                // Generate random colors
+                var pekerjaanColors = pekerjaanCounts.map(() =>
+                    'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.7)');
 
-var pekerjaanChart = new Chart(ctxPekerjaan, {
-    type: 'pie',
-    data: {
-        labels: pekerjaanLabels,
-        datasets: [{
-            data: pekerjaanCounts,
-            backgroundColor: pekerjaanColors
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false // Sembunyikan legend default
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        let label = context.label || '';
-                        let value = context.raw || 0;
-                        return `${label}: ${value}`;
+                var pekerjaanChart = new Chart(ctxPekerjaan, {
+                    type: 'pie',
+                    data: {
+                        labels: pekerjaanLabels,
+                        datasets: [{
+                            data: pekerjaanCounts,
+                            backgroundColor: pekerjaanColors,
+                        }]
+                    },
+                    options: {
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    var label = data.labels[tooltipItem.index];
+                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                                    return label + ': ' + value;
+                                }
+                            }
+                        }
                     }
-                }
-            }
-        }
-    }
-});
+                });
 
                 var ctxDisabilitas = document.getElementById('disabilitasChart').getContext('2d');
                 var disabilitasLabels = @json($disabilitasLabels);
