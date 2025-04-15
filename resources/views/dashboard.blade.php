@@ -45,16 +45,16 @@
              </div>
 
              <div class="col-lg-6 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">PEKERJAAN UTAMA</h4>
-                        <div style="max-height: 400px; overflow-y: auto;">
-                            <canvas id="pekerjaanChart"></canvas>
-                        </div>
+                 <div class="card">
+                     <div class="card-body">
+                         <h4 class="card-title">PEKERJAAN UTAMA</h4>
+                         <div style="height: 400px; overflow-y: auto; position: relative;">
+                             <canvas id="pekerjaanChart" style="height: 600px !important;"></canvas>
+                         </div>
+                     </div>
+                 </div>
+             </div>
 
-                    </div>
-                </div>
-            </div>
 
          </div>
 
@@ -109,7 +109,7 @@
                      },
                      options: {
                          responsive: true,
-                         maintainAspectRatio: false, // penting untuk ngatur tinggi custom
+                         maintainAspectRatio: false,
                          plugins: {
                              legend: {
                                  position: 'right',
