@@ -48,7 +48,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">PEKERJAAN UTAMA</h4>
-                        <canvas id="pekerjaanChart"></canvas>
+                        <div style="max-height: 400px; overflow-y: auto;">
+                            <canvas id="pekerjaanChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
