@@ -88,26 +88,53 @@
                 var pekerjaanLabels = @json($pekerjaanLabels);
                 var pekerjaanCounts = @json($pekerjaanCounts);
 
-                // Generate random colors
-                var pekerjaanColors = pekerjaanCounts.map(() =>
+                // Gabungkan labels dan counts menjadi array of objects
+                var pekerjaanData = pekerjaanLabels.map((label, index) => {
+                    return {
+                        label: label,
+                        count: pekerjaanCounts[index]
+                    };
+                });
+
+                // Urutkan berdasarkan count descending
+                pekerjaanData.sort((a, b) => b.count - a.count);
+
+                // Ambil hanya 5 data terbanyak
+                var top5Pekerjaan = pekerjaanData.slice(0, 5);
+
+                // Pisahkan kembali labels dan counts
+                var top5Labels = top5Pekerjaan.map(item => item.label);
+                var top5Counts = top5Pekerjaan.map(item => item.count);
+
+                // Generate random colors hanya untuk 5 data
+                var pekerjaanColors = top5Counts.map(() =>
                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.7)');
 
                 var pekerjaanChart = new Chart(ctxPekerjaan, {
                     type: 'pie',
                     data: {
-                        labels: pekerjaanLabels,
+                        labels: top5Labels,
                         datasets: [{
-                            data: pekerjaanCounts,
+                            data: top5Counts,
                             backgroundColor: pekerjaanColors,
                         }]
                     },
                     options: {
-                        tooltips: {
-                            callbacks: {
-                                label: function(tooltipItem, data) {
-                                    var label = data.labels[tooltipItem.index];
-                                    var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                                    return label + ': ' + value;
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        var label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += context.raw;
+                                        return label;
+                                    }
                                 }
                             }
                         }
