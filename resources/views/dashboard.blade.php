@@ -47,7 +47,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">PERKEJAAN UTAMA</h4>
+                        <h4 class="card-title">PEKERJAAN UTAMA</h4>
                         <canvas id="pekerjaanChart"></canvas>
                     </div>
                 </div>
