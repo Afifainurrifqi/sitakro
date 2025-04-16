@@ -39,16 +39,31 @@
                  <div class="card">
                      <div class="card-body">
                          <h4 class="card-title">MASYARAKAT DISABILITAS</h4>
-                         <canvas id="disabilitasChart"></canvas>
+                         <div class="row">
+                             <div class="col-md-8">
+                                 <canvas id="disabilitasChart"></canvas>
+                             </div>
+                             <div class="col-md-4">
+                                 <h9>5 Terbanyak</h9>
+                                 <ul id="topDisabilitasList" class="list-group"></ul>
+                             </div>
+                         </div>
                      </div>
                  </div>
              </div>
-
              <div class="col-lg-6 col-md-12">
                  <div class="card">
                      <div class="card-body">
                          <h4 class="card-title">PEKERJAAN UTAMA</h4>
-                         <canvas id="pekerjaanChart"></canvas>
+                         <div class="row">
+                             <div class="col-md-8">
+                                 <canvas id="pekerjaanChart"></canvas>
+                             </div>
+                             <div class="col-md-4">
+                                 <h9>5 Terbanyak</h9>
+                                 <ul id="topPekerjaanList" class="list-group"></ul>
+                             </div>
+                         </div>
                      </div>
                  </div>
              </div>
@@ -88,12 +103,30 @@
                  var pekerjaanLabels = @json($pekerjaanLabels);
                  var pekerjaanCounts = @json($pekerjaanCounts);
 
-                 // Generate random colors
                  var pekerjaanColors = pekerjaanCounts.map(() =>
-                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math
-                     .floor(Math.random() * 256) + ', 0.7)');
+                     'rgba(' + Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ', 0.7)');
 
-                 var pekerjaanChart = new Chart(ctxPekerjaan, {
+                 // Ambil top 5 data pekerjaan
+                 var topPekerjaanData = pekerjaanLabels.map((label, index) => ({
+                     label: label,
+                     value: pekerjaanCounts[index]
+                 })).sort((a, b) => b.value - a.value).slice(0, 5);
+
+                 // Render top 5 pekerjaan
+                 var topPekerjaanList = document.getElementById('topPekerjaanList');
+                 topPekerjaanData.forEach(item => {
+                     var li = document.createElement('li');
+                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                     li.innerHTML = `
+            <span>${item.label}</span>
+            <span class="badge badge-primary badge-pill">${item.value}</span>
+        `;
+                     topPekerjaanList.appendChild(li);
+                 });
+
+                 new Chart(ctxPekerjaan, {
                      type: 'pie',
                      data: {
                          labels: pekerjaanLabels,
@@ -117,20 +150,36 @@
                              }
                          }
                      }
-
-
                  });
 
                  var ctxDisabilitas = document.getElementById('disabilitasChart').getContext('2d');
                  var disabilitasLabels = @json($disabilitasLabels);
                  var disabilitasCounts = @json($disabilitasCounts);
 
-                 // Generate random colors
                  var disabilitasColors = disabilitasCounts.map(() =>
-                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math
-                     .floor(Math.random() * 256) + ', 0.7)');
+                     'rgba(' + Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ', 0.7)');
 
-                 var disabilitasChart = new Chart(ctxDisabilitas, {
+                 // Ambil top 5 data disabilitas
+                 var topDisabilitasData = disabilitasLabels.map((label, index) => ({
+                     label: label,
+                     value: disabilitasCounts[index]
+                 })).sort((a, b) => b.value - a.value).slice(0, 5);
+
+                 // Render top 5 disabilitas
+                 var topDisabilitasList = document.getElementById('topDisabilitasList');
+                 topDisabilitasData.forEach(item => {
+                     var li = document.createElement('li');
+                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                     li.innerHTML = `
+            <span>${item.label}</span>
+            <span class="badge badge-success badge-pill">${item.value}</span>
+        `;
+                     topDisabilitasList.appendChild(li);
+                 });
+
+                 new Chart(ctxDisabilitas, {
                      type: 'pie',
                      data: {
                          labels: disabilitasLabels,
@@ -154,7 +203,6 @@
                              }
                          }
                      }
-
                  });
              });
 
