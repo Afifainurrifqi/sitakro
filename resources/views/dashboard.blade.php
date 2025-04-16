@@ -40,6 +40,8 @@
                      <div class="card-body">
                          <h4 class="card-title">MASYARAKAT DISABILITAS</h4>
                          <canvas id="disabilitasChart"></canvas>
+                         <h5 class="mt-4">5 Terbanyak</h5>
+                         <ul id="topDisabilitasList" class="list-group"></ul>
                      </div>
                  </div>
              </div>
@@ -49,6 +51,8 @@
                      <div class="card-body">
                          <h4 class="card-title">PEKERJAAN UTAMA</h4>
                          <canvas id="pekerjaanChart"></canvas>
+                         <h5 class="mt-4">5 Terbanyak</h5>
+                         <ul id="topPekerjaanList" class="list-group"></ul>
                      </div>
                  </div>
              </div>
@@ -88,12 +92,29 @@
                  var pekerjaanLabels = @json($pekerjaanLabels);
                  var pekerjaanCounts = @json($pekerjaanCounts);
 
-                 // Generate random colors
                  var pekerjaanColors = pekerjaanCounts.map(() =>
-                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math
-                     .floor(Math.random() * 256) + ', 0.7)');
+                     'rgba(' + Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ', 0.7)');
 
-                 var pekerjaanChart = new Chart(ctxPekerjaan, {
+                 // Top 5 Pekerjaan
+                 var topPekerjaanData = pekerjaanLabels.map((label, index) => ({
+                         label: label,
+                         value: pekerjaanCounts[index]
+                     }))
+                     .sort((a, b) => b.value - a.value)
+                     .slice(0, 5);
+
+                 var topPekerjaanList = document.getElementById('topPekerjaanList');
+                 topPekerjaanData.forEach(item => {
+                     var li = document.createElement('li');
+                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                     li.innerHTML =
+                         `<span>${item.label}</span><span class="badge badge-primary badge-pill">${item.value}</span>`;
+                     topPekerjaanList.appendChild(li);
+                 });
+
+                 new Chart(ctxPekerjaan, {
                      type: 'pie',
                      data: {
                          labels: pekerjaanLabels,
@@ -117,20 +138,35 @@
                              }
                          }
                      }
-
-
                  });
 
                  var ctxDisabilitas = document.getElementById('disabilitasChart').getContext('2d');
                  var disabilitasLabels = @json($disabilitasLabels);
                  var disabilitasCounts = @json($disabilitasCounts);
 
-                 // Generate random colors
                  var disabilitasColors = disabilitasCounts.map(() =>
-                     'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math
-                     .floor(Math.random() * 256) + ', 0.7)');
+                     'rgba(' + Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ', 0.7)');
 
-                 var disabilitasChart = new Chart(ctxDisabilitas, {
+                 // Top 5 Disabilitas
+                 var topDisabilitasData = disabilitasLabels.map((label, index) => ({
+                         label: label,
+                         value: disabilitasCounts[index]
+                     }))
+                     .sort((a, b) => b.value - a.value)
+                     .slice(0, 5);
+
+                 var topDisabilitasList = document.getElementById('topDisabilitasList');
+                 topDisabilitasData.forEach(item => {
+                     var li = document.createElement('li');
+                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                     li.innerHTML =
+                         `<span>${item.label}</span><span class="badge badge-success badge-pill">${item.value}</span>`;
+                     topDisabilitasList.appendChild(li);
+                 });
+
+                 new Chart(ctxDisabilitas, {
                      type: 'pie',
                      data: {
                          labels: disabilitasLabels,
@@ -154,7 +190,6 @@
                              }
                          }
                      }
-
                  });
              });
 

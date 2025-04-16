@@ -123,32 +123,32 @@
                     <li>
                         <a class="nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="{{ route('dashboard') }}" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                            <i class="fas fa-tachometer-alt menu-icon"></i><span class="nav-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="mega-menu mega-menu-sm">
                         <a class="nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="{{ route('datapenduduk.index') }}" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Penduduk</span>
+                            <i class="fas fa-users menu-icon"></i><span class="nav-text">Data Penduduk</span>
                         </a>
                     </li>
                     <li class="mega-menu mega-menu-sm">
                         <a class="nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="{{ '/datamutasi/datam' }}" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Mutasi</span>
+                            <i class="fas fa-random menu-icon"></i><span class="nav-text">Data Mutasi</span>
                         </a>
                     </li>
                     <li class="mega-menu mega-menu-sm">
                         <a class="nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="{{ route('dasawisma.index') }}" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Data Dasa wisma</span>
+                            <i class="fas fa-home menu-icon"></i><span class="nav-text">Data Dasa wisma</span>
                         </a>
                     </li>
                     <li class="nav-label">SGDS Desa</li>
                     <li>
                         <a class="has-arrow nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="javascript:void()" aria-expanded="false">
-                            <i class="fa-light fa-user"></i> <span class="nav-text">Individu</span>
+                            <i class="fas fa-user menu-icon"></i><span class="nav-text">Individu</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('individu.index') }}">Data individu</a></li>
@@ -205,7 +205,7 @@
                     <li>
                         <a class="has-arrow nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="javascript:void()" aria-expanded="false">
-                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">KK</span>
+                            <i class="fas fa-id-card menu-icon"></i><span class="nav-text">KK</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('lokasipemukiman.index') }}">Lokasi dan pemukiman</a></li>
@@ -219,7 +219,7 @@
                     <li>
                         <a class="has-arrow nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="javascript:void()" aria-expanded="false">
-                            <i class="icon-graph menu-icon"></i> <span class="nav-text">RT</span>
+                            <i class="fas fa-house-user menu-icon"></i><span class="nav-text">RT</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('datart.index') }}">Data RT</a></li>
@@ -249,7 +249,7 @@
                     <li>
                         <a class="has-arrow nav-link {{ request()->segment('1') == 'home' ? 'active' : '' }}"
                             href="javascript:void()" aria-expanded="false">
-                            <i class="icon-graph menu-icon"></i> <span class="nav-text">Pelayanan Surat</span>
+                            <i class="fas fa-envelope menu-icon"></i><span class="nav-text">Pelayanan Surat</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('maintance') }}">Surat Masuk</a></li>
