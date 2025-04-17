@@ -88,18 +88,30 @@
          {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
          <script>
              document.addEventListener('DOMContentLoaded', function() {
+                 var ctxPekerjaan = document.getElementById('pekerjaanChart').getContext('2d');
+                 var pekerjaanLabels = @json($pekerjaanLabels);
+                 var pekerjaanCounts = @json($pekerjaanCounts);
 
+                 var ctxDisabilitas = document.getElementById('disabilitasChart').getContext('2d');
+                 var disabilitasLabels = @json($disabilitasLabels);
+                 var disabilitasCounts = @json($disabilitasCounts);
+
+                 // Fungsi untuk menggabungkan label dan jumlah, dengan pengecekan angka valid
                  function combineLabelsAndCounts(labels, counts) {
                      var combined = {};
                      labels.forEach(function(label, index) {
                          var cleanedLabel = (label || '').trim().toUpperCase();
-                         if (!cleanedLabel) return;
+                         var count = parseInt(counts[index]);
+
+                         if (!cleanedLabel || isNaN(count)) return;
+
                          if (combined[cleanedLabel]) {
-                             combined[cleanedLabel] += counts[index];
+                             combined[cleanedLabel] += count;
                          } else {
-                             combined[cleanedLabel] = counts[index];
+                             combined[cleanedLabel] = count;
                          }
                      });
+
                      return Object.entries(combined).map(function([label, value]) {
                          return {
                              label: label,
@@ -108,106 +120,86 @@
                      });
                  }
 
-                 function renderTopList(containerId, data, badgeClass) {
-                     var container = document.getElementById(containerId);
-                     container.innerHTML = '';
-                     data.forEach(function(item) {
-                         var li = document.createElement('li');
-                         li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                         li.innerHTML = '<span>' + item.label + '</span><span class="badge ' + badgeClass +
-                             ' badge-pill">' + item.value + '</span>';
-                         container.appendChild(li);
-                     });
-                 }
+                 // ------ PEKERJAAN ------
+                 var pekerjaanData = combineLabelsAndCounts(pekerjaanLabels, pekerjaanCounts);
+                 var pekerjaanChartLabels = pekerjaanData.map(d => d.label);
+                 var pekerjaanChartCounts = pekerjaanData.map(d => d.value);
+                 var pekerjaanColors = pekerjaanChartCounts.map(() =>
+                     'rgba(' + Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ', 0.7)'
+                 );
 
-                 // ===================== PEKERJAAN UTAMA =====================
-                 var rawPekerjaanLabels = @json($pekerjaanLabels);
-                 var rawPekerjaanCounts = @json($pekerjaanCounts);
-                 var pekerjaanData = combineLabelsAndCounts(rawPekerjaanLabels, rawPekerjaanCounts);
-                 var topPekerjaan = pekerjaanData.sort(function(a, b) {
-                     return b.value - a.value;
-                 }).slice(0, 5);
-                 renderTopList('topPekerjaanList', topPekerjaan, 'badge-primary');
+                 var topPekerjaanData = pekerjaanData
+                     .sort((a, b) => b.value - a.value)
+                     .slice(0, 5);
 
-                 var ctxPekerjaan = document.getElementById('pekerjaanChart').getContext('2d');
-                 var pekerjaanChart = new Chart(ctxPekerjaan, {
+                 var topPekerjaanList = document.getElementById('topPekerjaanList');
+                 topPekerjaanList.innerHTML = '';
+                 topPekerjaanData.forEach(item => {
+                     var li = document.createElement('li');
+                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                     li.innerHTML =
+                         `<span>${item.label}</span><span class="badge badge-primary badge-pill">${item.value}</span>`;
+                     topPekerjaanList.appendChild(li);
+                 });
+
+                 new Chart(ctxPekerjaan, {
                      type: 'pie',
                      data: {
-                         labels: pekerjaanData.map(function(item) {
-                             return item.label;
-                         }),
+                         labels: pekerjaanChartLabels,
                          datasets: [{
-                             data: pekerjaanData.map(function(item) {
-                                 return item.value;
-                             }),
-                             backgroundColor: pekerjaanData.map(function() {
-                                 return 'rgba(' + Math.floor(Math.random() * 256) + ',' +
-                                     Math.floor(Math.random() * 256) + ',' +
-                                     Math.floor(Math.random() * 256) + ', 0.7)';
-                             }),
+                             data: pekerjaanChartCounts,
+                             backgroundColor: pekerjaanColors,
                          }]
                      },
                      options: {
 
                              legend: {
                                  display: false
-                             },
-                             tooltip: {
-                                 callbacks: {
-                                     label: function(tooltipItem) {
-                                         var index = tooltipItem.dataIndex;
-                                         var label = pekerjaanData[index].label;
-                                         var value = pekerjaanData[index].value;
-                                         return label + ': ' + value;
-                                     }
-                                 }
                              }
 
                      }
                  });
 
-                 // ===================== DISABILITAS =====================
-                 var rawDisabilitasLabels = @json($disabilitasLabels);
-                 var rawDisabilitasCounts = @json($disabilitasCounts);
-                 var disabilitasData = combineLabelsAndCounts(rawDisabilitasLabels, rawDisabilitasCounts);
-                 var topDisabilitas = disabilitasData.sort(function(a, b) {
-                     return b.value - a.value;
-                 }).slice(0, 5);
-                 renderTopList('topDisabilitasList', topDisabilitas, 'badge-success');
+                 // ------ DISABILITAS ------
+                 var disabilitasData = combineLabelsAndCounts(disabilitasLabels, disabilitasCounts);
+                 var disabilitasChartLabels = disabilitasData.map(d => d.label);
+                 var disabilitasChartCounts = disabilitasData.map(d => d.value);
+                 var disabilitasColors = disabilitasChartCounts.map(() =>
+                     'rgba(' + Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ',' +
+                     Math.floor(Math.random() * 256) + ', 0.7)'
+                 );
 
-                 var ctxDisabilitas = document.getElementById('disabilitasChart').getContext('2d');
-                 var disabilitasChart = new Chart(ctxDisabilitas, {
+                 var topDisabilitasData = disabilitasData
+                     .sort((a, b) => b.value - a.value)
+                     .slice(0, 5);
+
+                 var topDisabilitasList = document.getElementById('topDisabilitasList');
+                 topDisabilitasList.innerHTML = '';
+                 topDisabilitasData.forEach(item => {
+                     var li = document.createElement('li');
+                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                     li.innerHTML =
+                         `<span>${item.label}</span><span class="badge badge-success badge-pill">${item.value}</span>`;
+                     topDisabilitasList.appendChild(li);
+                 });
+
+                 new Chart(ctxDisabilitas, {
                      type: 'pie',
                      data: {
-                         labels: disabilitasData.map(function(item) {
-                             return item.label;
-                         }),
+                         labels: disabilitasChartLabels,
                          datasets: [{
-                             data: disabilitasData.map(function(item) {
-                                 return item.value;
-                             }),
-                             backgroundColor: disabilitasData.map(function() {
-                                 return 'rgba(' + Math.floor(Math.random() * 256) + ',' +
-                                     Math.floor(Math.random() * 256) + ',' +
-                                     Math.floor(Math.random() * 256) + ', 0.7)';
-                             }),
+                             data: disabilitasChartCounts,
+                             backgroundColor: disabilitasColors,
                          }]
                      },
                      options: {
 
-                         legend: {
-                             display: false
-                         },
-                         tooltip: {
-                             callbacks: {
-                                 label: function(tooltipItem) {
-                                     var index = tooltipItem.dataIndex;
-                                     var label = disabilitasData[index].label;
-                                     var value = disabilitasData[index].value;
-                                     return label + ': ' + value;
-                                 }
+                             legend: {
+                                 display: false
                              }
-                         }
 
                      }
                  });
