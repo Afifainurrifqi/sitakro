@@ -88,109 +88,130 @@
          {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
          <script>
              document.addEventListener('DOMContentLoaded', function() {
+
+                 function combineLabelsAndCounts(labels, counts) {
+                     var combined = {};
+                     labels.forEach(function(label, index) {
+                         var cleanedLabel = (label || '').trim().toUpperCase();
+                         if (!cleanedLabel) return;
+                         if (combined[cleanedLabel]) {
+                             combined[cleanedLabel] += counts[index];
+                         } else {
+                             combined[cleanedLabel] = counts[index];
+                         }
+                     });
+                     return Object.entries(combined).map(function([label, value]) {
+                         return {
+                             label: label,
+                             value: value
+                         };
+                     });
+                 }
+
+                 function renderTopList(containerId, data, badgeClass) {
+                     var container = document.getElementById(containerId);
+                     container.innerHTML = '';
+                     data.forEach(function(item) {
+                         var li = document.createElement('li');
+                         li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                         li.innerHTML = '<span>' + item.label + '</span><span class="badge ' + badgeClass +
+                             ' badge-pill">' + item.value + '</span>';
+                         container.appendChild(li);
+                     });
+                 }
+
+                 // ===================== PEKERJAAN UTAMA =====================
+                 var rawPekerjaanLabels = @json($pekerjaanLabels);
+                 var rawPekerjaanCounts = @json($pekerjaanCounts);
+                 var pekerjaanData = combineLabelsAndCounts(rawPekerjaanLabels, rawPekerjaanCounts);
+                 var topPekerjaan = pekerjaanData.sort(function(a, b) {
+                     return b.value - a.value;
+                 }).slice(0, 5);
+                 renderTopList('topPekerjaanList', topPekerjaan, 'badge-primary');
+
                  var ctxPekerjaan = document.getElementById('pekerjaanChart').getContext('2d');
-                 var pekerjaanLabels = @json($pekerjaanLabels);
-                 var pekerjaanCounts = @json($pekerjaanCounts);
-
-                 var pekerjaanColors = pekerjaanCounts.map(() =>
-                     'rgba(' + Math.floor(Math.random() * 256) + ',' +
-                     Math.floor(Math.random() * 256) + ',' +
-                     Math.floor(Math.random() * 256) + ', 0.7)');
-
-                 // Top 5 Pekerjaan
-                 var topPekerjaanData = pekerjaanLabels.map((label, index) => ({
-                         label: label,
-                         value: pekerjaanCounts[index]
-                     }))
-                     .sort((a, b) => b.value - a.value)
-                     .slice(0, 5);
-
-                 var topPekerjaanList = document.getElementById('topPekerjaanList');
-                 topPekerjaanData.forEach(item => {
-                     var li = document.createElement('li');
-                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                     li.innerHTML =
-                         `<span>${item.label}</span><span class="badge badge-primary badge-pill">${item.value}</span>`;
-                     topPekerjaanList.appendChild(li);
-                 });
-
-                 new Chart(ctxPekerjaan, {
+                 var pekerjaanChart = new Chart(ctxPekerjaan, {
                      type: 'pie',
                      data: {
-                         labels: pekerjaanLabels,
+                         labels: pekerjaanData.map(function(item) {
+                             return item.label;
+                         }),
                          datasets: [{
-                             data: pekerjaanCounts,
-                             backgroundColor: pekerjaanColors,
+                             data: pekerjaanData.map(function(item) {
+                                 return item.value;
+                             }),
+                             backgroundColor: pekerjaanData.map(function() {
+                                 return 'rgba(' + Math.floor(Math.random() * 256) + ',' +
+                                     Math.floor(Math.random() * 256) + ',' +
+                                     Math.floor(Math.random() * 256) + ', 0.7)';
+                             }),
                          }]
                      },
                      options: {
-                         legend: {
-                             display: false
-                         },
-                         tooltips: {
-                             callbacks: {
-                                 label: function(tooltipItem, data) {
-                                     var label = data.labels[tooltipItem.index];
-                                     var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
-                                         .index];
-                                     return label + ': ' + value;
+                         plugins: {
+                             legend: {
+                                 display: false
+                             },
+                             tooltip: {
+                                 callbacks: {
+                                     label: function(tooltipItem) {
+                                         var index = tooltipItem.dataIndex;
+                                         var label = pekerjaanData[index].label;
+                                         var value = pekerjaanData[index].value;
+                                         return label + ': ' + value;
+                                     }
                                  }
                              }
                          }
                      }
                  });
+
+                 // ===================== DISABILITAS =====================
+                 var rawDisabilitasLabels = @json($disabilitasLabels);
+                 var rawDisabilitasCounts = @json($disabilitasCounts);
+                 var disabilitasData = combineLabelsAndCounts(rawDisabilitasLabels, rawDisabilitasCounts);
+                 var topDisabilitas = disabilitasData.sort(function(a, b) {
+                     return b.value - a.value;
+                 }).slice(0, 5);
+                 renderTopList('topDisabilitasList', topDisabilitas, 'badge-success');
 
                  var ctxDisabilitas = document.getElementById('disabilitasChart').getContext('2d');
-                 var disabilitasLabels = @json($disabilitasLabels);
-                 var disabilitasCounts = @json($disabilitasCounts);
-
-                 var disabilitasColors = disabilitasCounts.map(() =>
-                     'rgba(' + Math.floor(Math.random() * 256) + ',' +
-                     Math.floor(Math.random() * 256) + ',' +
-                     Math.floor(Math.random() * 256) + ', 0.7)');
-
-                 // Top 5 Disabilitas
-                 var topDisabilitasData = disabilitasLabels.map((label, index) => ({
-                         label: label,
-                         value: disabilitasCounts[index]
-                     }))
-                     .sort((a, b) => b.value - a.value)
-                     .slice(0, 5);
-
-                 var topDisabilitasList = document.getElementById('topDisabilitasList');
-                 topDisabilitasData.forEach(item => {
-                     var li = document.createElement('li');
-                     li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                     li.innerHTML =
-                         `<span>${item.label}</span><span class="badge badge-success badge-pill">${item.value}</span>`;
-                     topDisabilitasList.appendChild(li);
-                 });
-
-                 new Chart(ctxDisabilitas, {
+                 var disabilitasChart = new Chart(ctxDisabilitas, {
                      type: 'pie',
                      data: {
-                         labels: disabilitasLabels,
+                         labels: disabilitasData.map(function(item) {
+                             return item.label;
+                         }),
                          datasets: [{
-                             data: disabilitasCounts,
-                             backgroundColor: disabilitasColors,
+                             data: disabilitasData.map(function(item) {
+                                 return item.value;
+                             }),
+                             backgroundColor: disabilitasData.map(function() {
+                                 return 'rgba(' + Math.floor(Math.random() * 256) + ',' +
+                                     Math.floor(Math.random() * 256) + ',' +
+                                     Math.floor(Math.random() * 256) + ', 0.7)';
+                             }),
                          }]
                      },
                      options: {
-                         legend: {
-                             display: false
-                         },
-                         tooltips: {
-                             callbacks: {
-                                 label: function(tooltipItem, data) {
-                                     var label = data.labels[tooltipItem.index];
-                                     var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem
-                                         .index];
-                                     return label + ': ' + value;
+                         plugins: {
+                             legend: {
+                                 display: false
+                             },
+                             tooltip: {
+                                 callbacks: {
+                                     label: function(tooltipItem) {
+                                         var index = tooltipItem.dataIndex;
+                                         var label = disabilitasData[index].label;
+                                         var value = disabilitasData[index].value;
+                                         return label + ': ' + value;
+                                     }
                                  }
                              }
                          }
                      }
                  });
+
              });
 
              // {{-- KELAHIRAN --}}
