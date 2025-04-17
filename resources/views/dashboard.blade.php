@@ -148,7 +148,7 @@
                          }]
                      },
                      options: {
-                         plugins: {
+
                              legend: {
                                  display: false
                              },
@@ -162,7 +162,7 @@
                                      }
                                  }
                              }
-                         }
+
                      }
                  });
 
@@ -194,21 +194,21 @@
                          }]
                      },
                      options: {
-                         plugins: {
-                             legend: {
-                                 display: false
-                             },
-                             tooltip: {
-                                 callbacks: {
-                                     label: function(tooltipItem) {
-                                         var index = tooltipItem.dataIndex;
-                                         var label = disabilitasData[index].label;
-                                         var value = disabilitasData[index].value;
-                                         return label + ': ' + value;
-                                     }
+
+                         legend: {
+                             display: false
+                         },
+                         tooltip: {
+                             callbacks: {
+                                 label: function(tooltipItem) {
+                                     var index = tooltipItem.dataIndex;
+                                     var label = disabilitasData[index].label;
+                                     var value = disabilitasData[index].value;
+                                     return label + ': ' + value;
                                  }
                              }
                          }
+
                      }
                  });
 
