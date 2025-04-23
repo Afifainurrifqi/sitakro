@@ -40,10 +40,10 @@
                                             <td>{{ $item->nama_instansi }}</td>
                                             <td>{{ $item->keterangan }}</td>
                                             <td>
-                                                <a href="{{ asset('storage/' . $item->file) }}" class="btn btn-sm btn-primary" download>
+                                                <a href="{{ asset('storage/' . $item->file) }}"
+                                                    class="btn btn-sm btn-primary" download>
                                                     Cek
                                                 </a>
-
 
                                             </td>
 
