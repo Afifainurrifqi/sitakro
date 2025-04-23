@@ -23,14 +23,14 @@ class JenisdisabilitasController extends Controller
      */
     public function index(Request $request)
     {
-         // Dapatkan total data penduduk
-         $totalPenduduk = datapenduduk::count();
+        // Dapatkan total data penduduk
+        $totalPenduduk = datapenduduk::count();
 
-         // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
-         $dataTerisi = jenisdisabilitas::count();
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = jenisdisabilitas::count();
 
-         // Hitung presentase penyelesaian data
-         $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
 
 
         return view('sdgs.individu.datadisabilitas', compact('presentase'));
@@ -150,24 +150,24 @@ class JenisdisabilitasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StorejenisdisabilitasRequest $request)
-{
-    $datadisabilitas = jenisdisabilitas::where('nik', $request->valNIK)->first();
-    if ($datadisabilitas == NULL) {
-        $datadisabilitas = new jenisdisabilitas();
+    {
+        $datadisabilitas = jenisdisabilitas::where('nik', $request->valNIK)->first();
+        if ($datadisabilitas == NULL) {
+            $datadisabilitas = new jenisdisabilitas();
+        }
+        $datadisabilitas->nik = $request->valNIK;
+
+        // Periksa apakah valjenisdisab ada dan merupakan array
+        if (is_array($request->valjenisdisab)) {
+            $datadisabilitas->jenis_disabilitas = implode(",", $request->valjenisdisab);
+        } else {
+            $datadisabilitas->jenis_disabilitas = ''; // Atau null, tergantung kebutuhan
+        }
+
+        $datadisabilitas->save();
+
+        return redirect()->route('disabilitas.show', ['show' => $request->valNIK]);
     }
-    $datadisabilitas->nik = $request->valNIK;
-
-    // Periksa apakah valjenisdisab ada dan merupakan array
-    if (is_array($request->valjenisdisab)) {
-        $datadisabilitas->jenis_disabilitas = implode(",", $request->valjenisdisab);
-    } else {
-        $datadisabilitas->jenis_disabilitas = ''; // Atau null, tergantung kebutuhan
-    }
-
-    $datadisabilitas->save();
-
-    return redirect()->route('disabilitas.show', ['show' => $request->valNIK]);
-}
 
 
     /**

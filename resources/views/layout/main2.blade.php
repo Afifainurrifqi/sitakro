@@ -252,10 +252,10 @@
                             <i class="fas fa-envelope menu-icon"></i> <span class="nav-text">Pelayanan Surat</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('maintance') }}">Surat Masuk</a></li>
-                            <li><a href="{{ route('maintance') }}">Surat Keluar</a></li>
-                            <li><a href="{{ route('maintance') }}">Arsip Surat Masuk</a></li>
-                            <li><a href="{{ route('maintance') }}">Arsip Surat Keluar</a></li>
+                            <li><a href="{{ route('surat.masuk') }}">Surat Masuk</a></li>
+                            <li><a href="{{ route('surat.keluar') }}">Surat Keluar</a></li>
+                            {{-- <li><a href="{{ route('surat.arsipsuratmasuk') }}">Arsip Surat Masuk</a></li> --}}
+                            <li><a href="{{ route('surat.arsipsuratkeluar') }}">Arsip Surat Keluar</a></li>
                         </ul>
                     </li>
 

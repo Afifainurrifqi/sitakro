@@ -1,0 +1,50 @@
+@extends(Auth::user() && Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
+
+@section('content')
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Edit Surat Masuk</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('suratmasuk.update', $suratmasuk->_id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="mb-3">
+                                <label for="nama_instansi" class="form-label">Nama Instansi</label>
+                                <input type="text" name="nama_instansi" class="form-control"
+                                    value="{{ old('nama_instansi', $suratmasuk->nama_instansi) }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="keterangan" class="form-label">Keterangan</label>
+                                <input type="text" name="keterangan" class="form-control"
+                                    value="{{ old('keterangan', $suratmasuk->keterangan) }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Upload File (Opsional)</label>
+                                <input type="file" name="file" class="form-control" accept=".pdf,.doc,.docx,.jpg,.png">
+                                @if ($suratmasuk->file)
+                                    <div class="mt-2">
+                                        <label>File saat ini:</label>
+                                        <a href="{{ asset('storage/' . $suratmasuk->file) }}" target="_blank">Lihat File</a>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="{{ url('surat/suratmasuk') }}" class="btn btn-danger">Kembali</a>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

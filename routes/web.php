@@ -40,6 +40,7 @@ use App\Http\Controllers\RtSaranapendidikanController;
 use App\Http\Controllers\RtTkejahatanController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
+use App\Http\Controllers\SuratmasukController;
 use App\Http\Controllers\UserController;
 use App\Models\akseskesehatan;
 use App\Models\datakesehatan;
@@ -59,6 +60,19 @@ Route::get('/errorsrole', [SesiController::class, 'error']);
 Route::get('/akundemo', [SesiController::class, 'error2']);
 Route::get('/maintance', [SesiController::class, 'maintance'])->name('maintance');
 Route::get('/loginfarm', [SesiController::class, 'maintance'])->name('maintance');
+Route::get('surat/suratmasuk', [SuratmasukController::class, 'index'])->name('surat.masuk');
+Route::get('surat/suratkeluar', [SuratmasukController::class, 'suratkeluar'])->name('surat.keluar');
+// Route::get('surat/arsipsuratmasuk', [SuratmasukController::class, 'arsipsuratmasuk'])->name('surat.arsipsuratmasuk');
+Route::get('surat/arsipsuratkeluar', [SuratmasukController::class, 'arsipsuratkeluar'])->name('surat.arsipsuratkeluar');
+Route::get('surat/tambahsuratmasuk', [SuratmasukController::class, 'tambahsuratmasuk'])->name('surat.tambahsuratmasuk');
+Route::post('surat/suratmasuk', [SuratmasukController::class, 'store'])->name('suratmasuk.store');
+Route::get('surat/suratmasuk/{suratmasuk}/edit', [SuratmasukController::class, 'edit'])->name('suratmasuk.edit');
+Route::put('surat/suratmasuk/{suratmasuk}', [SuratmasukController::class, 'update'])->name('suratmasuk.update');
+
+
+
+
+
 
 Route::get('farming', [DashboardController::class, 'farm'])->name('farm.login');
 Route::get('farminghome', [FarmingController::class,'index'])->name('farm.home');
