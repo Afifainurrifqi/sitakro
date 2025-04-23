@@ -6,56 +6,80 @@
 
     <div class="surat-container">
         @php
+            // Daftar semua jenis surat
             $jenisSurat = [
-                'Surat Keterangan Domisili',
-                'Surat Keterangan Usaha',
-                'Surat Keterangan Tidak Mampu',
-                'Surat Keterangan Kematian',
-                'Surat Keterangan Lahir',
-                'Surat Keterangan Menikah',
-                'Surat Keterangan Cerai',
-                'Surat Keterangan Penghasilan',
-                'Surat Keterangan Kepemilikan Tanah',
-                'Surat Keterangan Pindah Domisili',
-                'Surat Keterangan Tinggal Sementara',
-                'Surat Izin Keramaian',
-                'Surat Keterangan Bepergian',
-                'Surat Keterangan Belum Menikah',
-                'Surat Keterangan Janda/Duda',
-                'Surat Pengantar SKCK',
-                'Surat Pengantar Nikah',
-                'Surat Pengantar KTP',
-                'Surat Pengantar KK',
-                'Surat Pengantar Pindah',
-                'Surat Pengantar Kelurahan',
-                'Surat Keterangan Keluarga Tidak Mampu',
-                'Surat Keterangan Kependudukan',
-                'Surat Keterangan Pengantar Sekolah',
-                'Surat Keterangan Pengantar Beasiswa',
-                'Surat Keterangan Wali',
-                'Surat Keterangan Belum Sekolah',
-                'Surat Keterangan Kepemilikan Kendaraan',
-                'Surat Keterangan Usulan Bantuan',
-                'Surat Keterangan Kehilangan',
-                'Surat Keterangan Ahli Waris',
-                'Surat Keterangan Hibah',
-                'Surat Keterangan Cuti',
-                'Surat Keterangan Karyawan',
-                'Surat Keterangan Pekerjaan',
-                'Surat Keterangan Tidak Bekerja',
-                'Surat Keterangan Pernyataan',
-                'Surat Keterangan Kepemilikan Bangunan',
-                'Surat Keterangan Tidak Punya Rumah',
-                'Surat Keterangan Sehat',
-                'Surat Keterangan Imunisasi'
+                'SURAT PERNYATAAN TIDAK BISA MELAMPIRKAN KTP KEMATIAN',
+                'SURAT PERNYATAAN NUMPANG KK',
+                'SURAT PERNYATAAN MEMILIH NAMA ALIAS',
+                'SURAT PERNYATAAN MEMILIH NAMA ALIAS SATU ORANG TUA',
+                'SURAT PERNYATAAN DAN JAMINAN',
+                'SURAT PERNYATAAN BELUM PERNAH MENGURUS AKTA KELAHIRAN',
+                'SURAT PERNYATAAN BEDA NAMA BUKU NIKAH',
+                'SURAT PERNYATAAN ANAK SEORANG NAMA IBU (BARU)',
+                'SURAT PERNYATAAN AKTA BARCODE NOMOR SAMA-BARU ISI SENDIRI',
+                'SPTJM KEMATIAN',
+                'PERNYATAAN PERUBAHAN DATA PENDIDIKAN',
+                'PERNYATAAN PEMBETULAN DATA TIDAK MERUBAH LAGI',
+                'PERNYATAAN MENGIZINKAN IKUT KK SUAMI-ISTRI-KELUARGA',
+                'PERMOHONAN PENGANTAR KEABSAHAN UNTUK DIRI SENDIRI',
+                'PERMOHONAN PENGANTAR KEABSAHAN UNTUK ANAK',
+                'FORM PERNYATAAN BATAL PINDAH',
+                'F-3.01 Formulir Pengajuan User ID',
+                'F-2.04 SPTJM SUAMI ISTRI',
+                'F-2.03 SPTJM KELAHIRAN',
+                'F-2.01 Form PELAPORAN CAPIL WILAYAH NKRI 1',
+                'F-1.09 Kartu Keluarga',
+                'F-1.08 Biodata Penduduk di wilayah NKRI dan WNI di luar wilayah NKRI',
+                'F-1.07 Surat Kuasa Dalam Pelayanan Administrasi Kependudukan',
+                'F-1.06 PERNYATAAN PERUBAHAN ELEMEN DATA Kependudukan',
+                'F-1.05 Surat Pernyataan Tanggung Jawab Mutlak Perkawinan Perceraian Belum Tercatat',
+                'F-1.04 Surat Pernyataan Tidak Memiliki Dokumen Kependudukan',
+                'F-1.03 PENDAFTARAN PERPINDAHAN PENDUDUK',
+                'F-1.02 PENDAFTARAN PERISTIWA KEPENDUDUKAN',
+                'F-1.01 FORM  BIODATA KELUARGA',
+                'SURAT   KETERANGAN KEHILANGAN',
+                'SURAT   KETERANGAN   DESA  PERNAH MENIKAH',
+                'SURAT KETERANGAN TIDAK MAMPU',
+                'SURAT KETERANGAN KEMATIAN DESA',
+                'SURAT KETERANGAN WARIS',
+                'SURAT KETERANGAN HARGA KEPEMILIKAN TANAH',
+                'SURAT KETERANGAN NUMPANG NIKAH',
+                'KETERANGAN   PENGANTAR   SKCK',
+                'Surat Keterangan Desa Warga Miskin',
+                'Surat Keterangan Kepemilikan  Aset',
+                'SURAT  KETERANGAN  USAHA',
+                'Surat Keterangan Desa Warga Miskin',
+                'SURAT KETERANGAN MISKIN ( SKM )',
+                'SURAT  KETERANGAN  AHLI WARIS',
+                'SURAT KETERANGAN GHOIB',
+                'SURAT KETERANGAN PENGHASILAN',
+                'SURAT KETERANGAN DOMISILI USAHA',
+                'SURAT KETERANGAN DOMISILI WARGA',
             ];
+
+            // Surat yang hanya aktif dan dapat diakses
+            $aktif = 'SURAT PERNYATAAN TIDAK BISA MELAMPIRKAN KTP KEMATIAN';
+
+            // Menentukan route untuk jenis surat yang aktif
+            $routeAktif = route('surat.suratpernyataantidakbisamelampirkanktpkematian');
         @endphp
 
         @foreach($jenisSurat as $surat)
             <div class="card surat-card">
                 <div class="card-body p-2 text-center d-flex flex-column">
                     <h6 class="card-title mb-2" style="font-size: 14px;">{{ $surat }}</h6>
-                    <a href="#" class="btn btn-sm btn-primary mt-auto">Buat Surat</a>
+
+                    <!-- Jika surat sama dengan surat aktif, tampilkan tombol "Buat Surat" -->
+                    @if($surat === $aktif)
+                        <a href="{{ $routeAktif }}" class="btn btn-sm btn-primary mt-auto">
+                            Buat Surat
+                        </a>
+                    @else
+                        <!-- Jika tidak, tampilkan tombol yang dinonaktifkan "Tidak Tersedia" -->
+                        <button class="btn btn-sm btn-secondary mt-auto" disabled>
+                            Tidak Tersedia
+                        </button>
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -69,36 +93,15 @@
         gap: 8px;
         justify-content: flex-start;
     }
-
     .surat-card {
-        width: 19.2%; /* 5 cards with 8px gap between */
+        width: 19.2%;
         min-width: 180px;
         box-shadow: 0 0 6px rgba(0,0,0,0.05);
         border-radius: 8px;
     }
-
-    @media (max-width: 1200px) {
-        .surat-card {
-            width: 24.2%; /* 4 per row */
-        }
-    }
-
-    @media (max-width: 992px) {
-        .surat-card {
-            width: 32.2%; /* 3 per row */
-        }
-    }
-
-    @media (max-width: 768px) {
-        .surat-card {
-            width: 48.5%; /* 2 per row */
-        }
-    }
-
-    @media (max-width: 576px) {
-        .surat-card {
-            width: 100%;
-        }
-    }
+    @media (max-width: 1200px)  { .surat-card { width: 24.2%; } }
+    @media (max-width:  992px)  { .surat-card { width: 32.2%; } }
+    @media (max-width:  768px)  { .surat-card { width: 48.5%; } }
+    @media (max-width:  576px)  { .surat-card { width: 100%;  } }
 </style>
 @endsection

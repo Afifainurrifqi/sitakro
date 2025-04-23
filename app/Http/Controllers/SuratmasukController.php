@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\suratmasuk;
 use App\Http\Requests\StoresuratmasukRequest;
 use App\Http\Requests\UpdatesuratmasukRequest;
+use App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,9 +34,26 @@ class SuratmasukController extends Controller
     }
     public function arsipsuratkeluar()
     {
-        return view('surat.arsipsuratkeluar');
+        // Ambil semua data dari collection surat_pernyataan_ktp
+        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::all();
+
+        // Kirim ke view
+        return view('surat.arsipsuratkeluar', compact('data'));
     }
 
+    public function exportPdf($id)
+    {
+        // Ambil data
+        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::findOrFail($id);
+
+        // Render view ke HTML dan convert ke PDF
+        $pdf = Pdf::loadView('surat.pdf_pernyataan', compact('data'))
+                  ->setPaper('a4', 'portrait');
+
+        // Download dengan nama file dinamis
+        $filename = 'surat_ktp_' . $data->_id . '.pdf';
+        return $pdf->download($filename);
+    }
 
     public function tambahsuratmasuk()
     {

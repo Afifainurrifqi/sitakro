@@ -41,6 +41,7 @@ use App\Http\Controllers\RtTkejahatanController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\SuratmasukController;
+use App\Http\Controllers\SuratPernyataanTidakBisaMelampirkanKtpKematianController;
 use App\Http\Controllers\UserController;
 use App\Models\akseskesehatan;
 use App\Models\datakesehatan;
@@ -68,6 +69,10 @@ Route::get('surat/tambahsuratmasuk', [SuratmasukController::class, 'tambahsuratm
 Route::post('surat/suratmasuk', [SuratmasukController::class, 'store'])->name('suratmasuk.store');
 Route::get('surat/suratmasuk/{suratmasuk}/edit', [SuratmasukController::class, 'edit'])->name('suratmasuk.edit');
 Route::put('surat/suratmasuk/{suratmasuk}', [SuratmasukController::class, 'update'])->name('suratmasuk.update');
+Route::get('surat/suratpernyataantidakbisamelampirkanktpkematian', [SuratPernyataanTidakBisaMelampirkanKtpKematianController::class, 'index'])->name('surat.suratpernyataantidakbisamelampirkanktpkematian');
+Route::post('surat/suratpernyataantidakbisamelampirkanktpkematian',[SuratPernyataanTidakBisaMelampirkanKtpKematianController::class, 'store'])->name('suratpernyataantidakbisamelampirkanktpkematian.store');
+Route::get('surat/export-ktp/{id}',[SuratPernyataanTidakBisaMelampirkanKtpKematianController::class, 'exportPdf'])->name('surat.export_ktp');
+
 
 
 
@@ -75,15 +80,15 @@ Route::put('surat/suratmasuk/{suratmasuk}', [SuratmasukController::class, 'updat
 
 
 Route::get('farming', [DashboardController::class, 'farm'])->name('farm.login');
-Route::get('farminghome', [FarmingController::class,'index'])->name('farm.home');
-Route::get('farminglahan', [FarmingController::class,'lahan'])->name('farm.lahan');
-Route::get('farmingstart', [FarmingController::class,'start'])->name('farm.start');
-Route::get('farmingtambahlahan', [FarmingController::class,'tambahlahan'])->name('farm.tambahlahan');
-Route::get('farmingupdatelahan', [FarmingController::class,'updatelahan'])->name('farm.updatelahan');
-Route::get('farmingperawatan', [FarmingController::class,'perawatan'])->name('farm.perawatan');
-Route::get('farmingprofile', [FarmingController::class,'profile'])->name('farm.profile');
-Route::get('farmingsemualahan', [FarmingController::class,'semualahan'])->name('farm.semualahan');
-Route::get('farmingformupdatelahan', [FarmingController::class,'formupdatelahan'])->name('farm.formupdatelahan');
+Route::get('farminghome', [FarmingController::class, 'index'])->name('farm.home');
+Route::get('farminglahan', [FarmingController::class, 'lahan'])->name('farm.lahan');
+Route::get('farmingstart', [FarmingController::class, 'start'])->name('farm.start');
+Route::get('farmingtambahlahan', [FarmingController::class, 'tambahlahan'])->name('farm.tambahlahan');
+Route::get('farmingupdatelahan', [FarmingController::class, 'updatelahan'])->name('farm.updatelahan');
+Route::get('farmingperawatan', [FarmingController::class, 'perawatan'])->name('farm.perawatan');
+Route::get('farmingprofile', [FarmingController::class, 'profile'])->name('farm.profile');
+Route::get('farmingsemualahan', [FarmingController::class, 'semualahan'])->name('farm.semualahan');
+Route::get('farmingformupdatelahan', [FarmingController::class, 'formupdatelahan'])->name('farm.formupdatelahan');
 
 Route::get('datapenduduk', [DatapendudukController::class, 'index']);
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -427,7 +432,6 @@ Route::middleware(['checkrole:operator,admin'])->group(
     function () {
         Route::get('/datadasawisma/show/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
         Route::post('/datadasawisma/update/{nik}', [DatadasawismaController::class, 'update'])->name('dasawisma.update');
-
     }
 );
 
