@@ -77,7 +77,7 @@ Route::prefix('surat')->group(function () {
     Route::get('formbertingkat', [SuratmasukController::class, 'formbertingkat'])->name('surat.formbertingkat');
     Route::post('prosesForm', [SuratmasukController::class, 'prosesForm'])->name('surat.prosesForm');
 
-    Route::get('suratkeluar', [SuratKeteranganKehilanganController::class, 'suratkeluar'])->name('surat.keluar');
+    Route::get('suratkeluar', [SuratmasukController::class, 'suratkeluar'])->name('surat.keluar');
     Route::get('surat_keterangan_kehilangan', function () {
         return view('surat.surat_keterangan_kehilangan');
     })->name('surat.surat_keterangan_kehilangan');
