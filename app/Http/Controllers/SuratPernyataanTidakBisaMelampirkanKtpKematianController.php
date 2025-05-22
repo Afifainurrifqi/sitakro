@@ -22,15 +22,17 @@ class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controlle
 
     public function exportPdf($id)
     {
-        // Ambil data
+        // Ambil data surat berdasarkan ID
         $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::findOrFail($id);
 
-        // Render view ke HTML dan convert ke PDF
+        // Render view dan konversi ke PDF dengan ukuran A4 portrait
         $pdf = Pdf::loadView('surat.pdfsuratpernyataantidakbisamelampirkanktpkematian', compact('data'))
-                  ->setPaper('f4', 'portrait');
+            ->setPaper('a4', 'portrait');
 
-        // Download dengan nama file dinamis
-        $filename = 'surat_ktp_' . $data->_id . '.pdf';
+        // Buat nama file yang dinamis dan aman
+        $filename = 'surat_pernyataan_ktp_' . preg_replace('/[^A-Za-z0-9\-]/', '_', $data->_id) . '.pdf';
+
+        // Kembalikan sebagai file untuk diunduh
         return $pdf->download($filename);
     }
 
@@ -73,7 +75,7 @@ class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controlle
         surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::create($validatedData);
 
         return redirect()->route('surat.arsipsuratkeluar')
-        ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
+            ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
     }
 
 

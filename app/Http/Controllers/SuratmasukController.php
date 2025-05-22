@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\suratmasuk;
 use App\Http\Requests\StoresuratmasukRequest;
 use App\Http\Requests\UpdatesuratmasukRequest;
+use App\Models\surat_keterangan_kehilangan;
 use App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,10 +25,20 @@ class SuratmasukController extends Controller
         return view('surat.suratmasuk', compact('data'));
     }
 
+
     public function suratkeluar()
     {
-        return view('surat.suratkeluar');
+        $pernyataan_tidak_bisa_ktp = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::where('status_verif', '!=', 'Terverifikasi')->get();
+        $keterangan_kehilangan = surat_keterangan_kehilangan::where('status_verif', '!=', 'Terverifikasi')->get();
+
+        // Gabungkan data
+        $data = collect()
+            ->merge($pernyataan_tidak_bisa_ktp)
+            ->merge($keterangan_kehilangan);
+
+        return view('surat.suratkeluar', compact('data'));
     }
+
 
     public function arsipsuratmasuk()
     {
@@ -35,25 +47,32 @@ class SuratmasukController extends Controller
     public function arsipsuratkeluar()
     {
         // Ambil semua data dari collection surat_pernyataan_ktp
-        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::all();
+        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::where('status_verif', 'Terverifikasi')->get();
 
         // Kirim ke view
         return view('surat.arsipsuratkeluar', compact('data'));
     }
 
-    public function exportPdf($id)
+    public function prosesForm(Request $request)
     {
-        // Ambil data
-        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::findOrFail($id);
+        $request->validate([
+            'kategori' => 'required|string',
+            'jenis_form' => 'required|string',
+        ]);
 
-        // Render view ke HTML dan convert ke PDF
-        $pdf = Pdf::loadView('surat.pdf_pernyataan', compact('data'))
-                  ->setPaper('a4', 'portrait');
+        $kategori = $request->kategori;
+        $jenis_form = $request->jenis_form;
 
-        // Download dengan nama file dinamis
-        $filename = 'surat_ktp_' . $data->_id . '.pdf';
-        return $pdf->download($filename);
+        if ($kategori == 'keterangan' && $jenis_form == 'surat_keterangan_kehilangan') {
+            return redirect()->route('surat.surat_keterangan_kehilangan')->with(compact('kategori', 'jenis_form'));
+        }
+
+
+        return redirect()->back()->withErrors(['jenis_form' => 'Form tidak ditemukan.']);
     }
+
+
+
 
     public function tambahsuratmasuk()
     {
@@ -70,6 +89,23 @@ class SuratmasukController extends Controller
         //
     }
 
+   public function exportPdf($jenis, $id)
+{
+    if ($jenis === 'suratketerangankehilangan') {
+        $data = surat_keterangan_kehilangan::findOrFail($id);
+        $pdf = Pdf::loadView('surat.pdfsuratketerangankehilangan', compact('data'))->setPaper('A4');
+        return $pdf->download('pdfsuratketerangankehilangan' . $data->nama_pelapor . '.pdf');
+    }
+
+    if ($jenis === 'suratpernyataantidakbisamelampirkanktpkematian') {
+        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::findOrFail($id);
+        $pdf = Pdf::loadView('pdf.surat_pernyataan_ktp', compact('data'))->setPaper('A4');
+        return $pdf->download('Surat_Pernyataan_KTP_' . $data->nama_pelapor . '.pdf');
+    }
+
+    abort(404);
+}
+
     /**
      * Store a newly created resource in storage.
      *
@@ -81,6 +117,7 @@ class SuratmasukController extends Controller
         $request->validate([
             'nama_instansi' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
+            'tanggal_masuk' => 'required|date',
             'file' => 'required|file|mimes:pdf,doc,docx,jpg,png|max:2048',
         ]);
 
@@ -90,6 +127,7 @@ class SuratmasukController extends Controller
         SuratMasuk::create([
             'nama_instansi' => $request->nama_instansi,
             'keterangan' => $request->keterangan,
+            'tanggal_masuk' => $request->tanggal_masuk,
             'file' => $path,
         ]);
 
@@ -126,12 +164,15 @@ class SuratmasukController extends Controller
         $request->validate([
             'nama_instansi' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,png|max:2048', // Optional file upload
+            'tanggal_masuk' => 'required|date',
+            'file' => 'required|file|mimes:pdf,doc,docx,jpg,png|max:2048',
         ]);
 
         // Update the fields
         $suratmasuk->nama_instansi = $request->nama_instansi;
         $suratmasuk->keterangan = $request->keterangan;
+        $suratmasuk->tanggal_masuk = $request->tanggal_masuk;
+
 
         // If a new file is uploaded, handle it
         if ($request->hasFile('file')) {

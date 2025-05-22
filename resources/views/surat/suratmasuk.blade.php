@@ -18,8 +18,9 @@
 
                     <div class="card-body">
                         <button type="button" class="btn mb-1 btn-primary"
-                            onclick="window.location='{{ url('surat/tambahsuratmasuk') }}'">Tambah Surat Masuk<span
-                                class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                            onclick="window.location='{{ url('surat/tambahsuratmasuk') }}'">
+                            Tambah Surat Masuk
+                            <span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
                         </button>
                         <br><br>
                         <div class="table-responsive">
@@ -29,6 +30,7 @@
                                         <th style="width: 5%;">No</th>
                                         <th>Nama Instansi</th>
                                         <th>Keterangan</th>
+                                        <th>Tanggal Masuk</th>
                                         <th>File</th>
                                         <th style="width: 10%;">Action</th>
                                     </tr>
@@ -39,24 +41,23 @@
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $item->nama_instansi }}</td>
                                             <td>{{ $item->keterangan }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->tanggal_masuk)->format('d-m-Y') }}</td>
                                             <td>
-                                                <a href="{{ url('surat-masuk/' . basename($item->file)) }}"
-                                                    class="btn btn-sm btn-primary" download>
-                                                    Cek
-                                                </a>
-
+                                                @if ($item->file)
+                                                    <a href="{{ asset('storage/' . $item->file) }}" class="btn btn-sm btn-primary" target="_blank" download>
+                                                        Cek
+                                                    </a>
+                                                @else
+                                                    <span class="text-muted">Tidak Ada</span>
+                                                @endif
                                             </td>
-
                                             <td>
-                                                <a href="{{ route('suratmasuk.edit', $item->_id) }}"
-                                                    class="btn btn-sm btn-warning">
+                                                <a href="{{ route('suratmasuk.edit', $item->_id) }}" class="btn btn-sm btn-warning">
                                                     Edit
                                                 </a>
                                             </td>
-
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>

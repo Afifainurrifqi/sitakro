@@ -25,6 +25,11 @@
                                     value="{{ old('keterangan', $suratmasuk->keterangan) }}" required>
                             </div>
 
+                             <div class="mb-3">
+                                <label for="tanggal_masuk" class="form-label">Tanggal Masuk</label>
+                                <input type="date" name="tanggal_masuk" class="form-control" value="{{ old('tanggal_masuk', $suratmasuk->tanggal_masuk) }}" required>
+                            </div>
+
                             <div class="mb-3">
                                 <label for="file" class="form-label">Upload File (Opsional)</label>
                                 <input type="file" name="file" class="form-control" accept=".pdf,.doc,.docx,.jpg,.png">

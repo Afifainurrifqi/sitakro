@@ -1,107 +1,258 @@
-@extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
+@extends(Auth::user() && Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
 @section('content')
-<div class="container-fluid py-3">
-    <h5 class="mb-3">Daftar Jenis Surat</h5>
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-12">
 
-    <div class="surat-container">
-        @php
-            // Daftar semua jenis surat
-            $jenisSurat = [
-                'SURAT PERNYATAAN TIDAK BISA MELAMPIRKAN KTP KEMATIAN',
-                'SURAT PERNYATAAN NUMPANG KK',
-                'SURAT PERNYATAAN MEMILIH NAMA ALIAS',
-                'SURAT PERNYATAAN MEMILIH NAMA ALIAS SATU ORANG TUA',
-                'SURAT PERNYATAAN DAN JAMINAN',
-                'SURAT PERNYATAAN BELUM PERNAH MENGURUS AKTA KELAHIRAN',
-                'SURAT PERNYATAAN BEDA NAMA BUKU NIKAH',
-                'SURAT PERNYATAAN ANAK SEORANG NAMA IBU (BARU)',
-                'SURAT PERNYATAAN AKTA BARCODE NOMOR SAMA-BARU ISI SENDIRI',
-                'SPTJM KEMATIAN',
-                'PERNYATAAN PERUBAHAN DATA PENDIDIKAN',
-                'PERNYATAAN PEMBETULAN DATA TIDAK MERUBAH LAGI',
-                'PERNYATAAN MENGIZINKAN IKUT KK SUAMI-ISTRI-KELUARGA',
-                'PERMOHONAN PENGANTAR KEABSAHAN UNTUK DIRI SENDIRI',
-                'PERMOHONAN PENGANTAR KEABSAHAN UNTUK ANAK',
-                'FORM PERNYATAAN BATAL PINDAH',
-                'F-3.01 Formulir Pengajuan User ID',
-                'F-2.04 SPTJM SUAMI ISTRI',
-                'F-2.03 SPTJM KELAHIRAN',
-                'F-2.01 Form PELAPORAN CAPIL WILAYAH NKRI 1',
-                'F-1.09 Kartu Keluarga',
-                'F-1.08 Biodata Penduduk di wilayah NKRI dan WNI di luar wilayah NKRI',
-                'F-1.07 Surat Kuasa Dalam Pelayanan Administrasi Kependudukan',
-                'F-1.06 PERNYATAAN PERUBAHAN ELEMEN DATA Kependudukan',
-                'F-1.05 Surat Pernyataan Tanggung Jawab Mutlak Perkawinan Perceraian Belum Tercatat',
-                'F-1.04 Surat Pernyataan Tidak Memiliki Dokumen Kependudukan',
-                'F-1.03 PENDAFTARAN PERPINDAHAN PENDUDUK',
-                'F-1.02 PENDAFTARAN PERISTIWA KEPENDUDUKAN',
-                'F-1.01 FORM  BIODATA KELUARGA',
-                'SURAT   KETERANGAN KEHILANGAN',
-                'SURAT   KETERANGAN   DESA  PERNAH MENIKAH',
-                'SURAT KETERANGAN TIDAK MAMPU',
-                'SURAT KETERANGAN KEMATIAN DESA',
-                'SURAT KETERANGAN WARIS',
-                'SURAT KETERANGAN HARGA KEPEMILIKAN TANAH',
-                'SURAT KETERANGAN NUMPANG NIKAH',
-                'KETERANGAN   PENGANTAR   SKCK',
-                'Surat Keterangan Desa Warga Miskin',
-                'Surat Keterangan Kepemilikan  Aset',
-                'SURAT  KETERANGAN  USAHA',
-                'Surat Keterangan Desa Warga Miskin',
-                'SURAT KETERANGAN MISKIN ( SKM )',
-                'SURAT  KETERANGAN  AHLI WARIS',
-                'SURAT KETERANGAN GHOIB',
-                'SURAT KETERANGAN PENGHASILAN',
-                'SURAT KETERANGAN DOMISILI USAHA',
-                'SURAT KETERANGAN DOMISILI WARGA',
-            ];
+                {{-- FORM PEMBUATAN SURAT --}}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Pembuatan Surat</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('surat.prosesForm') }}" method="POST">
+                            @csrf
 
-            // Surat yang hanya aktif dan dapat diakses
-            $aktif = 'SURAT PERNYATAAN TIDAK BISA MELAMPIRKAN KTP KEMATIAN';
+                            <div class="form-group mb-3">
+                                <label for="kategori">Kategori</label>
+                                <select name="kategori" id="kategori" class="form-control" required>
+                                    <option value="">-- Pilih Kategori --</option>
+                                    <option value="adminduk">Adminduk</option>
+                                    <option value="keterangan">Keterangan</option>
+                                    <option value="pernyataan">Pernyataan</option>
+                                </select>
+                            </div>
 
-            // Menentukan route untuk jenis surat yang aktif
-            $routeAktif = route('surat.suratpernyataantidakbisamelampirkanktpkematian');
-        @endphp
+                            <div class="mb-3">
+                                <label for="jenis_form">Jenis Form</label>
+                                <select name="jenis_form" id="jenis_form" class="form-control" required disabled>
+                                    <option value="">-- Pilih Jenis Form --</option>
+                                </select>
+                            </div>
 
-        @foreach($jenisSurat as $surat)
-            <div class="card surat-card">
-                <div class="card-body p-2 text-center d-flex flex-column">
-                    <h6 class="card-title mb-2" style="font-size: 14px;">{{ $surat }}</h6>
-
-                    <!-- Jika surat sama dengan surat aktif, tampilkan tombol "Buat Surat" -->
-                    @if($surat === $aktif)
-                        <a href="{{ $routeAktif }}" class="btn btn-sm btn-primary mt-auto">
-                            Buat Surat
-                        </a>
-                    @else
-                        <!-- Jika tidak, tampilkan tombol yang dinonaktifkan "Tidak Tersedia" -->
-                        <button class="btn btn-sm btn-secondary mt-auto" disabled>
-                            Tidak Tersedia
-                        </button>
-                    @endif
+                            <button type="submit" class="btn btn-primary">Lanjut</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-</div>
 
-<style>
-    .surat-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: flex-start;
-    }
-    .surat-card {
-        width: 19.2%;
-        min-width: 180px;
-        box-shadow: 0 0 6px rgba(0,0,0,0.05);
-        border-radius: 8px;
-    }
-    @media (max-width: 1200px)  { .surat-card { width: 24.2%; } }
-    @media (max-width:  992px)  { .surat-card { width: 32.2%; } }
-    @media (max-width:  768px)  { .surat-card { width: 48.5%; } }
-    @media (max-width:  576px)  { .surat-card { width: 100%;  } }
-</style>
+                {{-- TABEL ARSIP SURAT --}}
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        @if (session('success'))
+                            <div class="alert alert-success mb-2">{{ session('success') }}</div>
+                        @endif
+                        <h5 class="card-title mb-0">ARSIP SURAT KELUAR</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Action</th>
+                                        <th>Nama Pelapor</th>
+                                        <th>NIK Pelapor</th>
+                                        <th>Jenis Surat</th>
+                                        <th>No Whatsapp</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Alamat</th>
+                                        <th>Status</th>
+                                        <th>Verifikasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php use Illuminate\Support\Str; @endphp
+                                    @foreach ($data as $index => $item)
+                                        @php
+                                            $statusClass = match ($item->status_surat) {
+                                                'Pending' => 'bg-pending',
+                                                'Di cek' => 'bg-cek',
+                                                'Di terima' => 'bg-diterima',
+                                                'Ditolak' => 'bg-ditolak',
+                                                default => '',
+                                            };
+                                            $verifClass =
+                                                $item->status_verif === 'Terverifikasi'
+                                                    ? 'bg-terverifikasi'
+                                                    : 'bg-belum-verifikasi';
+                                            $jenisSurat = Str::studly(class_basename($item));
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>
+                                                <a href="{{ route('surat.export-pdf', ['jenis' => strtolower($jenisSurat), 'id' => $item->_id]) }}"
+                                                    class="btn btn-success btn-sm" target="_blank">
+                                                    Export PDF
+                                                </a>
+
+                                                @if ($jenisSurat === 'SuratKeteranganKehilangan')
+                                                    <a href="{{ route('suratkehilangan.edit', $item->_id) }}"
+                                                        class="btn btn-primary btn-sm ms-1">
+                                                        Edit
+                                                    </a>
+                                                @endif
+
+                                                {{-- Jika ada jenis surat lain yang bisa diedit, tambahkan pengecekan dan tombol edit di sini --}}
+                                            </td>
+
+                                            <td>{{ $item->nama_pelapor }}</td>
+                                            <td>{{ $item->nik_pelapor }}</td>
+                                            <td>{{ $jenisSurat }}</td>
+                                            <td>
+                                                <a href="https://wa.me/{{ $item->nowa }}" target="_blank"
+                                                    class="btn btn-success btn-sm">
+                                                    {{ $item->nowa }}
+                                                </a>
+                                            </td>
+                                            <td>{{ $item->jenis_kelamin_pelapor }}</td>
+                                            <td>{{ $item->alamat_pelapor }}</td>
+                                            <td><span
+                                                    class="badge rounded-pill {{ $statusClass }}">{{ $item->status_surat }}</span>
+                                            </td>
+                                            <td><span
+                                                    class="badge rounded-pill {{ $verifClass }}">{{ $item->status_verif }}</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @if ($data->isEmpty())
+                                        <tr>
+                                            <td colspan="10" class="text-center">Belum ada data.</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {{-- JS Dropdown Dinamis --}}
+    <script>
+        const data = {
+            adminduk: [
+                "SURAT PERNYATAAN TIDAK BISA MELAMPIRKAN KTP KEMATIAN",
+                "SURAT PERNYATAAN NUMPANG KK",
+                "SURAT PERNYATAAN MEMILIH NAMA ALIAS",
+                "SURAT PERNYATAAN MEMILIH NAMA ALIAS SATU ORANG TUA",
+                "SURAT PERNYATAAN DAN JAMINAN",
+                "SURAT PERNYATAAN BELUM PERNAH MENGURUS AKTA KELAHIRAN",
+                "SURAT PERNYATAAN BEDA NAMA BUKU NIKAH",
+                "SURAT PERNYATAAN ANAK SEORANG NAMA IBU (BARU)",
+                "SURAT PERNYATAAN AKTA BARCODE NOMOR SAMA-BARU ISI SENDIRI",
+                "SPTJM KEMATIAN",
+                "PERNYATAAN PERUBAHAN DATA PENDIDIKAN",
+                "PERNYATAAN PEMBETULAN DATA TIDAK MERUBAH LAGI",
+                "PERNYATAAN MENGIZINKAN IKUT KK SUAMI-ISTRI-KELUARGA",
+                "PERMOHONAN PENGANTAR KEABSAHAN UNTUK DIRI SENDIRI",
+                "PERMOHONAN PENGANTAR KEABSAHAN UNTUK ANAK",
+                "FORM PERNYATAAN BATAL PINDAH",
+                "F-3.01 Formulir Pengajuan User ID",
+                "F-2.04 SPTJM SUAMI ISTRI",
+                "F-2.03 SPTJM KELAHIRAN",
+                "F-2.01 Form PELAPORAN CAPIL WILAYAH NKRI 1",
+                "F-1.09 Kartu Keluarga",
+                "F-1.08 Biodata Penduduk di wilayah NKRI dan WNI di luar wilayah NKRI",
+                "F-1.07 Surat Kuasa Dalam Pelayanan Administrasi Kependudukan",
+                "F-1.06 PERNYATAAN PERUBAHAN ELEMEN DATA Kependudukan",
+                "F-1.05 Surat Pernyataan Tanggung Jawab Mutlak Perkawinan Perceraian Belum Tercatat",
+                "F-1.04 Surat Pernyataan Tidak Memiliki Dokumen Kependudukan",
+                "F-1.03 PENDAFTARAN PERPINDAHAN PENDUDUK",
+                "F-1.02 PENDAFTARAN PERISTIWA KEPENDUDUKAN",
+                "F-1.01 FORM  BIODATA KELUARGA"
+            ],
+            keterangan: [
+                "SURAT KETERANGAN KEHILANGAN",
+                "SURAT KETERANGAN DESA PERNAH MENIKAH",
+                "SURAT KETERANGAN TIDAK MAMPU",
+                "SURAT KETERANGAN KEMATIAN DESA",
+                "SURAT KETERANGAN WARIS",
+                "SURAT KETERANGAN HARGA KEPEMILIKAN TANAH",
+                "SURAT KETERANGAN NUMPANG NIKAH",
+                "KETERANGAN PENGANTAR SKCK",
+                "Surat Keterangan Desa Warga Miskin",
+                "Surat Keterangan Kepemilikan Aset",
+                "SURAT KETERANGAN USAHA",
+                "SURAT KETERANGAN MISKIN ( SKM )",
+                "SURAT KETERANGAN AHLI WARIS",
+                "SURAT KETERANGAN GHOIB",
+                "SURAT KETERANGAN PENGHASILAN",
+                "SURAT KETERANGAN DOMISILI USAHA",
+                "SURAT KETERANGAN DOMISILI WARGA"
+            ],
+            pernyataan: [
+                "SURAT PERNYATAAN Kepemilikan Dokumen  Asli",
+                "SURAT PERNYATAAN KESANGGUPAN",
+                "Surat Pernyataan Tidak memiliki kartu JAMKESMAS,ASKES atau JKN",
+                "Surat Pernyataan Miskin",
+                "SURAT  IJIN KELUARGA",
+                "SURAT  KUASA",
+                "Permohonan Pembukaan Rekening Tabungan",
+                "SURAT PERINTAH TUGAS",
+                "SURAT PERINTAH PERJALANAN DINAS",
+                "Undangan",
+                "Rekomendasi",
+                "FORMAT BLANGKO NOTA ANGKUTAN",
+                "SURAT REKOMENDASI PEMBELIAN BBM JENIS TERTENTU",
+                "SURAT PENYELENGGARAAN KERAMAIAN",
+                "Permohonan surat  Pernyataan miskin",
+                "Surat Permohonan Tebang pohon"
+            ]
+        };
+
+        const kategoriSelect = document.getElementById('kategori');
+        const jenisFormSelect = document.getElementById('jenis_form');
+
+        kategoriSelect.addEventListener('change', function() {
+            const selected = this.value;
+            jenisFormSelect.innerHTML = '<option value="">-- Pilih Jenis Form --</option>';
+            jenisFormSelect.disabled = true;
+
+            if (selected && data[selected]) {
+                data[selected].forEach(function(item) {
+                    const option = document.createElement('option');
+                    option.value = item.toLowerCase().replace(/ /g, '_').replace(/[^a-z0-9_]/g, '');
+                    option.textContent = item;
+                    jenisFormSelect.appendChild(option);
+                });
+                jenisFormSelect.disabled = false;
+            }
+        });
+    </script>
+
+    {{-- Tambahan Style Badge --}}
+    <style>
+        .bg-pending {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .bg-cek {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .bg-diterima {
+            background-color: #198754;
+            color: #fff;
+        }
+
+        .bg-ditolak {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .bg-belum-verifikasi {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+
+        .bg-terverifikasi {
+            background-color: #198754;
+            color: #fff;
+        }
+    </style>
 @endsection

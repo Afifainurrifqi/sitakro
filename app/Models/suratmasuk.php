@@ -10,6 +10,9 @@ class SuratMasuk extends Eloquent
     protected $connection = 'mongodb';
     protected $collection = 'suratmasuk';
     protected $fillable = [
-        'nama_instansi','keterangan','file',
+        'nama_instansi',
+        'keterangan',
+        'file',
+        'tanggal_masuk',
     ];
 }
