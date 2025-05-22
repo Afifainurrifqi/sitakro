@@ -76,7 +76,7 @@ class SuratKeteranganKehilanganController extends Controller
 
         surat_keterangan_kehilangan::create($validated);
 
-        return redirect()->route('surat.suratkeluar')->with('success', 'Surat Kehilangan berhasil dikirim.');
+        return redirect()->route('surat.keluar')->with('success', 'Surat Kehilangan berhasil diperbarui.');
     }
 
 
