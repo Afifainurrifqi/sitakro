@@ -77,6 +77,9 @@ Route::prefix('surat')->group(function () {
     Route::get('formbertingkat', [SuratmasukController::class, 'formbertingkat'])->name('surat.formbertingkat');
     Route::post('prosesForm', [SuratmasukController::class, 'prosesForm'])->name('surat.prosesForm');
 
+    Route::get('surat_keterangan_kehilangan', function () {
+        return view('surat.surat_keterangan_kehilangan');
+    })->name('surat.surat_keterangan_kehilangan');
     Route::post('keterangan-kehilangan', [SuratKeteranganKehilanganController::class, 'store'])->name('suratkehilangan.store');
     Route::get('export-pdf/{jenis}/{id}', [SuratmasukController::class, 'exportPdf'])->name('surat.export-pdf');
     Route::get('suratkehilangan/{surat_keterangan_kehilangan}/edit', [SuratKeteranganKehilanganController::class, 'edit'])->name('suratkehilangan.edit');
