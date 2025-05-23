@@ -71,9 +71,13 @@ class SuratmasukController extends Controller
             return redirect()->route('surat.surat_keterangan_kehilangan')->with(compact('kategori', 'jenis_form'));
         }
 
-        if ($kategori === 'aminduk' && $jenis_form === 'surat_pernyataan_numpang_kk') {
-        return redirect()->route('surat.numpangkk.create')->with(compact('kategori', 'jenis_form'));
-    }
+        if ($kategori === 'adminduk' && $jenis_form === 'surat_pernyataan_numpang_kk') {
+            return redirect()->route('surat.numpangkk.create')->with(compact('kategori', 'jenis_form'));
+        }
+
+        if ($kategori === 'adminduk' && $jenis_form === 'surat_pernyataan_numpang_kk') {
+            return redirect()->route('surat.numpangkk.create')->with(compact('kategori', 'jenis_form'));
+        }
 
 
         return redirect()->back()->withErrors(['jenis_form' => 'Form tidak ditemukan.']);
@@ -97,28 +101,28 @@ class SuratmasukController extends Controller
         //
     }
 
-   public function exportPdf($jenis, $id)
-{
-    if ($jenis === 'suratketerangankehilangan') {
-        $data = surat_keterangan_kehilangan::findOrFail($id);
-        $pdf = Pdf::loadView('surat.pdfsuratketerangankehilangan', compact('data'))->setPaper('A4');
-        return $pdf->download('pdfsuratketerangankehilangan' . $data->nama_pelapor . '.pdf');
-    }
+    public function exportPdf($jenis, $id)
+    {
+        if ($jenis === 'suratketerangankehilangan') {
+            $data = surat_keterangan_kehilangan::findOrFail($id);
+            $pdf = Pdf::loadView('surat.pdfsuratketerangankehilangan', compact('data'))->setPaper('A4');
+            return $pdf->download('pdfsuratketerangankehilangan' . $data->nama_pelapor . '.pdf');
+        }
 
-    if ($jenis === 'suratpernyataantidakbisamelampirkanktpkematian') {
-        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::findOrFail($id);
-        $pdf = Pdf::loadView('pdf.surat_pernyataan_ktp', compact('data'))->setPaper('A4');
-        return $pdf->download('Surat_Pernyataan_KTP_' . $data->nama_pelapor . '.pdf');
-    }
+        if ($jenis === 'suratpernyataantidakbisamelampirkanktpkematian') {
+            $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::findOrFail($id);
+            $pdf = Pdf::loadView('surat.pdfsuratpernyataantidakbisamelampirkanktpkematian', compact('data'))->setPaper('A4');
+            return $pdf->download('Surat_Pernyataan_KTP_' . $data->nama_pelapor . '.pdf');
+        }
 
-    if ($jenis === 'suratpernyataannumpangkk') {
-        $data = surat_pernyataan_numpang_kk::findOrFail($id);
-        $pdf = Pdf::loadView('surat.pdfsuratnumpangkk', compact('data'))->setPaper('A4');
-        return $pdf->download('pdfsuratnumpangkk_' . $data->nama_pelapor . '.pdf');
-    }
+        if ($jenis === 'suratpernyataannumpangkk') {
+            $data = surat_pernyataan_numpang_kk::findOrFail($id);
+            $pdf = Pdf::loadView('surat.pdfsuratnumpangkk', compact('data'))->setPaper('A4');
+            return $pdf->download('pdfsuratnumpangkk_' . $data->nama_pelapor . '.pdf');
+        }
 
-    abort(404);
-}
+        abort(404);
+    }
 
     /**
      * Store a newly created resource in storage.

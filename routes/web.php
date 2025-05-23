@@ -90,8 +90,12 @@ Route::prefix('surat')->group(function () {
     Route::get('suratpernyataannumpangkk', [SuratPernyataanNumpangKkController::class, 'index'])->name('surat.numpangkk.index');
     Route::get('suratpernyataannumpangkk/create', [SuratPernyataanNumpangKkController::class, 'create'])->name('surat.numpangkk.create');
     Route::post('suratpernyataannumpangkk', [SuratPernyataanNumpangKkController::class, 'store'])->name('surat.numpangkk.store');
-}); Route::get('suratpernyataannumpangkk/{suratPernyataanNumpangKk}/edit', [SuratPernyataanNumpangKkController::class, 'edit'])->name('surat.numpangkk.edit');
+    Route::get('suratpernyataannumpangkk/{suratPernyataanNumpangKk}/edit', [SuratPernyataanNumpangKkController::class, 'edit'])->name('surat.numpangkk.edit');
     Route::put('suratpernyataannumpangkk/{suratPernyataanNumpangKk}', [SuratPernyataanNumpangKkController::class, 'update'])->name('surat.numpangkk.update');
+    Route::get('suratpernyataantidakbisamelampirkanktpkematian/{surat}/edit', [SuratPernyataanTidakBisaMelampirkanKtpKematianController::class, 'edit'])->name('suratpernyataantidakbisamelampirkanktpkematian.edit');
+    Route::put('suratpernyataantidakbisamelampirkanktpkematian/{surat}', [SuratPernyataanTidakBisaMelampirkanKtpKematianController::class, 'update'])->name('suratpernyataantidakbisamelampirkanktpkematian.update');
+});
+
 
 
 

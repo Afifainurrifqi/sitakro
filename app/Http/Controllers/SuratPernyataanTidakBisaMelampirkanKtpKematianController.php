@@ -74,7 +74,7 @@ class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controlle
         ]);
         surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::create($validatedData);
 
-        return redirect()->route('surat.arsipsuratkeluar')
+        return redirect()->route('surat.keluar')
             ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
     }
 
@@ -96,22 +96,38 @@ class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controlle
      * @param  \App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian  $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian
      * @return \Illuminate\Http\Response
      */
-    public function edit(surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian)
-    {
-        //
-    }
+    public function edit(surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat)
+{
+    return view('surat.edit_suratpernyataantidakbisamelampirkanktpkematian', compact('surat'));
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatesurat_pernyataan_tidak_bisa_melampirkan_ktp_kematianRequest  $request
-     * @param  \App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian  $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatesurat_pernyataan_tidak_bisa_melampirkan_ktp_kematianRequest $request, surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian)
-    {
-        //
-    }
+public function update(Request $request, surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat)
+{
+    $validatedData = $request->validate([
+        'nowa' => 'required|string',
+        'status_surat' => 'required|string',
+        'status_verif' => 'required|string',
+        'nama_pelapor' => 'required|string',
+        'nik_pelapor' => 'required|string',
+        'tempat_lahir_pelapor' => 'required|string',
+        'tanggal_lahir_pelapor' => 'required|date',
+        'agama_pelapor' => 'required|string',
+        'jenis_kelamin_pelapor' => 'required|string',
+        'pekerjaan_pelapor' => 'required|string',
+        'alamat_pelapor' => 'required|string',
+        'alasan' => 'required|string',
+        'nik_jenazah' => 'required|string',
+        'nama_jenazah' => 'required|string',
+        'tanggal_lahir_jenazah' => 'required|date',
+        'jenis_kelamin_jenazah' => 'required|string',
+        'alamat_jenazah' => 'required|string',
+    ]);
+
+    $surat->update($validatedData);
+
+    return redirect()->route('surat.keluar')->with('success', 'Surat berhasil diperbarui.');
+}
+
 
     /**
      * Remove the specified resource from storage.
