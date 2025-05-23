@@ -6,6 +6,7 @@ use App\Models\suratmasuk;
 use App\Http\Requests\StoresuratmasukRequest;
 use App\Http\Requests\UpdatesuratmasukRequest;
 use App\Models\surat_keterangan_kehilangan;
+use App\Models\surat_pernyataan_numpang_kk;
 use App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
@@ -30,11 +31,13 @@ class SuratmasukController extends Controller
     {
         $pernyataan_tidak_bisa_ktp = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::where('status_verif', '!=', 'Terverifikasi')->get();
         $keterangan_kehilangan = surat_keterangan_kehilangan::where('status_verif', '!=', 'Terverifikasi')->get();
+        $numpang_kk = surat_pernyataan_numpang_kk::where('status_verif', '!=', 'Terverifikasi')->get();
 
         // Gabungkan data
         $data = collect()
             ->merge($pernyataan_tidak_bisa_ktp)
-            ->merge($keterangan_kehilangan);
+            ->merge($keterangan_kehilangan)
+            ->merge($numpang_kk);
 
         return view('surat.suratkeluar', compact('data'));
     }
@@ -48,6 +51,7 @@ class SuratmasukController extends Controller
     {
         // Ambil semua data dari collection surat_pernyataan_ktp
         $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::where('status_verif', 'Terverifikasi')->get();
+
 
         // Kirim ke view
         return view('surat.arsipsuratkeluar', compact('data'));
@@ -66,6 +70,10 @@ class SuratmasukController extends Controller
         if ($kategori == 'keterangan' && $jenis_form == 'surat_keterangan_kehilangan') {
             return redirect()->route('surat.surat_keterangan_kehilangan')->with(compact('kategori', 'jenis_form'));
         }
+
+        if ($kategori === 'aminduk' && $jenis_form === 'surat_pernyataan_numpang_kk') {
+        return redirect()->route('surat.numpangkk.create')->with(compact('kategori', 'jenis_form'));
+    }
 
 
         return redirect()->back()->withErrors(['jenis_form' => 'Form tidak ditemukan.']);
@@ -101,6 +109,12 @@ class SuratmasukController extends Controller
         $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::findOrFail($id);
         $pdf = Pdf::loadView('pdf.surat_pernyataan_ktp', compact('data'))->setPaper('A4');
         return $pdf->download('Surat_Pernyataan_KTP_' . $data->nama_pelapor . '.pdf');
+    }
+
+    if ($jenis === 'suratpernyataannumpangkk') {
+        $data = surat_pernyataan_numpang_kk::findOrFail($id);
+        $pdf = Pdf::loadView('surat.pdfsuratnumpangkk', compact('data'))->setPaper('A4');
+        return $pdf->download('pdfsuratnumpangkk_' . $data->nama_pelapor . '.pdf');
     }
 
     abort(404);

@@ -42,6 +42,7 @@ use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\SuratKeteranganKehilanganController;
 use App\Http\Controllers\SuratmasukController;
+use App\Http\Controllers\SuratPernyataanNumpangKkController;
 use App\Http\Controllers\SuratPernyataanTidakBisaMelampirkanKtpKematianController;
 use App\Http\Controllers\UserController;
 use App\Models\akseskesehatan;
@@ -85,7 +86,12 @@ Route::prefix('surat')->group(function () {
     Route::get('export-pdf/{jenis}/{id}', [SuratmasukController::class, 'exportPdf'])->name('surat.export-pdf');
     Route::get('suratkehilangan/{surat_keterangan_kehilangan}/edit', [SuratKeteranganKehilanganController::class, 'edit'])->name('suratkehilangan.edit');
     Route::put('suratkehilangan/{surat_keterangan_kehilangan}', [SuratKeteranganKehilanganController::class, 'update'])->name('suratkehilangan.update');
-});
+
+    Route::get('suratpernyataannumpangkk', [SuratPernyataanNumpangKkController::class, 'index'])->name('surat.numpangkk.index');
+    Route::get('suratpernyataannumpangkk/create', [SuratPernyataanNumpangKkController::class, 'create'])->name('surat.numpangkk.create');
+    Route::post('suratpernyataannumpangkk', [SuratPernyataanNumpangKkController::class, 'store'])->name('surat.numpangkk.store');
+}); Route::get('suratpernyataannumpangkk/{suratPernyataanNumpangKk}/edit', [SuratPernyataanNumpangKkController::class, 'edit'])->name('surat.numpangkk.edit');
+    Route::put('suratpernyataannumpangkk/{suratPernyataanNumpangKk}', [SuratPernyataanNumpangKkController::class, 'update'])->name('surat.numpangkk.update');
 
 
 

@@ -172,7 +172,7 @@
 
     {{-- TTD --}}
     <div class="ttd-container">
-        <p>Wates, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+        <p>Wates, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
         <p>Kepala Desa Wates</p>
         <br><br><br>
         <p><strong><u>MOH. HAMID ALMAULUDI S.Pd.I</u></strong></p>
