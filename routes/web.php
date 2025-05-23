@@ -41,6 +41,7 @@ use App\Http\Controllers\RtTkejahatanController;
 use App\Http\Controllers\SdgspendidikanController;
 use App\Http\Controllers\SesiController;
 use App\Http\Controllers\SuratKeteranganKehilanganController;
+use App\Http\Controllers\SuratketerangantidakmampuController;
 use App\Http\Controllers\SuratmasukController;
 use App\Http\Controllers\SuratPernyataanNumpangKkController;
 use App\Http\Controllers\SuratPernyataanTidakBisaMelampirkanKtpKematianController;
@@ -94,6 +95,13 @@ Route::prefix('surat')->group(function () {
     Route::put('suratpernyataannumpangkk/{suratPernyataanNumpangKk}', [SuratPernyataanNumpangKkController::class, 'update'])->name('surat.numpangkk.update');
     Route::get('suratpernyataantidakbisamelampirkanktpkematian/{surat}/edit', [SuratPernyataanTidakBisaMelampirkanKtpKematianController::class, 'edit'])->name('suratpernyataantidakbisamelampirkanktpkematian.edit');
     Route::put('suratpernyataantidakbisamelampirkanktpkematian/{surat}', [SuratPernyataanTidakBisaMelampirkanKtpKematianController::class, 'update'])->name('suratpernyataantidakbisamelampirkanktpkematian.update');
+
+    Route::get('suratketerangantidakmampu', [SuratketerangantidakmampuController::class, 'index'])->name('surat.tidakmampu.index');
+        Route::get('suratketerangantidakmampu/create', [SuratketerangantidakmampuController::class, 'create'])->name('surat.tidakmampu.create');
+    Route::post('suratketerangantidakmampu', [SuratketerangantidakmampuController::class, 'store'])->name('surat.tidakmampu.store');
+    Route::get('suratketerangantidakmampu/{suratketerangantidakmampu}/edit', [SuratketerangantidakmampuController::class, 'edit'])->name('surat.tidakmampu.edit');
+    Route::put('suratketerangantidakmampu/{suratketerangantidakmampu}', [SuratketerangantidakmampuController::class, 'update'])->name('surat.tidakmampu.update');
+
 });
 
 

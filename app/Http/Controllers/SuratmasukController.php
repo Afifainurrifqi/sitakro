@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatesuratmasukRequest;
 use App\Models\surat_keterangan_kehilangan;
 use App\Models\surat_pernyataan_numpang_kk;
 use App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian;
+use App\Models\suratketerangantidakmampu;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -32,12 +33,14 @@ class SuratmasukController extends Controller
         $pernyataan_tidak_bisa_ktp = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::where('status_verif', '!=', 'Terverifikasi')->get();
         $keterangan_kehilangan = surat_keterangan_kehilangan::where('status_verif', '!=', 'Terverifikasi')->get();
         $numpang_kk = surat_pernyataan_numpang_kk::where('status_verif', '!=', 'Terverifikasi')->get();
+        $tidakmampu = suratketerangantidakmampu::where('status_verif', '!=', 'Terverifikasi')->get();
 
         // Gabungkan data
         $data = collect()
             ->merge($pernyataan_tidak_bisa_ktp)
             ->merge($keterangan_kehilangan)
-            ->merge($numpang_kk);
+            ->merge($numpang_kk)
+            ->merge($tidakmampu);
 
         return view('surat.suratkeluar', compact('data'));
     }
@@ -75,9 +78,11 @@ class SuratmasukController extends Controller
             return redirect()->route('surat.numpangkk.create')->with(compact('kategori', 'jenis_form'));
         }
 
-        if ($kategori === 'adminduk' && $jenis_form === 'surat_pernyataan_numpang_kk') {
-            return redirect()->route('surat.numpangkk.create')->with(compact('kategori', 'jenis_form'));
+        if ($kategori === 'keterangan' && $jenis_form === 'surat_keterangan_tidak_mampu') {
+            return redirect()->route('surat.tidakmampu.create')->with(compact('kategori', 'jenis_form'));
         }
+
+
 
 
         return redirect()->back()->withErrors(['jenis_form' => 'Form tidak ditemukan.']);
@@ -119,6 +124,12 @@ class SuratmasukController extends Controller
             $data = surat_pernyataan_numpang_kk::findOrFail($id);
             $pdf = Pdf::loadView('surat.pdfsuratnumpangkk', compact('data'))->setPaper('A4');
             return $pdf->download('pdfsuratnumpangkk_' . $data->nama_pelapor . '.pdf');
+        }
+
+        if ($jenis === 'surat_keterangan_tidakmampu') {
+            $data = suratketerangantidakmampu::findOrFail($id);
+            $pdf = Pdf::loadView('surat.pdf_surat_keterangan_tidakmampu', compact('data'))->setPaper('A4');
+            return $pdf->download('pdf_surat_keterangan_tidakmampu' . $data->nama_pelapor . '.pdf');
         }
 
         abort(404);
