@@ -46,6 +46,7 @@ use App\Http\Controllers\SuratmasukController;
 use App\Http\Controllers\SuratPernyataanNumpangKkController;
 use App\Http\Controllers\SuratPernyataanTidakBisaMelampirkanKtpKematianController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersuratController;
 use App\Models\akseskesehatan;
 use App\Models\datakesehatan;
 use App\Models\datamutasi;
@@ -65,6 +66,13 @@ Route::get('/akundemo', [SesiController::class, 'error2']);
 Route::get('/maintance', [SesiController::class, 'maintance'])->name('maintance');
 Route::get('/loginfarm', [SesiController::class, 'maintance'])->name('maintance');
 Route::prefix('surat')->group(function () {
+
+    Route::get('user_surat', [UsersuratController::class, 'index'])->name('surat.usersurat');
+    Route::get('pengajuan_surat', [UsersuratController::class, 'pengajuan'])->name('surat.pengajuan_surat');
+    Route::get('adminduk', [UsersuratController::class, 'adminduk'])->name('surat.adminduk');
+    Route::get('pernyataan', [UsersuratController::class, 'pernyataan'])->name('surat.pernyataan');
+    Route::get('keterangan', [UsersuratController::class, 'keterangan'])->name('surat.keterangan');
+
     Route::get('suratmasuk', [SuratmasukController::class, 'index'])->name('surat.masuk');
     Route::get('suratkeluar', [SuratmasukController::class, 'suratkeluar'])->name('surat.keluar');
     Route::get('arsipsuratkeluar', [SuratmasukController::class, 'arsipsuratkeluar'])->name('surat.arsipsuratkeluar');
