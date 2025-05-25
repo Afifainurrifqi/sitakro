@@ -46,7 +46,7 @@
                 <!-- Logo Wrapper -->
                 <div class="logo-wrapper">
                     <a href="awal.html">
-                        <img ssrc="{{ asset('assets4/img/wates.png') }}" alt="">
+                        <img ssrc="{{ asset('assets4/img/SAWENTAR.png') }}" alt="">
                     </a>
                 </div>
 
@@ -67,10 +67,10 @@
                 <!-- Single Hero Slide -->
                 <div>
                     <div>
-                        <div class="single-hero-slide bg-overlay" style="background-image: url('{{ asset('assets4/dist/img/Desa-wates-banner.png') }}')">
+                        <div class="single-hero-slide bg-overlay" style="background-image: url('{{ asset('assets4/dist/img/foto.jpeg') }}')">
                             <div class="h-100 d-flex align-items-center text-center">
                                 <div class="container">
-                                    <h3 class="text-white mb-1">Wates Berkelas</h3>
+                                    <h3 class="text-white mb-1">SAWENTAR Berkelas</h3>
                                     <p class="text-white mb-4">Siap Sambut Digitalisasi Desa</p>
                                 </div>
                             </div>
@@ -81,10 +81,10 @@
                 <!-- Single Hero Slide -->
                 <div>
                     <div class="single-hero-slide bg-overlay"
-                        style="background-image: url('{{ asset('assets4/dist/img/bg.jpg') }}')">
+                        style="background-image: url('{{ asset('assets4/dist/img/foto2.jpeg') }}')">
                         <div class="h-100 d-flex align-items-center text-center">
                             <div class="container">
-                                <h3 class="text-white mb-1">Wates Berkelas</h3>
+                                <h3 class="text-white mb-1">SAWENTAR Berkelas</h3>
                                 <p class="text-white mb-4">Siap Sambut Digitalisasi Desa</p>
 
                             </div>
@@ -144,7 +144,7 @@
 
         <div class="container">
             <div class="card card-bg-img bg-img bg-overlay mb-3"
-                style="background-image: url('{{ asset('assets4/dist/img/Desa-wates-banner.png') }}')">
+                style="background-image: url('{{ asset('assets4/dist/img/Desa-SAWENTAR-banner.png') }}')">
                 <div class="card-body direction-rtl p-4">
                     <h2 class="text-white">24 Jam dapat mengajukan surat</h2>
                 </div>
