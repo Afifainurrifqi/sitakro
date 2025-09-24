@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>SI TAKRO</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/wates2.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/SAWENTAR2.png">
     <!-- Pignose Calender -->
     <link href="/assets/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -85,7 +85,7 @@
                 <div class="header-left">
                     <div class="input-group icons">
                         <span class="brand-title">
-                            <img src="/assets/images/wates2.png" style="width:20%" alt="">
+                            <img src="/assets/images/SAWENTAR2.png" style="width:20%" alt="">
                         </span>
                         <span class="nav-link" style="font-weight: bold; font-size: 16px;">Haloo, {{ Auth::user()->role }}</span>
                     </div>
@@ -95,7 +95,7 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="/assets/images/wates2.png" height="40" width="40" alt="">
+                                <img src="/assets/images/SAWENTAR2.png" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">

@@ -100,15 +100,15 @@
                 </td>
                 <td class="kop-header">
                     <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                        KECAMATAN WATES<br>
-                        KANTOR KEPALA DESA WATES</strong><br>
+                        KECAMATAN SAWENTAR<br>
+                        KANTOR KEPALA DESA SAWENTAR</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
+                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Wates">
+                <img src="{{ public_path('assets/images/SAWENTAR.png') }}" class="kop-logo" alt="Logo SAWENTAR">
                 </td>
             </tr>
         </table>
@@ -126,7 +126,7 @@
 
     {{-- ISI SURAT --}}
     <div class="isi">
-        <p>Yang bertanda tangan di bawah ini Kepala Desa Wates, Kecamatan Wates, Kabupaten Blitar, menerangkan dengan sebenarnya bahwa :</p>
+        <p>Yang bertanda tangan di bawah ini Kepala Desa SAWENTAR, Kecamatan SAWENTAR, Kabupaten Blitar, menerangkan dengan sebenarnya bahwa :</p>
 
         <table class="data-diri">
             <tr>
@@ -168,7 +168,7 @@
         </table>
 
         <p>
-            Orang tersebut di atas benar-benar penduduk Desa Wates Kecamatan Wates Kabupaten Blitar dan yang bersangkutan tergolong keluarga yang tidak mampu.
+            Orang tersebut di atas benar-benar penduduk Desa SAWENTAR Kecamatan SAWENTAR Kabupaten Blitar dan yang bersangkutan tergolong keluarga yang tidak mampu.
             Surat keterangan ini diberikan untuk kelengkapan <strong>{{ $data->keterangan_fungsi_surat }}</strong>.
         </p>
 
@@ -179,8 +179,8 @@
 
     {{-- TTD --}}
     <div class="ttd-container">
-        <p>Wates, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
-        <p>Kepala Desa Wates</p>
+        <p>SAWENTAR, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
+        <p>Kepala Desa SAWENTAR</p>
         <br><br><br>
         <p><strong><u>MOH. HAMID ALMAULUDI S.Pd.I</u></strong></p>
     </div>

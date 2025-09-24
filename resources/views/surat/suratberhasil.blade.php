@@ -50,7 +50,7 @@
             <div class="card">
                 <div class="card-body px-5 text-center">
                     <img class="mb-4" src="img/bg-img/39.png" alt="">
-                    <h4>SELAMAT <br> SURATMU BERHASIL DIAJUKAN KE ADMIN DESA WATES!</h4>
+                    <h4>SELAMAT <br> SURATMU BERHASIL DIAJUKAN KE ADMIN DESA SAWENTAR!</h4>
                     <p class="mb-4">Tunggu pemberitahuan lewat whatsapp ya.</p>
                 </div>
             </div>

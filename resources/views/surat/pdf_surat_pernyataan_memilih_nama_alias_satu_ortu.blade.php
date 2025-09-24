@@ -96,15 +96,15 @@
                 </td>
                 <td class="kop-header">
                     <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                        KECAMATAN WATES<br>
-                        KANTOR KEPALA DESA WATES</strong><br>
+                        KECAMATAN SAWENTAR<br>
+                        KANTOR KEPALA DESA SAWENTAR</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
+                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Kanan">
+                    <img src="{{ public_path('assets/images/SAWENTAR.png') }}" class="kop-logo" alt="Logo Kanan">
                 </td>
             </tr>
         </table>
@@ -253,7 +253,7 @@
     {{-- =================== TANDA TANGAN ala referensi (kanan + materai) =================== --}}
     @php
         use Carbon\Carbon;
-        $kota    = data_get($data, 'kota_terbit', 'Wates');
+        $kota    = data_get($data, 'kota_terbit', 'SAWENTAR');
         $tanggal = Carbon::now('Asia/Jakarta')->translatedFormat('d F Y');
         $namaTtd = data_get($data, 'nama_menyatakan', data_get($data, 'nama', '( ................................. )'));
     @endphp
