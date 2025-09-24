@@ -24,6 +24,16 @@ class suratketerangantidakmampu extends Eloquent
         'alamat_rumah',
         'peruntukan_sktm',
         'keterangan_fungsi_surat',
-        'bantuan_sosial',
+
+        // gunakan struktur baru:
+        'bantuan',      // array of keys
+        'bantuan_id',   // assoc array: key => id
+    ];
+
+    protected $casts = [
+        'bantuan'    => 'array',
+        'bantuan_id' => 'array',
+        // kalau ingin tanggal_lahir jadi Carbon, bisa:
+        // 'tanggal_lahir' => 'datetime:Y-m-d',
     ];
 }

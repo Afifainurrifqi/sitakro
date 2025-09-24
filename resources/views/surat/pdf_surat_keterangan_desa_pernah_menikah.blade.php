@@ -73,15 +73,15 @@
                 </td>
                 <td class="kop-header">
                     <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                        KECAMATAN SAWENTAR<br>
-                        KANTOR KEPALA DESA SAWENTAR</strong><br>
+                        KECAMATAN WATES<br>
+                        KANTOR KEPALA DESA WATES</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
+                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/SAWENTAR.png') }}" class="kop-logo" alt="Logo SAWENTAR">
+                    <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Wates">
                 </td>
             </tr>
         </table>
@@ -98,7 +98,7 @@
 
     {{-- ISI --}}
     <div class="isi">
-        <p>Yang bertanda tangan di bawah ini Kepala Desa SAWENTAR, Kecamatan SAWENTAR, Kabupaten Blitar, menerangkan dengan sebenarnya bahwa:</p>
+        <p>Yang bertanda tangan di bawah ini Kepala Desa Wates, Kecamatan Wates, Kabupaten Blitar, menerangkan dengan sebenarnya bahwa:</p>
 
         <table class="data-diri">
             <tr>
@@ -149,14 +149,14 @@
                 <td class="colon">:</td>
                 <td class="value">
                     {{ $data->alamat }} RT {{ $data->rt }} / RW {{ $data->rw }}<br>
-                    Dusun/Desa SAWENTAR, Kec. SAWENTAR, Kab. Blitar
+                    Dusun/Desa Wates, Kec. Wates, Kab. Blitar
                 </td>
             </tr>
         </table>
 
         <p>
-            Berdasarkan data kependudukan yang ada pada Pemerintah Desa SAWENTAR, yang bersangkutan tersebut di atas
-            benar-benar penduduk Desa SAWENTAR dan <strong>benar pernah menikah</strong>.
+            Berdasarkan data kependudukan yang ada pada Pemerintah Desa Wates, yang bersangkutan tersebut di atas
+            benar-benar penduduk Desa Wates dan <strong>benar pernah menikah</strong>.
         </p>
 
         <p>
@@ -166,8 +166,8 @@
 
     {{-- TTD --}}
     <div class="ttd-container">
-        <p>SAWENTAR, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
-        <p>Kepala Desa SAWENTAR</p>
+        <p>Wates, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
+        <p>Kepala Desa Wates</p>
         <br><br><br>
         <p><strong><u>MOH. HAMID ALMAULUDI S.Pd.I</u></strong></p>
     </div>
