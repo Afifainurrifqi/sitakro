@@ -37,7 +37,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="pekerjaan_pemilik_kk" class="form-label">Pekerjaan</label>
-                        <select name="pekerjaan_pemilik_kk" id="pekerjaan_pemilik_kk" class="form-control" required>
+                         <select name="pekerjaan_pemilik_kk" id="pekerjaan_pemilik_kk" class="form-control" required>
                             <option value="">-- Pilih pekerjaan --</option>
                             @php
                                 $jobs = [
@@ -90,9 +90,11 @@
                             @endphp
                             @foreach ($jobs as $job)
                                 <option value="{{ $job }}"
-                                    {{ old('pekerjaan_pemilik_kk') == $job ? 'selected' : '' }}>{{ $job }}</option>
+                                    {{ old('pekerjaan_pemilik_kk') == $job ? 'selected' : '' }}>{{ $job }}
+                                </option>
                             @endforeach
                         </select>
+
                     </div>
                     <div class="mb-3">
                         <label for="alamat_pemilik_kk" class="form-label">Alamat</label>

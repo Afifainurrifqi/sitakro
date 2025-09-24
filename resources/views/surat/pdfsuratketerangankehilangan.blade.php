@@ -94,15 +94,15 @@
                 </td>
                 <td class="kop-header">
                     <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                        KECAMATAN WATES<br>
-                        KANTOR KEPALA DESA WATES</strong><br>
+                        KECAMATAN SAWENTAR<br>
+                        KANTOR KEPALA DESA SAWENTAR</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
+                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="assets/images/wates.png" class="kop-logo">
+                    <img src="assets/images/SAWENTAR.png" class="kop-logo">
                 </td>
             </tr>
         </table>
@@ -120,7 +120,7 @@
 
     {{-- ISI SURAT --}}
     <div class="isi">
-        <p>Yang bertanda tangan di bawah ini Kepala Desa Wates, Kecamatan Wates, Kabupaten Blitar, menerangkan dengan
+        <p>Yang bertanda tangan di bawah ini Kepala Desa SAWENTAR, Kecamatan SAWENTAR, Kabupaten Blitar, menerangkan dengan
             sebenarnya bahwa:</p>
 
         <table class="data-diri">
@@ -159,7 +159,7 @@
             </tr>
         </table>
 
-        <p>Orang tersebut di atas adalah penduduk Desa Wates, Kecamatan Wates, Kabupaten Blitar yang benar-benar
+        <p>Orang tersebut di atas adalah penduduk Desa SAWENTAR, Kecamatan SAWENTAR, Kabupaten Blitar yang benar-benar
             kehilangan <strong>{{ $data->jenis_kehilangan }}</strong> atas nama
             <strong>{{ $data->atas_nama }}</strong>. dengan {{ $data->berisi }} telah hilang pada tanggal
             <strong>{{ \Carbon\Carbon::parse($data->tanggal_kehilangan)->translatedFormat('d F Y') }}</strong>, hilang
@@ -172,8 +172,8 @@
 
     {{-- TTD --}}
     <div class="ttd-container">
-        <p>Wates, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
-        <p>Kepala Desa Wates</p>
+        <p>SAWENTAR, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
+        <p>Kepala Desa SAWENTAR</p>
         <br><br><br>
         <p><strong><u>MOH. HAMID ALMAULUDI S.Pd.I</u></strong></p>
     </div>

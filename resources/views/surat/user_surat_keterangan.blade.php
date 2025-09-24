@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="utf-8">
@@ -9,8 +9,7 @@
     <meta name="theme-color" content="#0134d4">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-    <title>Sitakro Pelayanan Surat Kterangan</title>
+    <title>Sitakro Pelayanan Surat Keterangan</title>
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('assets4/img/core-img/favicon.ico') }}">
@@ -23,7 +22,7 @@
     <link rel="stylesheet" href="{{ asset('assets4/dist/style.css') }}">
 
     <!-- Web App Manifest -->
-    <link rel="manifest" href="{{ asset('assets4/dist/manifest.json') }}">
+    <link rel="manifest" href="/assets4/dist/manifest.json">
 </head>
 
 <body>
@@ -40,140 +39,121 @@
     <!-- Header Area -->
     <div class="header-area" id="headerArea">
         <div class="container">
-            <!-- Header Content -->
             <div
                 class="header-content header-style-five position-relative d-flex align-items-center justify-content-between">
-                <!-- Back Button -->
                 <div class="back-button">
-                    <a href={{ route('surat.pengajuan_surat') }}>
-                        <i class="bi bi-arrow-left-short"></i>
-                    </a>
+                    <a href="{{ route('surat.pengajuan_surat') }}"><i class="bi bi-arrow-left-short"></i></a>
                 </div>
-
-                <!-- Page Title -->
                 <div class="page-heading">
                     <h6 class="mb-0">Surat Keterangan</h6>
                 </div>
-
-                <!-- Navbar Toggler -->
-                <!-- Settings -->
-                <div class="setting-wrapper">
-
-                </div>
+                <div class="setting-wrapper"></div>
             </div>
         </div>
     </div>
 
     <div class="page-content-wrapper py-3">
         <div class="container">
-            <!-- Service Card -->
-            <div class="card service-card bg-danger bg-gradient mb-3">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="service-text">
-                            <h5>Surat Keterangan</h5>
-                            <p class="mb-0">Kehilangan</p>
-                        </div>
-                        <div class="service-img">
-                            <a class="btn m-1 btn-creative btn-light" href="ket1.html">Buat Surat</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Service Card -->
-            <div class="card service-card bg-info bg-gradient mb-3">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="service-text">
-                            <h5>Surat Keterangan</h5>
-                            <p class="mb-0">Desa Pernah Menikah</p>
-                        </div>
-                        <div class="service-img">
-                            <a class="btn m-1 btn-creative btn-light" href="#">Buat Surat</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @php
+                // Data mentah (pakai persis yang kamu kirim)
+                $rawTitles = [
+                    'SURAT   KETERANGAN KEHILANGAN',
+                    'SURAT   KETERANGAN   DESA  PERNAH MENIKAH',
+                    'SURAT KETERANGAN TIDAK MAMPU',
+                    'SURAT KETERANGAN KEMATIAN DESA',
+                    'SURAT KETERANGAN WARIS',
+                    'SURAT KETERANGAN HARGA KEPEMILIKAN TANAH',
+                    'SURAT KETERANGAN NUMPANG NIKAH',
+                    'KETERANGAN   PENGANTAR   SKCK',
+                    'Surat Keterangan Kepemilikan  Aset',
+                    'SURAT  KETERANGAN  USAHA',
+                    'Surat Keterangan Desa Warga Miskin',
+                    'SURAT KETERANGAN MISKIN ( SKM )',
+                    'SURAT  KETERANGAN  AHLI WARIS',
+                    'SURAT KETERANGAN GHOIB',
+                    'SURAT KETERANGAN PENGHASILAN',
+                    'SURAT KETERANGAN DOMISILI LEMBAGA',
+                    'SURAT KETERANGAN DOMISILI WARGA',
+                    'Surat Keterangan Desa Sebagai Penduduk Desa',
+                ];
 
-            <!-- Service Card -->
-            <div class="card service-card bg-success bg-gradient mb-3">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="service-text">
-                            <h5 class="text-dark">Surat Keterangan</h5>
-                            <p class="mb-0 text-dark">Tidak Mampu</p>
-                        </div>
-                        <div class="service-img">
-                            <a class="btn m-1 btn-creative btn-light" href="#">Buat Surat</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                // Normalisasi judul: buang spasi berlebih, kapitalisasi wajar
+                $titles = collect($rawTitles)
+                    ->map(function ($t) {
+                        $t = preg_replace('/\s+/', ' ', trim($t)); // compress spasi
+                        // biarkan beberapa huruf kapital sesuai gaya, tapi kita tampilkan dengan ucwords
+                        return $t;
+                    })
+                    ->values();
 
-            <!-- Service Card -->
-            <div class="card service-card bg-warning bg-gradient mb-3">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="service-text">
-                            <h5 class="text-dark">Surat Keterangan</h5>
-                            <p class="mb-0 text-dark">Kematian Desa</p>
-                        </div>
-                        <div class="service-img">
-                            <a class="btn m-1 btn-creative btn-light" href="#">Buat Surat</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                // Mapping judul -> nama route (yang tersedia sekarang)
+                $routeMap = [
+                    'SURAT KETERANGAN KEHILANGAN' => 'surat.userkehilangan',
+                    'SURAT KETERANGAN TIDAK MAMPU' => 'surat.usertidakmampu',
+                    'SURAT KETERANGAN DESA PERNAH MENIKAH' => 'surat.userpernahmenikah',
+                    'SURAT KETERANGAN KEMATIAN DESA' => 'surat.userkematian',
+                    'SURAT KETERANGAN WARIS' => 'surat.userahliwaris',
+                    'SURAT KETERANGAN HARGA KEPEMILIKAN TANAH' => 'surat.userkepemilikantanah',
+                    'KETERANGAN PENGANTAR SKCK' => 'surat.userskck',
+                    // Tambahkan mapping lain bila route sudah dibuat
+                ];
 
-            <!-- Service Card -->
-            <div class="card service-card bg-primary bg-gradient mb-3">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="service-text">
-                            <h5>Surat Keterangan</h5>
-                            <p class="mb-0">Waris</p>
-                        </div>
-                        <div class="service-img">
-                            <a class="btn m-1 btn-creative btn-light" href="#">Buat Surat</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                // Warna kartu berputar
+                $colors = ['danger', 'info', 'success', 'warning', 'primary'];
+            @endphp
 
-            <!-- Service Card -->
-            <div class="card service-card bg-warning bg-gradient">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="service-text">
-                            <h5 class="text-dark">Surat Keterangan</h5>
-                            <p class="mb-0 text-dark">Domisili Lembaga</p>
-                        </div>
-                        <div class="service-img">
-                            <a class="btn m-1 btn-creative btn-light" href="#">Buat Surat</a>
+            @foreach ($titles as $i => $titleRaw)
+                @php
+                    // Versi kunci UPPERCASE untuk pencocokan peta route
+                    $key = mb_strtoupper($titleRaw, 'UTF-8');
+                    $routeName = $routeMap[$key] ?? null;
+                    $href = $routeName && Route::has($routeName) ? route($routeName) : null;
+
+                    // Tampilan judul yang rapi
+                    $titlePretty = ucwords(strtolower($titleRaw));
+
+                    // Subtitle default
+                    $subtitle = 'Surat Keterangan';
+
+                    // Warna kartu
+                    $color = $colors[$i % count($colors)];
+
+                    // Pilih warna teks gelap untuk kartu terang
+                    $textDark = in_array($color, ['success', 'warning', 'primary']) ? 'text-dark' : '';
+                @endphp
+
+                <div class="card service-card bg-{{ $color }} bg-gradient mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="service-text">
+                                <h5 class="{{ $textDark }}">{{ $titlePretty }}</h5>
+                                <p class="mb-0 {{ $textDark }}">{{ $subtitle }}</p>
+                            </div>
+                            <div class="service-img">
+                                @if ($href)
+                                    <a class="btn m-1 btn-creative btn-light" href="{{ $href }}">Buat Surat</a>
+                                @else
+                                    <button class="btn m-1 btn-creative btn-light" type="button" disabled>Maintance</button>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
 
     <!-- Footer Nav -->
     <div class="footer-nav-area" id="footerNav">
         <div class="container px-0">
-            <!-- Footer Content -->
             <div class="footer-nav position-relative">
                 <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
                     <li class="active">
-                        <a href="home.html">
+                        <a href="{{ route('surat.pengajuan_surat') }}">
                             <i class="bi bi-house"></i>
                             <span>Beranda</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="settings.html">
-                            <i class="bi bi-gear"></i>
-                            <span>Settings</span>
                         </a>
                     </li>
                 </ul>

@@ -17,7 +17,22 @@
 
             <form action="{{ route('surat.tidakmampu.store') }}" method="POST">
                 @csrf
-                
+
+                  <div class="mb-3">
+                            <label for="peruntukan_sktm" class="form-label">
+                                Peruntukan untuk SKTM <span class="text-danger">*</span>
+                            </label>
+                            <select name="peruntukan_sktm" id="peruntukan_sktm" class="form-control" required>
+                                <option value="">-- Pilih Peruntukan --</option>
+                                @foreach (['Biaya Pendidikan', 'Bantuan Sosial', 'Biaya Kesehatan'] as $peruntukan)
+                                    <option value="{{ $peruntukan }}"
+                                        {{ old('peruntukan_sktm') == $peruntukan ? 'selected' : '' }}>
+                                        {{ $peruntukan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                 <div class="mb-3">
                     <label for="nama_lengkap" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                     <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control" required value="{{ old('nama_lengkap') }}">
@@ -96,6 +111,25 @@
                     <label for="keterangan_fungsi_surat" class="form-label">Keterangan Fungsi Surat (Kelengkapan) <span class="text-danger">*</span></label>
                     <textarea name="keterangan_fungsi_surat" id="keterangan_fungsi_surat" class="form-control" rows="3" required>{{ old('keterangan_fungsi_surat') }}</textarea>
                 </div>
+
+                 <div class="mb-3">
+                            <label class="form-label">Apakah anda memiliki bantuan sosial?</label>
+                            @php
+                                $bantuanOptions = ['PKH', 'KIP', 'KIS', 'BPNT', 'ID. DTKS', 'BLT DD', 'BANSOS'];
+                                $oldBantuan = old('bantuan', []);
+                            @endphp
+                            <div class="form-check">
+                                @foreach ($bantuanOptions as $bantuan)
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" name="bantuan[]"
+                                            id="bantuan_{{ $loop->index }}" value="{{ $bantuan }}"
+                                            {{ in_array($bantuan, $oldBantuan) ? 'checked' : '' }}>
+                                        <label class="form-check-label"
+                                            for="bantuan_{{ $loop->index }}">{{ $bantuan }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
 
                 <div class="mb-3">
                     <label for="nowa" class="form-label">No WhatsApp <span class="text-danger">*</span></label>

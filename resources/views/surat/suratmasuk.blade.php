@@ -43,16 +43,22 @@
                                             <td>{{ $item->keterangan }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->tanggal_masuk)->format('d-m-Y') }}</td>
                                             <td>
-                                                @if ($item->file)
-                                                    <a href="{{ asset('storage/' . $item->file) }}" class="btn btn-sm btn-primary" target="_blank" download>
-                                                        Cek
-                                                    </a>
+                                                @if ($item->file && Storage::disk('suratdesa')->exists($item->file))
+                                                    <a href="{{ Storage::disk('suratdesa')->url($item->file) }}"
+                                                        class="btn btn-sm btn-primary" target="_blank"
+                                                        rel="noopener">Lihat</a>
+
+                                                    <a href="{{ Storage::disk('suratdesa')->url($item->file) }}"
+                                                        class="btn btn-sm btn-success" download>Download</a>
                                                 @else
                                                     <span class="text-muted">Tidak Ada</span>
                                                 @endif
                                             </td>
+
+
                                             <td>
-                                                <a href="{{ route('suratmasuk.edit', $item->_id) }}" class="btn btn-sm btn-warning">
+                                                <a href="{{ route('suratmasuk.edit', $item->_id) }}"
+                                                    class="btn btn-sm btn-warning">
                                                     Edit
                                                 </a>
                                             </td>

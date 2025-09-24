@@ -48,6 +48,11 @@ class UsersuratController extends Controller
         return view('surat.user_surat_pernyataan_numpang_kk');
     }
 
+    public function suratberhasil()
+    {
+        return view('surat.suratberhasil');
+    }
+
 
     /**
      * Show the form for creating a new resource.

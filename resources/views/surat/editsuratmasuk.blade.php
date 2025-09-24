@@ -9,7 +9,8 @@
                         <h5 class="card-title mb-0">Edit Surat Masuk</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('suratmasuk.update', $suratmasuk->_id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('suratmasuk.update', $suratmasuk->_id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -25,18 +26,24 @@
                                     value="{{ old('keterangan', $suratmasuk->keterangan) }}" required>
                             </div>
 
-                             <div class="mb-3">
+                            <div class="mb-3">
                                 <label for="tanggal_masuk" class="form-label">Tanggal Masuk</label>
-                                <input type="date" name="tanggal_masuk" class="form-control" value="{{ old('tanggal_masuk', $suratmasuk->tanggal_masuk) }}" required>
+                                <input type="date" name="tanggal_masuk" class="form-control"
+                                    value="{{ old('tanggal_masuk', $suratmasuk->tanggal_masuk) }}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="file" class="form-label">Upload File (Opsional)</label>
-                                <input type="file" name="file" class="form-control" accept=".pdf,.doc,.docx,.jpg,.png">
+                                <input type="file" name="file" class="form-control"
+                                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+
                                 @if ($suratmasuk->file)
                                     <div class="mt-2">
                                         <label>File saat ini:</label>
-                                        <a href="{{ asset('storage/' . $suratmasuk->file) }}" target="_blank">Lihat File</a>
+                                        <a href="{{ asset('suratdesa/' . $suratmasuk->file) }}" target="_blank"
+                                            rel="noopener" download>
+                                            {{ $suratmasuk->file }}
+                                        </a>
                                     </div>
                                 @endif
                             </div>

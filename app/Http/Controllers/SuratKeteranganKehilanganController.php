@@ -20,6 +20,13 @@ class SuratKeteranganKehilanganController extends Controller
         return view('surat.suratpernyataantidakbisamelampirkanktpkematian');
     }
 
+    public function userkehilangan()
+    {
+        return view('surat.user_pengajuan_keterangan_kehilangan');
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -77,6 +84,33 @@ class SuratKeteranganKehilanganController extends Controller
         surat_keterangan_kehilangan::create($validated);
 
         return redirect()->route('surat.keluar')->with('success', 'Surat Kehilangan berhasil diperbarui.');
+    }
+
+    public function userstore(Request $request)
+    {
+        $validated = $request->validate([
+            'nowa' => 'required|string',
+            'status_surat' => 'required|string',
+            'status_verif' => 'required|string',
+            'nama_pelapor' => 'required|string|max:255',
+            'tempat_lahir_pelapor' => 'required|string|max:100',
+            'tanggal_lahir_pelapor' => 'required|date',
+            'jenis_kelamin_pelapor' => 'required|in:Laki-laki,Perempuan',
+            'nik_pelapor' => 'required|string|max:50',
+            'agama_pelapor' => 'required|string|max:100',
+            'status_pelapor' => 'required|string|max:100',
+            'pekerjaan_pelapor' => 'required|string|max:100',
+            'alamat_pelapor' => 'required|string',
+            'jenis_kehilangan' => 'required|string|max:100',
+            'atas_nama' => 'required|string|max:255',
+            'berisi' => 'required|string|max:255',
+            'tanggal_kehilangan' => 'required|date',
+            'hilang_saat' => 'required|string|max:255',
+        ]);
+
+        surat_keterangan_kehilangan::create($validated);
+
+        return redirect()->route('surat.suratberhasil')->with('success', 'Surat Kehilangan berhasil diperbarui.');
     }
 
 

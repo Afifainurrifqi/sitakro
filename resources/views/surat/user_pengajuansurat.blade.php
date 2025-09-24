@@ -23,7 +23,8 @@
     <link rel="stylesheet" href="{{ asset('assets4/dist/style.css') }}">
 
     <!-- Web App Manifest -->
-    <link rel="manifest" href="{{ asset('assets4/dist/manifest.json') }}">
+    <link rel="manifest" href="/assets4/dist/manifest.json">
+
 </head>
 
 <body>
@@ -67,7 +68,7 @@
                 <!-- Single Hero Slide -->
                 <div>
                     <div>
-                        <div class="single-hero-slide bg-overlay" style="background-image: url('{{ asset('assets4/dist/img/foto.jpeg') }}')">
+                        <div class="single-hero-slide bg-overlay" style="background-image: url('{{ asset('assets4/dist/img/Desa-SAWENTAR-banner.png') }}')">
                             <div class="h-100 d-flex align-items-center text-center">
                                 <div class="container">
                                     <h3 class="text-white mb-1">SAWENTAR Berkelas</h3>
@@ -81,7 +82,7 @@
                 <!-- Single Hero Slide -->
                 <div>
                     <div class="single-hero-slide bg-overlay"
-                        style="background-image: url('{{ asset('assets4/dist/img/foto2.jpeg') }}')">
+                        style="background-image: url('{{ asset('assets4/dist/img/bg.jpg') }}')">
                         <div class="h-100 d-flex align-items-center text-center">
                             <div class="container">
                                 <h3 class="text-white mb-1">SAWENTAR Berkelas</h3>
@@ -173,7 +174,7 @@
                 <div class="footer-nav position-relative">
                     <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
                         <li class="active">
-                            <a href="home.html">
+                            <a href={{ route('surat.pengajuan_surat') }}>
                                 <i class="bi bi-house"></i>
                                 <span>Beranda</span>
                             </a>

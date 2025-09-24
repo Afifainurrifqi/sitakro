@@ -17,7 +17,13 @@ class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controlle
      */
     public function index()
     {
-        return view('surat.suratpernyataantidakbisamelampirkanktpkematian');
+        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::all();
+        return view('surat.suratpernyataantidakbisamelampirkanktpkematian', compact('data'));
+    }
+
+    public function userkematianktp()
+    {
+        return view('surat.user_suratpernyataantidakbisamelampirkanktpkematian');
     }
 
     public function exportPdf($id)
@@ -52,6 +58,32 @@ class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controlle
      * @param  \App\Http\Requests\Storesurat_pernyataan_tidak_bisa_melampirkan_ktp_kematianRequest  $request
      * @return \Illuminate\Http\Response
      */
+    public function userstore(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nowa' => 'required|string',
+            'status_surat' => 'required|string',
+            'status_verif' => 'required|string', // perhatikan: bukan "starus_verif"
+            'nama_pelapor' => 'required|string',
+            'nik_pelapor' => 'required|string',
+            'tempat_lahir_pelapor' => 'required|string',
+            'tanggal_lahir_pelapor' => 'required|date',
+            'jenis_kelamin_pelapor' => 'required|string',
+            'pekerjaan_pelapor' => 'required|string',
+            'alamat_pelapor' => 'required|string',
+            'alasan' => 'required|string',
+            'nik_jenazah' => 'required|string',
+            'nama_jenazah' => 'required|string',
+            'tanggal_lahir_jenazah' => 'required|date',
+            'jenis_kelamin_jenazah' => 'required|string',
+            'alamat_jenazah' => 'required|string',
+        ]);
+        surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::create($validatedData);
+
+        return redirect()->route('surat.suratberhasil')
+            ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -61,6 +93,7 @@ class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controlle
             'nama_pelapor' => 'required|string',
             'nik_pelapor' => 'required|string',
             'tempat_lahir_pelapor' => 'required|string',
+            'agama_pelapor' => 'required|string',
             'tanggal_lahir_pelapor' => 'required|date',
             'jenis_kelamin_pelapor' => 'required|string',
             'pekerjaan_pelapor' => 'required|string',
@@ -97,36 +130,36 @@ class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controlle
      * @return \Illuminate\Http\Response
      */
     public function edit(surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat)
-{
-    return view('surat.edit_suratpernyataantidakbisamelampirkanktpkematian', compact('surat'));
-}
+    {
+        return view('surat.edit_suratpernyataantidakbisamelampirkanktpkematian', compact('surat'));
+    }
 
-public function update(Request $request, surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat)
-{
-    $validatedData = $request->validate([
-        'nowa' => 'required|string',
-        'status_surat' => 'required|string',
-        'status_verif' => 'required|string',
-        'nama_pelapor' => 'required|string',
-        'nik_pelapor' => 'required|string',
-        'tempat_lahir_pelapor' => 'required|string',
-        'tanggal_lahir_pelapor' => 'required|date',
-        'agama_pelapor' => 'required|string',
-        'jenis_kelamin_pelapor' => 'required|string',
-        'pekerjaan_pelapor' => 'required|string',
-        'alamat_pelapor' => 'required|string',
-        'alasan' => 'required|string',
-        'nik_jenazah' => 'required|string',
-        'nama_jenazah' => 'required|string',
-        'tanggal_lahir_jenazah' => 'required|date',
-        'jenis_kelamin_jenazah' => 'required|string',
-        'alamat_jenazah' => 'required|string',
-    ]);
+    public function update(Request $request, surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat)
+    {
+        $validatedData = $request->validate([
+            'nowa' => 'required|string',
+            'status_surat' => 'required|string',
+            'status_verif' => 'required|string',
+            'nama_pelapor' => 'required|string',
+            'nik_pelapor' => 'required|string',
+            'tempat_lahir_pelapor' => 'required|string',
+            'tanggal_lahir_pelapor' => 'required|date',
+            'agama_pelapor' => 'required|string',
+            'jenis_kelamin_pelapor' => 'required|string',
+            'pekerjaan_pelapor' => 'required|string',
+            'alamat_pelapor' => 'required|string',
+            'alasan' => 'required|string',
+            'nik_jenazah' => 'required|string',
+            'nama_jenazah' => 'required|string',
+            'tanggal_lahir_jenazah' => 'required|date',
+            'jenis_kelamin_jenazah' => 'required|string',
+            'alamat_jenazah' => 'required|string',
+        ]);
 
-    $surat->update($validatedData);
+        $surat->update($validatedData);
 
-    return redirect()->route('surat.keluar')->with('success', 'Surat berhasil diperbarui.');
-}
+        return redirect()->route('surat.keluar')->with('success', 'Surat berhasil diperbarui.');
+    }
 
 
     /**

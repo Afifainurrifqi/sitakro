@@ -22,6 +22,8 @@ class suratketerangantidakmampu extends Eloquent
         'status_perkawinan',
         'pekerjaan',
         'alamat_rumah',
+        'peruntukan_sktm',
         'keterangan_fungsi_surat',
+        'bantuan_sosial',
     ];
 }

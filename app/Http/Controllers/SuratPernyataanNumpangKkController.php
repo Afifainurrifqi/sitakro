@@ -20,9 +20,43 @@ class SuratPernyataanNumpangKkController extends Controller
         return view('surat.surat_pernyataan_numpang_kk', compact('data'));
     }
 
+     public function usernumpangkk()
+    {
+        return view('surat.user_pengajuan_adminduk_numpangkk');
+    }
+
     public function create()
     {
         return view('surat.surat_pernyataan_numpang_kk');
+    }
+
+    public function userstore(Request $request)
+    {
+        $validated = $request->validate([
+            'nowa' => 'required|string',
+            // Pemilik KK
+            'nama_pemilik_kk' => 'required|string|max:255',
+            'nik_pemilik_kk' => 'required|string|max:50',
+            'no_kk' => 'required|string|max:20',
+            'pekerjaan_pemilik_kk' => 'required|string',
+            'alamat_pemilik_kk' => 'required|string',
+
+            // Penumpang KK
+            'nama_penumpang_kk' => 'required|string|max:255',
+            'nik_penumpang_kk' => 'required|string|max:50',
+            'tempat_lahir_penumpang_kk' => 'required|string',
+            'tanggal_lahir_penumpang_kk' => 'required|date',
+            'agama_penumpang_kk' => 'required|string',
+            'pekerjaan_penumpang_kk' => 'required|string',
+
+            // Status
+            'status_surat' => 'required|string',
+            'status_verif' => 'required|string',
+        ]);
+
+        surat_pernyataan_numpang_kk::create($validated);
+
+        return redirect()->route('surat.suratberhasil')->with('success', 'Surat berhasil diajukan');
     }
 
     public function store(Request $request)
