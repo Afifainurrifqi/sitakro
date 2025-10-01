@@ -3,66 +3,64 @@
 namespace App\Http\Controllers;
 
 use App\Models\surat_keterangan_kehilangan;
-use App\Http\Requests\Storesurat_keterangan_kehilanganRequest;
-use App\Http\Requests\Updatesurat_keterangan_kehilanganRequest;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\NomorSuratService;
 
 class SuratKeteranganKehilanganController extends Controller
 {
+    public function __construct(private NomorSuratService $svc) {}
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Assign nomor surat kalau status "Di terima" + "Terverifikasi"
      */
-    public function index()
+    protected function maybeAssignNomorSurat($suratOrNull, array &$payload): void
     {
-        return view('surat.suratpernyataantidakbisamelampirkanktpkematian');
+        $status = $payload['status_surat'] ?? ($suratOrNull->status_surat ?? null);
+        $verif  = $payload['status_verif'] ?? ($suratOrNull->status_verif ?? null);
+
+        $sudahAdaNomor = !empty($payload['nomor_surat']) || !empty($suratOrNull?->nomor_surat);
+
+        if ($status === 'Di terima' && $verif === 'Terverifikasi' && !$sudahAdaNomor) {
+            // issue nomor untuk jenis "kehilangan"
+            $issued = $this->svc->issue('kehilangan'); // ['urut','tahun','nomor_surat']
+            $payload['nomor_urut']  = $issued['urut'];
+            $payload['tahun_nomor'] = $issued['tahun'];
+            $payload['nomor_surat'] = $issued['nomor_surat'];
+        }
     }
 
+    /** List arsip/admin */
+    public function index()
+    {
+        $data = surat_keterangan_kehilangan::orderBy('_id', 'desc')->get();
+        return view('surat.surat_keterangan_kehilangan', compact('data'));
+    }
+
+    /** Form user */
     public function userkehilangan()
     {
         return view('surat.user_pengajuan_keterangan_kehilangan');
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+    /** Export PDF */
     public function exportPdf($id)
     {
-        // Ambil data surat berdasarkan ID
         $data = surat_keterangan_kehilangan::findOrFail($id);
 
-        // Render view dan konversi ke PDF
         $pdf = Pdf::loadView('surat.pdfsuratketerangankehilangan', compact('data'))
             ->setPaper('a4', 'portrait');
 
-        // Buat nama file yang aman
-        $filename = 'surat_keterangan_kehilangan_' . preg_replace('/[^A-Za-z0-9\-]/', '_', $data->_id) . '.pdf';
+        $filename = 'surat_keterangan_kehilangan_' . preg_replace('/[^A-Za-z0-9\-]/', '_', (string)$data->_id) . '.pdf';
 
-        // Unduh file
         return $pdf->download($filename);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storesurat_keterangan_kehilanganRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    /** Store (admin) */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nowa' => 'required|string',
+            'nowa' => 'required|string|max:20',
             'status_surat' => 'required|string',
             'status_verif' => 'required|string',
             'nama_pelapor' => 'required|string|max:255',
@@ -81,17 +79,22 @@ class SuratKeteranganKehilanganController extends Controller
             'hilang_saat' => 'required|string|max:255',
         ]);
 
-        surat_keterangan_kehilangan::create($validated);
+        $payload = $validated;
+        // admin bisa langsung dapat nomor (kalau status/verify memenuhi)
+        $this->maybeAssignNomorSurat(null, $payload);
 
-        return redirect()->route('surat.keluar')->with('success', 'Surat Kehilangan berhasil diperbarui.');
+        surat_keterangan_kehilangan::create($payload);
+
+        return redirect()->route('surat.keluar')->with('success', 'Surat Kehilangan berhasil dibuat.');
     }
 
+    /** Store (user) */
     public function userstore(Request $request)
     {
         $validated = $request->validate([
-            'nowa' => 'required|string',
-            'status_surat' => 'required|string',
-            'status_verif' => 'required|string',
+            'nowa' => 'required|string|max:20',
+            'status_surat' => 'nullable|string',
+            'status_verif' => 'nullable|string',
             'nama_pelapor' => 'required|string|max:255',
             'tempat_lahir_pelapor' => 'required|string|max:100',
             'tanggal_lahir_pelapor' => 'required|date',
@@ -108,39 +111,28 @@ class SuratKeteranganKehilanganController extends Controller
             'hilang_saat' => 'required|string|max:255',
         ]);
 
-        surat_keterangan_kehilangan::create($validated);
+        $payload = array_merge($validated, [
+            'status_surat' => $validated['status_surat'] ?? 'Pending',
+            'status_verif' => $validated['status_verif'] ?? 'Belum Verifikasi',
+        ]);
 
-        return redirect()->route('surat.suratberhasil')->with('success', 'Surat Kehilangan berhasil diperbarui.');
+        // user tidak di-assign nomor dulu
+        surat_keterangan_kehilangan::create($payload);
+
+        return redirect()->route('surat.suratberhasil')->with('success', 'Pengajuan Surat Kehilangan berhasil dikirim.');
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\surat_keterangan_kehilangan  $surat_keterangan_kehilangan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(surat_keterangan_kehilangan $surat_keterangan_kehilangan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\surat_keterangan_kehilangan  $surat_keterangan_kehilangan
-     * @return \Illuminate\Http\Response
-     */
+    /** Edit */
     public function edit(surat_keterangan_kehilangan $surat_keterangan_kehilangan)
     {
         return view('surat.edit_surat_keterangan_kehilangan', compact('surat_keterangan_kehilangan'));
     }
 
-    // Update data yang sudah diedit
+    /** Update */
     public function update(Request $request, surat_keterangan_kehilangan $surat_keterangan_kehilangan)
     {
         $validated = $request->validate([
-            'nowa' => 'required|string',
+            'nowa' => 'required|string|max:20',
             'status_surat' => 'required|string',
             'status_verif' => 'required|string',
             'nama_pelapor' => 'required|string|max:255',
@@ -159,19 +151,19 @@ class SuratKeteranganKehilanganController extends Controller
             'hilang_saat' => 'required|string|max:255',
         ]);
 
-        $surat_keterangan_kehilangan->update($validated);
+        $payload = $validated;
+
+        // assign nomor jika baru lolos
+        $this->maybeAssignNomorSurat($surat_keterangan_kehilangan, $payload);
+
+        $surat_keterangan_kehilangan->update($payload);
 
         return redirect()->route('surat.keluar')->with('success', 'Surat Kehilangan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\surat_keterangan_kehilangan  $surat_keterangan_kehilangan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(surat_keterangan_kehilangan $surat_keterangan_kehilangan)
+    public function destroy(surat_keterangan_kehilangan $surat)
     {
-        //
+        $surat->delete();
+        return back()->with('success', 'Surat Kehilangan berhasil dihapus.');
     }
 }

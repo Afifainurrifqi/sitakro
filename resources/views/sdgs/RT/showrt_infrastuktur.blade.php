@@ -583,7 +583,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_tvri">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_tvri">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             @if (isset($rtinfrastuktur->chanel_tvri))
                                                 <br>
@@ -625,7 +625,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_tvrid">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_tvrid">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             @if (isset($rtinfrastuktur->chanel_tvrid))
                                                 <br>
@@ -669,7 +669,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_s">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_s">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             @if (isset($rtinfrastuktur->chanel_s))
                                                 <br>
@@ -713,7 +713,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_ln">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_ln">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             @if (isset($rtinfrastuktur->chanel_ln))
                                                 <br>
@@ -757,7 +757,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_rri">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_rri">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             @if (isset($rtinfrastuktur->chanel_rri))
                                                 <br>
@@ -799,7 +799,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_rrid">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_rrid">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             @if (isset($rtinfrastuktur->chanel_rrid))
                                                 <br>
@@ -843,7 +843,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_radios">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_radios">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             @if (isset($rtinfrastuktur->chanel_radios))
                                                 <br>
@@ -887,7 +887,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_radiok">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_radiok">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             @if (isset($rtinfrastuktur->chanel_radiok))
                                                 <br>

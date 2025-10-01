@@ -3,173 +3,152 @@
 namespace App\Http\Controllers;
 
 use App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian;
-use App\Http\Requests\Storesurat_pernyataan_tidak_bisa_melampirkan_ktp_kematianRequest;
-use App\Http\Requests\Updatesurat_pernyataan_tidak_bisa_melampirkan_ktp_kematianRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator as VFacade;
+use App\Services\NomorSuratService;
 
 class SuratPernyataanTidakBisaMelampirkanKtpKematianController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // jenis counter untuk surat ini
+    private string $jenisCounter = 'spktp';
+
+    public function __construct(private NomorSuratService $svc) {}
+
+    /** List admin */
     public function index()
     {
-        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::all();
+        $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::orderBy('_id', 'desc')->get();
         return view('surat.suratpernyataantidakbisamelampirkanktpkematian', compact('data'));
     }
 
+    /** Form user */
     public function userkematianktp()
     {
         return view('surat.user_suratpernyataantidakbisamelampirkanktpkematian');
     }
 
+    /** Export PDF */
     public function exportPdf($id)
     {
-        // Ambil data surat berdasarkan ID
         $data = surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::findOrFail($id);
-
-        // Render view dan konversi ke PDF dengan ukuran A4 portrait
         $pdf = Pdf::loadView('surat.pdfsuratpernyataantidakbisamelampirkanktpkematian', compact('data'))
             ->setPaper('a4', 'portrait');
-
-        // Buat nama file yang dinamis dan aman
-        $filename = 'surat_pernyataan_ktp_' . preg_replace('/[^A-Za-z0-9\-]/', '_', $data->_id) . '.pdf';
-
-        // Kembalikan sebagai file untuk diunduh
+        $filename = 'surat_pernyataan_ktp_' . preg_replace('/[^A-Za-z0-9\-]/', '_', (string)$data->_id) . '.pdf';
         return $pdf->download($filename);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    /*** ========= Validasi ========= ***/
+    protected function baseValidator(Request $request, bool $isAdmin): Validator
     {
-        //
+        $rules = [
+            'nowa'                   => ['required','string','max:20'],
+            'nama_pelapor'           => ['required','string','max:255'],
+            'nik_pelapor'            => ['required','string','max:32'],
+            'tempat_lahir_pelapor'   => ['required','string','max:100'],
+            'tanggal_lahir_pelapor'  => ['required','date'],
+            'jenis_kelamin_pelapor'  => ['required','string','max:20'],
+            'pekerjaan_pelapor'      => ['required','string','max:100'],
+            'alamat_pelapor'         => ['required','string'],
+            'alasan'                 => ['required','string'],
+
+            'nik_jenazah'            => ['required','string','max:32'],
+            'nama_jenazah'           => ['required','string','max:255'],
+            'tanggal_lahir_jenazah'  => ['required','date'],
+            'jenis_kelamin_jenazah'  => ['required','string','max:20'],
+            'alamat_jenazah'         => ['required','string'],
+
+            // opsional, hanya admin formmu yang tadi pakai ini
+            'agama_pelapor'          => ['nullable','string','max:50'],
+        ];
+
+        if ($isAdmin) {
+            $rules['status_surat'] = ['required','string','in:Pending,Di cek,Di terima,Ditolak'];
+            $rules['status_verif'] = ['required','string','in:Belum Verifikasi,Terverifikasi'];
+        } else {
+            $rules['status_surat'] = ['nullable','string'];
+            $rules['status_verif'] = ['nullable','string'];
+        }
+
+        return VFacade::make($request->all(), $rules);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storesurat_pernyataan_tidak_bisa_melampirkan_ktp_kematianRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+    /** Assign nomor kalau eligible (Di terima + Terverifikasi) dan belum punya nomor */
+    protected function maybeAssignNomorSurat($modelOrNull, array &$payload): void
+    {
+        $status = $payload['status_surat'] ?? ($modelOrNull->status_surat ?? null);
+        $verif  = $payload['status_verif'] ?? ($modelOrNull->status_verif ?? null);
+
+        if ($status === 'Di terima' && $verif === 'Terverifikasi'
+            && empty($payload['nomor_surat'])
+            && empty($modelOrNull?->nomor_surat)) {
+
+            $tahun = now('Asia/Jakarta')->year;
+            $urut  = $this->svc->nextFor($this->jenisCounter, $tahun);
+            $payload['nomor_urut']  = $urut;
+            $payload['tahun_nomor'] = $tahun;
+            $payload['nomor_surat'] = $this->svc->formatFor($urut, $tahun);
+        }
+    }
+
+    /** USER store (status default Pending/Belum Verifikasi) */
     public function userstore(Request $request)
     {
-        $validatedData = $request->validate([
-            'nowa' => 'required|string',
-            'status_surat' => 'required|string',
-            'status_verif' => 'required|string', // perhatikan: bukan "starus_verif"
-            'nama_pelapor' => 'required|string',
-            'nik_pelapor' => 'required|string',
-            'tempat_lahir_pelapor' => 'required|string',
-            'tanggal_lahir_pelapor' => 'required|date',
-            'jenis_kelamin_pelapor' => 'required|string',
-            'pekerjaan_pelapor' => 'required|string',
-            'alamat_pelapor' => 'required|string',
-            'alasan' => 'required|string',
-            'nik_jenazah' => 'required|string',
-            'nama_jenazah' => 'required|string',
-            'tanggal_lahir_jenazah' => 'required|date',
-            'jenis_kelamin_jenazah' => 'required|string',
-            'alamat_jenazah' => 'required|string',
+        $validator = $this->baseValidator($request, isAdmin:false);
+        $validated = $validator->validate();
+
+        $payload = array_merge($validated, [
+            'status_surat' => 'Pending',
+            'status_verif' => 'Belum Verifikasi',
         ]);
-        surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::create($validatedData);
+
+        // user tidak eligible -> tidak ada nomor di sini
+        surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::create($payload);
 
         return redirect()->route('surat.suratberhasil')
             ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
     }
 
+    /** ADMIN store (bisa langsung assign nomor jika eligible) */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nowa' => 'required|string',
-            'status_surat' => 'required|string',
-            'status_verif' => 'required|string', // perhatikan: bukan "starus_verif"
-            'nama_pelapor' => 'required|string',
-            'nik_pelapor' => 'required|string',
-            'tempat_lahir_pelapor' => 'required|string',
-            'agama_pelapor' => 'required|string',
-            'tanggal_lahir_pelapor' => 'required|date',
-            'jenis_kelamin_pelapor' => 'required|string',
-            'pekerjaan_pelapor' => 'required|string',
-            'alamat_pelapor' => 'required|string',
-            'alasan' => 'required|string',
-            'nik_jenazah' => 'required|string',
-            'nama_jenazah' => 'required|string',
-            'tanggal_lahir_jenazah' => 'required|date',
-            'jenis_kelamin_jenazah' => 'required|string',
-            'alamat_jenazah' => 'required|string',
-        ]);
-        surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::create($validatedData);
+        $validator = $this->baseValidator($request, isAdmin:true);
+        $validated = $validator->validate();
+        $payload   = $validated;
+
+        $this->maybeAssignNomorSurat(null, $payload);
+
+        surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian::create($payload);
 
         return redirect()->route('surat.keluar')
             ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian  $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian
-     * @return \Illuminate\Http\Response
-     */
-    public function show(surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian  $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian
-     * @return \Illuminate\Http\Response
-     */
+    /** Edit */
     public function edit(surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat)
     {
         return view('surat.edit_suratpernyataantidakbisamelampirkanktpkematian', compact('surat'));
     }
 
+    /** ADMIN update (bisa memicu nomor jika eligible) */
     public function update(Request $request, surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat)
     {
-        $validatedData = $request->validate([
-            'nowa' => 'required|string',
-            'status_surat' => 'required|string',
-            'status_verif' => 'required|string',
-            'nama_pelapor' => 'required|string',
-            'nik_pelapor' => 'required|string',
-            'tempat_lahir_pelapor' => 'required|string',
-            'tanggal_lahir_pelapor' => 'required|date',
-            'agama_pelapor' => 'required|string',
-            'jenis_kelamin_pelapor' => 'required|string',
-            'pekerjaan_pelapor' => 'required|string',
-            'alamat_pelapor' => 'required|string',
-            'alasan' => 'required|string',
-            'nik_jenazah' => 'required|string',
-            'nama_jenazah' => 'required|string',
-            'tanggal_lahir_jenazah' => 'required|date',
-            'jenis_kelamin_jenazah' => 'required|string',
-            'alamat_jenazah' => 'required|string',
-        ]);
+        $validator = $this->baseValidator($request, isAdmin:true);
+        $validated = $validator->validate();
+        $payload   = $validated;
 
-        $surat->update($validatedData);
+        $this->maybeAssignNomorSurat($surat, $payload);
+
+        $surat->update($payload);
 
         return redirect()->route('surat.keluar')->with('success', 'Surat berhasil diperbarui.');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian  $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian)
+    /** Destroy (opsional) */
+    public function destroy(surat_pernyataan_tidak_bisa_melampirkan_ktp_kematian $surat)
     {
-        //
+        $surat->delete();
+        return back()->with('success', 'Surat berhasil dihapus.');
     }
 }

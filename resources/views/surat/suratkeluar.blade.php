@@ -107,7 +107,7 @@
                                             $statusClass = match ($item->status_surat) {
                                                 'Pending' => 'bg-pending',
                                                 'Di cek' => 'bg-cek',
-                                                'Di terima' => 'bg-diterima',
+                                                'Di terima' => 'bg-Di terima',
                                                 'Ditolak' => 'bg-ditolak',
                                                 default => '',
                                             };
@@ -389,7 +389,7 @@
             color: #000;
         }
 
-        .bg-diterima {
+        .bg-Di terima {
             background-color: #198754;
             color: #fff;
         }

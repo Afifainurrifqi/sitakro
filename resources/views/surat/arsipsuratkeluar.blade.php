@@ -7,35 +7,7 @@
 
 
                 {{-- FORM PEMBUATAN SURAT --}}
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Pembuatan Surat</h5>
-                    </div>
-                    {{-- <div class="card-body">
-                        <form action="{{ route('surat.prosesForm') }}" method="POST">
-                            @csrf
 
-                            <div class="form-group mb-3">
-                                <label for="kategori">Kategori</label>
-                                <select name="kategori" id="kategori" class="form-control" required>
-                                    <option value="">-- Pilih Kategori --</option>
-                                    <option value="adminduk">Adminduk</option>
-                                    <option value="keterangan">Keterangan</option>
-                                    <option value="pernyataan">Pernyataan</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="jenis_form">Jenis Form</label>
-                                <select name="jenis_form" id="jenis_form" class="form-control" required disabled>
-                                    <option value="">-- Pilih Jenis Form --</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Lanjut</button>
-                        </form>
-                    </div> --}}
-                </div>
 
                 {{-- TABEL ARSIP SURAT --}}
                 <div class="card shadow-sm">
@@ -107,7 +79,7 @@
                                             $statusClass = match ($item->status_surat) {
                                                 'Pending' => 'bg-pending',
                                                 'Di cek' => 'bg-cek',
-                                                'Di terima' => 'bg-diterima',
+                                                'Di terima' => 'bg-Di terima',
                                                 'Ditolak' => 'bg-ditolak',
                                                 default => '',
                                             };
@@ -389,7 +361,7 @@
             color: #000;
         }
 
-        .bg-diterima {
+        .bg-Di terima {
             background-color: #198754;
             color: #fff;
         }

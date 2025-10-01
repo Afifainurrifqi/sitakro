@@ -87,16 +87,16 @@
         }
     };
 
-    // Nomor surat opsional (kalau ada kolomnya)
-    $nomor = data_get($data, 'nomor_surat') ?? data_get($data, 'nomor');
+    // Nomor surat otomatis dari DB
+    $nomor = data_get($data, 'nomor_surat');
 
     // Lokasi & tanggal terbit
-    $kota   = data_get($data, 'kota_terbit', 'SAWENTAR');
+    $kota   = data_get($data, 'kota_terbit', 'Wates');
     $tglNow = Carbon::now('Asia/Jakarta')->translatedFormat('d F Y');
 
-    // Pejabat penandatangan (bisa diisi via controller/model)
+    // Pejabat penandatangan
     $namaPejabat = data_get($data, 'nama_pejabat', 'MOH. HAMID ALMAULUDI S.Pd.I');
-    $jabatan     = data_get($data, 'jabatan_pejabat', 'Kepala Desa SAWENTAR');
+    $jabatan     = data_get($data, 'jabatan_pejabat', 'Kepala Desa Wates');
 
     // Pembuat pernyataan (penjamin)
     $pNama   = data_get($data, 'nama_pembuat', '................................................');
@@ -110,11 +110,11 @@
 
     // Detail pernyataan/jaminan
     $hubungan      = data_get($data, 'hubungan_dengan_terjamin', '................................................');
-    $uraian        = data_get($data, 'uraian_pernyataan', null);
-    $bentukJaminan = data_get($data, 'bentuk_jaminan', null);
+    $uraian        = data_get($data, 'uraian_pernyataan');
+    $bentukJaminan = data_get($data, 'bentuk_jaminan');
     $mulai         = $fmt(data_get($data, 'berlaku_mulai'));
     $sampai        = $fmt(data_get($data, 'berlaku_sampai'));
-    $berdasarkan   = data_get($data, 'berdasarkan', null);
+    $berdasarkan   = data_get($data, 'berdasarkan');
 @endphp
 
     {{-- KOP SURAT --}}
@@ -130,11 +130,11 @@
                         KANTOR KEPALA DESA SAWENTAR</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
+                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/SAWENTAR.png') }}" class="kop-logo" alt="Logo Kanan">
+                    <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Kanan">
                 </td>
             </tr>
         </table>
@@ -142,10 +142,25 @@
     </div>
 
     {{-- JUDUL --}}
-    <div class="judul-surat">SURAT PERNYATAAN DAN JAMINAN</div>
-    @if(!empty($nomor))
-        <div class="nomor">Nomor : {{ $nomor }}</div>
-    @endif
+  {{-- JUDUL + NOMOR --}}
+<div class="judul-surat text-center"><u>SURAT PERNYATAAN DAN JAMINAN</u></div>
+
+@php
+    // Kalau nomor_surat belum ada, rakit dari nomor_urut/tahun_nomor
+    $nomorCetak = $data->nomor_surat ?? null;
+
+    if (!$nomorCetak) {
+        $urut  = $data->nomor_urut ?? null;
+        $tahun = $data->tahun_nomor ?? now('Asia/Jakarta')->year;
+        $nnn   = $urut ? str_pad($urut, 3, '0', STR_PAD_LEFT) : '---';
+
+        // >>> Pastikan prefiks ini SAMA dengan NomorSuratService::prefixMap['jaminan']
+        // misal 'jaminan' => 420
+        $nomorCetak = "420 / {$nnn} / 409.41.2 / {$tahun}";
+    }
+@endphp
+
+<div class="nomor text-center"><strong>Nomor: {{ $nomorCetak }}</strong></div>
 
     {{-- PEMBUKA --}}
     <div class="isi">
@@ -169,11 +184,12 @@
         <tr><td class="label">Hubungan dengan Penjamin</td><td class="colon">:</td><td class="value">{{ $hubungan }}</td></tr>
     </table>
 
-    {{-- URAIAN PERNYATAAN / BENTUK JAMINAN --}}
+    {{-- URAIAN PERNYATAAN --}}
     @if($uraian)
         <div class="isi"><p><strong>Uraian Pernyataan:</strong><br>{!! nl2br(e($uraian)) !!}</p></div>
     @endif
 
+    {{-- BENTUK JAMINAN --}}
     @if($bentukJaminan)
         <div class="isi"><p><strong>Bentuk Jaminan:</strong> {{ $bentukJaminan }}</p></div>
     @endif
@@ -193,7 +209,7 @@
         </div>
     @endif
 
-    {{-- BERDASARKAN (opsional) --}}
+    {{-- BERDASARKAN --}}
     @if($berdasarkan)
         <div class="isi">
             <p><em>Berdasarkan:</em> {{ $berdasarkan }}.</p>
@@ -207,7 +223,7 @@
            yang berlaku.</p>
     </div>
 
-    {{-- TANDA TANGAN (Penjamin & Pejabat) --}}
+    {{-- TANDA TANGAN --}}
     <table class="row-ttd">
         <tr>
             <td class="blok-ttd" style="width:50%;">

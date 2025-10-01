@@ -15,10 +15,7 @@
                                 </div>
                             @endif
                             <h2 class="card-title">DATA RT</h2>
-                            <div class="form-group">
-                                <label for="search_nik">Cari berdasarkan NIK:</label>
-                                <input type="text" id="search_nik" class="form-control" placeholder="Masukkan NIK">
-                            </div>
+
                             <button type="button" class="btn mb-1 btn-primary"
                                 onclick="window.location='{{ route('datart.create') }}'">
                                 Tambah Data RT<span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
@@ -902,28 +899,28 @@
                                         <th>SMARTFREN</th>
                                         <th style="border-right: 1px solid #000;">BAKRIE TELCOM</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
 
@@ -1591,10 +1588,9 @@
         $(function() {
             $('#tabledatart').DataTable({
                 processing: true,
-                // serverSide: true,
-                // dom: 'Bfrtip',
+                dom: 'Bfrtip',
                 scrollX: true,
- searching: false,
+                searching: true,
                 ajax: {
                     url: '{!! route('datart.json') !!}',
                     type: 'POST',
@@ -1602,15 +1598,26 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: function(d) {
-                                d.nik = $('#search_nik').val(); // Pass the NIK input value
-                            }
+                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                    }
                 },
                 "buttons": [{
                     "extend": 'excel',
                     "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
                     "titleAttr": 'Excel',
-                    "action": newexportaction
-                }, ],
+                    "action": newexportaction,
+                    "customize": function(xlsx) {
+                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                        // Set type sel kolom NIK menjadi string (t="str")
+                        $('row c[r^="C"]', sheet).attr('t',
+                        'str'); // Ganti C jika perlu, sesuai dengan kolom NIK
+
+                        // Set type sel kolom KK menjadi string (t="str")
+                        $('row c[r^="B"]', sheet).attr('t',
+                        'str'); // Ganti B jika perlu, sesuai dengan kolom No KK
+                    }
+                }],
                 columns: [{
                         data: 'action',
                         name: 'action'
@@ -5202,9 +5209,9 @@
                 ],
             });
 
-            $('#search_nik').on('keyup', function() {
-                        $('#tabledatart').DataTable().ajax.reload();
-                    });
+            $('#search_nokk').on('keyup', function() {
+                $('#tabledatart').DataTable().ajax.reload();
+            });
 
 
             function newexportaction(e, dt, button, config) {
@@ -5257,6 +5264,4 @@
             }
         });
     </script>
-
-
 @endsection

@@ -21,8 +21,8 @@
 
 <div class="ttd">
     <div class="jabatan">
-        SAWENTAR, ..................................<br>
-        Kepala Desa SAWENTAR
+        Wates, ..................................<br>
+        Kepala Desa Wates
     </div>
     <div class="nama-kades">MOH. HAMID ALMAULUDI S.Pd.I</div>
 </div>

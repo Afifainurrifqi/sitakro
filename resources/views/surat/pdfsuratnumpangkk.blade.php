@@ -55,11 +55,11 @@
                         KANTOR KEPALA DESA SAWENTAR</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
+                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/SAWENTAR.png') }}" class="kop-logo" alt="Logo SAWENTAR">
+                    <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Wates">
                 </td>
             </tr>
         </table>
@@ -73,9 +73,18 @@
     </div>
 
     <!-- NOMOR SURAT -->
-    <div class="nomor text-center">
-        <strong>Nomor: {{ $nomorSurat }}</strong>
-    </div>
+   <div class="nomor text-center">
+    @php
+        $nomorSurat = $data->nomor_surat ?? null;
+        if (!$nomorSurat) {
+            $urut  = $data->nomor_urut ?? null;
+            $tahun = $data->tahun_nomor ?? now('Asia/Jakarta')->year;
+            $nnn   = $urut ? str_pad($urut, 3, '0', STR_PAD_LEFT) : '---';
+            $nomorSurat = "400 / {$nnn} / 409.41.2 / {$tahun}";
+        }
+    @endphp
+    <strong>Nomor: {{ $nomorSurat }}</strong>
+</div>
 
     <!-- ISI SURAT -->
     <div class="tulisan">Saya yang bertanda tangan di bawah ini:</div>
@@ -139,8 +148,8 @@
 
     <!-- TTD -->
     <div class="ttd-container">
-        <p>SAWENTAR, {{ now('Asia/Jakarta')->locale('id')->translatedFormat('d F Y') }}</p>
-        <p>Kepala Desa SAWENTAR</p>
+        <p>Wates, {{ now('Asia/Jakarta')->locale('id')->translatedFormat('d F Y') }}</p>
+        <p>Kepala Desa Wates</p>
         <br><br><br>
         <p><strong><u>MOH. HAMID ALMAULUDI S.Pd.I</u></strong></p>
     </div>

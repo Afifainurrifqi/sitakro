@@ -26,6 +26,7 @@ use App\Models\rtlembaga_keagamaan;
 use App\Models\rtlokasi;
 use App\Models\rtpuengurus;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class DataRtController extends Controller
@@ -35,6 +36,18 @@ class DataRtController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:10240'
+        ]);
+
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\DataRtImport, $request->file('file'));
+
+        return back()->with('msg', 'Data RT berhasil diimport ke MongoDB!');
+    }
+
     public function index()
     {
         return view('sdgs.RT.datart');

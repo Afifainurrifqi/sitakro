@@ -107,28 +107,28 @@
                                         <th>SMARTFREN</th>
                                         <th style="border-right: 1px solid #000;">BAKRIE TELCOM</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
 

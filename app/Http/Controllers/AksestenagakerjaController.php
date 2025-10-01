@@ -58,8 +58,21 @@ class AksestenagakerjaController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
-            })
+            return optional($row->detailkk->kk)->nokk;
+        })
+        // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+        ->filterColumn('nokk', function ($q, $keyword) {
+            $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                $qq->where('nokk', 'like', "%{$keyword}%");
+            });
+        })
+        // (opsional) izinkan sorting kolom NO KK
+        ->orderColumn('nokk', function ($q, $order) {
+            $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+              ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+              ->orderBy('kks.nokk', $order)
+              ->select('datapenduduks.*'); // hindari duplikasi kolom
+        })
             ->addColumn('action', function ($row) {
                 return '<td>
                             <a href="' . route('aksestenagakerja.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
@@ -186,8 +199,21 @@ class AksestenagakerjaController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
-            })
+            return optional($row->detailkk->kk)->nokk;
+        })
+        // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+        ->filterColumn('nokk', function ($q, $keyword) {
+            $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                $qq->where('nokk', 'like', "%{$keyword}%");
+            });
+        })
+        // (opsional) izinkan sorting kolom NO KK
+        ->orderColumn('nokk', function ($q, $order) {
+            $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+              ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+              ->orderBy('kks.nokk', $order)
+              ->select('datapenduduks.*'); // hindari duplikasi kolom
+        })
             ->addColumn('action', function ($row) {
                 return '<td>
                             <a href="' . route('aksestenagakerja.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">

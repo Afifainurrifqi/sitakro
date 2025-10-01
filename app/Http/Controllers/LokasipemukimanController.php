@@ -12,12 +12,14 @@ use Illuminate\Http\Request;
 use App\Models\lokasipemukiman;
 use App\Http\Requests\StorelokasipemukimanRequest;
 use App\Http\Requests\UpdatelokasipemukimanRequest;
+use App\Imports\LokasidanPemukimanImport;
 use App\Models\akses_pendidikan;
 use App\Models\akseskesehatan;
 use App\Models\aksessarpras;
 use App\Models\aksestenagakerja;
 use App\Models\dataindividu;
 use App\Models\laink;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class LokasipemukimanController extends Controller
@@ -53,6 +55,17 @@ class LokasipemukimanController extends Controller
         return view('sdgs.KK.admin_lokasidanpemukiman', compact('presentase'));
     }
 
+    public function import(\Illuminate\Http\Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:10240'
+        ]);
+
+        Excel::import(new LokasidanPemukimanImport, $request->file('file'));
+
+        return back()->with('msg', 'Import Lokasi & Pemukiman berhasil.');
+    }
+
     public function jsonadmin(Request $request)
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
@@ -63,7 +76,20 @@ class LokasipemukimanController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -489,27 +515,27 @@ class LokasipemukimanController extends Controller
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_dr_spesialis', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dr_spesialis : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_dr_spesialis', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dr_spesialis : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('jaraktempuh_dr_umum', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_dr_umum : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_dr_umum', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dr_umum : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_dr_umum', function ($row) {
-                   $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dr_umum : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
@@ -519,42 +545,42 @@ class LokasipemukimanController extends Controller
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_bidan', function ($row) {
-                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_bidan : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_bidan', function ($row) {
-                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_bidan : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('jaraktempuh_tenagakes', function ($row) {
-                   $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_tenagakes : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_tenagakes', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_tenagakes : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_tenagakes', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_tenagakes : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('jaraktempuh_dukun', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_dukun : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_dukun', function ($row) {
-                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dukun : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_dukun', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dukun : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
@@ -820,7 +846,6 @@ class LokasipemukimanController extends Controller
                 'kondi_rumah_kumuh',
             ])
             ->toJson();
-
     }
 
     public function json(Request $request)
@@ -840,7 +865,20 @@ class LokasipemukimanController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -1266,27 +1304,27 @@ class LokasipemukimanController extends Controller
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_dr_spesialis', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dr_spesialis : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_dr_spesialis', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dr_spesialis : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('jaraktempuh_dr_umum', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_dr_umum : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_dr_umum', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dr_umum : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_dr_umum', function ($row) {
-                   $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dr_umum : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
@@ -1296,42 +1334,42 @@ class LokasipemukimanController extends Controller
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_bidan', function ($row) {
-                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_bidan : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_bidan', function ($row) {
-                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_bidan : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('jaraktempuh_tenagakes', function ($row) {
-                   $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_tenagakes : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_tenagakes', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_tenagakes : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_tenagakes', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_tenagakes : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('jaraktempuh_dukun', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->jaraktempuh_dukun : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('waktutempuh_dukun', function ($row) {
-                 $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->waktutempuh_dukun : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
             ->addColumn('kemudahan_dukun', function ($row) {
-                  $data = aksestenagakerja::where('nik', $row->nik)->first();
+                $data = aksestenagakerja::where('nik', $row->nik)->first();
                 $jaraktempuh_dr_spesialis = $data ? $data->kemudahan_dukun : '';
                 return '' . $jaraktempuh_dr_spesialis . '';
             })
@@ -1597,7 +1635,6 @@ class LokasipemukimanController extends Controller
                 'kondi_rumah_kumuh',
             ])
             ->toJson();
-
     }
 
     /**

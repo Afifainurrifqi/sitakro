@@ -129,7 +129,7 @@
                     <select class="form-control @error('status_surat') is-invalid @enderror"
                             id="status_surat" name="status_surat" required>
                         <option value="">-- Pilih Status --</option>
-                        @foreach (['Pending','Di cek','Diterima','Ditolak'] as $st)
+                        @foreach (['Pending','Di cek','Di terima','Di tolak'] as $st)
                             <option value="{{ $st }}" {{ old('status_surat', $surat->status_surat) === $st ? 'selected' : '' }}>
                                 {{ $st }}
                             </option>

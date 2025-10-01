@@ -546,6 +546,10 @@ Route::middleware(['checkrole:admin,dasawisma,akundemo'])->group(
 
         Route::get('sdgs/RT/tambahdatart', [DataRtController::class, 'add'])->name('datart.create');
         Route::get('sdgs/RT/editdatart/{nik}', [DataRtController::class, 'edit'])->name('datart.edit');
+
+        Route::post('/individu/import', [DataindividuController::class, 'import'])->name('individu.import');
+        Route::post('/lokasipemukiman/import', [LokasipemukimanController::class, 'import'])->name('lokasipemukiman.import');
+        Route::post('/data-rt/import', [DataRtController::class, 'import'])->name('data-rt.import');
     }
 );
 

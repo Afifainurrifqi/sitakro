@@ -4,45 +4,70 @@ namespace App\Http\Controllers;
 
 use App\Models\surat_pernyataan_memilih_nama_alias;
 use Illuminate\Http\Request;
+use App\Services\NomorSuratService;
 
 class SuratPernyataanMemilihNamaAliasController extends Controller
 {
+    // Injeksi service nomor surat (multi-jenis)
+    public function __construct(private NomorSuratService $svc) {}
+
     /**
-     * Display a listing of the resource.
+     * Jika status "Di terima" + "Terverifikasi", assign nomor_surat
+     * untuk jenis 'alias' (counter terpisah dari SKTM/SPKTP/Numpang KK).
      *
-     * @return \Illuminate\Http\Response
+     * - Tidak menimpa nomor_surat yang sudah ada
+     * - Mengisi: nomor_urut, tahun_nomor, nomor_surat
+     */
+    protected function maybeAssignNomorSurat($suratOrNull, array &$payload): void
+    {
+        $status = $payload['status_surat'] ?? ($suratOrNull->status_surat ?? null);
+        $verif  = $payload['status_verif'] ?? ($suratOrNull->status_verif ?? null);
+
+        if ($status === 'Di terima' && $verif === 'Terverifikasi'
+            && empty($payload['nomor_surat'])
+            && empty($suratOrNull?->nomor_surat)) {
+
+            // issue() akan atomic: naikkan counter & kembalikan format nomor
+            $issued = $this->svc->issue('alias'); // ['urut'=>int,'tahun'=>int,'nomor_surat'=>string]
+
+            $payload['nomor_urut']  = $issued['urut'];
+            $payload['tahun_nomor'] = $issued['tahun'];
+            $payload['nomor_surat'] = $issued['nomor_surat']; // contoh: "410 / 007 / 409.41.2 / 2025"
+        }
+    }
+
+    /**
+     * List data (untuk admin)
      */
     public function index()
     {
-        $data = surat_pernyataan_memilih_nama_alias::all();
+        // MongoDB pakai _id, boleh sesuaikan dengan created_at kalau ada
+        $data = surat_pernyataan_memilih_nama_alias::orderBy('_id', 'desc')->get();
         return view('surat.surat_pernyataan_memilih_nama_alias', compact('data'));
     }
 
+    /**
+     * Form pengajuan (user)
+     */
     public function usernamaalias()
     {
         return view('surat.user_surat_pernyataan_memilih_nama_alias');
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Form pembuatan (admin)
      */
     public function create()
     {
-        //
+        return view('surat.surat_pernyataan_memilih_nama_alias');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store dari user (status default: Pending / Belum Verifikasi)
      */
-
     public function userstore(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'nama'               => 'required|string|max:255',
             'nik'                => 'required|string|max:32',
             'alamat'             => 'required|string',
@@ -52,19 +77,29 @@ class SuratPernyataanMemilihNamaAliasController extends Controller
             'alias'              => 'nullable|string|max:255',
             'data_alias_dihapus' => 'nullable|string|max:255',
             'berdasarkan'        => 'nullable|string|max:1000',
-            'status_surat'       => 'required|string',
-            'status_verif'       => 'required|string',
+            'status_surat'       => 'nullable|string',
+            'status_verif'       => 'nullable|string',
             'nowa'               => 'required|string|max:20',
         ]);
 
-        surat_pernyataan_memilih_nama_alias::create($validatedData);
+        $payload = array_merge($validated, [
+            'status_surat' => $validated['status_surat'] ?? 'Pending',
+            'status_verif' => $validated['status_verif'] ?? 'Belum Verifikasi',
+        ]);
+
+        // Pengajuan user TIDAK langsung terbit nomor
+        surat_pernyataan_memilih_nama_alias::create($payload);
 
         return redirect()->route('surat.suratberhasil')
-            ->with('success', 'surat berhasil di ajukan.');
+            ->with('success', 'Surat berhasil diajukan.');
     }
+
+    /**
+     * Store dari admin (bisa langsung terbit nomor jika status memenuhi)
+     */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'nama'               => 'required|string|max:255',
             'nik'                => 'required|string|max:32',
             'alamat'             => 'required|string',
@@ -79,28 +114,19 @@ class SuratPernyataanMemilihNamaAliasController extends Controller
             'nowa'               => 'required|string|max:20',
         ]);
 
-        surat_pernyataan_memilih_nama_alias::create($validatedData);
+        $payload = $validated;
+
+        // Admin boleh langsung assign nomor bila status + verif sudah final
+        $this->maybeAssignNomorSurat(null, $payload);
+
+        surat_pernyataan_memilih_nama_alias::create($payload);
 
         return redirect()->route('surat.keluar')
-            ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
+            ->with('success', 'Data berhasil disimpan.');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\surat_pernyataan_memilih_nama_alias  $surat_pernyataan_memilih_nama_alias
-     * @return \Illuminate\Http\Response
-     */
-    public function show(surat_pernyataan_memilih_nama_alias $surat_pernyataan_memilih_nama_alias)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\surat_pernyataan_memilih_nama_alias  $surat_pernyataan_memilih_nama_alias
-     * @return \Illuminate\Http\Response
+     * Form edit
      */
     public function edit(surat_pernyataan_memilih_nama_alias $surat)
     {
@@ -108,15 +134,11 @@ class SuratPernyataanMemilihNamaAliasController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\surat_pernyataan_memilih_nama_alias  $surat_pernyataan_memilih_nama_alias
-     * @return \Illuminate\Http\Response
+     * Update data; jika status berubah ke final, nomor akan diterbitkan
      */
     public function update(Request $request, surat_pernyataan_memilih_nama_alias $surat)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'nama'               => 'required|string|max:255',
             'nik'                => 'required|string|max:32',
             'alamat'             => 'required|string',
@@ -131,18 +153,22 @@ class SuratPernyataanMemilihNamaAliasController extends Controller
             'nowa'               => 'required|string|max:20',
         ]);
 
-        $surat->update($validatedData);
+        $payload = $validated;
+
+        // Terbitkan nomor jika memenuhi syarat & belum punya nomor
+        $this->maybeAssignNomorSurat($surat, $payload);
+
+        $surat->update($payload);
 
         return redirect()->route('surat.keluar')->with('success', 'Surat berhasil diperbarui.');
     }
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\surat_pernyataan_memilih_nama_alias  $surat_pernyataan_memilih_nama_alias
-     * @return \Illuminate\Http\Response
+     * Hapus data
      */
-    public function destroy(surat_pernyataan_memilih_nama_alias $surat_pernyataan_memilih_nama_alias)
+    public function destroy(surat_pernyataan_memilih_nama_alias $surat)
     {
-        //
+        $surat->delete();
+        return back()->with('success', 'Surat berhasil dihapus.');
     }
 }

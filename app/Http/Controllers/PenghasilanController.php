@@ -63,12 +63,25 @@ class PenghasilanController extends Controller
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
         $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-        ->whereIn('Datak', $allowedDatakValues);
+            ->whereIn('Datak', $allowedDatakValues);
 
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -103,7 +116,7 @@ class PenghasilanController extends Controller
                 $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
                 $penghasilan = $datapenghasilan ? number_format($datapenghasilan->penghasilan_setahun, 0, ',', '.') : '';
 
-                return 'Rp' . $penghasilan ;
+                return 'Rp' . $penghasilan;
             })
             ->addColumn('ekspor', function ($row) {
                 $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
@@ -111,11 +124,14 @@ class PenghasilanController extends Controller
 
                 return '' . $ekspor . '';
             })
-            ->rawColumns(['action', 'sumber',
-            'jumlah_aset',
-            'satuan',
-            'penghasilan',
-            'ekspor',])
+            ->rawColumns([
+                'action',
+                'sumber',
+                'jumlah_aset',
+                'satuan',
+                'penghasilan',
+                'ekspor',
+            ])
             ->toJson();
     }
 
@@ -139,7 +155,20 @@ class PenghasilanController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -174,7 +203,7 @@ class PenghasilanController extends Controller
                 $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
                 $penghasilan = $datapenghasilan ? number_format($datapenghasilan->penghasilan_setahun, 0, ',', '.') : '';
 
-                return 'Rp' . $penghasilan ;
+                return 'Rp' . $penghasilan;
             })
             ->addColumn('ekspor', function ($row) {
                 $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
@@ -182,11 +211,14 @@ class PenghasilanController extends Controller
 
                 return '' . $ekspor . '';
             })
-            ->rawColumns(['action', 'sumber',
-            'jumlah_aset',
-            'satuan',
-            'penghasilan',
-            'ekspor',])
+            ->rawColumns([
+                'action',
+                'sumber',
+                'jumlah_aset',
+                'satuan',
+                'penghasilan',
+                'ekspor',
+            ])
             ->toJson();
     }
 
@@ -197,15 +229,15 @@ class PenghasilanController extends Controller
      */
     public function create($nik)
     {
-        $datap = datapenduduk::where('nik',$nik)->first();
-        $dataph = penghasilan::where('nik',$nik)->first();
+        $datap = datapenduduk::where('nik', $nik)->first();
+        $dataph = penghasilan::where('nik', $nik)->first();
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.individu.editpenghasilan',compact('datap', 'dataph', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.individu.editpenghasilan', compact('datap', 'dataph', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
@@ -217,7 +249,7 @@ class PenghasilanController extends Controller
     public function store(StorepenghasilanRequest $request)
     {
         $dataph = penghasilan::where('nik', $request->valNIK)->first();
-        if ($dataph == NULL ) {
+        if ($dataph == NULL) {
             $dataph = new penghasilan();
         }
         $dataph->nik = $request->valNIK;
@@ -228,7 +260,7 @@ class PenghasilanController extends Controller
         $dataph->expor = $request->valExport;
         $dataph->save();
 
-        return redirect()->route('penghasilan.show',['show'=> $request->valNIK ]);
+        return redirect()->route('penghasilan.show', ['show' => $request->valNIK]);
     }
 
     /**
@@ -239,15 +271,15 @@ class PenghasilanController extends Controller
      */
     public function show(penghasilan $penghasilan, $nik)
     {
-        $datap = datapenduduk::where('nik',$nik)->first();
-        $dataph = penghasilan::where('nik',$nik)->first();
+        $datap = datapenduduk::where('nik', $nik)->first();
+        $dataph = penghasilan::where('nik', $nik)->first();
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.individu.viewpenghasilan',compact('datap', 'dataph', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.individu.viewpenghasilan', compact('datap', 'dataph', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**

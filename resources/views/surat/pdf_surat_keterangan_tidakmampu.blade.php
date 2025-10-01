@@ -104,11 +104,11 @@
                         KANTOR KEPALA DESA SAWENTAR</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
+                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                <img src="{{ public_path('assets/images/SAWENTAR.png') }}" class="kop-logo" alt="Logo SAWENTAR">
+                    <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Wates">
                 </td>
             </tr>
         </table>
@@ -121,12 +121,27 @@
     </div>
 
     <div class="nomor">
-        Nomor : 475 / &nbsp;&nbsp;&nbsp;&nbsp;/ 409.41.2 / {{ \Carbon\Carbon::now()->year }}
+        @php
+            // jika sudah ada nomor_surat (misal: "475 / 007 / 409.41.2 / 2025"), pakai itu
+            $nomor =
+                $data->nomor_surat ??
+                '475 / ' .
+                    str_pad((string) ($data->nomor_urut ?? 0), 3, '0', STR_PAD_LEFT) .
+                    ' / 409.41.2 / ' .
+                    ($data->tahun_nomor ?? \Carbon\Carbon::now()->year);
+            // fallback terakhir (ketika belum ada nomor_urut sama sekali)
+            if (empty($data->nomor_surat) && empty($data->nomor_urut)) {
+                $nomor = '475 / ---- / 409.41.2 / ' . \Carbon\Carbon::now()->year;
+            }
+        @endphp
+
+        Nomor : {{ $nomor }}
     </div>
 
     {{-- ISI SURAT --}}
     <div class="isi">
-        <p>Yang bertanda tangan di bawah ini Kepala Desa SAWENTAR, Kecamatan SAWENTAR, Kabupaten Blitar, menerangkan dengan sebenarnya bahwa :</p>
+        <p>Yang bertanda tangan di bawah ini Kepala Desa Wates, Kecamatan Wates, Kabupaten Blitar, menerangkan dengan
+            sebenarnya bahwa :</p>
 
         <table class="data-diri">
             <tr>
@@ -168,19 +183,21 @@
         </table>
 
         <p>
-            Orang tersebut di atas benar-benar penduduk Desa SAWENTAR Kecamatan SAWENTAR Kabupaten Blitar dan yang bersangkutan tergolong keluarga yang tidak mampu.
+            Orang tersebut di atas benar-benar penduduk Desa Wates Kecamatan Wates Kabupaten Blitar dan yang
+            bersangkutan tergolong keluarga yang tidak mampu.
             Surat keterangan ini diberikan untuk kelengkapan <strong>{{ $data->keterangan_fungsi_surat }}</strong>.
         </p>
 
         <p>
-            Demikian surat keterangan ini dibuat atas dasar yang sebenarnya untuk menjadikan periksa dan dapat dipergunakan sebagaimana perlunya.
+            Demikian surat keterangan ini dibuat atas dasar yang sebenarnya untuk menjadikan periksa dan dapat
+            dipergunakan sebagaimana perlunya.
         </p>
     </div>
 
     {{-- TTD --}}
     <div class="ttd-container">
-        <p>SAWENTAR, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
-        <p>Kepala Desa SAWENTAR</p>
+        <p>Wates, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
+        <p>Kepala Desa Wates</p>
         <br><br><br>
         <p><strong><u>MOH. HAMID ALMAULUDI S.Pd.I</u></strong></p>
     </div>

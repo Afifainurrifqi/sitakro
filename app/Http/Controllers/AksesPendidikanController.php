@@ -24,28 +24,28 @@ class AksesPendidikanController extends Controller
      */
     public function index(Request $request)
     {
-         // Dapatkan total data penduduk
-         $totalPenduduk = datapenduduk::count();
+        // Dapatkan total data penduduk
+        $totalPenduduk = datapenduduk::count();
 
-         // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
-         $dataTerisi = akses_pendidikan::count();
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = akses_pendidikan::count();
 
-         // Hitung presentase penyelesaian data
-         $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
 
         return view('sdgs.KK.aksespendidikan', compact('presentase'));
     }
 
     public function admin_index(Request $request)
     {
-         // Dapatkan total data penduduk
-         $totalPenduduk = datapenduduk::count();
+        // Dapatkan total data penduduk
+        $totalPenduduk = datapenduduk::count();
 
-         // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
-         $dataTerisi = akses_pendidikan::count();
+        // Dapatkan jumlah data yang sudah terisi di tabel datapekerjaansdgs
+        $dataTerisi = akses_pendidikan::count();
 
-         // Hitung presentase penyelesaian data
-         $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
+        // Hitung presentase penyelesaian data
+        $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
 
 
         return view('sdgs.KK.admin_aksespendidikan', compact('presentase'));
@@ -61,7 +61,20 @@ class AksesPendidikanController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -240,7 +253,20 @@ class AksesPendidikanController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -414,7 +440,7 @@ class AksesPendidikanController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.KK.editaksespendidikan', compact('akses_pendidikan','datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        return view('sdgs.KK.editaksespendidikan', compact('akses_pendidikan', 'datap', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
     }
 
     /**
@@ -426,42 +452,41 @@ class AksesPendidikanController extends Controller
     public function store(Storeakses_pendidikanRequest $request)
     {
         $akses_pendidikan = akses_pendidikan::where('nik', $request->valNIK)->first();
-        if ($akses_pendidikan == NULL ) {
+        if ($akses_pendidikan == NULL) {
             $akses_pendidikan = new akses_pendidikan();
         }
         $akses_pendidikan->nokk = $request->valNokk;
         $akses_pendidikan->nik = $request->valNIK;
-        $akses_pendidikan-> jaraktempuh_paud = $request->valjaraktempuh_paud;
-        $akses_pendidikan-> waktutempuh_paud = $request->valwaktutempuh_paud;
-        $akses_pendidikan-> kemudahan_paud = $request->valkemudahan_paud;
-        $akses_pendidikan-> jaraktempuh_tk = $request->valjaraktempuh_tk;
-        $akses_pendidikan-> waktutempuh_tk = $request->valwaktutempuh_tk;
-        $akses_pendidikan-> kemudahan_tk = $request->valkemudahan_tk;
-        $akses_pendidikan-> jaraktempuh_sd = $request->valjaraktempuh_sd;
-        $akses_pendidikan-> waktutempuh_sd = $request->valwaktutempuh_sd;
-        $akses_pendidikan-> kemudahan_sd = $request->valkemudahan_sd;
-        $akses_pendidikan-> jaraktempuh_smp = $request->valjaraktempuh_smp;
-        $akses_pendidikan-> waktutempuh_smp = $request->valwaktutempuh_smp;
-        $akses_pendidikan-> kemudahan_smp = $request->valkemudahan_smp;
-        $akses_pendidikan-> jaraktempuh_sma = $request->valjaraktempuh_sma;
-        $akses_pendidikan-> waktutempuh_sma = $request->valwaktutempuh_sma;
-        $akses_pendidikan-> kemudahan_sma = $request->valkemudahan_sma;
-        $akses_pendidikan-> jaraktempuh_pt = $request->valjaraktempuh_pt;
-        $akses_pendidikan-> waktutempuh_pt = $request->valwaktutempuh_pt;
-        $akses_pendidikan-> kemudahan_pt = $request->valkemudahan_pt;
-        $akses_pendidikan-> jaraktempuh_ps = $request->valjaraktempuh_ps;
-        $akses_pendidikan-> waktutempuh_ps = $request->valwaktutempuh_ps;
-        $akses_pendidikan-> kemudahan_ps = $request->valkemudahan_ps;
-        $akses_pendidikan-> jaraktempuh_seminari = $request->valjaraktempuh_seminari;
-        $akses_pendidikan-> waktutempuh_seminari = $request->valwaktutempuh_seminari;
-        $akses_pendidikan-> kemudahan_seminari = $request->valkemudahan_seminari;
-        $akses_pendidikan-> jaraktempuh_pagamalain = $request->valjaraktempuh_pagamalain;
-        $akses_pendidikan-> waktutempuh_pagamalain = $request->valwaktutempuh_pagamalain;
-        $akses_pendidikan-> kemudahan_pagamalain = $request->valkemudahan_pagamalain;
+        $akses_pendidikan->jaraktempuh_paud = $request->valjaraktempuh_paud;
+        $akses_pendidikan->waktutempuh_paud = $request->valwaktutempuh_paud;
+        $akses_pendidikan->kemudahan_paud = $request->valkemudahan_paud;
+        $akses_pendidikan->jaraktempuh_tk = $request->valjaraktempuh_tk;
+        $akses_pendidikan->waktutempuh_tk = $request->valwaktutempuh_tk;
+        $akses_pendidikan->kemudahan_tk = $request->valkemudahan_tk;
+        $akses_pendidikan->jaraktempuh_sd = $request->valjaraktempuh_sd;
+        $akses_pendidikan->waktutempuh_sd = $request->valwaktutempuh_sd;
+        $akses_pendidikan->kemudahan_sd = $request->valkemudahan_sd;
+        $akses_pendidikan->jaraktempuh_smp = $request->valjaraktempuh_smp;
+        $akses_pendidikan->waktutempuh_smp = $request->valwaktutempuh_smp;
+        $akses_pendidikan->kemudahan_smp = $request->valkemudahan_smp;
+        $akses_pendidikan->jaraktempuh_sma = $request->valjaraktempuh_sma;
+        $akses_pendidikan->waktutempuh_sma = $request->valwaktutempuh_sma;
+        $akses_pendidikan->kemudahan_sma = $request->valkemudahan_sma;
+        $akses_pendidikan->jaraktempuh_pt = $request->valjaraktempuh_pt;
+        $akses_pendidikan->waktutempuh_pt = $request->valwaktutempuh_pt;
+        $akses_pendidikan->kemudahan_pt = $request->valkemudahan_pt;
+        $akses_pendidikan->jaraktempuh_ps = $request->valjaraktempuh_ps;
+        $akses_pendidikan->waktutempuh_ps = $request->valwaktutempuh_ps;
+        $akses_pendidikan->kemudahan_ps = $request->valkemudahan_ps;
+        $akses_pendidikan->jaraktempuh_seminari = $request->valjaraktempuh_seminari;
+        $akses_pendidikan->waktutempuh_seminari = $request->valwaktutempuh_seminari;
+        $akses_pendidikan->kemudahan_seminari = $request->valkemudahan_seminari;
+        $akses_pendidikan->jaraktempuh_pagamalain = $request->valjaraktempuh_pagamalain;
+        $akses_pendidikan->waktutempuh_pagamalain = $request->valwaktutempuh_pagamalain;
+        $akses_pendidikan->kemudahan_pagamalain = $request->valkemudahan_pagamalain;
 
         $akses_pendidikan->save();
-        return redirect()->route('aksespendidikan.show',['show'=> $request->valNIK ]);
-
+        return redirect()->route('aksespendidikan.show', ['show' => $request->valNIK]);
     }
 
     /**
@@ -473,7 +498,7 @@ class AksesPendidikanController extends Controller
     public function show(akses_pendidikan $akses_pendidikan, $nik)
     {
         $datap = datapenduduk::where('nik', $nik)->first();
-        $akses_pendidikan = akses_pendidikan::where('nik',$nik)->first();
+        $akses_pendidikan = akses_pendidikan::where('nik', $nik)->first();
         $agama = Agama::all();
         $pendidikan = Pendidikan::all();
         $pekerjaan = Pekerjaan::all();

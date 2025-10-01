@@ -869,7 +869,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_tvri">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_tvri">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             <select class="form-control @error('valchanel_tvri') is-invalid @enderror"
                                                 id="valchanel_tvri" name="valchanel_tvri">
@@ -919,7 +919,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_tvrid">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_tvrid">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             <select class="form-control @error('valchanel_tvrid') is-invalid @enderror"
                                                 id="valchanel_tvrid" name="valchanel_tvrid">
@@ -971,7 +971,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_s">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_s">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             <select class="form-control @error('valchanel_s') is-invalid @enderror"
                                                 id="valchanel_s" name="valchanel_s">
@@ -1023,7 +1023,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_ln">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_ln">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             <select class="form-control @error('valchanel_ln') is-invalid @enderror"
                                                 id="valchanel_ln" name="valchanel_ln">
@@ -1075,7 +1075,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_rri">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_rri">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             <select class="form-control @error('valchanel_rri') is-invalid @enderror"
                                                 id="valchanel_rri" name="valchanel_rri">
@@ -1125,7 +1125,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_rrid">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_rrid">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             <select class="form-control @error('valchanel_rrid') is-invalid @enderror"
                                                 id="valchanel_rrid" name="valchanel_rrid">
@@ -1177,7 +1177,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_radios">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_radios">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             <select class="form-control @error('valchanel_radios') is-invalid @enderror"
                                                 id="valchanel_radios" name="valchanel_radios">
@@ -1229,7 +1229,7 @@
                                         <span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="valchanel_radiok">TCHANEL DAPAT DITERIMA ATAU TIDAK
+                                            <label for="valchanel_radiok">TCHANEL DAPAT Di terima ATAU TIDAK
                                             </label>
                                             <select class="form-control @error('valchanel_radiok') is-invalid @enderror"
                                                 id="valchanel_radiok" name="valchanel_radiok">

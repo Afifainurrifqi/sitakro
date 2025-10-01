@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Betler Multipurpose Forms HTML Template">
     <meta name="author" content="Ansonika">
-    <title>SITAKRO SAWENTAR | Sistem Informasi Data Mikro Desa SAWENTAR</title>
+    <title>SITAKRO Wates | Sistem Informasi Data Mikro Desa Wates</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="/assets3/img/SAWENTAR.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets3/img/wates.png" type="image/x-icon">
     <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
@@ -47,7 +47,7 @@
 	                <!-- /social -->
 	                <div>
 	                    <h1>SELAMAT DATANG DI</h1>
-	                    <p>Sistem Informasi Data Mikro Desa SAWENTAR Kecamatan Kanigoro Kabupaten Blitar</p>
+	                    <p>Sistem Informasi Data Mikro Desa Wates Kecamatan Kanigoro Kabupaten Blitar</p>
 	                    <a href="https://www.youtube.com/watch?v=l_nwLjT8Vzg&embeds_referring_euri=https%3A%2F%2Fsitakro.com%2F&source_ve_path=MjM4NTE" class="btn_1 black rounded pulse_bt plus_icon btn_play">Profil SITAKRO<i class="arrow_triangle-right"></i></a>
 	                </div>
 	            </div>
@@ -58,7 +58,7 @@
 	                    <div class="col-lg-9 col-xl-7 mx-auto position-relative">
 							<h1 class="mb-3" style="text-align: center;"><img src="/assets3/img/logosi2.png" alt="" width="" height="55"></h1>
 	                        <h2 class="mb-3" style="text-align: center;">MASUK</h2>
-							<h3 class="mb-3" style="text-align: center;">SITAKRO SAWENTAR</h3> </br>
+							<h3 class="mb-3" style="text-align: center;">SITAKRO Wates</h3> </br>
 	                        <form class="input_style_1" method="POST">
                                 @csrf
                                 <div class="form-group">
@@ -74,7 +74,7 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="container pb-3 copy">© Desa SAWENTAR 2023 - Kabupaten Blitar</div>
+	            <div class="container pb-3 copy">© Desa Wates 2023 - Kabupaten Blitar</div>
 				<div class="container pb-3 copy">by Tim Smart Village Nasional</div>
 	        </div>
 	    </div>

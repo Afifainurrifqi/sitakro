@@ -16,8 +16,23 @@
                                 </div>
                             @endif
                             <h2 class="card-title">SDGS DATA INDIVIDU</h2>
-
                         </div>
+
+                        <form action="{{ route('individu.import') }}" method="POST" enctype="multipart/form-data"
+                            class="mb-3">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" name="file" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-success" type="submit">
+                                        <i class="fa fa-upload"></i> Import Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
 
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration" id="tabledataindividu">
@@ -84,7 +99,6 @@
                                         <th>Jaminan Sosial Ketenagakerjaan</th>
                                         <th>Penghasilan Setahun Terakhir</th>
 
-
                                         <th>SUMBER PENGHASILAN</th>
                                         <th>JUMLAH ASET DARI SUMBER PENGHASILAN</th>
                                         <th>SATUAN</th>
@@ -107,31 +121,17 @@
                                         <th>POSYANDU</th>
                                         <th>POSBINDU</th>
                                         <th>TEMPAT PRAKTIK DUKUN BAYI / BERSALIN</th>
-
-
-
-
-
                                     </tr>
-
                                 </thead>
-
-                                <tbody>
-
-
-
-
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
 
                     </div>
-
                 </div>
-
-
             </div>
         </div>
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Presentase Penyelesaian Data</h4>
@@ -144,7 +144,10 @@
             </div>
         </div>
     </div>
+
+    {{-- jQuery (pastikan DataTables + Buttons sudah ada di layout) --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <script>
         var $ = jQuery.noConflict();
         $(function() {
@@ -156,20 +159,25 @@
                 searching: true,
                 ajax: {
                     url: '{!! route('dataindividu.jsonadmin') !!}',
-                    type: 'POST', // Make sure to set the type to POST
+                    type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: function(d) {
-                        d.nik = $('#search_nik').val(); // Pass the NIK input value
+                        d.nik = $('#search_nik').val();
                     }
                 },
-                "buttons": [{
-                    "extend": 'excel',
-                    "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
-                    "titleAttr": 'Excel',
-                    "action": newexportaction
-                }, ],
+                buttons: [{
+                    extend: 'excelHtml5', // <-- ganti dari 'excel' ke 'excelHtml5'
+                    text: '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
+                    titleAttr: 'Excel',
+                    action: newexportaction,
+                    exportOptions: {
+                        // gunakan renderer 'export' di kolom-kolom
+                        orthogonal: 'export'
+                        // (opsional) jika mau exclude kolom Action & No: columns: [2,3,4,...]
+                    }
+                }],
                 columns: [{
                         data: 'action',
                         name: 'action'
@@ -177,18 +185,34 @@
                     {
                         data: null,
                         render: function(data, type, row, meta) {
-                            // Menambahkan nomor urut otomatis
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
+
+                    // KK -> pastikan diexport sebagai text
                     {
                         data: 'nokk',
-                        name: 'nokk'
-                    }, // Use dot notation to access related data
+                        name: 'nokk',
+                        render: function(data, type, row) {
+                            if (type === 'export') {
+                                return '"' + String(data ?? '').trim() + '"';
+                            }
+                            return data;
+                        }
+                    },
+
+                    // NIK -> pastikan diexport sebagai text
                     {
                         data: 'nik',
-                        name: 'nik'
+                        name: 'nik',
+                        render: function(data, type, row) {
+                            if (type === 'export') {
+                                return '"' + String(data ?? '').trim() + '"';
+                            }
+                            return data;
+                        }
                     },
+
                     {
                         data: 'gelarawal',
                         name: 'gelarawal'
@@ -201,10 +225,23 @@
                         data: 'gelarakhir',
                         name: 'gelarakhir'
                     },
+
+                    // (opsional) mapping 1/2 → Laki-laki/Perempuan, kalau ingin:
                     {
                         data: 'jenis_kelamin',
-                        name: 'jenis_kelamin'
+                        name: 'jenis_kelamin',
+                        render: function(data, type) {
+                            const map = {
+                                '1': 'Laki-laki',
+                                '2': 'Perempuan'
+                            };
+                            const label = map[String(data)] ?? (data ?? '');
+                            if (type === 'export' || type === 'display' || type === 'filter')
+                            return label;
+                            return data;
+                        }
                     },
+
                     {
                         data: 'tempat_lahir',
                         name: 'tempat_lahir'
@@ -228,7 +265,7 @@
                     {
                         data: 'agama.nama',
                         name: 'agama.nama'
-                    }, // Use dot notation for related table fields
+                    },
                     {
                         data: 'suku_bangsa',
                         name: 'suku_bangsa'
@@ -261,7 +298,6 @@
                         data: 'instagram',
                         name: 'instagram'
                     },
-
                     {
                         data: 'kondisi_pekerjaan',
                         name: 'kondisi_pekerjaan'
@@ -278,7 +314,6 @@
                         data: 'penghasilan_setahun_terakhir',
                         name: 'penghasilan_setahun_terakhir'
                     },
-
                     {
                         data: 'sumber',
                         name: 'sumber'
@@ -299,7 +334,6 @@
                         data: 'ekspor',
                         name: 'ekspor'
                     },
-
                     {
                         data: 'penyakit',
                         name: 'penyakit'
@@ -376,7 +410,6 @@
                         data: 'bayi',
                         name: 'bayi'
                     },
-
                     {
                         data: 'disabilitas',
                         name: 'disabilitas'
@@ -433,7 +466,6 @@
                         data: 'bagaiamanap',
                         name: 'bagaiamanap'
                     },
-
                     {
                         data: 'pernahmasukan',
                         name: 'pernahmasukan'
@@ -459,8 +491,8 @@
                         name: 'apakahp'
                     },
                 ],
-
             });
+
             $('#search_nokk').on('keyup', function() {
                 $('#tabledataindividu').DataTable().ajax.reload();
             });
@@ -469,11 +501,9 @@
                 var self = this;
                 var oldStart = dt.settings()[0]._iDisplayStart;
                 dt.one('preXhr', function(e, s, data) {
-                    // Just this once, load all data from the server...
                     data.start = 0;
                     data.length = 2147483647;
                     dt.one('preDraw', function(e, settings) {
-                        // Call the original action function
                         if (button[0].className.indexOf('buttons-copy') >= 0) {
                             $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button,
                                 config);
@@ -499,18 +529,13 @@
                             $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
                         }
                         dt.one('preXhr', function(e, s, data) {
-                            // DataTables thinks the first item displayed is index 0, but we're not drawing that.
-                            // Set the property to what it was before exporting.
                             settings._iDisplayStart = oldStart;
                             data.start = oldStart;
                         });
-                        // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
                         setTimeout(dt.ajax.reload, 0);
-                        // Prevent rendering of the full data to the DOM
                         return false;
                     });
                 });
-                // Requery the server with the new one-time export settings
                 dt.ajax.reload();
             }
         });
@@ -520,7 +545,6 @@
         .progress-bar {
             background-color: #28a745;
             color: green;
-            /* Warna hijau, bisa disesuaikan */
         }
     </style>
 @endsection

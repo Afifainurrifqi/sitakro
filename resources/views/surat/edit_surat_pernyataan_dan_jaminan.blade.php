@@ -130,7 +130,7 @@
                     <select class="form-control @error('status_surat') is-invalid @enderror"
                             id="status_surat" name="status_surat" required>
                         @php $statusNow = old('status_surat', $surat->status_surat); @endphp
-                        @foreach (['Pending','Di cek','Diterima','Ditolak'] as $st)
+                        @foreach (['Pending','Di cek','Di terima','Ditolak'] as $st)
                             <option value="{{ $st }}" {{ $statusNow === $st ? 'selected' : '' }}>{{ $st }}</option>
                         @endforeach
                     </select>

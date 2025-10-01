@@ -108,11 +108,11 @@
                     </strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
+                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/SAWENTAR.png') }}" class="kop-logo" alt="Logo SAWENTAR">
+                    <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Wates">
                 </td>
             </tr>
         </table>
@@ -125,9 +125,28 @@
     </div>
 
     <!-- NOMOR SURAT -->
+    <!-- NOMOR SURAT -->
     <div class="nomor">
-        Nomor: 300 / 123 / 409.41.2 / {{ \Carbon\Carbon::now('Asia/Jakarta')->year }}
+        @php
+            // Jika nomor_surat sudah tersimpan (paling aman), gunakan itu.
+            $nomorTersimpan = $data->nomor_surat ?? null;
+
+            // Fallback: rakit dari nomor_urut & tahun_nomor (khusus surat ini prefix 300)
+            if (!$nomorTersimpan) {
+                $urut = $data->nomor_urut ?? null;
+                $tahun = $data->tahun_nomor ?? \Carbon\Carbon::now('Asia/Jakarta')->year;
+
+                // padding 3 digit untuk urut (001, 002, ...)
+                $nnn = $urut !== null ? str_pad((string) $urut, 3, '0', STR_PAD_LEFT) : '---';
+
+                // format khusus surat pernyataan KTP (prefix 300)
+                $nomorTersimpan = "300 / {$nnn} / 409.41.2 / {$tahun}";
+            }
+        @endphp
+
+        Nomor: {{ $nomorTersimpan }}
     </div>
+
 
     <!-- ISI SURAT -->
     <div class="tulisan">Yang bertanda tangan di bawah ini, saya:</div>
@@ -193,8 +212,8 @@
 
     <!-- TTD -->
     <div class="ttd-container">
-        <p>SAWENTAR, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
-        <p>Kepala Desa SAWENTAR</p>
+        <p>Wates, {{ \Carbon\Carbon::now('Asia/Jakarta')->translatedFormat('d F Y') }}</p>
+        <p>Kepala Desa Wates</p>
         <br><br><br>
         <p><strong><u>MOH. HAMID ALMAULUDI S.Pd.I</u></strong></p>
     </div>

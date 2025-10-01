@@ -12,12 +12,14 @@ use App\Models\dataindividu;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoredataindividuRequest;
 use App\Http\Requests\UpdatedataindividuRequest;
+use App\Imports\IndividuImport;
 use App\Models\datakesehatan;
 use App\Models\datapekerjaansdgs;
 use App\Models\jenisdisabilitas;
 use App\Models\penghasilan;
 use App\Models\sdgspendidikan;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class DataindividuController extends Controller
@@ -75,7 +77,20 @@ class DataindividuController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -194,7 +209,7 @@ class DataindividuController extends Controller
                 $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
                 $penghasilan = $datapenghasilan ? number_format($datapenghasilan->penghasilan_setahun, 0, ',', '.') : '';
 
-                return 'Rp' . $penghasilan ;
+                return 'Rp' . $penghasilan;
             })
             ->addColumn('ekspor', function ($row) {
                 $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
@@ -466,7 +481,20 @@ class DataindividuController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -585,7 +613,7 @@ class DataindividuController extends Controller
                 $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
                 $penghasilan = $datapenghasilan ? number_format($datapenghasilan->penghasilan_setahun, 0, ',', '.') : '';
 
-                return 'Rp' . $penghasilan ;
+                return 'Rp' . $penghasilan;
             })
             ->addColumn('ekspor', function ($row) {
                 $datapenghasilan = penghasilan::where('nik', $row->nik)->first();
@@ -918,6 +946,17 @@ class DataindividuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:10240'
+        ]);
+
+        Excel::import(new IndividuImport, $request->file('file'));
+
+        return redirect()->back()->with('msg', 'Data individu berhasil diimport ke MongoDB!');
+    }
     public function edit(dataindividu $request, $nik)
     {
 

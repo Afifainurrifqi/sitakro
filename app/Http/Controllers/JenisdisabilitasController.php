@@ -59,7 +59,20 @@ class JenisdisabilitasController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -101,7 +114,20 @@ class JenisdisabilitasController extends Controller
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-                return $row->detailkk->kk->nokk;
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($row) {
                 return '<td>
@@ -140,8 +166,24 @@ class JenisdisabilitasController extends Controller
         $goldar = Goldar::all();
         $status = Status::all();
 
-        return view('sdgs.individu.editdisabilitas', compact('datap', 'datadisabilitas', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status'));
+        // Normalisasi: dari string "A,B,C" → array ['A','B','C'], buang spasi
+        $selectedJenis = [];
+        if ($datadisabilitas && $datadisabilitas->jenis_disabilitas) {
+            $selectedJenis = array_filter(array_map('trim', explode(',', $datadisabilitas->jenis_disabilitas)));
+        }
+
+        return view('sdgs.individu.editdisabilitas', compact(
+            'datap',
+            'datadisabilitas',
+            'agama',
+            'pendidikan',
+            'pekerjaan',
+            'goldar',
+            'status',
+            'selectedJenis'
+        ));
     }
+
 
     /**
      * Store a newly created resource in storage.

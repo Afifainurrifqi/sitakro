@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Presentase Penyelesaian Data</h4>
                         <div class="progress">
@@ -69,16 +69,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="col-lg-12 col-md-12">
+                {{-- <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">PERKEJAAN UTAMA</h4>
                             <canvas id="pekerjaanChart"></canvas>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
 

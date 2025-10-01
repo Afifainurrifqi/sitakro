@@ -4,45 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Models\nama_alias_ortu;
 use Illuminate\Http\Request;
+use App\Services\NomorSuratService;
 
 class NamaAliasOrtuController extends Controller
 {
+    public function __construct(private NomorSuratService $svc) {}
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Jika status "Di terima" + "Terverifikasi", assign nomor_surat
+     * khusus jenis 'alias_ortu' (counter terpisah dari jenis lain).
+     * - Tidak menimpa nomor yang sudah ada.
+     * - Mengisi nomor_urut, tahun_nomor, nomor_surat.
      */
+    protected function maybeAssignNomorSurat($suratOrNull, array &$payload): void
+    {
+        $status = $payload['status_surat'] ?? ($suratOrNull->status_surat ?? null);
+        $verif  = $payload['status_verif'] ?? ($suratOrNull->status_verif ?? null);
+
+        if ($status === 'Di terima' && $verif === 'Terverifikasi'
+            && empty($payload['nomor_surat'])
+            && empty($suratOrNull?->nomor_surat)) {
+
+            $issued = $this->svc->issue('alias_ortu'); // ['urut'=>int,'tahun'=>int,'nomor_surat'=>string]
+            $payload['nomor_urut']  = $issued['urut'];
+            $payload['tahun_nomor'] = $issued['tahun'];
+            $payload['nomor_surat'] = $issued['nomor_surat'];
+        }
+    }
+
+    /** ================== LIST / FORM ================== */
+
     public function index()
     {
-        $data = nama_alias_ortu::all();
+        $data = nama_alias_ortu::orderBy('_id', 'desc')->get();
         return view('surat.surat_pernyataan_memilih_nama_alias_satu_ortu', compact('data'));
     }
 
     public function usernamaaliasortu()
     {
-        $data = nama_alias_ortu::all();
-        return view('surat.user_surat_pernyataan_memilih_nama_alias_satu_ortu', compact('data'));
+        return view('surat.user_surat_pernyataan_memilih_nama_alias_satu_ortu');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('surat.surat_pernyataan_memilih_nama_alias_satu_ortu');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
- public function userstore(Request $request)
+    /** ================== STORE (USER) ================== */
+
+    public function userstore(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             // data utama
             'nama'               => 'required|string|max:255',
             'nik'                => 'required|string|max:32',
@@ -63,22 +75,29 @@ class NamaAliasOrtuController extends Controller
             'berdasarkan' => 'nullable|string|max:1000',
 
             // status & kontak
-            'status_surat' => 'required|string',
-            'status_verif' => 'required|string',
+            'status_surat' => 'nullable|string',
+            'status_verif' => 'nullable|string',
             'nowa'         => 'required|string|max:20',
         ]);
 
-        nama_alias_ortu::create($validatedData);
+        // default status untuk pengajuan user
+        $payload = array_merge($validated, [
+            'status_surat' => $validated['status_surat'] ?? 'Pending',
+            'status_verif' => $validated['status_verif'] ?? 'Belum Verifikasi',
+        ]);
+
+        // Pengajuan user tidak langsung diberi nomor
+        nama_alias_ortu::create($payload);
 
         return redirect()->route('surat.suratberhasil')
-            ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
+            ->with('success', 'Data berhasil diajukan.');
     }
 
-
+    /** ================== STORE (ADMIN) ================== */
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             // data utama
             'nama'               => 'required|string|max:255',
             'nik'                => 'required|string|max:32',
@@ -104,42 +123,24 @@ class NamaAliasOrtuController extends Controller
             'nowa'         => 'required|string|max:20',
         ]);
 
-        nama_alias_ortu::create($validatedData);
+        $payload = $validated;
+
+        // Admin boleh langsung terbitkan nomor bila status final
+        $this->maybeAssignNomorSurat(null, $payload);
+
+        nama_alias_ortu::create($payload);
 
         return redirect()->route('surat.keluar')
-            ->with('success', 'Data berhasil disimpan dan diarahkan ke arsip surat keluar.');
+            ->with('success', 'Data berhasil disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\nama_alias_ortu  $nama_alias_ortu
-     * @return \Illuminate\Http\Response
-     */
-    public function show(nama_alias_ortu $nama_alias_ortu)
-    {
-        //
-    }
+    /** ================== EDIT / UPDATE ================== */
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\nama_alias_ortu  $nama_alias_ortu
-     * @return \Illuminate\Http\Response
-     */
     public function edit(nama_alias_ortu $surat)
     {
-        // $surat = instance dari nama_alias_ortu yang di-bind dari {surat}
         return view('surat.edit_surat_pernyataan_memilih_nama_alias_satu_ortu', compact('surat'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\nama_alias_ortu  $nama_alias_ortu
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, nama_alias_ortu $surat)
     {
         $validated = $request->validate([
@@ -168,19 +169,21 @@ class NamaAliasOrtuController extends Controller
             'nowa'         => 'required|string|max:20',
         ]);
 
-        $surat->update($validated);
+        $payload = $validated;
+
+        // Terbitkan nomor jika memenuhi syarat & belum ada
+        $this->maybeAssignNomorSurat($surat, $payload);
+
+        $surat->update($payload);
 
         return redirect()->route('surat.keluar')->with('success', 'Surat alias (satu ortu) berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\nama_alias_ortu  $nama_alias_ortu
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(nama_alias_ortu $nama_alias_ortu)
+    /** ================== DELETE ================== */
+
+    public function destroy(nama_alias_ortu $surat)
     {
-        //
+        $surat->delete();
+        return back()->with('success', 'Surat berhasil dihapus.');
     }
 }
