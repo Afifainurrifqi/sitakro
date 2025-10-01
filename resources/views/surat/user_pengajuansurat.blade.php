@@ -47,7 +47,7 @@
                 <!-- Logo Wrapper -->
                 <div class="logo-wrapper">
                     <a href="awal.html">
-                        <img ssrc="{{ asset('assets4/img/wates.png') }}" alt="">
+                        <img ssrc="{{ asset('assets4/img/SAWENTAR.png') }}" alt="">
                     </a>
                 </div>
 
@@ -68,7 +68,7 @@
                 <!-- Single Hero Slide -->
                 <div>
                     <div>
-                        <div class="single-hero-slide bg-overlay" style="background-image: url('{{ asset('assets4/dist/img/Desa-wates-banner.png') }}')">
+                        <div class="single-hero-slide bg-overlay" style="background-image: url('{{ asset('assets4/dist/img/Desa-SAWENTAR-banner.png') }}')">
                             <div class="h-100 d-flex align-items-center text-center">
                                 <div class="container">
                                     <h3 class="text-white mb-1">SAWENTAR Berkelas</h3>

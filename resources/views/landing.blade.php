@@ -12,7 +12,7 @@
     <title>SITAKRO</title>
 
     <!-- ========== Favicon Icon ========== -->
-    <link rel="shortcut icon" href="assets2/img/wates.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets2/img/SAWENTAR.png" type="image/x-icon">
 
     <!-- ========== Start Stylesheet ========== -->
     <link href="assets2/css/bootstrap.min.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
                         <img src="/assets3/img/logosi2.png" class="wow slideInLeft"  style="width: 30%">
                         <h2 class="wow slideInLeft">SITAKRO SAWENTAR </h2>
                         <p class="wow fadeInLeft">
-                            Sistem Informasi Data Mikro yang dimiliki oleh Desa SAWENTAR Kecamatan Wates Kabupaten
+                            Sistem Informasi Data Mikro yang dimiliki oleh Desa SAWENTAR Kecamatan SAWENTAR Kabupaten
                             Blitar
                         </p>
                         <a class="wow fadeInDown btn btn-light border btn-md" href="{{ route('login') }}">LOGIN
@@ -276,7 +276,7 @@
         <div class="row">
             <div class="google-maps">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63169.74117685125!2d112.32909439999999!3d-8.29196795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78b963ebb18dcf%3A0xfba32e2a9900724f!2sKec.%20Wates%2C%20Kabupaten%20Blitar%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1750545563053!5m2!1sid!2sid"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63169.74117685125!2d112.32909439999999!3d-8.29196795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78b963ebb18dcf%3A0xfba32e2a9900724f!2sKec.%20SAWENTAR%2C%20Kabupaten%20Blitar%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1750545563053!5m2!1sid!2sid"
                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
@@ -292,7 +292,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>&copy; Desa WATES 2023</p>
+                        <p>&copy; Desa SAWENTAR 2023</p>
                     </div>
                     <div class="col-md-6 text-right link">
                         <ul>
