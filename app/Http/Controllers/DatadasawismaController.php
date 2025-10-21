@@ -26,7 +26,18 @@ class DatadasawismaController extends Controller
 
     public function add(Request $request)
     {
-        return view('datadasawisma.tambahdw');
+        // ➜ Tampilan TAMBAH = Code A
+        return view('datadasawisma.tambahdw', [
+            'isEdit'    => false,
+            'nik'       => null,
+            'valNIK'    => old('ValNIK', ''),
+            'valNama'   => old('nama', ''),
+            'valAlamat' => old('alamat', ''),
+            'valRT'     => old('rt', ''),
+            'valRW'     => old('rw', ''),
+            'valEmail'  => old('email', ''),
+            'valRole'   => old('role', 'dasawisma'),
+        ]);
     }
 
     public function json(Request $request)
@@ -46,14 +57,14 @@ class DatadasawismaController extends Controller
             ->addColumn('nokk', fn($row) => optional(optional($row->detailkk)->kk)->nokk)
             ->addColumn('action', function ($row) {
                 $editUrl = route('dasawisma.show', ['nik' => $row->nik]);
-                $deleteForm = '<form onsubmit="return deleteData(\'' . e($row->nama) . '\')" action="' . url('dasawisma') . '/' . e($row->nik) . '" method="POST" style="display:inline">'
-                    . csrf_field() . method_field('DELETE') . '</form>';
-                return '<a href="' . $editUrl . '" class="btn mb-1 btn-info btn-sm" title="Edit data"><i class="fas fa-edit"></i></a>' . $deleteForm;
+                // Hanya tombol Edit; tombol Delete DIHILANGKAN untuk semua role
+                return '<a href="' . e($editUrl) . '" class="btn mb-1 btn-info btn-sm" title="Edit data"><i class="fas fa-edit"></i></a>';
             })
             ->addColumn('statusdw', fn(Datapenduduk $item) => $item && $item->user_id == null ? 'dasawisma' : 'penduduk')
             ->rawColumns(['action'])
             ->toJson();
     }
+
 
     public function jsonadmin(Request $request)
     {
@@ -67,21 +78,14 @@ class DatadasawismaController extends Controller
             ->addIndexColumn()
             ->addColumn('nokk', fn($row) => optional(optional($row->detailkk)->kk)->nokk)
             ->addColumn('action', function ($row) {
-                $editUrl   = route('dasawisma.show', ['nik' => $row->nik]);
-                $deleteUrl = route('dasawisma.destroy', ['nik' => $row->nik]);
-                $csrf      = csrf_field();
-                $method    = method_field('DELETE');
-                return <<<HTML
-                  <a href="{$editUrl}" class="btn mb-1 btn-info btn-sm" title="Edit data"><i class="fas fa-edit"></i></a>
-                  <form onsubmit="return deleteData('{$row->nama}')" action="{$deleteUrl}" method="POST" style="display:inline">
-                    {$csrf}{$method}
-                    <button type="submit" class="btn mb-1 btn-danger btn-sm" title="Hapus data"><i class="fas fa-trash"></i></button>
-                  </form>
-                HTML;
+                $editUrl = route('dasawisma.show', ['nik' => $row->nik]);
+                // Hanya tombol Edit; tombol Delete DIHILANGKAN untuk semua role
+                return '<a href="' . e($editUrl) . '" class="btn mb-1 btn-info btn-sm" title="Edit data"><i class="fas fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->toJson();
     }
+
 
     /** Simpan akun dasawisma baru & tautkan ke datapenduduk */
     public function store(Request $request)
@@ -165,23 +169,29 @@ class DatadasawismaController extends Controller
         ], 200);
     }
 
-    public function show(datadasawisma $datadasawisma, $nik)
-    {
-        $penduduk = Datapenduduk::where('nik', $nik)->first();
-        $user     = User::where('nik', $nik)->first();
 
-        return view('datadasawisma.tambahdw', compact('penduduk', 'user', 'nik'))->with([
-            'valNIK'        => $nik,
-            'valNama'       => $penduduk->nama   ?? '',
-            'valAlamat'     => $penduduk->alamat ?? '',
-            'valRT'         => $penduduk->rt     ?? '',
-            'valRW'         => $penduduk->rw     ?? '',
-            'valEmails'     => $user->email      ?? '',
-            'valPassword'   => '',
-            'valRole'       => $user->role       ?? 'dasawisma',
-            'valNamakelompok' => $datadasawisma->nama_kelompok ?? '',
+
+    public function show($nik)
+    {
+        // ➜ Tampilan EDIT = Code B
+        $penduduk = Datapenduduk::where('nik', $nik)->firstOrFail();
+        $user     = User::where('nik', $nik)->first(); // boleh null
+
+        return view('datadasawisma.editdatadw', [
+            'nik'       => $nik,
+            'penduduk'  => $penduduk,
+            'user'      => $user,
+            // nilai default untuk isi form
+            'valNIK'    => $nik,
+            'valNama'   => $penduduk->nama   ?? '',
+            'valAlamat' => $penduduk->alamat ?? '',
+            'valRT'     => $penduduk->rt     ?? '',
+            'valRW'     => $penduduk->rw     ?? '',
+            'valEmail'  => optional($user)->email ?? '',
+            'valRole'   => optional($user)->role  ?? 'dasawisma',
         ]);
     }
+
 
     public function update(Request $request, $nik)
     {
