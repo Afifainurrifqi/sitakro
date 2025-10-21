@@ -14,6 +14,14 @@ class dataindividu extends Eloquent
     protected $connection = 'mongodb';
     protected $collection = 'dataindividu';
     protected $fillable = [
-        'usia_saat_pertama_kali_menikah', 'suku_bangsa', 'warga_negarawarga_negara', 'nohp', 'nowa', 'email', 'facebook','twitter','instagram',
+        'usia_saat_pertama_kali_menikah',
+        'suku_bangsa',
+        'warga_negarawarga_negara',
+        'nohp',
+        'nowa',
+        'email',
+        'facebook',
+        'twitter',
+        'instagram',
     ];
 }

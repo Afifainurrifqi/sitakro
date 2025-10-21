@@ -30,15 +30,15 @@
             </td>
             <td class="kop-header">
                 <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                KECAMATAN SAWENTAR<br>
-                KANTOR KEPALA DESA SAWENTAR</strong><br>
+                KECAMATAN WATES<br>
+                KANTOR KEPALA DESA WATES</strong><br>
                 <small>
                     Jln. Merdeka No. 74 Telp. 082139324445<br>
-                    Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
+                    Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
                 </small>
             </td>
             <td width="15%" align="center">
-                <img src="../SAWENTAR.png" class="kop-logo">
+                <img src="../wates.png" class="kop-logo">
             </td>
         </tr>
     </table>

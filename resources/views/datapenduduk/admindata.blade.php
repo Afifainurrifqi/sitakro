@@ -76,7 +76,7 @@
 
     // Helper mapping JK
     function mapJK(val) {
-      const m = { '1': 'Laki-laki', '2': 'Perempuan' };
+      const m = { '1': 'Laki-laki', '0': 'Perempuan' };
       if (val === 1 || val === 2) return m[String(val)];
       return m[String(val)] ?? (val ?? ''); // fallback kalau bukan 1/2
     }

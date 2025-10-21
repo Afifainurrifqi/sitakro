@@ -300,6 +300,9 @@ Route::get('KK/{id}', [KkController::class, 'show']);
 
 Route::middleware(['checkrole:admin,operator,dasawisma,akundemo'])->group(
     function () {
+
+
+
         Route::get('sdgs/individu/dataindividu/{show}', [DataindividuController::class, 'show'])->name('individu.show');
         Route::get('sdgs/individu/datakesehatan', [DatakesehatanController::class, 'index'])->name('datakesehatan.index');
         Route::get('sdgs/individu/admindatakesehatan', [DatakesehatanController::class, 'admin_index'])->name('datakesehatan.admin_index');
@@ -370,6 +373,16 @@ Route::middleware(['checkrole:admin,operator,dasawisma,akundemo'])->group(
         Route::get('sdgs/individu/admin', [DataindividuController::class, 'index_admin'])->name('individu.admin');
         Route::get('datadasawisma/datadw', [DatadasawismaController::class, 'index'])->name('dasawisma.index');
         Route::get('datadasawisma/admin', [DatadasawismaController::class, 'index_admin'])->name('dasawisma.index_admin');
+        // Route::get('datadasawisma/{nik}', [DatadasawismaController::class, 'show'])->name('dasawisma.show');
+        Route::post('datadasawisma/store', [DatadasawismaController::class, 'store'])->name('dasawisma.store');
+        Route::get('datadasawisma/tambah', [DatadasawismaController::class, 'add'])->name('dasawisma.add');
+        // JSON lookup penduduk by NIK (AJAX)
+       Route::post('datapenduduk/find-by-nik', [DatadasawismaController::class, 'findPendudukByNik'])
+    ->name('datapenduduk.findByNik');
+
+
+        // hapus per NIK
+        Route::delete('datadasawisma/{nik}', [DatadasawismaController::class, 'destroy'])->name('dasawisma.destroy');
         Route::get('datapenduduk/add', [DatapendudukController::class, 'add']);
         Route::post('datapenduduk/store', [DatapendudukController::class, 'store'])->name('datapenduduk.store');
 

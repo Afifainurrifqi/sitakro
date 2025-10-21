@@ -6,17 +6,22 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-header">
-                            @if (session('msg'))
-                                <div class="alert alert-success">
-                                    {{ session('msg') }}
-                                </div>
-                            @endif
-                            <h2 class="card-title">Data Dasa Wisma</h2><br>
-                             <form id="search-form">
-
-                            </form>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div>
+                                @if (session('msg'))
+                                    <div class="alert alert-success mb-2">
+                                        {{ session('msg') }}
+                                    </div>
+                                @endif
+                                <h2 class="card-title mb-0">Data Dasa Wisma</h2>
+                            </div>
                         </div>
+                        <button type="button" class="btn mb-1 btn-primary"
+                            onclick="window.location='{{ url('datadasawisma/tambah') }}'">
+                            Tambah Dasawisma <span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
+                        </button>
+
+
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatadw">
                                 <thead>
@@ -27,10 +32,9 @@
                                         <th>No</th>
                                         {{-- <th>NOKK</th> --}}
                                         <th>NIK</th>
-                                        <th>Gelar Awal</th>
+                                        {{-- <th>Gelar Awal</th> --}}
                                         <th>Nama</th>
-                                        <th>Gelar Akhir</th>
-                                        <th>Jenis Kelamin</th>
+                                        {{-- <th>Gelar Akhir</th> --}}
                                         <th>Alamat</th>
                                         <th>RT</th>
                                         <th>RW</th>
@@ -84,22 +88,19 @@
                         data: 'nik',
                         name: 'nik'
                     },
-                    {
-                        data: 'gelarawal',
-                        name: 'gelarawal'
-                    },
+                    // {
+                    //     data: 'gelarawal',
+                    //     name: 'gelarawal'
+                    // },
                     {
                         data: 'nama',
                         name: 'nama'
                     },
-                    {
-                        data: 'gelarakhir',
-                        name: 'gelarakhir'
-                    },
-                    {
-                        data: 'jenis_kelamin',
-                        name: 'jenis_kelamin'
-                    },
+                    // {
+                    //     data: 'gelarakhir',
+                    //     name: 'gelarakhir'
+                    // },
+
                     {
                         data: 'alamat',
                         name: 'alamat'

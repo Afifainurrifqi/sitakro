@@ -14,11 +14,13 @@ class datapekerjaansdgs extends Eloquent
     protected $connection = 'mongodb';
     protected $collection = 'datapekerjaansgds';
     protected $fillable = [
-        'kondisi_pekerjaan', 'pekerjaan_utama', 'jaminan_sosial_ketenagakerjaan', 'penghasilan_setahun_terakhir',
+        'kondisi_pekerjaan',
+        'pekerjaan_utama',
+        'jaminan_sosial_ketenagakerjaan',
+        'penghasilan_setahun_terakhir',
     ];
     public function pekerjaan()
-{
-    return $this->belongsTo('App\Models\Pekerjaan', 'pekerjaan_utama', 'id'); 
+    {
+        return $this->belongsTo('App\Models\Pekerjaan', 'pekerjaan_utama', 'id');
+    }
 }
-}
-

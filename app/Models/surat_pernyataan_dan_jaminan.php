@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 class surat_pernyataan_dan_jaminan extends Eloquent
 {
-   protected $connection = 'mongodb';
+    protected $connection = 'mongodb';
     protected $collection = 'surat_pernyataan_dan_jaminan';
 
     protected $fillable = [
@@ -32,8 +31,20 @@ class surat_pernyataan_dan_jaminan extends Eloquent
         'berdasarkan',           // opsional
 
         // status & kontak
-        'status_surat',          // Pending/Di cek/Diterima/Ditolak
+        'status_surat',          // Pending/Di cek/Di terima/Ditolak
         'status_verif',          // Belum Verifikasi/Terverifikasi
         'nowa',                  // kontak WA
+
+        // nomor surat
+        'nomor_surat',           // contoh: "420 / 001 / 409.41.2 / 2025"
+        'nomor_urut',            // int
+        'tahun_nomor',           // int
+    ];
+
+    protected $casts = [
+        'berlaku_mulai' => 'datetime:Y-m-d',
+        'berlaku_sampai'=> 'datetime:Y-m-d',
+        'nomor_urut'    => 'integer',
+        'tahun_nomor'   => 'integer',
     ];
 }

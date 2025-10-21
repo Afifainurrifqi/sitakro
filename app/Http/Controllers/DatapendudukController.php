@@ -50,13 +50,27 @@ class DatapendudukController extends Controller
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk','updatedByUser'])
+        $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk', 'updatedByUser'])
             ->whereIn('Datak', $allowedDatakValues);
 
-            return DataTables::of($query)
-            ->addColumn('nokk', function ($datapenduduk) {
-                return optional($datapenduduk->detailkk)->kk->nokk;
+        return DataTables::of($query)
+            ->addColumn('nokk', function ($row) {
+                return optional($row->detailkk->kk)->nokk;
             })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
+            })
+
             ->addColumn('updated_by', function ($datapenduduk) {
                 return optional($datapenduduk->updatedByUser)->name; // Menampilkan nama user
             })
@@ -77,7 +91,6 @@ class DatapendudukController extends Controller
             })
             ->rawColumns(['action'])
             ->toJson();
-
     }
 
 
@@ -100,8 +113,21 @@ class DatapendudukController extends Controller
         }
 
         return DataTables::of($query)
-            ->addColumn('nokk', function ($datapenduduk) {
-                return optional($datapenduduk->detailkk)->kk->nokk;
+            ->addColumn('nokk', function ($row) {
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
             })
             ->addColumn('action', function ($datapenduduk) {
                 $editUrl = route('datapenduduk.show', ['nik' => $datapenduduk->nik]);
@@ -272,9 +298,7 @@ class DatapendudukController extends Controller
      * @param  \App\Models\datapenduduk  $datapenduduk
      * @return \Illuminate\Http\Response
      */
-    public function edit(datapenduduk $datapenduduk)
-    {
-    }
+    public function edit(datapenduduk $datapenduduk) {}
 
     /**
      * Update the specified resource in storage.
@@ -334,7 +358,5 @@ class DatapendudukController extends Controller
      * @param  \App\Models\datapenduduk  $datapenduduk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(datapenduduk $datapenduduk, $nik)
-    {
-    }
+    public function destroy(datapenduduk $datapenduduk, $nik) {}
 }

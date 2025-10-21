@@ -91,12 +91,12 @@
     $nomor = data_get($data, 'nomor_surat');
 
     // Lokasi & tanggal terbit
-    $kota   = data_get($data, 'kota_terbit', 'SAWENTAR');
+    $kota   = data_get($data, 'kota_terbit', 'Wates');
     $tglNow = Carbon::now('Asia/Jakarta')->translatedFormat('d F Y');
 
     // Pejabat penandatangan
     $namaPejabat = data_get($data, 'nama_pejabat', 'MOH. HAMID ALMAULUDI S.Pd.I');
-    $jabatan     = data_get($data, 'jabatan_pejabat', 'Kepala Desa SAWENTAR');
+    $jabatan     = data_get($data, 'jabatan_pejabat', 'Kepala Desa Wates');
 
     // Pembuat pernyataan (penjamin)
     $pNama   = data_get($data, 'nama_pembuat', '................................................');
@@ -126,15 +126,15 @@
                 </td>
                 <td class="kop-header">
                     <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                        KECAMATAN SAWENTAR<br>
-                        KANTOR KEPALA DESA SAWENTAR</strong><br>
+                        KECAMATAN WATES<br>
+                        KANTOR KEPALA DESA WATES</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: SAWENTARberkelas@gmail.com | Website: SAWENTAR-blitarkab.desa.id
+                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/SAWENTAR.png') }}" class="kop-logo" alt="Logo Kanan">
+                    <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Kanan">
                 </td>
             </tr>
         </table>

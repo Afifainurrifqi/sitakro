@@ -22,15 +22,27 @@ class surat_pernyataan_numpang_kk extends Eloquent
         'nama_penumpang_kk',
         'nik_penumpang_kk',
         'tempat_lahir_penumpang_kk',
-        'tanggal_lahir_penumpang_kk', // Tanggal lahir terpisah dan bertipe date string
+        'tanggal_lahir_penumpang_kk',
         'agama_penumpang_kk',
         'pekerjaan_penumpang_kk',
 
-        // Status surat dan verifikasi
+        // Status surat
         'status_surat',
         'status_verif',
 
-        // No WhatsApp pelapor / kontak
+        // Kontak
         'nowa',
+
+        // Nomor surat
+        'nomor_surat',
+        'nomor_urut',
+        'tahun_nomor',
+    ];
+
+    protected $casts = [
+        'tanggal_lahir_penumpang_kk' => 'datetime:Y-m-d',
+        'nomor_urut'  => 'integer',
+        'tahun_nomor' => 'integer',
     ];
 }
+

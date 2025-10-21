@@ -1,134 +1,283 @@
- @extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
+@extends(Auth::user()->role == 'admin' ? 'layout.main2' : 'layout.main')
 
+@section('title', 'Tambah Dasawisma')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="card-title">Form Tambah dasawisma</h1>
-                        <button type="button" class="btn mb-1 btn-warning"
-                            onclick="window.location='{{ url('/datadasawisma/datadw') }}'">Kembali
-                        </button> <br><br><br>
-                        <div class="form-validation">
-                            <form class="form-validate" action="{{ route('dasawisma.update', ['nik' => $datapenduduk->nik]) }}" method="POST" id="form-tambah-dasawisma">
-                                @csrf
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valNIK">NIK <span
-                                            class="text-danger">*</span>
-                                    </label>
-                                    <input type="hidden" name="valNIK" value="{{ $datapenduduk->nik }}">
-                                    <div class="col-lg-6">
-                                        {{ $datapenduduk->nik }}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="nama">Nama <span
-                                            class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        {{ $datapenduduk->nama }}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="email">Email<span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        <input value="{{ $user->email ?? '' }}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email...">
-                                        @error('email')
-                                            <div id="" class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
 
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="password">Password <span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        <input value="{{ $user->password ?? '' }}" type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="password...">
-                                        @error('password')
-                                            <div id="" class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <style>
-                                    .hidden-form {
-                                        display: none;
-                                    }
-                                </style>
-
-                                <div class="form-group row hidden-form">
-                                    <label class="col-lg-4 col-form-label" for="role">Role <span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        <select class="form-control @error('role') is-invalid @enderror" id="role" name="role">
-                                            <option value="dasawisma">dasawisma</option>
-                                        </select>
-                                        @error('role')
-                                            <div id="" class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                {{-- <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="valRW">Nama kelompok <span
-                                            class="text-danger">*</span>
-                                    </label>
-                                    <div class="col-lg-6">
-                                        <input value="{{ old('valRW') }}" type="text"
-                                            class="form-control @error('valRW') is-invalid @enderror" id="valRW"
-                                            name="valRW" placeholder="Nama kelompokmu...">
-                                        @error('valRW')
-                                            <div id="" class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>   --}}
-                                <div class="form-group row">
-                                    <div class="col-lg-8 ml-auto">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">Simpan</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
         </div>
-    </div>
+      @endif
 
+      @if (session('msg'))
+        <div class="alert alert-success">{{ session('msg') }}</div>
+      @endif
 
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">Form Tambah Dasawisma</h1>
+          <button type="button" class="btn mb-1 btn-warning"
+            onclick="window.location='{{ route('dasawisma.index') }}'">Kembali</button>
+          <br><br>
+
+          <form action="{{ route('dasawisma.store') }}" method="POST" id="form-tambah-dasawisma" autocomplete="off">
+            @csrf
+
+            {{-- NIK --}}
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="ValNIK">NIK <span class="text-danger">*</span></label>
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <input value="{{ old('ValNIK') }}" type="text"
+                         class="form-control @error('ValNIK') is-invalid @enderror"
+                         id="ValNIK" name="ValNIK" placeholder="NIK..."
+                         inputmode="numeric" maxlength="20" pattern="\d{8,20}"
+                         title="Masukkan 8–20 digit angka">
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" type="button" id="btnCariNik" aria-live="polite">
+                      <span id="btnCariNikText">Cari</span>
+                      <span id="btnCariNikSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                     </button>
+                  </div>
                 </div>
-                <div class="modal-body">
-                    Apakah kamu sudah yakin?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
-                </div>
+                @error('ValNIK')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+                <div id="nik-alert" class="mt-2"></div>
+              </div>
             </div>
+
+            {{-- Nama (auto isi) --}}
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="nama">Nama <span class="text-danger">*</span></label>
+              <div class="col-lg-6">
+                <input value="{{ old('nama') }}" type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="nama..." readonly>
+                @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
+              </div>
+            </div>
+
+            {{-- Alamat / RT / RW --}}
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="alamat">Alamat</label>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" id="alamat" name="alamat" value="{{ old('alamat') }}" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="rt">RT</label>
+              <div class="col-lg-2">
+                <input type="text" class="form-control" id="rt" name="rt" value="{{ old('rt') }}" readonly>
+              </div>
+              <label class="col-lg-2 col-form-label" for="rw">RW</label>
+              <div class="col-lg-2">
+                <input type="text" class="form-control" id="rw" name="rw" value="{{ old('rw') }}" readonly>
+              </div>
+            </div>
+
+            {{-- Email --}}
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="email">Email <span class="text-danger">*</span></label>
+              <div class="col-lg-6">
+                <input value="{{ old('email') }}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email...">
+                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
+              </div>
+            </div>
+
+            {{-- Password --}}
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="password">Password <span class="text-danger">*</span></label>
+              <div class="col-lg-6">
+                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                       id="password" name="password" placeholder="password...">
+                @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+              </div>
+            </div>
+
+            <div class="d-none">
+              <select id="role" name="role">
+                <option value="dasawisma" selected>dasawisma</option>
+              </select>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-lg-8 ml-auto">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" id="btnOpenConfirm">Simpan</button>
+              </div>
+            </div>
+          </form>
+
         </div>
+      </div>
+
     </div>
+  </div>
+</div>
 
-    <script>
-        document.getElementById('confirmSave').addEventListener('click', function() {
-            document.getElementById('form-tambah-dasawisma').submit();
-        });
-    </script>
+{{-- Modal konfirmasi --}}
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+              <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+          </div>
+          <div class="modal-body">Apakah kamu sudah yakin?</div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-primary" id="confirmSave">Yakin</button>
+          </div>
+      </div>
+  </div>
+</div>
+@endsection
 
+@section('scripts')
+<script>
+(function() {
+  const btnCari = document.getElementById('btnCariNik');
+  const inputNik = document.getElementById('ValNIK');
+  const namaInput = document.getElementById('nama');
+  const alamatInput = document.getElementById('alamat');
+  const rtInput = document.getElementById('rt');
+  const rwInput = document.getElementById('rw');
+  const alertBox = document.getElementById('nik-alert');
+  const btnText = document.getElementById('btnCariNikText');
+  const btnSpinner = document.getElementById('btnCariNikSpinner');
 
+  // Pakai @json biar aman
+  const routeUrl = @json(route('datapenduduk.findByNik'));
+
+  function setLoading(on) {
+    if (on) {
+      btnCari.disabled = true;
+      btnText.textContent = 'Mencari...';
+      btnSpinner.classList.remove('d-none');
+    } else {
+      btnCari.disabled = false;
+      btnText.textContent = 'Cari';
+      btnSpinner.classList.add('d-none');
+    }
+  }
+
+  function clearFields() {
+    namaInput.value = '';
+    alamatInput.value = '';
+    rtInput.value = '';
+    rwInput.value = '';
+  }
+
+  function fillFields(data) {
+    namaInput.value = data.nama ?? data.NAMA ?? '';
+    alamatInput.value = data.alamat ?? data.ALAMAT ?? '';
+    rtInput.value = (data.rt ?? data.RT ?? '');
+    rwInput.value = (data.rw ?? data.RW ?? '');
+  }
+
+  function showAlert(type, message, timeout = 7000) {
+    const html = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+      ${message}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>`;
+    alertBox.innerHTML = html;
+    alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (timeout) setTimeout(() => {
+      const a = alertBox.querySelector('.alert');
+      if (a) a.remove();
+    }, timeout);
+  }
+
+  function getCsrfToken() {
+    const m = document.querySelector('meta[name="csrf-token"]');
+    return m ? m.content : null;
+  }
+
+  function handleResponseError(resStatus, parsed, rawText) {
+    if (resStatus === 419) return showAlert('warning', 'Sesi habis/CSRF tidak valid. Refresh halaman & login ulang.');
+    if (resStatus === 422) {
+      const msg = parsed?.errors ? Object.values(parsed.errors)[0][0] : (parsed?.message || 'Input tidak valid.');
+      return showAlert('warning', 'Validasi: ' + msg);
+    }
+    if (resStatus === 404) return showAlert('warning', parsed?.message || 'NIK tidak ditemukan.');
+    if (resStatus >= 500) return showAlert('danger', parsed?.message || `Kesalahan server (${resStatus}).`);
+    if (rawText && rawText.trim().startsWith('<')) return showAlert('warning','Response HTML (kemungkinan redirect). Coba refresh.');
+    showAlert('danger', parsed?.message || `Kesalahan (${resStatus}). Periksa network/console.`);
+  }
+
+  async function cariNik(nik) {
+    setLoading(true);
+    clearFields();
+
+    const csrf = getCsrfToken();
+    if (!csrf) {
+      setLoading(false);
+      showAlert('danger','CSRF token tidak ditemukan di layout. Tambahkan <meta name="csrf-token" ...> di <head>.');
+      return;
+    }
+
+    try {
+      const res = await fetch(routeUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': csrf,
+        },
+        body: JSON.stringify({ nik }),
+        credentials: 'same-origin',
+      });
+
+      const text = await res.text();
+      let parsed = null;
+      try { parsed = JSON.parse(text); } catch (e) {}
+
+      if (!res.ok) return handleResponseError(res.status, parsed, text);
+
+      if (parsed && parsed.ok && parsed.data) {
+        fillFields(parsed.data);
+        showAlert('success', 'Data NIK ditemukan dan terisi otomatis.');
+      } else {
+        showAlert('warning', parsed?.message || 'NIK tidak ditemukan.');
+      }
+    } catch (err) {
+      showAlert('danger', 'Gagal terhubung ke server: ' + (err.message || err));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  btnCari.addEventListener('click', function(e) {
+    e.preventDefault();
+    const nik = inputNik.value.trim();
+    if (!nik) {
+      showAlert('warning', 'Masukkan NIK terlebih dahulu.'); return clearFields();
+    }
+    if (!/^\d{8,20}$/.test(nik)) {
+      showAlert('warning', 'NIK harus 8–20 digit angka.'); return clearFields();
+    }
+    cariNik(nik);
+  });
+
+  inputNik.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); btnCari.click(); }
+  });
+
+  // Modal simpan -> submit
+  const confirmSaveBtn = document.getElementById('confirmSave');
+  if (confirmSaveBtn) {
+    confirmSaveBtn.addEventListener('click', function() {
+      document.getElementById('form-tambah-dasawisma').submit();
+    });
+  }
+})();
+</script>
 @endsection

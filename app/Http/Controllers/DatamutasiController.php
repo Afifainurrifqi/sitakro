@@ -47,53 +47,58 @@ class DatamutasiController extends Controller
     {
         $allowedDatakValues = ['pindah', 'meninggal'];
 
-        $datapenduduk = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-            ->whereIn('Datak', $allowedDatakValues)
-            ->limit(100)
-            ->get();
+        $query = Datapenduduk::query()
+            ->with(['agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('datak', $allowedDatakValues);
 
-        return DataTables::of($datapenduduk)
+        return DataTables::of($query)
+            ->addIndexColumn() // otomatis kolom nomor (DT_RowIndex)
             ->addColumn('nokk', function ($row) {
-            return optional($row->detailkk->kk)->nokk;
-        })
-        // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
-        ->filterColumn('nokk', function ($q, $keyword) {
-            $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
-                $qq->where('nokk', 'like', "%{$keyword}%");
-            });
-        })
-        // (opsional) izinkan sorting kolom NO KK
-        ->orderColumn('nokk', function ($q, $order) {
-            $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
-              ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
-              ->orderBy('kks.nokk', $order)
-              ->select('datapenduduks.*'); // hindari duplikasi kolom
-        })
-            ->make(true);
+                return optional(optional($row->detailkk)->kk)->nokk;
+            })
+            // Izinkan search untuk kolom relasi NO KK
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // Izinkan sort kolom relasi NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->leftJoin('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->leftJoin('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // pastikan kolom unik
+            })
+            // Kolom nested aman null
+            ->addColumn('agama.nama', fn($r) => optional($r->agama)->nama ?? '-')
+            ->addColumn('pendidikan.nama', fn($r) => optional($r->pendidikan)->nama ?? '-')
+            ->addColumn('pekerjaan.nama', fn($r) => optional($r->pekerjaan)->nama ?? '-')
+            ->addColumn('goldar.nama', fn($r) => optional($r->goldar)->nama ?? '-')
+            ->addColumn('status.nama', fn($r) => optional($r->status)->nama ?? '-')
+            ->toJson();
     }
 
 
     public function json(Request $request)
-{
-    $allowedDatakValues = ['pindah', 'meninggal'];
-    $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-        ->whereIn('Datak', $allowedDatakValues);
+    {
+        $allowedDatakValues = ['pindah', 'meninggal'];
 
-    if ($request->has('nik') && $request->nik != '') {
-        $query->where('nik', $request->nik);
-    } else {
-        $query->limit(0); // No data returned if no NIK provided
+        $query = Datapenduduk::query()
+            ->with(['agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+            ->whereIn('datak', $allowedDatakValues);
+
+        if ($request->filled('nik')) {
+            $query->where('nik', $request->nik);
+        } else {
+            $query->whereRaw('0=1'); // kembalikan kosong jika tidak ada nik
+        }
+
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('nokk', fn($r) => optional(optional($r->detailkk)->kk)->nokk)
+            ->addColumn('agama.nama', fn($r) => optional($r->agama)->nama ?? '-')
+            ->toJson();
     }
-
-    $datapenduduk = $query->get();
-
-    return DataTables::of($datapenduduk)
-        ->addColumn('nokk', function ($row) {
-            return $row->detailkk->kk->nokk;
-        })
-        ->make(true);
-}
-
 
 
     function exportexcelm()
