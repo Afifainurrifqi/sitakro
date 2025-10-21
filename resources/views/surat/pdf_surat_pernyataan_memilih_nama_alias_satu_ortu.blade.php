@@ -70,7 +70,7 @@
     };
 
     // Lokasi & tanggal
-    $kota    = data_get($data, 'kota_terbit', 'Wates');
+    $kota    = data_get($data, 'kota_terbit', 'Sawentar');
     $tglNow  = Carbon::now('Asia/Jakarta')->translatedFormat('d F Y');
 
     // Nama yang tanda tangan (default ambil nama_menyatakan; fallback nama)
@@ -99,15 +99,15 @@
                 </td>
                 <td class="kop-header">
                     <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                        KECAMATAN WATES<br>
-                        KANTOR KEPALA DESA WATES</strong><br>
+                        KECAMATAN Sawentar<br>
+                        KANTOR KEPALA DESA Sawentar</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: watesberkelas@gmail.com | Website: wates-blitarkab.desa.id
+                        Email: Sawentarberkelas@gmail.com | Website: Sawentar-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/wates.png') }}" class="kop-logo" alt="Logo Kanan">
+                    <img src="{{ public_path('assets/images/Sawentar.png') }}" class="kop-logo" alt="Logo Kanan">
                 </td>
             </tr>
         </table>
