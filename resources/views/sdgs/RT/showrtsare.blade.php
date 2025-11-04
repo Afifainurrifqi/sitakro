@@ -10,9 +10,9 @@
                     <div class="card-body">
                         <h1 class="card-title">SARANA EKONOMI
                             <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1></h1>
-                        <button type="button" class="btn mb-1 btn-warning"
+                        {{-- <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtsare.index') }}'">Kembali
-                        </button>
+                        </button> --}}
                         <br><br><br>
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('rtsare.update') }}" method="POST">

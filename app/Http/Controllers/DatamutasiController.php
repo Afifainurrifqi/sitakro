@@ -81,22 +81,48 @@ class DatamutasiController extends Controller
 
     public function json(Request $request)
     {
-        $allowedDatakValues = ['pindah', 'meninggal'];
+        $allowed = ['pindah', 'Pindah', 'meninggal', 'Meninggal'];
 
-        $query = Datapenduduk::query()
-            ->with(['agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-            ->whereIn('datak', $allowedDatakValues);
+        // Deteksi global search dari DataTables (search[value])
+        $hasGlobalSearch = filled(data_get($request->all(), 'search.value'));
+        $hasNik  = $request->filled('nik');
+        $hasNokk = $request->filled('nokk');
 
-        if ($request->filled('nik')) {
-            $query->where('nik', $request->nik);
+        if (!$hasGlobalSearch && !$hasNik && !$hasNokk) {
+            // Kosong saat load awal
+            $query = Datapenduduk::query()->whereRaw('1=0');
         } else {
-            $query->whereRaw('0=1'); // kembalikan kosong jika tidak ada nik
+            $query = Datapenduduk::query()
+                ->with(['agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+                ->whereIn('datak', $allowed);
+
+            // Filter spesifik (opsional)
+            if ($hasNik) {
+                $query->where('nik', $request->nik);
+            }
+            if ($hasNokk) {
+                $nokk = $request->nokk;
+                $query->whereHas('detailkk.kk', function ($qq) use ($nokk) {
+                    $qq->where('nokk', 'like', "%{$nokk}%");
+                });
+            }
         }
 
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('nokk', fn($r) => optional(optional($r->detailkk)->kk)->nokk)
-            ->addColumn('agama.nama', fn($r) => optional($r->agama)->nama ?? '-')
+            // Enable search NOKK saat global search
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->leftJoin('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->leftJoin('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*');
+            })
             ->toJson();
     }
 

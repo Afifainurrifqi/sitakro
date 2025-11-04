@@ -8,10 +8,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title">EDIT PENDIDIKAN {{ $datap->nama }}</h1>
-                        <button type="button" class="btn mb-1 btn-warning"
+                        {{-- <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('pendidikan.index') }}'">Kembali
                         </button>
-                        <br><br><br>
+                        <br><br><br> --}}
                         <div class="form-validation">
 
                             <form class="form-valide" action="{{ route('pendidikan.update') }}" method="POST" id="form-edit-pendidikan">

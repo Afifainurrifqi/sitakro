@@ -8,9 +8,9 @@
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title">EDIT DATA PEKERJAAN {{ $datap->nama }}</h1>
-                    <button type="button" class="btn mb-1 btn-warning" onclick="window.location='{{ route('pekerjaan.index') }}'">Kembali
+                    {{-- <button type="button" class="btn mb-1 btn-warning" onclick="window.location='{{ route('pekerjaan.index') }}'">Kembali
                      </button>
-                     <br><br><br>
+                     <br><br><br> --}}
                     <div class="form-validation">
 
                         <form class="form-valide" action="{{ route('pekerjaan.update') }}" method="POST" id="form-edit-pekerjaan">

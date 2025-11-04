@@ -9,10 +9,10 @@
                     <div class="card-body">
                         <h1 class="card-title">LAIN-LAIN
                             {{ $datap->nama }}</h1>
-                        <button type="button" class="btn mb-1 btn-warning"
+                        {{-- <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('laink.index') }}'">Kembali
                         </button>
-                        <br><br><br>
+                        <br><br><br> --}}
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('laink.update') }}" method="POST">
                                 @csrf

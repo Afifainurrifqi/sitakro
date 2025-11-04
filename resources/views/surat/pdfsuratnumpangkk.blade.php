@@ -51,15 +51,15 @@
                 </td>
                 <td class="kop-header">
                     <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                        KECAMATAN Sawentar<br>
-                        KANTOR KEPALA DESA Sawentar</strong><br>
+                        KECAMATAN Kemirigede<br>
+                        KANTOR KEPALA DESA Kemirigede</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: Sawentarberkelas@gmail.com | Website: Sawentar-blitarkab.desa.id
+                        Email: Kemirigedeberkelas@gmail.com | Website: Kemirigede-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/Sawentar.png') }}" class="kop-logo" alt="Logo Sawentar">
+                    <img src="{{ public_path('assets/images/Kemirigede.png') }}" class="kop-logo" alt="Logo Kemirigede">
                 </td>
             </tr>
         </table>
@@ -148,8 +148,8 @@
 
     <!-- TTD -->
     <div class="ttd-container">
-        <p>Sawentar, {{ now('Asia/Jakarta')->locale('id')->translatedFormat('d F Y') }}</p>
-        <p>Kepala Desa Sawentar</p>
+        <p>Kemirigede, {{ now('Asia/Jakarta')->locale('id')->translatedFormat('d F Y') }}</p>
+        <p>Kepala Desa Kemirigede</p>
         <br><br><br>
         <p><strong><u>MOH. HAMID ALMAULUDI S.Pd.I</u></strong></p>
     </div>

@@ -91,12 +91,12 @@
     $nomor = data_get($data, 'nomor_surat');
 
     // Lokasi & tanggal terbit
-    $kota   = data_get($data, 'kota_terbit', 'Sawentar');
+    $kota   = data_get($data, 'kota_terbit', 'Kemirigede');
     $tglNow = Carbon::now('Asia/Jakarta')->translatedFormat('d F Y');
 
     // Pejabat penandatangan
     $namaPejabat = data_get($data, 'nama_pejabat', 'MOH. HAMID ALMAULUDI S.Pd.I');
-    $jabatan     = data_get($data, 'jabatan_pejabat', 'Kepala Desa Sawentar');
+    $jabatan     = data_get($data, 'jabatan_pejabat', 'Kepala Desa Kemirigede');
 
     // Pembuat pernyataan (penjamin)
     $pNama   = data_get($data, 'nama_pembuat', '................................................');
@@ -126,15 +126,15 @@
                 </td>
                 <td class="kop-header">
                     <strong>PEMERINTAH KABUPATEN BLITAR<br>
-                        KECAMATAN Sawentar<br>
-                        KANTOR KEPALA DESA Sawentar</strong><br>
+                        KECAMATAN Kemirigede<br>
+                        KANTOR KEPALA DESA Kemirigede</strong><br>
                     <small>
                         Jln. Merdeka No. 74 Telp. 082139324445<br>
-                        Email: Sawentarberkelas@gmail.com | Website: Sawentar-blitarkab.desa.id
+                        Email: Kemirigedeberkelas@gmail.com | Website: Kemirigede-blitarkab.desa.id
                     </small>
                 </td>
                 <td width="15%" align="center">
-                    <img src="{{ public_path('assets/images/Sawentar.png') }}" class="kop-logo" alt="Logo Kanan">
+                    <img src="{{ public_path('assets/images/Kemirigede.png') }}" class="kop-logo" alt="Logo Kanan">
                 </td>
             </tr>
         </table>

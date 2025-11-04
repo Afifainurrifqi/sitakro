@@ -10,10 +10,10 @@
                     <div class="card-body">
                         <h1 class="card-title">INFRASTUKTUR
                             <h1  class="card-title"> RT : {{ $datart->rt }}</h1> <h1 class="card-title"> RW :  {{ $datart->rw }}</h1>
-                        <button type="button" class="btn mb-1 btn-warning"
+                        {{-- <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('rtinfrastuktur.index') }}'">Kembali
                         </button>
-                        <br><br><br>
+                        <br><br><br> --}}
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('rtinfrastuktur.update') }}" method="POST">
                                 @csrf

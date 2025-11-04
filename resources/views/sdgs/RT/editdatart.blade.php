@@ -8,9 +8,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title">Edit Data RT</h1>
-                        <button type="button" class="btn mb-1 btn-warning"
+                        {{-- <button type="button" class="btn mb-1 btn-warning"
                             onclick="window.location='{{ route('datart.index') }}'">Kembali
-                        </button> <br><br><br>
+                        </button> <br><br><br> --}}
                         <div class="form-validation">
                             <form class="form-valide" action="{{ route('datart.update', ['nik' => $datart->nik]) }}"
                                 method="POST" id="form-edit-editrt">
