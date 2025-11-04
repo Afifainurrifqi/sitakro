@@ -21,8 +21,8 @@
 
 <div class="ttd">
     <div class="jabatan">
-        Kemirigede, ..................................<br>
-        Kepala Desa Kemirigede
+        Sawentar, ..................................<br>
+        Kepala Desa Sawentar
     </div>
     <div class="nama-kades">MOH. HAMID ALMAULUDI S.Pd.I</div>
 </div>

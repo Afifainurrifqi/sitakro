@@ -12,7 +12,7 @@
     <title>SITAKRO</title>
 
     <!-- ========== Favicon Icon ========== -->
-    <link rel="shortcut icon" href="assets2/img/Kemirigede.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets2/img/Sawentar.png" type="image/x-icon">
 
     <!-- ========== Start Stylesheet ========== -->
     <link href="assets2/css/bootstrap.min.css" rel="stylesheet" />
@@ -59,9 +59,9 @@
                 <div class="double-items text-light">
                     <div class="info col-md-7">
                         <img src="/assets3/img/logosi2.png" class="wow slideInLeft"  style="width: 30%">
-                        <h2 class="wow slideInLeft">SITAKRO Kemirigede </h2>
+                        <h2 class="wow slideInLeft">SITAKRO Sawentar </h2>
                         <p class="wow fadeInLeft">
-                            Sistem Informasi Data Mikro yang dimiliki oleh Desa Kemirigede Kecamatan Kemirigede Kabupaten
+                            Sistem Informasi Data Mikro yang dimiliki oleh Desa Sawentar Kecamatan Sawentar Kabupaten
                             Blitar
                         </p>
                         <a class="wow fadeInDown btn btn-light border btn-md" href="{{ route('login') }}">LOGIN
@@ -175,8 +175,8 @@
                                     <img src="assets2/img/illustrations/5.svg" alt="Thumb">
                                 </div>
                                 <div class="col-md-6 left-info wow fadeInLeft">
-                                    <h4>Desa Kemirigede</h4>
-                                    <h2>Sistem Informasi Data Mikro Desa Kemirigede</h2>
+                                    <h4>Desa Sawentar</h4>
+                                    <h2>Sistem Informasi Data Mikro Desa Sawentar</h2>
                                     <p>
                                         Merupakan Aplikasi layanan data mikro dan SDG’s Desa yang berfungsi untuk
                                         penguatan IPM & IDM, Perencanaan Pembangunan Desa Cerdas, serta Tata Niaga
@@ -222,7 +222,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="site-heading text-center">
                         <h4>Fitur</h4>
-                        <h2>SITAKRO<strong> DESA Kemirigede</strong></h2>
+                        <h2>SITAKRO<strong> DESA Sawentar</strong></h2>
                     </div>
                 </div>
             </div>
@@ -276,7 +276,7 @@
         <div class="row">
             <div class="google-maps">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63169.74117685125!2d112.32909439999999!3d-8.29196795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78b963ebb18dcf%3A0xfba32e2a9900724f!2sKec.%20Kemirigede%2C%20Kabupaten%20Blitar%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1750545563053!5m2!1sid!2sid"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63169.74117685125!2d112.32909439999999!3d-8.29196795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78b963ebb18dcf%3A0xfba32e2a9900724f!2sKec.%20Sawentar%2C%20Kabupaten%20Blitar%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1750545563053!5m2!1sid!2sid"
                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>

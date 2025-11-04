@@ -48,9 +48,9 @@
     <div class="custom-container">
       <div class="hero-block">
         <div class="hero-block-content text-center">
-          <img class="mb-4" src="{{ asset('assets4/dist/img/Kemirigede.png') }}" alt="">
-          <h2 class="display-4 text-white mb-2">Selamat Datang di Pelayanan Surat Desa Kemirigede</h2>
-          <p class="text-white">Pelayanan Surat Desa Kemirigede bisa diakses dimana saja agar dapat meningkatkan kualitas pelayanan dan mempermudah masyarakat</p>
+          <img class="mb-4" src="{{ asset('assets4/dist/img/Sawentar.png') }}" alt="">
+          <h2 class="display-4 text-white mb-2">Selamat Datang di Pelayanan Surat Desa Sawentar</h2>
+          <p class="text-white">Pelayanan Surat Desa Sawentar bisa diakses dimana saja agar dapat meningkatkan kualitas pelayanan dan mempermudah masyarakat</p>
           <a class="btn btn-warning btn-lg w-100" href="{{ route('surat.pengajuan_surat') }}">Buat Pengajuan Surat</a>
         </div>
       </div>
