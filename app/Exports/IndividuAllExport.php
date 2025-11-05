@@ -207,8 +207,9 @@ class IndividuAllExport extends DefaultValueBinder implements
             $pekerjaan->pekerjaan_utama ?? '',
             $pekerjaan->jaminan_sosial_ketenagakerjaan ?? '',
             isset($pekerjaan->penghasilan_setahun_terakhir)
-                ? 'Rp ' . number_format($pekerjaan->penghasilan_setahun_terakhir, 0, ',', '.')
+                ? 'Rp ' . number_format((float)$pekerjaan->penghasilan_setahun_terakhir, 0, ',', '.')
                 : '',
+
 
             // PENGHASILAN
             $penghasilan->sumber_penghasilan ?? '',
