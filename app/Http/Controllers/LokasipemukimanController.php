@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LokasidanPemukimanExport;
 use App\Models\agama;
 use App\Models\pendidikan;
 use App\Models\pekerjaan;
@@ -53,6 +54,15 @@ class LokasipemukimanController extends Controller
         $presentase = $totalPenduduk > 0 ? ($dataTerisi / $totalPenduduk) * 100 : 0;
 
         return view('sdgs.KK.admin_lokasidanpemukiman', compact('presentase'));
+    }
+
+    public function export(Request $request)
+    {
+        // opsional: ambil filter NIK dari query (?nik=...)
+        $filterNik = $request->query('nik');
+
+        $file = 'lokasi_pemukiman_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new LokasidanPemukimanExport($filterNik), $file);
     }
 
     public function import(\Illuminate\Http\Request $request)

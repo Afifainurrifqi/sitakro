@@ -302,7 +302,10 @@ Route::middleware(['checkrole:admin,operator,dasawisma,akundemo'])->group(
     function () {
 
 
-
+        Route::get('/sdgs/lokasipemukiman/export', [LokasipemukimanController::class, 'export'])
+            ->name('lokasipemukiman.export');
+        Route::get('/sdgs/individu/export/all', [\App\Http\Controllers\DataindividuController::class, 'exportAll'])
+            ->name('individu.export.all');
         Route::get('sdgs/individu/dataindividu/{show}', [DataindividuController::class, 'show'])->name('individu.show');
         Route::get('sdgs/individu/datakesehatan', [DatakesehatanController::class, 'index'])->name('datakesehatan.index');
         Route::get('sdgs/individu/admindatakesehatan', [DatakesehatanController::class, 'admin_index'])->name('datakesehatan.admin_index');
@@ -377,8 +380,8 @@ Route::middleware(['checkrole:admin,operator,dasawisma,akundemo'])->group(
         Route::post('datadasawisma/store', [DatadasawismaController::class, 'store'])->name('dasawisma.store');
         Route::get('datadasawisma/tambah', [DatadasawismaController::class, 'add'])->name('dasawisma.add');
         // JSON lookup penduduk by NIK (AJAX)
-       Route::post('datapenduduk/find-by-nik', [DatadasawismaController::class, 'findPendudukByNik'])
-    ->name('datapenduduk.findByNik');
+        Route::post('datapenduduk/find-by-nik', [DatadasawismaController::class, 'findPendudukByNik'])
+            ->name('datapenduduk.findByNik');
 
 
         // hapus per NIK

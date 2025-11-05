@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IndividuAllExport;
 use App\Models\agama;
 use App\Models\pendidikan;
 use App\Models\pekerjaan;
@@ -21,6 +22,7 @@ use App\Models\sdgspendidikan;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
+
 
 class DataindividuController extends Controller
 {
@@ -50,6 +52,11 @@ class DataindividuController extends Controller
         return view('sdgs.individu.dataindividu', compact('dataindividu', 'individuLabels', 'individuCounts', 'presentase'));
     }
 
+    public function exportAll()
+    {
+        $filename = 'sdgs_data_individu_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new IndividuAllExport, $filename);
+    }
     public function index_admin(Request $request)
     {
         $totalPenduduk = datapenduduk::count();
