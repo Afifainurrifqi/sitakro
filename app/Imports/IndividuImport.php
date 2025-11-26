@@ -10,8 +10,9 @@ use App\Models\Jenisdisabilitas;
 use App\Models\Sdgspendidikan;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class IndividuImport implements ToCollection
+class IndividuImport implements ToCollection, WithChunkReading
 {
     /**
      * SUSUNAN KOLOM (index mulai 0)
@@ -26,7 +27,7 @@ class IndividuImport implements ToCollection
      *  Mulai index 7 ke atas = kolom-kolom SDGs.
      */
 
-    // ❗ JANGAN pakai "private array $idx" (bisa error di PHP < 7.4)
+    // ❗JANGAN pakai "private array $idx" kalau PHP di hosting masih < 7.4
     protected $idx = [
         // dataindividu
         'usia_saat_pertama_kali_menikah' => 12,
@@ -98,10 +99,23 @@ class IndividuImport implements ToCollection
         'apakahp'                        => 69,
     ];
 
+    /**
+     * Flag untuk skip header hanya di chunk pertama
+     */
+    protected $skipHeader = true;
+
+    /**
+     * Dipanggil per chunk (bukan seluruh file sekaligus).
+     */
     public function collection(Collection $rows)
     {
-        // Lewati baris header pertama
-        $rows->skip(1)->each(function ($row) {
+        // Kalau ini chunk pertama, buang header baris pertama
+        if ($this->skipHeader) {
+            $rows = $rows->skip(1);
+            $this->skipHeader = false;
+        }
+
+        $rows->each(function ($row) {
             // ------ KOLOM UMUM 1–7 ------
             $kk           = $this->asString($row[0] ?? null);
             $nik          = $this->asString($row[1] ?? null);
@@ -111,8 +125,8 @@ class IndividuImport implements ToCollection
             $jenisKelamin = $this->asString($row[5] ?? null); // ke: Jeniskelamin
             $tempatLahir  = $this->asString($row[6] ?? null); // ke: tempatlahir
 
-            // NIK wajib, kalau kosong -> skip baris
             if (!$nik) {
+                // NIK wajib, kalau kosong skip baris
                 return;
             }
 
@@ -236,6 +250,15 @@ class IndividuImport implements ToCollection
             }
             $mPd->save();
         });
+    }
+
+    /**
+     * Ukuran chunk (berapa baris diproses sekali jalan).
+     * Silakan sesuaikan: 200 / 500 / 1000
+     */
+    public function chunkSize(): int
+    {
+        return 500;
     }
 
     // ---------------- Helpers ----------------
