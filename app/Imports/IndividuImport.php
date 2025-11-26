@@ -3,11 +3,11 @@
 namespace App\Imports;
 
 use App\Models\dataindividu;
-use App\Models\Datapekerjaansdgs;
-use App\Models\Penghasilan;
-use App\Models\Datakesehatan;
-use App\Models\Jenisdisabilitas;
-use App\Models\Sdgspendidikan;
+use App\Models\datapekerjaansdgs;
+use App\Models\penghasilan;
+use App\Models\datakesehatan;
+use App\Models\jenisdisabilitas;
+use App\Models\sdgspendidikan;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
