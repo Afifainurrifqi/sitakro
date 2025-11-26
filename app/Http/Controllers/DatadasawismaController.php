@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
-use App\Models\Datapenduduk;
+use App\Models\datapenduduk;
 use App\Models\User;
 use App\Models\datadasawisma;
 use Illuminate\Support\Facades\Hash;
