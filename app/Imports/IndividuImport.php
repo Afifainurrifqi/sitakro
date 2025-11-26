@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Dataindividu;
+use App\Models\dataindividu;
 use App\Models\Datapekerjaansdgs;
 use App\Models\Penghasilan;
 use App\Models\Datakesehatan;
