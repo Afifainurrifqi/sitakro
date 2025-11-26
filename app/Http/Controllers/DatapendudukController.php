@@ -10,7 +10,7 @@ use App\Models\pendidikan;
 use App\Models\pekerjaan;
 use App\Models\status;
 use App\Models\goldar;
-use App\Models\datapenduduks;
+use App\Models\datapenduduk;
 use App\Models\dataindividu;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
