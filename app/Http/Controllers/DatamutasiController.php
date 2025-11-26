@@ -52,66 +52,10 @@ class DatamutasiController extends Controller
             ->whereIn('datak', $allowedDatakValues);
 
         return DataTables::of($query)
-            ->addIndexColumn() // otomatis kolom nomor (DT_RowIndex)
+            ->addIndexColumn()
             ->addColumn('nokk', function ($row) {
                 return optional(optional($row->detailkk)->kk)->nokk;
             })
-            // Izinkan search untuk kolom relasi NO KK
-            ->filterColumn('nokk', function ($q, $keyword) {
-                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
-                    $qq->where('nokk', 'like', "%{$keyword}%");
-                });
-            })
-            // Izinkan sort kolom relasi NO KK
-            ->orderColumn('nokk', function ($q, $order) {
-                $q->leftJoin('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
-                    ->leftJoin('kks', 'kks.id', '=', 'detailkks.kk_id')
-                    ->orderBy('kks.nokk', $order)
-                    ->select('datapenduduks.*'); // pastikan kolom unik
-            })
-            // Kolom nested aman null
-            ->addColumn('agama.nama', fn($r) => optional($r->agama)->nama ?? '-')
-            ->addColumn('pendidikan.nama', fn($r) => optional($r->pendidikan)->nama ?? '-')
-            ->addColumn('pekerjaan.nama', fn($r) => optional($r->pekerjaan)->nama ?? '-')
-            ->addColumn('goldar.nama', fn($r) => optional($r->goldar)->nama ?? '-')
-            ->addColumn('status.nama', fn($r) => optional($r->status)->nama ?? '-')
-            ->toJson();
-    }
-
-
-    public function json(Request $request)
-    {
-        $allowed = ['pindah', 'Pindah', 'meninggal', 'Meninggal'];
-
-        // Deteksi global search dari DataTables (search[value])
-        $hasGlobalSearch = filled(data_get($request->all(), 'search.value'));
-        $hasNik  = $request->filled('nik');
-        $hasNokk = $request->filled('nokk');
-
-        if (!$hasGlobalSearch && !$hasNik && !$hasNokk) {
-            // Kosong saat load awal
-            $query = Datapenduduk::query()->whereRaw('1=0');
-        } else {
-            $query = Datapenduduk::query()
-                ->with(['agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->whereIn('datak', $allowed);
-
-            // Filter spesifik (opsional)
-            if ($hasNik) {
-                $query->where('nik', $request->nik);
-            }
-            if ($hasNokk) {
-                $nokk = $request->nokk;
-                $query->whereHas('detailkk.kk', function ($qq) use ($nokk) {
-                    $qq->where('nokk', 'like', "%{$nokk}%");
-                });
-            }
-        }
-
-        return DataTables::of($query)
-            ->addIndexColumn()
-            ->addColumn('nokk', fn($r) => optional(optional($r->detailkk)->kk)->nokk)
-            // Enable search NOKK saat global search
             ->filterColumn('nokk', function ($q, $keyword) {
                 $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
                     $qq->where('nokk', 'like', "%{$keyword}%");
@@ -123,8 +67,76 @@ class DatamutasiController extends Controller
                     ->orderBy('kks.nokk', $order)
                     ->select('datapenduduks.*');
             })
+
+            // ✅ Mapping jenis kelamin di sini
+            ->editColumn('jenis_kelamin', function ($row) {
+                switch ((string) $row->jenis_kelamin) {
+                    case '1':
+                        return 'Laki-laki';
+                    case '0':
+                        return 'Perempuan';
+                    default:
+                        return '-';
+                }
+            })
+
+            // Kolom nested lain
+            ->addColumn('agama.nama', fn($r) => optional($r->agama)->nama ?? '-')
+            ->addColumn('pendidikan.nama', fn($r) => optional($r->pendidikan)->nama ?? '-')
+            ->addColumn('pekerjaan.nama', fn($r) => optional($r->pekerjaan)->nama ?? '-')
+            ->addColumn('goldar.nama', fn($r) => optional($r->goldar)->nama ?? '-')
+            ->addColumn('status.nama', fn($r) => optional($r->status)->nama ?? '-')
             ->toJson();
     }
+
+
+
+public function json(Request $request)
+{
+    $allowedDatakValues = ['pindah', 'meninggal'];
+
+    $query = Datapenduduk::query()
+        ->with(['agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
+        ->whereIn('datak', $allowedDatakValues);
+
+    return DataTables::of($query)
+        ->addIndexColumn()
+        ->addColumn('nokk', function ($row) {
+            return optional(optional($row->detailkk)->kk)->nokk;
+        })
+        ->filterColumn('nokk', function ($q, $keyword) {
+            $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                $qq->where('nokk', 'like', "%{$keyword}%");
+            });
+        })
+        ->orderColumn('nokk', function ($q, $order) {
+            $q->leftJoin('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                ->leftJoin('kks', 'kks.id', '=', 'detailkks.kk_id')
+                ->orderBy('kks.nokk', $order)
+                ->select('datapenduduks.*');
+        })
+
+        // ✅ Mapping jenis kelamin di sini
+        ->editColumn('jenis_kelamin', function ($row) {
+            switch ((string) $row->jenis_kelamin) {
+                case '1':
+                    return 'Laki-laki';
+                case '0':
+                    return 'Perempuan';
+                default:
+                    return '-';
+            }
+        })
+
+        // Kolom nested lain
+        ->addColumn('agama.nama', fn($r) => optional($r->agama)->nama ?? '-')
+        ->addColumn('pendidikan.nama', fn($r) => optional($r->pendidikan)->nama ?? '-')
+        ->addColumn('pekerjaan.nama', fn($r) => optional($r->pekerjaan)->nama ?? '-')
+        ->addColumn('goldar.nama', fn($r) => optional($r->goldar)->nama ?? '-')
+        ->addColumn('status.nama', fn($r) => optional($r->status)->nama ?? '-')
+        ->toJson();
+}
+
 
 
     function exportexcelm()

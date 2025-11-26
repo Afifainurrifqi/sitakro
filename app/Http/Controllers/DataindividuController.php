@@ -957,13 +957,29 @@ class DataindividuController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv|max:10240'
+            'file' => 'required|mimes:xlsx,xls,csv|max:10240',
         ]);
 
-        Excel::import(new IndividuImport, $request->file('file'));
+        try {
+            Excel::import(new IndividuImport, $request->file('file'));
+        } catch (\Throwable $e) {
+            // Kalau APP_DEBUG=true, tampilkan error detail
+            if (config('app.debug')) {
+                dd($e->getMessage(), $e->getFile(), $e->getLine());
+            }
 
-        return redirect()->back()->with('msg', 'Data individu berhasil diimport ke MongoDB!');
+            // Kalau production, jangan bocorin detail
+            return redirect()
+                ->back()
+                ->with('msg', 'Terjadi kesalahan saat import: ' . $e->getMessage());
+        }
+
+        return redirect()
+            ->back()
+            ->with('msg', 'Data individu berhasil diimport!');
     }
+
+
     public function edit(dataindividu $request, $nik)
     {
 

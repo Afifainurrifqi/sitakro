@@ -2,12 +2,12 @@
 
 namespace App\Imports;
 
-use App\Models\dataindividu;
-use App\Models\datapekerjaansdgs;
-use App\Models\penghasilan;
-use App\Models\datakesehatan;
-use App\Models\jenisdisabilitas;
-use App\Models\sdgspendidikan;
+use App\Models\Dataindividu;
+use App\Models\Datapekerjaansdgs;
+use App\Models\Penghasilan;
+use App\Models\Datakesehatan;
+use App\Models\Jenisdisabilitas;
+use App\Models\Sdgspendidikan;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
@@ -24,11 +24,10 @@ class IndividuImport implements ToCollection
      *  6: Tempat Lahir    (disimpan ke: tempatlahir)
      *
      *  Mulai index 7 ke atas = kolom-kolom SDGs.
-     *  Silakan sesuaikan $idx[...] di bawah agar cocok dengan file Excel-mu.
      */
 
-    // Indeks kolom khusus SDGs — EDIT DI SINI kalau layout Excel berubah
-    private array $idx = [
+    // ❗ JANGAN pakai "private array $idx" (bisa error di PHP < 7.4)
+    protected $idx = [
         // dataindividu
         'usia_saat_pertama_kali_menikah' => 12,
         'suku_bangsa'                    => 14,
@@ -101,35 +100,36 @@ class IndividuImport implements ToCollection
 
     public function collection(Collection $rows)
     {
-        // Lewati header baris pertama
+        // Lewati baris header pertama
         $rows->skip(1)->each(function ($row) {
-            // ------ KOLOM UMUM 1–7 (WAJIB ADA DI SEMUA COLLECTION) ------
+            // ------ KOLOM UMUM 1–7 ------
             $kk           = $this->asString($row[0] ?? null);
             $nik          = $this->asString($row[1] ?? null);
             $gelarAwal    = $this->asString($row[2] ?? null);
             $nama         = $this->asString($row[3] ?? null);
             $gelarAkhir   = $this->asString($row[4] ?? null);
-            $jenisKelamin = $this->asString($row[5] ?? null); // disimpan ke: Jeniskelamin
-            $tempatLahir  = $this->asString($row[6] ?? null); // disimpan ke: tempatlahir
+            $jenisKelamin = $this->asString($row[5] ?? null); // ke: Jeniskelamin
+            $tempatLahir  = $this->asString($row[6] ?? null); // ke: tempatlahir
 
-            if (!$nik) return; // NIK wajib
+            // NIK wajib, kalau kosong -> skip baris
+            if (!$nik) {
+                return;
+            }
 
             $namaFull = trim(implode(' ', array_filter([$gelarAwal, $nama, $gelarAkhir])));
 
             // =========================
             // 1) dataindividu
             // =========================
-            $mInd = dataindividu::firstOrNew(['nik' => $nik]);
-            // kolom umum
-            $mInd->kk            = $kk;
-            $mInd->nik           = $nik;
-            $mInd->gelarawal     = $gelarAwal;
-            $mInd->nama          = $nama ?: $namaFull;
-            $mInd->gelarakhir    = $gelarAkhir;
-            $mInd->Jeniskelamin  = $jenisKelamin; // perhatikan kapitalisasi sesuai form/controller kamu
-            $mInd->tempatlahir   = $tempatLahir;
+            $mInd = Dataindividu::firstOrNew(['nik' => $nik]);
+            $mInd->kk           = $kk;
+            $mInd->nik          = $nik;
+            $mInd->gelarawal    = $gelarAwal;
+            $mInd->nama         = $nama ?: $namaFull;
+            $mInd->gelarakhir   = $gelarAkhir;
+            $mInd->Jeniskelamin = $jenisKelamin;
+            $mInd->tempatlahir  = $tempatLahir;
 
-            // field spesifik
             $mInd->usia_saat_pertama_kali_menikah = $this->colString($row, 'usia_saat_pertama_kali_menikah');
             $mInd->suku_bangsa                    = $this->colString($row, 'suku_bangsa');
             $mInd->warga_negarawarga_negara       = $this->colString($row, 'warga_negarawarga_negara');
@@ -144,17 +144,15 @@ class IndividuImport implements ToCollection
             // =========================
             // 2) datapekerjaansdgs
             // =========================
-            $mPk = datapekerjaansdgs::firstOrNew(['nik' => $nik]);
-            // kolom umum
-            $mPk->kk            = $kk;
-            $mPk->nik           = $nik;
-            $mPk->gelarawal     = $gelarAwal;
-            $mPk->nama          = $nama ?: $namaFull;
-            $mPk->gelarakhir    = $gelarAkhir;
-            $mPk->Jeniskelamin  = $jenisKelamin;
-            $mPk->tempatlahir   = $tempatLahir;
+            $mPk = Datapekerjaansdgs::firstOrNew(['nik' => $nik]);
+            $mPk->kk           = $kk;
+            $mPk->nik          = $nik;
+            $mPk->gelarawal    = $gelarAwal;
+            $mPk->nama         = $nama ?: $namaFull;
+            $mPk->gelarakhir   = $gelarAkhir;
+            $mPk->Jeniskelamin = $jenisKelamin;
+            $mPk->tempatlahir  = $tempatLahir;
 
-            // field spesifik
             $mPk->kondisi_pekerjaan              = $this->colString($row, 'kondisi_pekerjaan');
             $mPk->pekerjaan_utama                = $this->colString($row, 'pekerjaan_utama');
             $mPk->jaminan_sosial_ketenagakerjaan = $this->colString($row, 'jaminan_sosial_ketenagakerjaan');
@@ -164,17 +162,15 @@ class IndividuImport implements ToCollection
             // =========================
             // 3) penghasilan
             // =========================
-            $mPh = penghasilan::firstOrNew(['nik' => $nik]);
-            // kolom umum
-            $mPh->kk            = $kk;
-            $mPh->nik           = $nik;
-            $mPh->gelarawal     = $gelarAwal;
-            $mPh->nama          = $nama ?: $namaFull;
-            $mPh->gelarakhir    = $gelarAkhir;
-            $mPh->Jeniskelamin  = $jenisKelamin;
-            $mPh->tempatlahir   = $tempatLahir;
+            $mPh = Penghasilan::firstOrNew(['nik' => $nik]);
+            $mPh->kk           = $kk;
+            $mPh->nik          = $nik;
+            $mPh->gelarawal    = $gelarAwal;
+            $mPh->nama         = $nama ?: $namaFull;
+            $mPh->gelarakhir   = $gelarAkhir;
+            $mPh->Jeniskelamin = $jenisKelamin;
+            $mPh->tempatlahir  = $tempatLahir;
 
-            // field spesifik
             $mPh->sumber_penghasilan  = $this->colString($row, 'sumber_penghasilan');
             $mPh->jumlah_asset_darip  = $this->colString($row, 'jumlah_asset_darip');
             $mPh->satuan              = $this->colString($row, 'satuan');
@@ -185,17 +181,15 @@ class IndividuImport implements ToCollection
             // =========================
             // 4) datakesehatan
             // =========================
-            $mKs = datakesehatan::firstOrNew(['nik' => $nik]);
-            // kolom umum
-            $mKs->kk            = $kk;
-            $mKs->nik           = $nik;
-            $mKs->gelarawal     = $gelarAwal;
-            $mKs->nama          = $nama ?: $namaFull;
-            $mKs->gelarakhir    = $gelarAkhir;
-            $mKs->Jeniskelamin  = $jenisKelamin;
-            $mKs->tempatlahir   = $tempatLahir;
+            $mKs = Datakesehatan::firstOrNew(['nik' => $nik]);
+            $mKs->kk           = $kk;
+            $mKs->nik          = $nik;
+            $mKs->gelarawal    = $gelarAwal;
+            $mKs->nama         = $nama ?: $namaFull;
+            $mKs->gelarakhir   = $gelarAkhir;
+            $mKs->Jeniskelamin = $jenisKelamin;
+            $mKs->tempatlahir  = $tempatLahir;
 
-            // field spesifik
             foreach ([
                 'penyakitsetahun','rumah_sakit','rumah_sakitb','puskesmas_denganri','puskesmas_tanpari',
                 'puskemas_pembantu','poliklinik','tempat_praktekdr','rumah_bersalin','tempat_praktek',
@@ -209,34 +203,30 @@ class IndividuImport implements ToCollection
             // =========================
             // 5) jenisdisabilitas
             // =========================
-            $mDs = jenisdisabilitas::firstOrNew(['nik' => $nik]);
-            // kolom umum
-            $mDs->kk            = $kk;
-            $mDs->nik           = $nik;
-            $mDs->gelarawal     = $gelarAwal;
-            $mDs->nama          = $nama ?: $namaFull;
-            $mDs->gelarakhir    = $gelarAkhir;
-            $mDs->Jeniskelamin  = $jenisKelamin;
-            $mDs->tempatlahir   = $tempatLahir;
+            $mDs = Jenisdisabilitas::firstOrNew(['nik' => $nik]);
+            $mDs->kk           = $kk;
+            $mDs->nik          = $nik;
+            $mDs->gelarawal    = $gelarAwal;
+            $mDs->nama         = $nama ?: $namaFull;
+            $mDs->gelarakhir   = $gelarAkhir;
+            $mDs->Jeniskelamin = $jenisKelamin;
+            $mDs->tempatlahir  = $tempatLahir;
 
-            // field spesifik
             $mDs->jenis_disabilitas = $this->colString($row, 'jenis_disabilitas');
             $mDs->save();
 
             // =========================
             // 6) sdgspendidikan
             // =========================
-            $mPd = sdgspendidikan::firstOrNew(['nik' => $nik]);
-            // kolom umum
-            $mPd->kk            = $kk;
-            $mPd->nik           = $nik;
-            $mPd->gelarawal     = $gelarAwal;
-            $mPd->nama          = $nama ?: $namaFull;
-            $mPd->gelarakhir    = $gelarAkhir;
-            $mPd->Jeniskelamin  = $jenisKelamin;
-            $mPd->tempatlahir   = $tempatLahir;
+            $mPd = Sdgspendidikan::firstOrNew(['nik' => $nik]);
+            $mPd->kk           = $kk;
+            $mPd->nik          = $nik;
+            $mPd->gelarawal    = $gelarAwal;
+            $mPd->nama         = $nama ?: $namaFull;
+            $mPd->gelarakhir   = $gelarAkhir;
+            $mPd->Jeniskelamin = $jenisKelamin;
+            $mPd->tempatlahir  = $tempatLahir;
 
-            // field spesifik (mapping sesuai $idx)
             foreach ([
                 'pendidikan_tertinggi','berapa_tahunp','pendidikan_diikuti','bahasa_Rumah','bahasa_Formal',
                 'jumlah_kerja1','skamling1','pesta_rakyat1','frekuensiml','frekuensib','frekuensimn',
@@ -249,27 +239,40 @@ class IndividuImport implements ToCollection
     }
 
     // ---------------- Helpers ----------------
+
     private function asString($val): ?string
     {
-        if ($val === null) return null;
-        // Hindari notasi ilmiah & nol di depan hilang
-        return trim((string)$val);
+        if ($val === null) {
+            return null;
+        }
+        return trim((string) $val);
     }
 
     private function colString($row, string $key): ?string
     {
         $i = $this->idx[$key] ?? null;
-        if ($i === null) return null;
+        if ($i === null) {
+            return null;
+        }
         return $this->asString($row[$i] ?? null);
     }
 
     private function colInt($row, string $key): ?int
     {
         $i = $this->idx[$key] ?? null;
-        if ($i === null) return null;
+        if ($i === null) {
+            return null;
+        }
+
         $val = $row[$i] ?? null;
-        if ($val === null || $val === '') return null;
-        if (is_string($val)) $val = str_replace(['.', ',', ' '], '', $val);
-        return (int)$val;
+        if ($val === null || $val === '') {
+            return null;
+        }
+
+        if (is_string($val)) {
+            $val = str_replace(['.', ',', ' '], '', $val);
+        }
+
+        return (int) $val;
     }
 }
