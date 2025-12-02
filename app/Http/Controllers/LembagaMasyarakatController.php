@@ -191,8 +191,18 @@ class LembagaMasyarakatController extends Controller
         $rtlembaga_masyarakat->jumlah_ang = $request->valjumlah_ang;
         $rtlembaga_masyarakat->fasilitas = $request->valfasilitas;
         $rtlembaga_masyarakat->save();
-        return redirect()->route('rtlembaga_masyarakat.show', ['show' => $request->valnik]);
+         if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtlembaga_masyarakat.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtlembaga_masyarakat.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

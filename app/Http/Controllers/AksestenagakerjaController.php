@@ -182,18 +182,37 @@ class AksestenagakerjaController extends Controller
 
     public function json(Request $request)
     {
-        $allowedDatakValues = ['tetap', 'tidaktetap'];
+         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($request->has('nokk')) {
-            $nokk = $request->input('nokk');
-            $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->whereHas('detailkk.kk', function ($query) use ($nokk) {
-                    $query->where('nokk', $nokk);
-                })
-                ->whereIn('Datak', $allowedDatakValues);
+        // Cek apakah ada pencarian global dari DataTables atau filter nokk khusus
+        $hasGlobalSearch = filled(data_get($request->all(), 'search.value')); // DataTables global search
+        $hasNokkFilter   = $request->filled('nokk');
+
+        if (! $hasGlobalSearch && ! $hasNokkFilter) {
+            // Tidak ada search & tidak ada filter spesifik → sembunyikan data
+            $query = Datapenduduk::query()->whereRaw('1=0');
         } else {
-            // Jika tidak ada parameter noKK, kembalikan data kosong
-            $query = Datapenduduk::whereNull('id'); // Tidak mengembalikan data
+            // Ada search atau ada filter nokk → tampilkan data dengan relasi
+            $query = Datapenduduk::with([
+                'kk',
+                'agama',
+                'pendidikan',
+                'pekerjaan',
+                'goldar',
+                'status',
+                'detailkk.kk',
+                'updatedByUser'
+            ])->whereIn('Datak', $allowedDatakValues);
+
+            // Filter opsional by NoKK dari parameter khusus
+            if ($hasNokkFilter) {
+                $nokk = $request->input('nokk');
+                $query->whereHas('detailkk.kk', function ($qq) use ($nokk) {
+                    $qq->where('nokk', 'like', "%{$nokk}%");
+                });
+            }
+            // Catatan: global search akan ditangani otomatis oleh Yajra pada kolom sederhana.
+            // Untuk kolom relasi (nokk) kita sediakan filterColumn di bawah.
         }
 
         return DataTables::of($query)
@@ -370,7 +389,16 @@ class AksestenagakerjaController extends Controller
         $akses_tenagakerja->kemudahan_dukun = $request->valkemudahan_dukun;
 
         $akses_tenagakerja->save();
-        return redirect()->route('aksestenagakerja.show', ['show' => $request->valNIK]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('aksestenagakerja.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('aksestenagakerja._index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
 
     /**

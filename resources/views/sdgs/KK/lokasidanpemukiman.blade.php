@@ -16,6 +16,26 @@
                             @endif
                             <h2 class="card-title">LOKASI DAN PEMUKIMAN</h2>
                         </div>
+                        <form action="{{ route('lokasipemukiman.import') }}" method="POST" enctype="multipart/form-data"
+                            class="mb-3">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="file" name="file" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-success" type="submit">
+                                        <i class="fa fa-upload"></i> Import Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col-md-6 text-end">
+                            <a href="{{ route('lokasipemukiman.export') }}" class="btn btn-success">
+                                <i class="fa fa-file-excel-o"></i> Export Seluruh Data (Excel)
+                            </a>
+                        </div>
 
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered" id="tabledatalokasidanpemukiman">
@@ -95,7 +115,7 @@
                 serverSide: true,
                 scrollX: true,
                 searching: true,
-                dom: 'Bfrtip',
+                // dom: 'Bfrtip',
                 ajax: {
                     url: '{!! route('lokasidanpemukiman.json') !!}',
                     type: 'POST',
@@ -259,10 +279,11 @@
                 var oldStart = dt.settings()[0]._iDisplayStart;
                 dt.one('preXhr', function(e, s, data) {
                     data.start = 0;
-                    data.length = 2147483647;  // Ambil semua data
+                    data.length = 2147483647; // Ambil semua data
                     dt.one('preDraw', function(e, settings) {
                         if (button[0].className.indexOf('buttons-excel') >= 0) {
-                            $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config);
+                            $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button,
+                                config);
                         }
                         dt.one('preXhr', function(e, s, data) {
                             settings._iDisplayStart = oldStart;

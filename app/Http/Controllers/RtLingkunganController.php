@@ -360,8 +360,18 @@ class RtLingkunganController extends Controller
 
 
         $rt_lingkungan->save();
-        return redirect()->route('rtlingkungan.show',['show'=> $request->valnik ]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtlingkungan.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtlingkungan.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

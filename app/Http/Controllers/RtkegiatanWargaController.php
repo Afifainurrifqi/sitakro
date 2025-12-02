@@ -254,7 +254,16 @@ class RtkegiatanWargaController extends Controller
         $rt_kegiatanwarga->jarak_lokalisasi = $request->valjarak_lokalisasi;
 
         $rt_kegiatanwarga->save();
-        return redirect()->route('rt_kegiatanwarga.show', ['show' => $request->valNIK]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rt_kegiatanwarga.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rt_kegiatanwarga.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
 
     /**

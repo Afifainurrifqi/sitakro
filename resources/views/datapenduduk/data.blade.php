@@ -10,7 +10,7 @@
           <div class="card-header">
             <h2 class="card-title">Data Penduduk</h2>
             <button type="button" class="btn mb-1 btn-primary"
-              onclick="window.location='{{ url('datapenduduk/addadmin') }}'">
+              onclick="window.location='{{ url('datapenduduk/add') }}'">
               Tambah penduduk <span class="btn-icon-right"><i class="fa fa-plus-circle"></i></span>
             </button>
           </div>

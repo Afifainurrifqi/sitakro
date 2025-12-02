@@ -32,7 +32,7 @@ class RtTkejahatanController extends Controller
         // Hitung presentase penyelesaian data
         $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
 
-      return view('sdgs.RT.rt_tkejahatan', compact('presentase'));
+        return view('sdgs.RT.rt_tkejahatan', compact('presentase'));
     }
 
     public function admin_index(Request $request)
@@ -44,7 +44,7 @@ class RtTkejahatanController extends Controller
 
         // Hitung presentase penyelesaian data
         $presentase = $totalrt > 0 ? ($dataTerisi / $totalrt) * 100 : 0;
-      return view('sdgs.RT.admin_rt_tkejahatan', compact('presentase'));
+        return view('sdgs.RT.admin_rt_tkejahatan', compact('presentase'));
     }
 
     public function json(Request $request)
@@ -602,7 +602,7 @@ class RtTkejahatanController extends Controller
         $datart = Datart::where('nik', $nik)->first();
         $rt_tkejahatan = rt_tkejahatan::where('nik', $nik)->first();
 
-        return view('sdgs.RT.editrt_tkejahatan', compact('rt_tkejahatan','datart'));
+        return view('sdgs.RT.editrt_tkejahatan', compact('rt_tkejahatan', 'datart'));
     }
 
     /**
@@ -614,7 +614,7 @@ class RtTkejahatanController extends Controller
     public function store(Storert_tkejahatanRequest $request)
     {
         $rt_tkejahatan = rt_tkejahatan::where('nik', $request->valnik)->first();
-        if ($rt_tkejahatan == NULL ) {
+        if ($rt_tkejahatan == NULL) {
             $rt_tkejahatan = new rt_tkejahatan();
         }
         $rt_tkejahatan->nik = $request->valnik;
@@ -685,7 +685,16 @@ class RtTkejahatanController extends Controller
         $rt_tkejahatan->kt_lainnya = $request->valkt_lainnya;
 
         $rt_tkejahatan->save();
-        return redirect()->route('rt_tkejahatan.show',['show'=> $request->valnik ]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rt_tkejahatan.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rt_tkejahatan.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
     /**
      * Display the specified resource.
@@ -698,7 +707,7 @@ class RtTkejahatanController extends Controller
         $datart = Datart::where('nik', $nik)->first();
         $rt_tkejahatan = rt_tkejahatan::where('nik', $nik)->first();
 
-        return view('sdgs.RT.showrt_tkejahatan', compact('rt_tkejahatan','datart'));
+        return view('sdgs.RT.showrt_tkejahatan', compact('rt_tkejahatan', 'datart'));
     }
 
     /**

@@ -274,53 +274,17 @@ class DatapendudukController extends Controller
         $detailk->save();
 
 
-        return redirect('datapenduduk')->with('msg', 'Penduduk Berhasl ditambhakan');
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('datapenduduk.index_admin')
+                ->with('msg', 'Penduduk Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('datapenduduk.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
-
-
-    public function adminstore(StoredatapendudukRequest $request)
-    {
-        $validate = $request->validated();
-
-        $datapenduduk = new DataPenduduk();
-        $datapenduduk->nik = $request->valNIK;
-        $datapenduduk->gelarawal = $request->valGelara ?? '';
-        $datapenduduk->nama = $request->valNama;
-        $datapenduduk->gelarakhir = $request->valGelart ?? '';
-        $datapenduduk->jenis_kelamin = $request->valJeniskelamin;
-        $datapenduduk->tempat_lahir = $request->valTempatlahir;
-        $datapenduduk->tanggal_lahir = $request->valTanggallahir;
-        $datapenduduk->agama_id = $request->valAgama;
-        $datapenduduk->pendidikan_id = $request->valPendidikan;
-        $datapenduduk->pekerjaan_id = $request->valPekerjaan;
-        $datapenduduk->goldar_id = $request->valGoldar;
-        $datapenduduk->status_id = $request->valStatus;
-        $datapenduduk->tanggal_perkawinan = $request->valTanggalperkawinan;
-        $datapenduduk->hubungan = $request->valHubungan;
-        $datapenduduk->ayah = $request->valAyah;
-        $datapenduduk->ibu = $request->valIbu;
-        $datapenduduk->alamat = $request->valAlamat;
-        $datapenduduk->rt = $request->valRT;
-        $datapenduduk->rw = $request->valRW;
-        $datapenduduk->datak = $request->valDatak;
-        $datapenduduk->save();
-
-        $kartuk = new kk();
-        $kartuk->nokk = $request->valNokk;
-        $kartuk->save();
-
-        $detailk = new detailkk();
-        $detailk->idpenduduk = $datapenduduk->id;
-        $detailk->idkk = $kartuk->id;
-        $detailk->save();
-
-
-        return redirect('datapenduduk/admin')->with('msg', 'Penduduk Berhasl ditambhakan');
-    }
-
-
-
-
 
     /**
      * Display the specified resource.

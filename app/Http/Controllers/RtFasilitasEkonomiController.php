@@ -195,8 +195,18 @@ class RtFasilitasEkonomiController extends Controller
 
 
         $rt_fasilitas_ekonomi->save();
-        return redirect()->route('rt_fasilitas_ekonomi.show', ['show' => $request->valnik]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rt_fasilitas_ekonomi.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rt_fasilitas_ekonomi.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

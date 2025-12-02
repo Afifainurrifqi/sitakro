@@ -177,8 +177,18 @@ class RtlembagaKeagamaanController extends Controller
         $rtlembaga_keagamaan->jumlah_ang = $request->valjumlah_ang;
         $rtlembaga_keagamaan->fasilitas = $request->valfasilitas;
         $rtlembaga_keagamaan->save();
-        return redirect()->route('rtlembaga_keagamaan.show', ['show' => $request->valnik]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtlembaga_keagamaan.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtlembaga_keagamaan.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

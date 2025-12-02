@@ -1078,9 +1078,18 @@ class RtKesehatanController extends Controller
         $rt_kesehatan->jp_tpd = $request->valjp_tpd;
 
         $rt_kesehatan->save();
-        return redirect()->route('rt_kesehatan.show',['show'=> $request->valnik ]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rt_kesehatan.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
 
+        // Default untuk user biasa
+        return redirect()
+            ->route('rt_kesehatan.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

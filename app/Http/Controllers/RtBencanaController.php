@@ -484,7 +484,7 @@ class RtBencanaController extends Controller
         $datart = Datart::where('nik', $nik)->first();
         $rtbencana = rt_bencana::where('nik', $nik)->first();
 
-        return view('sdgs.RT.editrtbencana', compact('rtbencana','datart'));
+        return view('sdgs.RT.editrtbencana', compact('rtbencana', 'datart'));
     }
 
     /**
@@ -496,7 +496,7 @@ class RtBencanaController extends Controller
     public function store(Storert_bencanaRequest $request)
     {
         $rtbencana = rt_bencana::where('nik', $request->valnik)->first();
-        if ($rtbencana == NULL ) {
+        if ($rtbencana == NULL) {
             $rtbencana = new rt_bencana();
         }
         $rtbencana->nik = $request->valnik;
@@ -505,56 +505,65 @@ class RtBencanaController extends Controller
         $rtbencana->rt = $request->valrt;
         $rtbencana->rw = $request->valrw;
         $rtbencana->nohp = $request->valnohp;
-        $rtbencana->k_longsor =  $request ->valk_longsor;
-        $rtbencana->f_longsor =  $request ->valf_longsor;
-        $rtbencana->kj_longsor =  $request ->valkj_longsor;
-        $rtbencana->jp_longsor =  $request ->valjp_longsor;
-        $rtbencana->wt_longsor =  $request ->valwt_longsor;
-        $rtbencana->k_banjir =  $request ->valk_banjir;
-        $rtbencana->f_banjir =  $request ->valf_banjir;
-        $rtbencana->kj_banjir =  $request ->valkj_banjir;
-        $rtbencana->jp_banjir =  $request ->valjp_banjir;
-        $rtbencana->wt_banjir =  $request ->valwt_banjir;
-        $rtbencana->k_bandang =  $request ->valk_bandang;
-        $rtbencana->f_bandang =  $request ->valf_bandang;
-        $rtbencana->kj_bandang =  $request ->valkj_bandang;
-        $rtbencana->jp_bandang =  $request ->valjp_bandang;
-        $rtbencana->wt_bandang =  $request ->valwt_bandang;
-        $rtbencana->k_gempa =  $request ->valk_gempa;
-        $rtbencana->f_gempa =  $request ->valf_gempa;
-        $rtbencana->kj_gempa =  $request ->valkj_gempa;
-        $rtbencana->jp_gempa =  $request ->valjp_gempa;
-        $rtbencana->wt_gempa =  $request ->valwt_gempa;
-        $rtbencana->k_tsunami =  $request ->valk_tsunami;
-        $rtbencana->f_tsunami =  $request ->valf_tsunami;
-        $rtbencana->kj_tsunami =  $request ->valkj_tsunami;
-        $rtbencana->jp_tsunami =  $request ->valjp_tsunami;
-        $rtbencana->wt_tsunami =  $request ->valwt_tsunami;
-        $rtbencana->k_puyuh =  $request ->valk_puyuh;
-        $rtbencana->f_puyuh =  $request ->valf_puyuh;
-        $rtbencana->kj_puyuh =  $request ->valkj_puyuh;
-        $rtbencana->jp_puyuh =  $request ->valjp_puyuh;
-        $rtbencana->wt_puyuh =  $request ->valwt_puyuh;
-        $rtbencana->k_gunungm =  $request ->valk_gunungm;
-        $rtbencana->f_gunungm =  $request ->valf_gunungm;
-        $rtbencana->kj_gunungm =  $request ->valkj_gunungm;
-        $rtbencana->jp_gunungm =  $request ->valjp_gunungm;
-        $rtbencana->wt_gunungm =  $request ->valwt_gunungm;
-        $rtbencana->k_hutank =  $request ->valk_hutank;
-        $rtbencana->f_hutank =  $request ->valf_hutank;
-        $rtbencana->kj_hutank =  $request ->valkj_hutank;
-        $rtbencana->jp_hutank =  $request ->valjp_hutank;
-        $rtbencana->wt_hutank =  $request ->valwt_hutank;
-        $rtbencana->k_kekeringan =  $request ->valk_kekeringan;
-        $rtbencana->f_kekeringan =  $request ->valf_kekeringan;
-        $rtbencana->kj_kekeringan =  $request ->valkj_kekeringan;
-        $rtbencana->jp_kekeringan =  $request ->valjp_kekeringan;
-        $rtbencana->wt_kekeringan =  $request ->valwt_kekeringan;
+        $rtbencana->k_longsor =  $request->valk_longsor;
+        $rtbencana->f_longsor =  $request->valf_longsor;
+        $rtbencana->kj_longsor =  $request->valkj_longsor;
+        $rtbencana->jp_longsor =  $request->valjp_longsor;
+        $rtbencana->wt_longsor =  $request->valwt_longsor;
+        $rtbencana->k_banjir =  $request->valk_banjir;
+        $rtbencana->f_banjir =  $request->valf_banjir;
+        $rtbencana->kj_banjir =  $request->valkj_banjir;
+        $rtbencana->jp_banjir =  $request->valjp_banjir;
+        $rtbencana->wt_banjir =  $request->valwt_banjir;
+        $rtbencana->k_bandang =  $request->valk_bandang;
+        $rtbencana->f_bandang =  $request->valf_bandang;
+        $rtbencana->kj_bandang =  $request->valkj_bandang;
+        $rtbencana->jp_bandang =  $request->valjp_bandang;
+        $rtbencana->wt_bandang =  $request->valwt_bandang;
+        $rtbencana->k_gempa =  $request->valk_gempa;
+        $rtbencana->f_gempa =  $request->valf_gempa;
+        $rtbencana->kj_gempa =  $request->valkj_gempa;
+        $rtbencana->jp_gempa =  $request->valjp_gempa;
+        $rtbencana->wt_gempa =  $request->valwt_gempa;
+        $rtbencana->k_tsunami =  $request->valk_tsunami;
+        $rtbencana->f_tsunami =  $request->valf_tsunami;
+        $rtbencana->kj_tsunami =  $request->valkj_tsunami;
+        $rtbencana->jp_tsunami =  $request->valjp_tsunami;
+        $rtbencana->wt_tsunami =  $request->valwt_tsunami;
+        $rtbencana->k_puyuh =  $request->valk_puyuh;
+        $rtbencana->f_puyuh =  $request->valf_puyuh;
+        $rtbencana->kj_puyuh =  $request->valkj_puyuh;
+        $rtbencana->jp_puyuh =  $request->valjp_puyuh;
+        $rtbencana->wt_puyuh =  $request->valwt_puyuh;
+        $rtbencana->k_gunungm =  $request->valk_gunungm;
+        $rtbencana->f_gunungm =  $request->valf_gunungm;
+        $rtbencana->kj_gunungm =  $request->valkj_gunungm;
+        $rtbencana->jp_gunungm =  $request->valjp_gunungm;
+        $rtbencana->wt_gunungm =  $request->valwt_gunungm;
+        $rtbencana->k_hutank =  $request->valk_hutank;
+        $rtbencana->f_hutank =  $request->valf_hutank;
+        $rtbencana->kj_hutank =  $request->valkj_hutank;
+        $rtbencana->jp_hutank =  $request->valjp_hutank;
+        $rtbencana->wt_hutank =  $request->valwt_hutank;
+        $rtbencana->k_kekeringan =  $request->valk_kekeringan;
+        $rtbencana->f_kekeringan =  $request->valf_kekeringan;
+        $rtbencana->kj_kekeringan =  $request->valkj_kekeringan;
+        $rtbencana->jp_kekeringan =  $request->valjp_kekeringan;
+        $rtbencana->wt_kekeringan =  $request->valwt_kekeringan;
 
         $rtbencana->save();
-        return redirect()->route('rtbencana.show',['show'=> $request->valnik ]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtbencana.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
 
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtbencana.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
     /**
      * Display the specified resource.
      *
@@ -566,7 +575,7 @@ class RtBencanaController extends Controller
         $datart = Datart::where('nik', $nik)->first();
         $rtbencana = rt_bencana::where('nik', $nik)->first();
 
-        return view('sdgs.RT.showrtbencana', compact('rtbencana','datart'));
+        return view('sdgs.RT.showrtbencana', compact('rtbencana', 'datart'));
     }
 
     /**

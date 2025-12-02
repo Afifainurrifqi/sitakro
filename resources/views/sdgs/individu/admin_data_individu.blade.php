@@ -237,7 +237,7 @@
                         render: function(data, type) {
                             const map = {
                                 '1': 'Laki-laki',
-                                '2': 'Perempuan'
+                                '0': 'Perempuan'
                             };
                             const label = map[String(data)] ?? (data ?? '');
                             if (type === 'export' || type === 'display' || type === 'filter')

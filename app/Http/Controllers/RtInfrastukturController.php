@@ -628,8 +628,18 @@ class RtInfrastukturController extends Controller
         $rtinfrastuktur->pemukiman_khusus_lp = $request->valpemukiman_khusus_lp;
 
         $rtinfrastuktur->save();
-        return redirect()->route('rtinfrastuktur.show', ['show' => $request->valnik]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtinfrastuktur.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtinfrastuktur.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

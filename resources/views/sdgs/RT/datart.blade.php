@@ -15,6 +15,20 @@
                                 </div>
                             @endif
                             <h2 class="card-title">DATA RT</h2>
+                            <form action="{{ route('data-rt.import') }}" method="POST" enctype="multipart/form-data"
+                                class="mb-3">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="file" name="file" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-success" type="submit">
+                                            <i class="fa fa-upload"></i> Import Excel
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
 
                             <button type="button" class="btn mb-1 btn-primary"
                                 onclick="window.location='{{ route('datart.create') }}'">
@@ -899,28 +913,28 @@
                                         <th>SMARTFREN</th>
                                         <th style="border-right: 1px solid #000;">BAKRIE TELCOM</th>
 
-                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
-                                        <th>CHANEL DAPAT Di terima ATAU TIDAK</th>
+                                        <th>CHANEL DAPAT DITERIMA ATAU TIDAK</th>
                                         <th style="border-right: 1px solid #000;">PERLU PARABOLA</th>
 
 
@@ -1592,7 +1606,7 @@
                 scrollX: true,
                 searching: true,
                 ajax: {
-                    url: '{!! route('datart.json') !!}',
+                    url: '{!! route('datart.jsonadmin') !!}',
                     type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1611,11 +1625,11 @@
 
                         // Set type sel kolom NIK menjadi string (t="str")
                         $('row c[r^="C"]', sheet).attr('t',
-                        'str'); // Ganti C jika perlu, sesuai dengan kolom NIK
+                            'str'); // Ganti C jika perlu, sesuai dengan kolom NIK
 
                         // Set type sel kolom KK menjadi string (t="str")
                         $('row c[r^="B"]', sheet).attr('t',
-                        'str'); // Ganti B jika perlu, sesuai dengan kolom No KK
+                            'str'); // Ganti B jika perlu, sesuai dengan kolom No KK
                     }
                 }],
                 columns: [{

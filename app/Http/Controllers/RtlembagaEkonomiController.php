@@ -336,8 +336,18 @@ class RtlembagaEkonomiController extends Controller
         $rtlembaga_ekonomi->kos_selain = $request->valkos_selain;
 
         $rtlembaga_ekonomi->save();
-        return redirect()->route('rtlembaga_ekonomi.show', ['show' => $request->valnik]);
+         if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtlembaga_ekonomi.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtlembaga_ekonomi.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

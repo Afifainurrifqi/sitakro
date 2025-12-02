@@ -304,6 +304,8 @@ Route::middleware(['checkrole:admin,operator,dasawisma,akundemo'])->group(
 
         Route::get('/sdgs/lokasipemukiman/export', [LokasipemukimanController::class, 'export'])
             ->name('lokasipemukiman.export');
+        Route::get('sdgs/individu/datasdgspekerjaan', [DatapekerjaansdgsController::class, 'index'])->name('pekerjaan.index');
+
         Route::get('/sdgs/individu/export/all', [\App\Http\Controllers\DataindividuController::class, 'exportAll'])
             ->name('individu.export.all');
         Route::get('sdgs/individu/dataindividu/{show}', [DataindividuController::class, 'show'])->name('individu.show');
@@ -497,7 +499,6 @@ Route::middleware(['checkrole:admin,dasawisma,akundemo'])->group(
         Route::get('datapenduduk/edit/{nik}', [DatapendudukController::class, 'edit'])->name('datapenduduk.edit');
         Route::get('datapenduduk/show/{nik}', [DatapendudukController::class, 'show'])->name('datapenduduk.show');
         Route::get('sdgs/individu/editdataindividu/{nik}', [DataindividuController::class, 'create'])->name('individu.edit');
-        Route::get('sdgs/individu/datasdgspekerjaan', [DatapekerjaansdgsController::class, 'index'])->name('pekerjaan.index');
         Route::get('sdgs/individu/admindatasdgspekerjaan', [DatapekerjaansdgsController::class, 'admin_index'])->name('pekerjaan.admin_index');
         Route::get('sdgs/individu/editdatasdgspekerjaan/{nik}', [DatapekerjaansdgsController::class, 'create'])->name('pekerjaan.create');
         Route::get('sdgs/individu/datasdgspekerjaan/{show}', [DatapekerjaansdgsController::class, 'show'])->name('pekerjaan.show');
@@ -572,7 +573,9 @@ Route::middleware(['checkrole:admin,dasawisma,akundemo'])->group(
 Route::middleware(['checkrole:admin,dasawisma'])->group(
     function () {
 
-        Route::post('datapenduduk/update/{nik}', [DatapendudukController::class, 'update'])->name('datapenduduk.update');
+        Route::put('datapenduduk/update/{nik}', [DatapendudukController::class, 'update'])
+            ->name('datapenduduk.update');
+
 
         Route::post('sdgs/individu/editdataindividu', [DataindividuController::class, 'store'])->name('individu.update');
 

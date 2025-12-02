@@ -544,8 +544,18 @@ class RtKejadianluarbiasaController extends Controller
         $rt_kejadianluarbiasa->jm_lainnya = $request->valjm_lainnya;
 
         $rt_kejadianluarbiasa->save();
-        return redirect()->route('rt_kejadianluarbiasa.show', ['show' => $request->valnik]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('prt_kejadianluarbiasa.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rt_kejadianluarbiasa.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

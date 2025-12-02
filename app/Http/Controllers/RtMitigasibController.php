@@ -56,7 +56,7 @@ class RtMitigasibController extends Controller
         $datart = Datart::where('nik', $nik)->first();
         $rtmitigasib = rt_mitigasib::where('nik', $nik)->first();
 
-        return view('sdgs.RT.editrtmitigasib', compact('rtmitigasib','datart'));
+        return view('sdgs.RT.editrtmitigasib', compact('rtmitigasib', 'datart'));
     }
 
     public function json(Request $request)
@@ -176,7 +176,7 @@ class RtMitigasibController extends Controller
     public function store(Storert_mitigasibRequest $request)
     {
         $rtmitigasib = rt_mitigasib::where('nik', $request->valnik)->first();
-        if ($rtmitigasib == NULL ) {
+        if ($rtmitigasib == NULL) {
             $rtmitigasib = new rt_mitigasib();
         }
         $rtmitigasib->nik = $request->valnik;
@@ -192,8 +192,18 @@ class RtMitigasibController extends Controller
         $rtmitigasib->mitigasi_ppn = $request->valmitigasi_ppn;
 
         $rtmitigasib->save();
-        return redirect()->route('rtmitigasib.show',['show'=> $request->valnik ]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtmitigasib.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtmitigasib.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
@@ -205,7 +215,7 @@ class RtMitigasibController extends Controller
     {
         $datart = Datart::where('nik', $nik)->first();
         $rtmitigasib = rt_mitigasib::where('nik', $nik)->first();
-        return view('sdgs.RT.showrtmitigasib', compact('rtmitigasib','datart'));
+        return view('sdgs.RT.showrtmitigasib', compact('rtmitigasib', 'datart'));
     }
 
     /**

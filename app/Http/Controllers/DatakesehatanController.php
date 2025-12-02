@@ -241,36 +241,55 @@ class DatakesehatanController extends Controller
     {
         $allowedDatakValues = ['tetap', 'tidaktetap'];
 
-        if ($request->has('nokk')) {
-            $nokk = $request->input('nokk');
-            $query = Datapenduduk::with(['kk', 'agama', 'pendidikan', 'pekerjaan', 'goldar', 'status', 'detailkk.kk'])
-                ->whereHas('detailkk.kk', function ($query) use ($nokk) {
-                    $query->where('nokk', $nokk);
-                })
-                ->whereIn('Datak', $allowedDatakValues);
+        // Cek apakah ada pencarian global dari DataTables atau filter nokk khusus
+        $hasGlobalSearch = filled(data_get($request->all(), 'search.value')); // DataTables global search
+        $hasNokkFilter   = $request->filled('nokk');
+
+        if (! $hasGlobalSearch && ! $hasNokkFilter) {
+            // Tidak ada search & tidak ada filter spesifik → sembunyikan data
+            $query = Datapenduduk::query()->whereRaw('1=0');
         } else {
-            // Jika tidak ada parameter noKK, kembalikan data kosong
-            $query = Datapenduduk::whereNull('id'); // Tidak mengembalikan data
+            // Ada search atau ada filter nokk → tampilkan data dengan relasi
+            $query = Datapenduduk::with([
+                'kk',
+                'agama',
+                'pendidikan',
+                'pekerjaan',
+                'goldar',
+                'status',
+                'detailkk.kk',
+                'updatedByUser'
+            ])->whereIn('Datak', $allowedDatakValues);
+
+            // Filter opsional by NoKK dari parameter khusus
+            if ($hasNokkFilter) {
+                $nokk = $request->input('nokk');
+                $query->whereHas('detailkk.kk', function ($qq) use ($nokk) {
+                    $qq->where('nokk', 'like', "%{$nokk}%");
+                });
+            }
+            // Catatan: global search akan ditangani otomatis oleh Yajra pada kolom sederhana.
+            // Untuk kolom relasi (nokk) kita sediakan filterColumn di bawah.
         }
 
         return DataTables::of($query)
 
             ->addColumn('nokk', function ($row) {
-            return optional($row->detailkk->kk)->nokk;
-        })
-        // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
-        ->filterColumn('nokk', function ($q, $keyword) {
-            $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
-                $qq->where('nokk', 'like', "%{$keyword}%");
-            });
-        })
-        // (opsional) izinkan sorting kolom NO KK
-        ->orderColumn('nokk', function ($q, $order) {
-            $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
-              ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
-              ->orderBy('kks.nokk', $order)
-              ->select('datapenduduks.*'); // hindari duplikasi kolom
-        })
+                return optional($row->detailkk->kk)->nokk;
+            })
+            // ⬇️ Izinkan pencarian global di kolom NO KK (relasi)
+            ->filterColumn('nokk', function ($q, $keyword) {
+                $q->whereHas('detailkk.kk', function ($qq) use ($keyword) {
+                    $qq->where('nokk', 'like', "%{$keyword}%");
+                });
+            })
+            // (opsional) izinkan sorting kolom NO KK
+            ->orderColumn('nokk', function ($q, $order) {
+                $q->join('detailkks', 'detailkks.nik', '=', 'datapenduduks.nik')
+                    ->join('kks', 'kks.id', '=', 'detailkks.kk_id')
+                    ->orderBy('kks.nokk', $order)
+                    ->select('datapenduduks.*'); // hindari duplikasi kolom
+            })
             ->addColumn('action', function ($row) {
                 return '<td>
                             <a href="' . route('kesehatan.show', ['show' => $row->nik]) . '" class="btn mb-1 btn-info btn-sm" title="Lihat Data">
@@ -490,7 +509,16 @@ class DatakesehatanController extends Controller
 
         $datakesehatan->save();
 
-        return redirect()->route('kesehatan.show', ['show' => $request->valNIK]);
+       if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('datakesehatan.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('datakesehatan.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
 
     /**

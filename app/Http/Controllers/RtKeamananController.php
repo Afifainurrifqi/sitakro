@@ -637,8 +637,18 @@ class RtKeamananController extends Controller
         $rt_keamanan->pp_lainnya =  $request->valpp_lainnya;
 
         $rt_keamanan->save();
-        return redirect()->route('rt_keamanan.show',['show'=> $request->valnik ]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rt_keamanan.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rt_keamanan.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
     /**
      * Display the specified resource.
      *

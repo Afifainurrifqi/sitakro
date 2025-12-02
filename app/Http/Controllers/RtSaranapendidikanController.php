@@ -1701,7 +1701,7 @@ class RtSaranapendidikanController extends Controller
     public function store(Storert_saranapendidikanRequest $request)
     {
         $rt_saranapendidikan = rt_saranapendidikan::where('nik', $request->valnik)->first();
-        if ($rt_saranapendidikan == NULL ) {
+        if ($rt_saranapendidikan == NULL) {
             $rt_saranapendidikan = new rt_saranapendidikan();
         }
         $rt_saranapendidikan->nik = $request->valnik;
@@ -1900,7 +1900,16 @@ class RtSaranapendidikanController extends Controller
 
 
         $rt_saranapendidikan->save();
-        return redirect()->route('rt_saranapendidikan.show',['show'=> $request->valnik ]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rt_saranapendidikan.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rt_saranapendidikan.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
 
     /**

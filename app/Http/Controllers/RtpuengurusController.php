@@ -372,8 +372,18 @@ class RtpuengurusController extends Controller
         $rt_pengurus->menjabat_benrt = $request->valmenjabat_benrt;
 
         $rt_pengurus->save();
-        return redirect()->route('rtpengurus.show', ['show' => $request->valnik]);
+         if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtpengurus.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtpengurus.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

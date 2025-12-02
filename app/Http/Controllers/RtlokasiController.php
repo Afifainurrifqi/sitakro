@@ -428,8 +428,18 @@ class RtlokasiController extends Controller
         $rt_lokasi->jumlah_produk_luardesa_keluar = $request->valjumlah_produk_luardesa_keluar;
 
         $rt_lokasi->save();
-        return redirect()->route('rtlokasi.show', ['show' => $request->valnik]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rtlokasi.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rtlokasi.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.

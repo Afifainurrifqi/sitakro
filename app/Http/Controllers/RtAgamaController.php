@@ -364,8 +364,18 @@ class RtAgamaController extends Controller
         $rt_agama->adat_kematian = $request->valadat_kematian;
 
         $rt_agama->save();
-        return redirect()->route('rt_agama.show', ['show' => $request->valnik]);
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return redirect()
+                ->route('rt_agama.admin_index')
+                ->with('msg', 'Berhasil ditambahkan (Admin)');
+        }
+
+        // Default untuk user biasa
+        return redirect()
+            ->route('rt_agama.index')
+            ->with('msg', 'Penduduk Berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
