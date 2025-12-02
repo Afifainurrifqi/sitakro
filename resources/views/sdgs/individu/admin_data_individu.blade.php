@@ -151,16 +151,17 @@
 
     {{-- jQuery (pastikan DataTables + Buttons sudah ada di layout) --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
     <script>
         var $ = jQuery.noConflict();
         $(function() {
             $('#tabledataindividu').DataTable({
                 processing: true,
                 serverSide: true,
-                // dom: 'Bfrtip',
                 scrollX: true,
                 searching: true,
+                // kalau butuh toolbar tombol di atas tabel:
+                dom: 'Bfrtip',
+
                 ajax: {
                     url: '{!! route('dataindividu.jsonadmin') !!}',
                     type: 'POST',
@@ -171,17 +172,16 @@
                         d.nik = $('#search_nik').val();
                     }
                 },
+
+                // ⬇️ tombol export sekarang hanya redirect ke route exportAll
                 buttons: [{
-                    extend: 'excelHtml5', // <-- ganti dari 'excel' ke 'excelHtml5'
                     text: '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  EXPORT EXCEL</button>',
-                    titleAttr: 'Excel',
-                    action: newexportaction,
-                    exportOptions: {
-                        // gunakan renderer 'export' di kolom-kolom
-                        orthogonal: 'export'
-                        // (opsional) jika mau exclude kolom Action & No: columns: [2,3,4,...]
+                    action: function(e, dt, button, config) {
+                        // export semua data lewat Laravel-Excel
+                        window.location = '{{ route('individu.export.all') }}';
                     }
                 }],
+
                 columns: [{
                         data: 'action',
                         name: 'action'
@@ -192,8 +192,6 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
-
-                    // KK -> pastikan diexport sebagai text
                     {
                         data: 'nokk',
                         name: 'nokk',
@@ -204,8 +202,6 @@
                             return data;
                         }
                     },
-
-                    // NIK -> pastikan diexport sebagai text
                     {
                         data: 'nik',
                         name: 'nik',
@@ -216,7 +212,6 @@
                             return data;
                         }
                     },
-
                     {
                         data: 'gelarawal',
                         name: 'gelarawal'
@@ -229,8 +224,6 @@
                         data: 'gelarakhir',
                         name: 'gelarakhir'
                     },
-
-                    // (opsional) mapping 1/2 → Laki-laki/Perempuan, kalau ingin:
                     {
                         data: 'jenis_kelamin',
                         name: 'jenis_kelamin',
@@ -245,7 +238,6 @@
                             return data;
                         }
                     },
-
                     {
                         data: 'tempat_lahir',
                         name: 'tempat_lahir'
@@ -500,50 +492,9 @@
             $('#search_nokk').on('keyup', function() {
                 $('#tabledataindividu').DataTable().ajax.reload();
             });
-
-            function newexportaction(e, dt, button, config) {
-                var self = this;
-                var oldStart = dt.settings()[0]._iDisplayStart;
-                dt.one('preXhr', function(e, s, data) {
-                    data.start = 0;
-                    data.length = 2147483647;
-                    dt.one('preDraw', function(e, settings) {
-                        if (button[0].className.indexOf('buttons-copy') >= 0) {
-                            $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button,
-                                config);
-                        } else if (button[0].className.indexOf('buttons-excel') >= 0) {
-                            $.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
-                                $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt,
-                                    button, config) :
-                                $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt,
-                                    button, config);
-                        } else if (button[0].className.indexOf('buttons-csv') >= 0) {
-                            $.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
-                                $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button,
-                                    config) :
-                                $.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button,
-                                    config);
-                        } else if (button[0].className.indexOf('buttons-pdf') >= 0) {
-                            $.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
-                                $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button,
-                                    config) :
-                                $.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button,
-                                    config);
-                        } else if (button[0].className.indexOf('buttons-print') >= 0) {
-                            $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
-                        }
-                        dt.one('preXhr', function(e, s, data) {
-                            settings._iDisplayStart = oldStart;
-                            data.start = oldStart;
-                        });
-                        setTimeout(dt.ajax.reload, 0);
-                        return false;
-                    });
-                });
-                dt.ajax.reload();
-            }
         });
     </script>
+
 
     <style>
         .progress-bar {
