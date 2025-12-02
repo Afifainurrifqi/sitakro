@@ -32,11 +32,11 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <a href="{{ route('individu.export.all') }}" class="btn btn-success">
                                 <i class="fa fa-file-excel-o"></i> Export Seluruh Data (Excel)
                             </a>
-                        </div>
+                        </div> --}}
 
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered zero-configuration" id="tabledataindividu">
